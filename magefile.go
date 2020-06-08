@@ -42,8 +42,8 @@ func init() {
 	os.Setenv("GO111MODULE", "on")
 }
 
-// Build hugo binary
-func Hugo() error {
+// Build Gotham binary
+func Gotham() error {
 	return sh.RunWith(flagEnv(), goexe, "build", "-ldflags", ldflags, "-tags", buildTags(), packageName)
 }
 
@@ -104,7 +104,7 @@ func Generate() error {
 // Build hugo without git info
 func HugoNoGitInfo() error {
 	ldflags = noGitLdflags
-	return Hugo()
+	return Gotham()
 }
 
 var docker = sh.RunCmd("docker")

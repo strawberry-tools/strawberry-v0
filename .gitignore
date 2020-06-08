@@ -1,7 +1,5 @@
-/hugo
 docs/public*
 /.idea
-hugo.exe
 *.test
 *.prof
 nohup.out
@@ -25,3 +23,6 @@ resources/sunset.jpg
 
 vendor
 
+# Binaries
+/gotham
+gotham.exe

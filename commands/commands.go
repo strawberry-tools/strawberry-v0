@@ -145,14 +145,12 @@ func (b *commandsBuilder) newHugoCmd() *hugoCmd {
 	cc := &hugoCmd{}
 
 	cc.baseBuilderCmd = b.newBuilderCmd(&cobra.Command{
-		Use:   "hugo",
-		Short: "hugo builds your site",
-		Long: `hugo is the main command, used to build your Hugo site.
+		Use:   "gotham",
+		Short: "gotham builds your site",
+		Long: `gotham is the main command, used to build your Gotham site.
 
-Hugo is a Fast and Flexible Static Site Generator
-built with love by spf13 and friends in Go.
+Gotham is a Fast and Flexible Static Site Generator.`,
 
-Complete documentation is available at http://gohugo.io/.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			defer cc.timeTrack(time.Now(), "Total")
 			cfgInit := func(c *commandeer) error {
