@@ -331,7 +331,7 @@ func (f *fileServer) createEndpoint(i int) (*http.ServeMux, string, string, erro
 	fs := filesOnlyFs{httpFs.Dir(absPublishDir)}
 
 	if i == 0 && f.c.fastRenderMode {
-		jww.FEEDBACK.Println("Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender")
+		jww.FEEDBACK.Println("Running in Fast Render Mode. For full rebuilds on change: gotham server --disableFastRender")
 	}
 
 	// We're only interested in the path
