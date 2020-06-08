@@ -19,9 +19,9 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/parser/metadecoders"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/pkg/errors"
 
 	"github.com/spf13/cast"

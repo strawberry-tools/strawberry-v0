@@ -14,8 +14,8 @@
 package transform
 
 import (
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/tpl/internal"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/tpl/internal"
 )
 
 const name = "transform"

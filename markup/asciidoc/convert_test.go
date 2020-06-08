@@ -16,9 +16,9 @@ package asciidoc
 import (
 	"testing"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
 	qt "github.com/frankban/quicktest"
 )

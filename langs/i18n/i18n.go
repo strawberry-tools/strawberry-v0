@@ -14,9 +14,9 @@
 package i18n
 
 import (
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/helpers"
 
 	"github.com/nicksnyder/go-i18n/i18n/bundle"
 	"github.com/nicksnyder/go-i18n/i18n/translation"

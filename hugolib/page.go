@@ -25,36 +25,36 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gohugoio/hugo/identity"
+	"github.com/gothamhq/gotham/identity"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/tpl"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
 	"github.com/bep/gitmap"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
-	"github.com/gohugoio/hugo/parser/pageparser"
+	"github.com/gothamhq/gotham/parser/pageparser"
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/source"
 	"github.com/spf13/cast"
 
-	"github.com/gohugoio/hugo/common/collections"
-	"github.com/gohugoio/hugo/common/text"
-	"github.com/gohugoio/hugo/markup/converter/hooks"
-	"github.com/gohugoio/hugo/resources"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/collections"
+	"github.com/gothamhq/gotham/common/text"
+	"github.com/gothamhq/gotham/markup/converter/hooks"
+	"github.com/gothamhq/gotham/resources"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 var (

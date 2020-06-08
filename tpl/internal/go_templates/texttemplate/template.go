@@ -5,7 +5,7 @@
 package template
 
 import (
-	"github.com/gohugoio/hugo/tpl/internal/go_templates/texttemplate/parse"
+	"github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate/parse"
 	"reflect"
 	"sync"
 )

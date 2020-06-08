@@ -19,17 +19,17 @@ import (
 	"html/template"
 
 	"github.com/bep/gitmap"
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/compare"
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/compare"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/navigation"
-	"github.com/gohugoio/hugo/related"
-	"github.com/gohugoio/hugo/resources/resource"
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/navigation"
+	"github.com/gothamhq/gotham/related"
+	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/gothamhq/gotham/source"
 )
 
 // Clear clears any global package state.

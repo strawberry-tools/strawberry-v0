@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"
 )

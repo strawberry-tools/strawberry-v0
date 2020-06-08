@@ -28,47 +28,47 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/resources"
+	"github.com/gothamhq/gotham/resources"
 
-	"github.com/gohugoio/hugo/identity"
+	"github.com/gothamhq/gotham/identity"
 
-	"github.com/gohugoio/hugo/markup/converter/hooks"
+	"github.com/gothamhq/gotham/markup/converter/hooks"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/common/text"
+	"github.com/gothamhq/gotham/common/text"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/publisher"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/publisher"
 	_errors "github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/langs"
+	"github.com/gothamhq/gotham/langs"
 
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/resources/page"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/lazy"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/lazy"
 
-	"github.com/gohugoio/hugo/media"
+	"github.com/gothamhq/gotham/media"
 
 	"github.com/fsnotify/fsnotify"
-	bp "github.com/gohugoio/hugo/bufferpool"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/navigation"
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/related"
-	"github.com/gohugoio/hugo/resources/page/pagemeta"
-	"github.com/gohugoio/hugo/source"
-	"github.com/gohugoio/hugo/tpl"
+	bp "github.com/gothamhq/gotham/bufferpool"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/navigation"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/related"
+	"github.com/gothamhq/gotham/resources/page/pagemeta"
+	"github.com/gothamhq/gotham/source"
+	"github.com/gothamhq/gotham/tpl"
 
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"

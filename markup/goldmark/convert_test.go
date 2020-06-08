@@ -17,15 +17,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/markup/goldmark/goldmark_config"
+	"github.com/gothamhq/gotham/markup/goldmark/goldmark_config"
 
-	"github.com/gohugoio/hugo/markup/highlight"
+	"github.com/gothamhq/gotham/markup/highlight"
 
-	"github.com/gohugoio/hugo/markup/markup_config"
+	"github.com/gothamhq/gotham/markup/markup_config"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -54,7 +54,7 @@ func TestConvert(t *testing.T) {
 	content := `
 ## Links
 
-https://github.com/gohugoio/hugo/issues/6528
+https://github.com/gothamhq/gotham/issues/6528
 [Live Demo here!](https://docuapi.netlify.com/)
 
 [I'm an inline-style link with title](https://www.google.com "Google's Homepage")

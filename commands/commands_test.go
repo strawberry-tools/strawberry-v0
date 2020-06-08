@@ -20,13 +20,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/common/types"
+	"github.com/gothamhq/gotham/common/types"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -287,7 +287,7 @@ func TestCommandsExecute(t *testing.T) {
 		{[]string{"new", "new-page.md"}, []string{sourceFlag}, ""},
 		{[]string{"new", "site", filepath.Join(dirOut, "new-site")}, nil, ""},
 		{[]string{"unknowncommand"}, nil, "unknown command"},
-		// TODO(bep) cli refactor fix https://github.com/gohugoio/hugo/issues/4450
+		// TODO(bep) cli refactor fix https://github.com/gothamhq/gotham/issues/4450
 		//{[]string{"new", "theme", filepath.Join(dirOut, "new-theme")}, nil,false},
 	}
 

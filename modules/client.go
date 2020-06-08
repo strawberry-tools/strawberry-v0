@@ -27,22 +27,22 @@ import (
 	"regexp"
 
 	"github.com/gobwas/glob"
-	hglob "github.com/gohugoio/hugo/hugofs/glob"
+	hglob "github.com/gothamhq/gotham/hugofs/glob"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
 	"github.com/rogpeppe/go-internal/module"
 
-	"github.com/gohugoio/hugo/common/hugio"
+	"github.com/gothamhq/gotham/common/hugio"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
@@ -222,7 +222,7 @@ func (c *Client) Vendor() error {
 		// We respect the --ignoreVendor flag even for the vendor command.
 		if !t.IsGoMod() && !t.Vendor() {
 			// We currently do not vendor components living in the
-			// theme directory, see https://github.com/gohugoio/hugo/issues/5993
+			// theme directory, see https://github.com/gothamhq/gotham/issues/5993
 			continue
 		}
 
@@ -548,7 +548,7 @@ func (c *Client) runGo(
 		}
 
 		if strings.Contains(stderr.String(), "invalid version: unknown revision") {
-			// See https://github.com/gohugoio/hugo/issues/6825
+			// See https://github.com/gothamhq/gotham/issues/6825
 			c.logger.FEEDBACK.Println(`hugo: you need to manually edit go.mod to resolve the unknown revision.`)
 		}
 

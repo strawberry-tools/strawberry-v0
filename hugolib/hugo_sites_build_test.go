@@ -9,13 +9,13 @@ import (
 	"time"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/htesting"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/htesting"
+	"github.com/gothamhq/gotham/resources/page"
 
 	"github.com/fortytw2/leaktest"
 	"github.com/fsnotify/fsnotify"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/spf13/afero"
 )
 
@@ -293,7 +293,7 @@ func doTestMultiSitesBuild(t *testing.T, configTemplate, configSuffix string) {
 		c.Assert(p.Language().Lang, qt.Equals, "fr")
 	}
 
-	// See https://github.com/gohugoio/hugo/issues/4285
+	// See https://github.com/gothamhq/gotham/issues/4285
 	// Before Hugo 0.33 you had to be explicit with the content path to get the correct Page, which
 	// isn't ideal in a multilingual setup. You want a way to get the current language version if available.
 	// Now you can do lookups with translation base name to get that behaviour.
@@ -601,7 +601,7 @@ func TestMultiSitesRebuild(t *testing.T) {
 
 }
 
-// https://github.com/gohugoio/hugo/issues/4706
+// https://github.com/gothamhq/gotham/issues/4706
 func TestContentStressTest(t *testing.T) {
 	b := newTestSitesBuilder(t)
 
@@ -804,7 +804,7 @@ categories: ["mycat"]
 	}
 }
 
-// https://github.com/gohugoio/hugo/issues/5777
+// https://github.com/gothamhq/gotham/issues/5777
 func TestTableOfContentsInShortcodes(t *testing.T) {
 	t.Parallel()
 

@@ -17,8 +17,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

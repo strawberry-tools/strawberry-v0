@@ -17,9 +17,9 @@ package metrics
 import (
 	"reflect"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/common/types"
+	"github.com/gothamhq/gotham/common/types"
 
 	"fmt"
 	"io"
@@ -30,7 +30,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gohugoio/hugo/compare"
+	"github.com/gothamhq/gotham/compare"
 )
 
 // The Provider interface defines an interface for measuring metrics.

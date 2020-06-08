@@ -17,10 +17,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 )
 
 func TestIndex(t *testing.T) {

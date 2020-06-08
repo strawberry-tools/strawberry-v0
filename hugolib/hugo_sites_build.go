@@ -23,24 +23,24 @@ import (
 	"runtime/trace"
 	"strings"
 
-	"github.com/gohugoio/hugo/publisher"
+	"github.com/gothamhq/gotham/publisher"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/common/para"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/resources/postpub"
+	"github.com/gothamhq/gotham/common/para"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/resources/postpub"
 
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 
 	"github.com/pkg/errors"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 )
 
 // Build builds all sites. If filesystem events are provided,

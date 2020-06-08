@@ -21,11 +21,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/hugo"
+	"github.com/gothamhq/gotham/common/hugo"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
 	"github.com/spf13/afero"
 

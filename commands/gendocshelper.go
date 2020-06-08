@@ -19,7 +19,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gohugoio/hugo/docshelper"
+	"github.com/gothamhq/gotham/docshelper"
 	"github.com/spf13/cobra"
 )
 

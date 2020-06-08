@@ -18,25 +18,25 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/cache/filecache"
+	"github.com/gothamhq/gotham/cache/filecache"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/hugolib/paths"
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/hugolib/paths"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/modules"
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/config/privacy"
-	"github.com/gohugoio/hugo/config/services"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/config/privacy"
+	"github.com/gothamhq/gotham/config/services"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

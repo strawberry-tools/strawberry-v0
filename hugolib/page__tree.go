@@ -17,8 +17,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/types"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/common/types"
+	"github.com/gothamhq/gotham/resources/page"
 )
 
 type pageTree struct {

@@ -17,8 +17,8 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/gohugoio/hugo/markup/blackfriday/blackfriday_config"
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/blackfriday/blackfriday_config"
+	"github.com/gothamhq/gotham/markup/converter"
 	"github.com/miekg/mmark"
 )
 

@@ -18,7 +18,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 )
 
 // These may be used as content sections with potential conflicts. Avoid that.

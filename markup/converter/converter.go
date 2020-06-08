@@ -16,12 +16,12 @@ package converter
 import (
 	"bytes"
 
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/identity"
-	"github.com/gohugoio/hugo/markup/converter/hooks"
-	"github.com/gohugoio/hugo/markup/markup_config"
-	"github.com/gohugoio/hugo/markup/tableofcontents"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/identity"
+	"github.com/gothamhq/gotham/markup/converter/hooks"
+	"github.com/gothamhq/gotham/markup/markup_config"
+	"github.com/gothamhq/gotham/markup/tableofcontents"
 	"github.com/spf13/afero"
 )
 

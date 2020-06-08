@@ -18,19 +18,19 @@ import (
 	"path/filepath"
 	"reflect"
 
-	"github.com/gohugoio/hugo/markup/asciidoc"
-	"github.com/gohugoio/hugo/markup/rst"
+	"github.com/gothamhq/gotham/markup/asciidoc"
+	"github.com/gothamhq/gotham/markup/rst"
 
 	"github.com/spf13/viper"
 
-	"github.com/gohugoio/hugo/parser/pageparser"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/gothamhq/gotham/resources/page"
 
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/tpl"
 	"github.com/spf13/cast"
 
 	qt "github.com/frankban/quicktest"
@@ -51,7 +51,7 @@ func CheckShortCodeMatchAndError(t *testing.T, input, expected string, withTempl
 
 	c := qt.New(t)
 
-	// Need some front matter, see https://github.com/gohugoio/hugo/issues/2337
+	// Need some front matter, see https://github.com/gothamhq/gotham/issues/2337
 	contentFile := `---
 title: "Title"
 ---
@@ -922,7 +922,7 @@ C-%s`
 
 }
 
-// https://github.com/gohugoio/hugo/issues/5833
+// https://github.com/gothamhq/gotham/issues/5833
 func TestShortcodeParentResourcesOnRebuild(t *testing.T) {
 	t.Parallel()
 
@@ -1160,7 +1160,7 @@ TOC: {{ .TableOfContents }}
 	}
 }
 
-// https://github.com/gohugoio/hugo/issues/5863
+// https://github.com/gothamhq/gotham/issues/5863
 func TestShortcodeNamespaced(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
@@ -1189,7 +1189,7 @@ title: "Hugo Rocks!"
 	)
 }
 
-// https://github.com/gohugoio/hugo/issues/6504
+// https://github.com/gothamhq/gotham/issues/6504
 func TestShortcodeEmoji(t *testing.T) {
 	t.Parallel()
 

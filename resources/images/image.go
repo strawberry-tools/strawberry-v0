@@ -23,14 +23,14 @@ import (
 	"io"
 	"sync"
 
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/resources/images/exif"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/resources/images/exif"
 
 	"github.com/disintegration/gift"
 	"golang.org/x/image/bmp"
 	"golang.org/x/image/tiff"
 
-	"github.com/gohugoio/hugo/common/hugio"
+	"github.com/gothamhq/gotham/common/hugio"
 	"github.com/pkg/errors"
 )
 

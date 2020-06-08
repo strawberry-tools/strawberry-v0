@@ -305,7 +305,7 @@ P3: <p>P3. xml-link: https://www.example.org|</p>
 
 }
 
-// https://github.com/gohugoio/hugo/issues/6629
+// https://github.com/gothamhq/gotham/issues/6629
 func TestRenderLinkWithMarkupInText(t *testing.T) {
 
 	b := newTestSitesBuilder(t)
@@ -386,7 +386,7 @@ RSTART:Hook Heading: 2:REND
 
 }
 
-// https://github.com/gohugoio/hugo/issues/6882
+// https://github.com/gothamhq/gotham/issues/6882
 func TestRenderStringOnListPage(t *testing.T) {
 	renderStringTempl := `
 {{ .RenderString "**Hello**" }}

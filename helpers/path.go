@@ -25,13 +25,13 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/gohugoio/hugo/common/text"
+	"github.com/gothamhq/gotham/common/text"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/common/hugio"
+	"github.com/gothamhq/gotham/common/hugio"
 	_errors "github.com/pkg/errors"
 	"github.com/spf13/afero"
 )

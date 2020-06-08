@@ -23,17 +23,17 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/resources/internal"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/resources/internal"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"

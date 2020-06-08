@@ -25,8 +25,8 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/gohugoio/hugo/cache/filecache"
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/cache/filecache"
+	"github.com/gothamhq/gotham/deps"
 	_errors "github.com/pkg/errors"
 )
 

@@ -22,24 +22,24 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/gohugoio/hugo/resources/internal"
+	"github.com/gothamhq/gotham/resources/internal"
 
-	"github.com/gohugoio/hugo/common/herrors"
+	"github.com/gothamhq/gotham/common/herrors"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/source"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/common/hugio"
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 )
 
 var (

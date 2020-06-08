@@ -23,16 +23,16 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
-	"github.com/gohugoio/hugo/markup"
+	"github.com/gothamhq/gotham/markup"
 
-	bp "github.com/gohugoio/hugo/bufferpool"
-	"github.com/gohugoio/hugo/config"
+	bp "github.com/gothamhq/gotham/bufferpool"
+	"github.com/gothamhq/gotham/config"
 
 	"strings"
 )

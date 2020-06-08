@@ -23,19 +23,19 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/modules"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
 	"fmt"
 
-	"github.com/gohugoio/hugo/hugolib/paths"
+	"github.com/gothamhq/gotham/hugolib/paths"
 	"github.com/spf13/afero"
 )
 

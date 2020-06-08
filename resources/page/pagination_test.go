@@ -21,7 +21,7 @@ import (
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 )
 
 func TestSplitPages(t *testing.T) {

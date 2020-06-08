@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/herrors"
+	"github.com/gothamhq/gotham/common/herrors"
 	"github.com/niklasfasching/go-org/org"
 
 	"github.com/BurntSushi/toml"

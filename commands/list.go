@@ -20,8 +20,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/hugolib"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/hugolib"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"
 )

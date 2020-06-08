@@ -17,11 +17,11 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/hugo"
+	"github.com/gothamhq/gotham/common/hugo"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
 	qt "github.com/frankban/quicktest"
 )

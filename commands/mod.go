@@ -20,7 +20,7 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/modules"
 	"github.com/spf13/cobra"
 )
 

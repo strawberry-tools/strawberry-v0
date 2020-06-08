@@ -21,16 +21,16 @@ import (
 	"path/filepath"
 	"runtime/debug"
 
-	"github.com/gohugoio/hugo/identity"
+	"github.com/gothamhq/gotham/identity"
 
 	"github.com/pkg/errors"
 
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/markup/converter"
-	"github.com/gohugoio/hugo/markup/highlight"
-	"github.com/gohugoio/hugo/markup/tableofcontents"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/gothamhq/gotham/markup/highlight"
+	"github.com/gothamhq/gotham/markup/tableofcontents"
 	"github.com/yuin/goldmark"
 	hl "github.com/yuin/goldmark-highlighting"
 	"github.com/yuin/goldmark/extension"

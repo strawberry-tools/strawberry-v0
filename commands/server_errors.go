@@ -17,8 +17,8 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/gohugoio/hugo/transform"
-	"github.com/gohugoio/hugo/transform/livereloadinject"
+	"github.com/gothamhq/gotham/transform"
+	"github.com/gothamhq/gotham/transform/livereloadinject"
 )
 
 var buildErrorTemplate = `<!doctype html>

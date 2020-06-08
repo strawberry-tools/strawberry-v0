@@ -21,14 +21,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
-	"github.com/gohugoio/hugo/parser"
+	"github.com/gothamhq/gotham/parser"
 
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 )
 
 func TestMerge(t *testing.T) {
@@ -60,7 +60,7 @@ func TestMerge(t *testing.T) {
 			map[string]interface{}{"a": 42, "c": 3, "b": map[string]interface{}{"d": 55, "e": 66, "f": 3}},
 			map[string]interface{}{"a": 1, "b": map[string]interface{}{"d": 1, "e": 2, "f": 3}, "c": 3}, false},
 		{
-			// https://github.com/gohugoio/hugo/issues/6633
+			// https://github.com/gothamhq/gotham/issues/6633
 			"params dst",
 			maps.Params{"a": 1, "b": 2},
 			map[string]interface{}{"a": 42, "c": 3},

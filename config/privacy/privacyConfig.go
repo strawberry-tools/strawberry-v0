@@ -14,7 +14,7 @@
 package privacy
 
 import (
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 	"github.com/mitchellh/mapstructure"
 )
 

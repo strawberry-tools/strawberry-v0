@@ -16,7 +16,7 @@ package hugolib
 import (
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/resources/page"
 )
 
 // Wraps a Page.

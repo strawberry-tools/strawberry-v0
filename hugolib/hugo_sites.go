@@ -22,35 +22,35 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/gohugoio/hugo/identity"
+	"github.com/gothamhq/gotham/identity"
 
 	radix "github.com/armon/go-radix"
 
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
-	"github.com/gohugoio/hugo/common/para"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/common/para"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/source"
 
 	"github.com/bep/gitmap"
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
-	"github.com/gohugoio/hugo/publisher"
+	"github.com/gothamhq/gotham/publisher"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/lazy"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/lazy"
 
-	"github.com/gohugoio/hugo/langs/i18n"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/tpl"
-	"github.com/gohugoio/hugo/tpl/tplimpl"
+	"github.com/gothamhq/gotham/langs/i18n"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/tpl"
+	"github.com/gothamhq/gotham/tpl/tplimpl"
 )
 
 // HugoSites represents the sites to build. Each site represents a language.

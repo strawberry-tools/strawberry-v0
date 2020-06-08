@@ -175,7 +175,7 @@ func (t *T) Add2(v string) {
 	t.Unlock()
 }
 
-// https://github.com/gohugoio/hugo/issues/5901
+// https://github.com/gothamhq/gotham/issues/5901
 func TestInitBranchOrder(t *testing.T) {
 	c := qt.New(t)
 

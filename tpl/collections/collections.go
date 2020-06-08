@@ -25,11 +25,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/common/collections"
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/common/types"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/common/collections"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/common/types"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 )

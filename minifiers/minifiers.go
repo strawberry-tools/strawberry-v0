@@ -20,11 +20,11 @@ import (
 	"io"
 	"regexp"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/transform"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/transform"
 
-	"github.com/gohugoio/hugo/media"
+	"github.com/gothamhq/gotham/media"
 	"github.com/tdewolff/minify/v2"
 )
 

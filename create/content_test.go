@@ -19,17 +19,17 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 
-	"github.com/gohugoio/hugo/hugolib"
+	"github.com/gothamhq/gotham/hugolib"
 
 	"fmt"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/create"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/create"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

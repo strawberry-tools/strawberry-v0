@@ -19,26 +19,26 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/modules"
 
 	"github.com/bep/gitmap"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/viper"
 
-	"github.com/gohugoio/hugo/navigation"
+	"github.com/gothamhq/gotham/navigation"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/related"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/related"
 
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/source"
 )
 
 var (

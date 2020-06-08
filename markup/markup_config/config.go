@@ -14,13 +14,13 @@
 package markup_config
 
 import (
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/docshelper"
-	"github.com/gohugoio/hugo/markup/blackfriday/blackfriday_config"
-	"github.com/gohugoio/hugo/markup/goldmark/goldmark_config"
-	"github.com/gohugoio/hugo/markup/highlight"
-	"github.com/gohugoio/hugo/markup/tableofcontents"
-	"github.com/gohugoio/hugo/parser"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/docshelper"
+	"github.com/gothamhq/gotham/markup/blackfriday/blackfriday_config"
+	"github.com/gothamhq/gotham/markup/goldmark/goldmark_config"
+	"github.com/gothamhq/gotham/markup/highlight"
+	"github.com/gothamhq/gotham/markup/tableofcontents"
+	"github.com/gothamhq/gotham/parser"
 	"github.com/mitchellh/mapstructure"
 )
 

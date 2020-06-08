@@ -21,16 +21,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
-	"github.com/gohugoio/hugo/langs"
+	"github.com/gothamhq/gotham/langs"
 
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/hugolib/paths"
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/hugolib/paths"
+	"github.com/gothamhq/gotham/modules"
 	"github.com/spf13/viper"
 )
 
@@ -166,7 +166,7 @@ theme = ["atheme"]
 	checkFileContent(bfs.Work, "file-root.txt", c, "content-project")
 	checkFileContent(bfs.Work, "theme-root-atheme.txt", c, "content:atheme")
 
-	// https://github.com/gohugoio/hugo/issues/5318
+	// https://github.com/gothamhq/gotham/issues/5318
 	// Check both project and theme.
 	for _, fs := range []afero.Fs{bfs.Archetypes.Fs, bfs.Layouts.Fs} {
 		for _, filename := range []string{"/f1.txt", "/theme-file-atheme.txt"} {

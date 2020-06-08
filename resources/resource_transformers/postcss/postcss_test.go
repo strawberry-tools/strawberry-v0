@@ -18,10 +18,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting/hqt"
+	"github.com/gothamhq/gotham/htesting/hqt"
 
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/helpers"
 
 	"github.com/spf13/afero"
 

@@ -16,8 +16,8 @@ package hugolib
 import (
 	"fmt"
 
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/parser/pageparser"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/parser/pageparser"
 )
 
 var (

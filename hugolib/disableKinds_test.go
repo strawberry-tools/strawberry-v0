@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/resources/page"
 )
 
 func TestDisable(t *testing.T) {
@@ -316,7 +316,7 @@ title: Headless Local Lists Sub
 	})
 }
 
-// https://github.com/gohugoio/hugo/issues/6897#issuecomment-587947078
+// https://github.com/gothamhq/gotham/issues/6897#issuecomment-587947078
 func TestDisableRSSWithRSSInCustomOutputs(t *testing.T) {
 	b := newTestSitesBuilder(t).WithConfigFile("toml", `
 disableKinds = ["taxonomy", "taxonomyTerm", "RSS"]

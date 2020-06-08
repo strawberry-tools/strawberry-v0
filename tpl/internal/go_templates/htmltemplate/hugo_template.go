@@ -14,7 +14,7 @@
 package template
 
 import (
-	template "github.com/gohugoio/hugo/tpl/internal/go_templates/texttemplate"
+	template "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
 )
 
 /*

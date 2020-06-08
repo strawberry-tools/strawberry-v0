@@ -17,9 +17,9 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
-	"github.com/gohugoio/hugo/common/hreflect"
+	"github.com/gothamhq/gotham/common/hreflect"
 
 	"github.com/pkg/errors"
 )

@@ -16,20 +16,20 @@ package markup
 import (
 	"strings"
 
-	"github.com/gohugoio/hugo/markup/highlight"
+	"github.com/gothamhq/gotham/markup/highlight"
 
-	"github.com/gohugoio/hugo/markup/markup_config"
+	"github.com/gothamhq/gotham/markup/markup_config"
 
-	"github.com/gohugoio/hugo/markup/goldmark"
+	"github.com/gothamhq/gotham/markup/goldmark"
 
-	"github.com/gohugoio/hugo/markup/org"
+	"github.com/gothamhq/gotham/markup/org"
 
-	"github.com/gohugoio/hugo/markup/asciidoc"
-	"github.com/gohugoio/hugo/markup/blackfriday"
-	"github.com/gohugoio/hugo/markup/converter"
-	"github.com/gohugoio/hugo/markup/mmark"
-	"github.com/gohugoio/hugo/markup/pandoc"
-	"github.com/gohugoio/hugo/markup/rst"
+	"github.com/gothamhq/gotham/markup/asciidoc"
+	"github.com/gothamhq/gotham/markup/blackfriday"
+	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/gothamhq/gotham/markup/mmark"
+	"github.com/gothamhq/gotham/markup/pandoc"
+	"github.com/gothamhq/gotham/markup/rst"
 )
 
 func NewConverterProvider(cfg converter.ProviderConfig) (ConverterProvider, error) {

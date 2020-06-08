@@ -14,7 +14,7 @@
 package commands
 
 import (
-	"github.com/gohugoio/hugo/common/hugo"
+	"github.com/gothamhq/gotham/common/hugo"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"
 )

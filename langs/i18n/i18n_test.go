@@ -17,21 +17,21 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/modules"
 
-	"github.com/gohugoio/hugo/tpl/tplimpl"
+	"github.com/gothamhq/gotham/tpl/tplimpl"
 
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/resources/page"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/hugofs"
 )
 
 var logger = loggers.NewErrorLogger()
@@ -126,7 +126,7 @@ var i18nTests = []i18nTest{
 		expectedFlag: "¡Hola, 50 gente!",
 	},
 	// Same id and translation in current language
-	// https://github.com/gohugoio/hugo/issues/2607
+	// https://github.com/gothamhq/gotham/issues/2607
 	{
 		name: "same-id-and-translation",
 		data: map[string][]byte{

@@ -13,7 +13,7 @@ package testenv
 import (
 	"errors"
 	"flag"
-	"github.com/gohugoio/hugo/tpl/internal/go_templates/cfg"
+	"github.com/gothamhq/gotham/tpl/internal/go_templates/cfg"
 	"os"
 	"os/exec"
 	"path/filepath"

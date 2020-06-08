@@ -17,16 +17,16 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gohugoio/hugo/hugofs/glob"
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/hugofs/glob"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/resources/resource"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 
 	"strings"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 )
 
 var (

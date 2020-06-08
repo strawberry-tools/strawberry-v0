@@ -17,10 +17,10 @@ package pandoc
 import (
 	"os/exec"
 
-	"github.com/gohugoio/hugo/identity"
-	"github.com/gohugoio/hugo/markup/internal"
+	"github.com/gothamhq/gotham/identity"
+	"github.com/gothamhq/gotham/markup/internal"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 )
 
 // Provider is the package entry point.

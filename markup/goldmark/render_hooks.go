@@ -14,7 +14,7 @@
 package goldmark
 
 import (
-	"github.com/gohugoio/hugo/markup/converter/hooks"
+	"github.com/gothamhq/gotham/markup/converter/hooks"
 
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"

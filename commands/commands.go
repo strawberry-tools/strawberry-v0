@@ -18,12 +18,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/gohugoio/hugo/hugolib/paths"
+	"github.com/gothamhq/gotham/hugolib/paths"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/spf13/cobra"
 )
 

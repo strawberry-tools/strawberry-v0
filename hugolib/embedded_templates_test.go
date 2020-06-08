@@ -20,8 +20,8 @@ import (
 )
 
 // Just some simple test of the embedded templates to avoid
-// https://github.com/gohugoio/hugo/issues/4757 and similar.
-// TODO(bep) fix me https://github.com/gohugoio/hugo/issues/5926
+// https://github.com/gothamhq/gotham/issues/4757 and similar.
+// TODO(bep) fix me https://github.com/gothamhq/gotham/issues/5926
 func _TestEmbeddedTemplates(t *testing.T) {
 	t.Parallel()
 

@@ -21,16 +21,16 @@ import (
 	"path/filepath"
 	"reflect"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
-	"github.com/gohugoio/hugo/parser/pageparser"
+	"github.com/gothamhq/gotham/parser/pageparser"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/source"
 
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/spf13/afero"
 )
 

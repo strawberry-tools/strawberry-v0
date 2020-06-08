@@ -19,20 +19,20 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/parser/pageparser"
+	"github.com/gothamhq/gotham/parser/pageparser"
 
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/resources/page"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/parser"
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/parser"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/hugolib"
+	"github.com/gothamhq/gotham/hugolib"
 
 	"path/filepath"
 

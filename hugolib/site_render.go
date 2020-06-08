@@ -19,15 +19,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/tpl"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/page/pagemeta"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/page/pagemeta"
 )
 
 type siteRenderContext struct {

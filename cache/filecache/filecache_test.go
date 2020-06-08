@@ -25,14 +25,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/modules"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/modules"
 
-	"github.com/gohugoio/hugo/common/hugio"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"

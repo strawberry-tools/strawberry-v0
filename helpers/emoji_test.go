@@ -18,7 +18,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/bufferpool"
+	"github.com/gothamhq/gotham/bufferpool"
 	"github.com/kyokomi/emoji"
 )
 

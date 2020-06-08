@@ -20,15 +20,15 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/resources/internal"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/resources/internal"
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/resources"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/resources"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/pkg/errors"
 )
 

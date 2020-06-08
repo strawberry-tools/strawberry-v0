@@ -23,19 +23,19 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/resources/images/exif"
+	"github.com/gothamhq/gotham/resources/images/exif"
 	"github.com/spf13/afero"
 
-	bp "github.com/gohugoio/hugo/bufferpool"
+	bp "github.com/gothamhq/gotham/bufferpool"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/common/hugio"
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/resources/internal"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/resources/internal"
+	"github.com/gothamhq/gotham/resources/resource"
 
-	"github.com/gohugoio/hugo/media"
+	"github.com/gothamhq/gotham/media"
 )
 
 var (

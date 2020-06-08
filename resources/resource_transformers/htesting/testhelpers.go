@@ -16,12 +16,12 @@ package htesting
 import (
 	"path/filepath"
 
-	"github.com/gohugoio/hugo/cache/filecache"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/resources"
+	"github.com/gothamhq/gotham/cache/filecache"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/resources"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

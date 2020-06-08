@@ -21,20 +21,20 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
-	"github.com/gohugoio/hugo/common/types"
-	"github.com/gohugoio/hugo/resources"
+	"github.com/gothamhq/gotham/common/types"
+	"github.com/gothamhq/gotham/resources"
 
-	"github.com/gohugoio/hugo/common/hugio"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/hugofs/files"
-	"github.com/gohugoio/hugo/parser/pageparser"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/cast"
 
-	"github.com/gohugoio/hugo/common/para"
+	"github.com/gothamhq/gotham/common/para"
 	"github.com/pkg/errors"
 )
 
