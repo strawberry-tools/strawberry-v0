@@ -14,12 +14,12 @@
 package resource
 
 import (
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/resources/images/exif"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/resources/images/exif"
 
-	"github.com/gohugoio/hugo/common/hugio"
+	"github.com/gothamhq/gotham/common/hugio"
 )
 
 // Cloner is an internal template and not meant for use in the templates. It

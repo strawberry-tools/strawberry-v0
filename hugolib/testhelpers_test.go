@@ -12,14 +12,14 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 
-	"github.com/gohugoio/hugo/parser/metadecoders"
 	"github.com/google/go-cmp/cmp"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
-	"github.com/gohugoio/hugo/parser"
+	"github.com/gothamhq/gotham/parser"
 	"github.com/pkg/errors"
 
 	"bytes"
@@ -29,25 +29,25 @@ import (
 	"text/template"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/resources/page"
 	"github.com/sanity-io/litter"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/tpl"
 	"github.com/spf13/viper"
 
 	"os"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/hugofs"
 )
 
 var (

@@ -24,8 +24,8 @@ import (
 
 	_errors "github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/spf13/cast"
 )
 

@@ -18,8 +18,8 @@ import (
 	"strings"
 
 	"github.com/bep/gitmap"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/resources/page"
 )
 
 type gitInfo struct {

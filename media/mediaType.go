@@ -20,7 +20,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
 	"github.com/mitchellh/mapstructure"
 )

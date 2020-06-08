@@ -22,26 +22,26 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/common/hugo"
+	"github.com/gothamhq/gotham/common/hugo"
 
-	"github.com/gohugoio/hugo/related"
+	"github.com/gothamhq/gotham/related"
 
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/source"
 	"github.com/markbates/inflect"
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/page/pagemeta"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/page/pagemeta"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/cast"
 )
 

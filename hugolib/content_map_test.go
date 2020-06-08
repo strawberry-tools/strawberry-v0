@@ -19,13 +19,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/htesting/hqt"
+	"github.com/gothamhq/gotham/htesting/hqt"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"

@@ -20,15 +20,15 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 )
 
 func TestResourceChainBabel(t *testing.T) {

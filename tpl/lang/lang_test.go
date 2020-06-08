@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 )
 
 func TestNumFormat(t *testing.T) {

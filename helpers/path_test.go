@@ -25,11 +25,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gohugoio/hugo/langs"
+	"github.com/gothamhq/gotham/langs"
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

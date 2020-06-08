@@ -18,14 +18,14 @@ import (
 	"errors"
 	"sync"
 
-	hconfig "github.com/gohugoio/hugo/config"
+	hconfig "github.com/gothamhq/gotham/config"
 
 	"golang.org/x/sync/semaphore"
 
 	"io/ioutil"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/common/hugo"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/common/hugo"
 
 	jww "github.com/spf13/jwalterweatherman"
 
@@ -34,20 +34,20 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/config"
 
 	"github.com/spf13/cobra"
 
-	"github.com/gohugoio/hugo/hugolib"
+	"github.com/gothamhq/gotham/hugolib"
 	"github.com/spf13/afero"
 
 	"github.com/bep/debounce"
-	"github.com/gohugoio/hugo/common/types"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/langs"
+	"github.com/gothamhq/gotham/common/types"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/langs"
 )
 
 type commandeerHugoState struct {

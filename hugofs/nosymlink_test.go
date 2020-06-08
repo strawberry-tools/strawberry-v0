@@ -18,9 +18,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
 	"github.com/spf13/afero"
 

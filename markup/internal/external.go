@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 )
 
 func ExternallyRenderContent(

@@ -21,13 +21,13 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/hugofs/glob"
+	"github.com/gothamhq/gotham/hugofs/glob"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 
-	"github.com/gohugoio/hugo/cache/filecache"
+	"github.com/gothamhq/gotham/cache/filecache"
 
 	"github.com/BurntSushi/locker"
 )

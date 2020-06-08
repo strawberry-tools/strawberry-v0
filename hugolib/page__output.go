@@ -14,10 +14,10 @@
 package hugolib
 
 import (
-	"github.com/gohugoio/hugo/markup/converter"
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 func newPageOutput(

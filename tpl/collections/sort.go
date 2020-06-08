@@ -19,8 +19,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/tpl/compare"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/tpl/compare"
 	"github.com/spf13/cast"
 )
 

@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 
-	template "github.com/gohugoio/hugo/tpl/internal/go_templates/htmltemplate"
+	template "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"
 )
 
 func Example() {

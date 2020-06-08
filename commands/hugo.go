@@ -24,19 +24,19 @@ import (
 	"runtime/trace"
 	"sync/atomic"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/resources/page"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/common/terminal"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/common/terminal"
 
 	"syscall"
 
-	"github.com/gohugoio/hugo/hugolib/filesystems"
+	"github.com/gothamhq/gotham/hugolib/filesystems"
 
 	"golang.org/x/sync/errgroup"
 
@@ -46,15 +46,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
 	flag "github.com/spf13/pflag"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/hugolib"
-	"github.com/gohugoio/hugo/livereload"
-	"github.com/gohugoio/hugo/watcher"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/hugolib"
+	"github.com/gothamhq/gotham/livereload"
+	"github.com/gothamhq/gotham/watcher"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/fsync"

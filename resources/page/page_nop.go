@@ -19,22 +19,22 @@ import (
 	"html/template"
 	"time"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
 	"github.com/bep/gitmap"
-	"github.com/gohugoio/hugo/navigation"
+	"github.com/gothamhq/gotham/navigation"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/source"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/source"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/langs"
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/related"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/langs"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/related"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 var (

@@ -19,9 +19,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"

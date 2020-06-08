@@ -19,14 +19,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
 	_errors "github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/create"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/parser"
+	"github.com/gothamhq/gotham/create"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/parser"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"

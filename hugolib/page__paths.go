@@ -17,9 +17,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/resources/page"
 )
 
 func newPagePaths(
@@ -115,7 +115,7 @@ func createTargetPathDescriptor(s *Site, p page.Page, pm *pageMeta) (page.Target
 	}
 
 	if baseName != contentBaseName {
-		// See https://github.com/gohugoio/hugo/issues/4870
+		// See https://github.com/gothamhq/gotham/issues/4870
 		// A leaf bundle
 		dir = strings.TrimSuffix(dir, contentBaseName+helpers.FilePathSeparator)
 		baseName = contentBaseName

@@ -5,7 +5,7 @@ import (
 
 	//	"fmt"
 
-	"github.com/gohugoio/hugo/docshelper"
+	"github.com/gothamhq/gotham/docshelper"
 )
 
 // This is is just some helpers used to create some JSON used in the Hugo docs.

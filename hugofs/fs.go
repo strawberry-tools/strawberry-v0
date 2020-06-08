@@ -19,7 +19,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 	"github.com/spf13/afero"
 )
 

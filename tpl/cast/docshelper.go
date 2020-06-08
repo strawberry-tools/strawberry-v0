@@ -14,11 +14,11 @@
 package cast
 
 import (
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/docshelper"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/tpl/internal"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/docshelper"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/tpl/internal"
 	"github.com/spf13/viper"
 )
 

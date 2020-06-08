@@ -18,8 +18,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/config"
 	"github.com/spf13/cast"
 )
 

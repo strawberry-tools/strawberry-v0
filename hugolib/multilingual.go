@@ -18,9 +18,9 @@ import (
 
 	"errors"
 
-	"github.com/gohugoio/hugo/langs"
+	"github.com/gothamhq/gotham/langs"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 )
 
 // Multilingual manages the all languages used in a multilingual site.

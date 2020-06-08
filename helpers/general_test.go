@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/spf13/afero"

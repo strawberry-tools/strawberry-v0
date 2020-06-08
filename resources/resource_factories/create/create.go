@@ -20,13 +20,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gohugoio/hugo/hugofs/glob"
+	"github.com/gothamhq/gotham/hugofs/glob"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/common/hugio"
-	"github.com/gohugoio/hugo/resources"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/resources"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 // Client contains methods to create Resource objects.

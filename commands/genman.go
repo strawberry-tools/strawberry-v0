@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/hugo"
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	jww "github.com/spf13/jwalterweatherman"

@@ -23,21 +23,21 @@ import (
 	"sync"
 	"unicode/utf8"
 
-	"github.com/gohugoio/hugo/identity"
+	"github.com/gothamhq/gotham/identity"
 
-	"github.com/gohugoio/hugo/markup/converter/hooks"
+	"github.com/gothamhq/gotham/markup/converter/hooks"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
-	"github.com/gohugoio/hugo/lazy"
+	"github.com/gothamhq/gotham/lazy"
 
-	bp "github.com/gohugoio/hugo/bufferpool"
-	"github.com/gohugoio/hugo/tpl"
+	bp "github.com/gothamhq/gotham/bufferpool"
+	"github.com/gothamhq/gotham/tpl"
 
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/resources/page"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/resources/page"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 var (
@@ -88,7 +88,7 @@ func newPageContentOutput(p *pageState, po *pageOutput) (*pageContentOutput, err
 			return nil
 		}
 		defer func() {
-			// See https://github.com/gohugoio/hugo/issues/6210
+			// See https://github.com/gothamhq/gotham/issues/6210
 			if r := recover(); r != nil {
 				err = fmt.Errorf("%s", r)
 				p.s.Log.ERROR.Printf("[BUG] Got panic:\n%s\n%s", r, string(debug.Stack()))

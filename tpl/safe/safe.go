@@ -18,7 +18,7 @@ package safe
 import (
 	"html/template"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/spf13/cast"
 )
 

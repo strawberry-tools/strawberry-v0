@@ -24,7 +24,7 @@ import (
 
 	"path/filepath"
 
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 
 	qt "github.com/frankban/quicktest"
 )

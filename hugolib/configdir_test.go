@@ -17,10 +17,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/herrors"
+	"github.com/gothamhq/gotham/common/herrors"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 	"github.com/spf13/afero"
 )
 

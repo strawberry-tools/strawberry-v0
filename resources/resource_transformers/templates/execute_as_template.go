@@ -15,11 +15,11 @@
 package templates
 
 import (
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/resources"
-	"github.com/gohugoio/hugo/resources/internal"
-	"github.com/gohugoio/hugo/resources/resource"
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/resources"
+	"github.com/gothamhq/gotham/resources/internal"
+	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/gothamhq/gotham/tpl"
 	"github.com/pkg/errors"
 )
 

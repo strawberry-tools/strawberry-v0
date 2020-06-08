@@ -14,10 +14,10 @@
 package minifiers
 
 import (
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/docshelper"
-	"github.com/gohugoio/hugo/parser"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/docshelper"
+	"github.com/gothamhq/gotham/parser"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/tdewolff/minify/v2/css"

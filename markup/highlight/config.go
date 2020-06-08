@@ -21,7 +21,7 @@ import (
 
 	"github.com/alecthomas/chroma/formatters/html"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
 	"github.com/mitchellh/mapstructure"
 )

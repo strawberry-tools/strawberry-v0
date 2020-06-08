@@ -18,12 +18,12 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
 	"html/template"
 	"path"
 
-	"github.com/gohugoio/hugo/common/herrors"
+	"github.com/gothamhq/gotham/common/herrors"
 	"github.com/pkg/errors"
 
 	"reflect"
@@ -31,21 +31,21 @@ import (
 	"regexp"
 	"sort"
 
-	"github.com/gohugoio/hugo/parser/pageparser"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/gothamhq/gotham/resources/page"
 
 	_errors "github.com/pkg/errors"
 
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/common/text"
-	"github.com/gohugoio/hugo/common/urls"
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/common/text"
+	"github.com/gothamhq/gotham/common/urls"
+	"github.com/gothamhq/gotham/output"
 
-	bp "github.com/gohugoio/hugo/bufferpool"
-	"github.com/gohugoio/hugo/tpl"
+	bp "github.com/gothamhq/gotham/bufferpool"
+	"github.com/gothamhq/gotham/tpl"
 )
 
 var (

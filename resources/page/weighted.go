@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/gohugoio/hugo/common/collections"
+	"github.com/gothamhq/gotham/common/collections"
 )
 
 var (

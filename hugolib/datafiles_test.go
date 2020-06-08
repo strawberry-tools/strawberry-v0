@@ -18,9 +18,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 
 	"fmt"
 	"runtime"

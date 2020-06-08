@@ -18,8 +18,8 @@ import (
 	"regexp"
 
 	"github.com/gobwas/glob"
-	"github.com/gohugoio/hugo/config"
-	hglob "github.com/gohugoio/hugo/hugofs/glob"
+	"github.com/gothamhq/gotham/config"
+	hglob "github.com/gothamhq/gotham/hugofs/glob"
 	"github.com/mitchellh/mapstructure"
 )
 

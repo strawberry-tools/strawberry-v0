@@ -21,9 +21,9 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/gohugoio/hugo/common/maps"
-	"github.com/gohugoio/hugo/media"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/media"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 type PostPublishedResource interface {

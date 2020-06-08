@@ -22,8 +22,8 @@ import (
 
 	"net/url"
 
-	"github.com/gohugoio/hugo/common/urls"
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/common/urls"
+	"github.com/gothamhq/gotham/deps"
 	_errors "github.com/pkg/errors"
 	"github.com/spf13/cast"
 )

@@ -14,8 +14,8 @@
 package hugolib
 
 import (
-	"github.com/gohugoio/hugo/common/collections"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/common/collections"
+	"github.com/gothamhq/gotham/resources/page"
 )
 
 var (

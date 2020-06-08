@@ -5,9 +5,9 @@ organization, tutorials, blog posts, bug reports, issues, feature requests,
 feature implementations, pull requests, answering questions on the forum,
 helping to manage issues, etc.
 
-The Hugo community and maintainers are [very active](https://github.com/gohugoio/hugo/pulse/monthly) and helpful, and the project benefits greatly from this activity. We created a [step by step guide](https://gohugo.io/tutorials/how-to-contribute-to-hugo/) if you're unfamiliar with GitHub or contributing to open source projects in general.
+The Hugo community and maintainers are [very active](https://github.com/gothamhq/gotham/pulse/monthly) and helpful, and the project benefits greatly from this activity. We created a [step by step guide](https://gohugo.io/tutorials/how-to-contribute-to-hugo/) if you're unfamiliar with GitHub or contributing to open source projects in general.
 
-*Note that this repository only contains the actual source code of Hugo. For **only** documentation-related pull requests / issues please refer to the [hugoDocs](https://github.com/gohugoio/hugoDocs) repository.*
+*Note that this repository only contains the actual source code of Hugo. For **only** documentation-related pull requests / issues please refer to the [hugoDocs](https://github.com/gothamhq/gothamDocs) repository.*
 
 *Changes to the codebase **and** related documentation, e.g. for a new feature, should still use a single pull request.*
 
@@ -35,9 +35,9 @@ start by asking in the [discussion forum](https://discourse.gohugo.io).
 When reporting the issue, please provide the version of Hugo in use (`hugo
 version`) and your operating system.
 
-- [Hugo Issues · gohugoio/hugo](https://github.com/gohugoio/hugo/issues)
-- [Hugo Documentation Issues · gohugoio/hugoDocs](https://github.com/gohugoio/hugoDocs/issues)
-- [Hugo Website Theme Issues · gohugoio/hugoThemesSite](https://github.com/gohugoio/hugoThemesSite/issues)
+- [Hugo Issues · gohugoio/hugo](https://github.com/gothamhq/gotham/issues)
+- [Hugo Documentation Issues · gohugoio/hugoDocs](https://github.com/gothamhq/gothamDocs/issues)
+- [Hugo Website Theme Issues · gohugoio/hugoThemesSite](https://github.com/gothamhq/gothamThemesSite/issues)
 
 ## Code Contribution
 
@@ -46,11 +46,11 @@ Hugo has become a fully featured static site generator, so any new functionality
 * be useful to many.
 * fit naturally into _what Hugo does best._
 * strive not to break existing sites.
-* close or update an open [Hugo issue](https://github.com/gohugoio/hugo/issues)
+* close or update an open [Hugo issue](https://github.com/gothamhq/gotham/issues)
 
 If it is of some complexity, the contributor is expected to maintain and support the new feature in the future (answer questions on the forum, fix any bugs etc.).
 
-It is recommended to open up a discussion on the [Hugo Forum](https://discourse.gohugo.io/) to get feedback on your idea before you begin. If you are submitting a complex feature, create a small design proposal on the [Hugo issue tracker](https://github.com/gohugoio/hugo/issues) before you start.
+It is recommended to open up a discussion on the [Hugo Forum](https://discourse.gohugo.io/) to get feedback on your idea before you begin. If you are submitting a complex feature, create a small design proposal on the [Hugo issue tracker](https://github.com/gothamhq/gotham/issues) before you start.
 
 Note that we do not accept new features that require [CGO](https://github.com/golang/go/wiki/cgo).
 We have one exception to this rule which is LibSASS.
@@ -112,7 +112,7 @@ Since Hugo 0.48, Hugo uses the Go Modules support built into Go 1.11 to build. T
 ```bash
 mkdir $HOME/src
 cd $HOME/src
-git clone https://github.com/gohugoio/hugo.git
+git clone https://github.com/gothamhq/gotham.git
 cd hugo
 go install
 ```
@@ -160,7 +160,7 @@ Now, to make a change to Hugo's source:
 Hugo uses [mage](https://github.com/magefile/mage) to sync vendor dependencies, build Hugo, run the test suite and other things. You must run mage from the Hugo directory.
 
 ```bash
-cd $HOME/go/src/github.com/gohugoio/hugo
+cd $HOME/go/src/github.com/gothamhq/gotham
 ```
 
 To build Hugo:

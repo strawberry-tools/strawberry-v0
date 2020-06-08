@@ -23,12 +23,12 @@ import (
 	"html/template"
 	"io"
 
-	"github.com/gohugoio/hugo/resources/internal"
+	"github.com/gothamhq/gotham/resources/internal"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/resources"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources"
+	"github.com/gothamhq/gotham/resources/resource"
 )
 
 const defaultHashAlgo = "sha256"

@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 	"github.com/spf13/viper"
 )
 

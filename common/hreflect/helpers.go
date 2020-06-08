@@ -19,7 +19,7 @@ package hreflect
 import (
 	"reflect"
 
-	"github.com/gohugoio/hugo/common/types"
+	"github.com/gothamhq/gotham/common/types"
 )
 
 // IsTruthful returns whether in represents a truthful value.

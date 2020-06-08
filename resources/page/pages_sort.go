@@ -16,9 +16,9 @@ package page
 import (
 	"sort"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 
-	"github.com/gohugoio/hugo/compare"
+	"github.com/gothamhq/gotham/compare"
 	"github.com/spf13/cast"
 )
 

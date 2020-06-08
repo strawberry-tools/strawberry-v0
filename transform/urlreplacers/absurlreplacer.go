@@ -19,7 +19,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gohugoio/hugo/transform"
+	"github.com/gothamhq/gotham/transform"
 )
 
 type absurllexer struct {

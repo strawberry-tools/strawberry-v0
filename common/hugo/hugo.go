@@ -18,7 +18,7 @@ import (
 	"html/template"
 	"os"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 )
 
 const (

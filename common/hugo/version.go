@@ -20,7 +20,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gohugoio/hugo/compare"
+	"github.com/gothamhq/gotham/compare"
 	"github.com/spf13/cast"
 )
 
@@ -128,7 +128,7 @@ func (v Version) NextPatchLevel(level int) Version {
 // BuildVersionString creates a version string. This is what you see when
 // running "hugo version".
 func BuildVersionString() string {
-	program := "Hugo Static Site Generator"
+	program := "Gotham Static Site Generator"
 
 	version := "v" + CurrentVersion.String()
 	if commitHash != "" {

@@ -31,7 +31,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 )
 
 // TemplateFuncsNamespaceRegistry describes a registry of functions that provide

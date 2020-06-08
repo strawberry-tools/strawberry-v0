@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/gohugoio/gohugoioTheme/master/static/images/hugo-logo-wide.svg?sanitize=true" alt="Hugo" width="565">
 
-A Fast and Flexible Static Site Generator built with love by [bep](https://github.com/bep), [spf13](http://spf13.com/) and [friends](https://github.com/gohugoio/hugo/graphs/contributors) in [Go][].
+A Fast and Flexible Static Site Generator built with love by [bep](https://github.com/bep), [spf13](http://spf13.com/) and [friends](https://github.com/gothamhq/gotham/graphs/contributors) in [Go][].
 
 [Website](https://gohugo.io) |
 [Forum](https://discourse.gohugo.io) |
@@ -9,9 +9,9 @@ A Fast and Flexible Static Site Generator built with love by [bep](https://githu
 [Contribution Guide](CONTRIBUTING.md) |
 [Twitter](https://twitter.com/gohugoio)
 
-[![GoDoc](https://godoc.org/github.com/gohugoio/hugo?status.svg)](https://godoc.org/github.com/gohugoio/hugo)
+[![GoDoc](https://godoc.org/github.com/gothamhq/gotham?status.svg)](https://godoc.org/github.com/gothamhq/gotham)
 [![Linux and macOS Build Status](https://api.travis-ci.org/gohugoio/hugo.svg?branch=master&label=Windows+and+Linux+and+macOS+build "Windows, Linux and macOS Build Status")](https://travis-ci.org/gohugoio/hugo)
-[![Go Report Card](https://goreportcard.com/badge/github.com/gohugoio/hugo)](https://goreportcard.com/report/github.com/gohugoio/hugo)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gothamhq/gotham)](https://goreportcard.com/report/github.com/gothamhq/gotham)
 
 ## Overview
 
@@ -40,7 +40,7 @@ Hugo may also be compiled from source wherever the Go compiler tool chain can ru
 If you want to use Hugo as your site generator, simply install the Hugo binaries.
 The Hugo binaries have no external dependencies.
 
-To contribute to the Hugo source code or documentation, you should [fork the Hugo GitHub project](https://github.com/gohugoio/hugo#fork-destination-box) and clone it to your local machine.
+To contribute to the Hugo source code or documentation, you should [fork the Hugo GitHub project](https://github.com/gothamhq/gotham#fork-destination-box) and clone it to your local machine.
 
 Finally, you can install the Hugo source code with `go`, build the binaries yourself, and run Hugo that way.
 Building the binaries is an easy task for an experienced `go` getter.
@@ -63,7 +63,7 @@ Since Hugo 0.48, Hugo uses the Go Modules support built into Go 1.11 to build. T
 ```bash
 mkdir $HOME/src
 cd $HOME/src
-git clone https://github.com/gohugoio/hugo.git
+git clone https://github.com/gothamhq/gotham.git
 cd hugo
 go install
 ```
@@ -72,7 +72,7 @@ go install
 	
 ## The Hugo Documentation
 
-The Hugo documentation now lives in its own repository, see https://github.com/gohugoio/hugoDocs. But we do keep a version of that documentation as a `git subtree` in this repository. To build the sub folder `/docs` as a Hugo site, you need to clone this repo:
+The Hugo documentation now lives in its own repository, see https://github.com/gothamhq/gothamDocs. But we do keep a version of that documentation as a `git subtree` in this repository. To build the sub folder `/docs` as a Hugo site, you need to clone this repo:
 
 ```bash
 git clone git@github.com:gohugoio/hugo.git
@@ -86,7 +86,7 @@ organization, tutorials, blog posts, bug reports, issues, feature requests,
 feature implementations, pull requests, answering questions on the forum,
 helping to manage issues, etc.
 
-The Hugo community and maintainers are [very active](https://github.com/gohugoio/hugo/pulse/monthly) and helpful, and the project benefits greatly from this activity.
+The Hugo community and maintainers are [very active](https://github.com/gothamhq/gotham/pulse/monthly) and helpful, and the project benefits greatly from this activity.
 
 ### Asking Support Questions
 

@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting/hqt"
+	"github.com/gothamhq/gotham/htesting/hqt"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 
 	qt "github.com/frankban/quicktest"
 )

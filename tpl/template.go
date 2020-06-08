@@ -19,9 +19,9 @@ import (
 	"io"
 	"regexp"
 
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 
-	texttemplate "github.com/gohugoio/hugo/tpl/internal/go_templates/texttemplate"
+	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
 )
 
 // TemplateManager manages the collection of templates.

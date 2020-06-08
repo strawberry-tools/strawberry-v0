@@ -18,11 +18,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/markup/markup_config"
+	"github.com/gothamhq/gotham/markup/markup_config"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
 	qt "github.com/frankban/quicktest"
 )

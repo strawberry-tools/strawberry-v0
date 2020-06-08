@@ -25,14 +25,14 @@ import (
 	"strings"
 	"sync"
 
-	texttemplate "github.com/gohugoio/hugo/tpl/internal/go_templates/texttemplate"
+	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/tpl"
 
-	bp "github.com/gohugoio/hugo/bufferpool"
-	"github.com/gohugoio/hugo/deps"
+	bp "github.com/gothamhq/gotham/bufferpool"
+	"github.com/gothamhq/gotham/deps"
 )
 
 // TestTemplateProvider is global deps.ResourceProvider.

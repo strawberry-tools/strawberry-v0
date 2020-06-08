@@ -33,10 +33,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/livereload"
+	"github.com/gothamhq/gotham/livereload"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"

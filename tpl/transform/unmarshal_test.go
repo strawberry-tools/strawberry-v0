@@ -19,12 +19,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohugoio/hugo/common/hugio"
+	"github.com/gothamhq/gotham/common/hugio"
 
-	"github.com/gohugoio/hugo/media"
+	"github.com/gothamhq/gotham/media"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/viper"
 )
 

@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/output"
-	"github.com/gohugoio/hugo/resources/page"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/output"
+	"github.com/gothamhq/gotham/resources/page"
 	"github.com/spf13/cast"
 )
 

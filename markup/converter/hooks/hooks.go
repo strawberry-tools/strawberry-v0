@@ -16,7 +16,7 @@ package hooks
 import (
 	"io"
 
-	"github.com/gohugoio/hugo/identity"
+	"github.com/gothamhq/gotham/identity"
 )
 
 type LinkContext interface {

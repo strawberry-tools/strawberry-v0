@@ -18,7 +18,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/gohugoio/hugo/parser/metadecoders"
+	"github.com/gothamhq/gotham/parser/metadecoders"
 
 	"github.com/BurntSushi/toml"
 

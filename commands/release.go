@@ -18,8 +18,8 @@ package commands
 import (
 	"errors"
 
-	"github.com/gohugoio/hugo/config"
-	"github.com/gohugoio/hugo/releaser"
+	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/releaser"
 	"github.com/spf13/cobra"
 )
 

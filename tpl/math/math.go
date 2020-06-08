@@ -18,7 +18,7 @@ import (
 	"errors"
 	"math"
 
-	_math "github.com/gohugoio/hugo/common/math"
+	_math "github.com/gothamhq/gotham/common/math"
 
 	"github.com/spf13/cast"
 )

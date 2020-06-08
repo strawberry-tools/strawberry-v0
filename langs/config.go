@@ -19,13 +19,13 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/maps"
+	"github.com/gothamhq/gotham/common/maps"
 
 	"github.com/spf13/cast"
 
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/config"
+	"github.com/gothamhq/gotham/config"
 )
 
 type LanguagesConfig struct {

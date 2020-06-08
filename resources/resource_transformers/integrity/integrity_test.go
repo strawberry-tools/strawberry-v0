@@ -17,10 +17,10 @@ import (
 	"html/template"
 	"testing"
 
-	"github.com/gohugoio/hugo/resources/resource"
+	"github.com/gothamhq/gotham/resources/resource"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/resources/resource_transformers/htesting"
+	"github.com/gothamhq/gotham/resources/resource_transformers/htesting"
 )
 
 func TestHashFromAlgo(t *testing.T) {

@@ -22,23 +22,23 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gohugoio/hugo/common/loggers"
+	"github.com/gothamhq/gotham/common/loggers"
 
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gohugoio/hugo/common/hugo"
+	"github.com/gothamhq/gotham/common/hugo"
 
-	"github.com/gohugoio/hugo/htesting"
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/htesting"
+	"github.com/gothamhq/gotham/hugofs"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/gohugoio/testmodBuilder/mods"
 	"github.com/spf13/viper"
 )
 
-// https://github.com/gohugoio/hugo/issues/6730
+// https://github.com/gothamhq/gotham/issues/6730
 func TestHugoModulesTargetInSubFolder(t *testing.T) {
 	if !isCI() {
 		// TODO(bep) investigate why this fails when running in LiteIDE (it works from the shell).
@@ -50,7 +50,7 @@ workingDir = %q
 
 [module]
 [[module.imports]]
-path="github.com/gohugoio/hugoTestModule2"
+path="github.com/gothamhq/gothamTestModule2"
   [[module.imports.mounts]]
     source = "templates/hooks"
     target = "layouts/_default/_markup"
@@ -78,8 +78,8 @@ module github.com/gohugoio/tests/testHugoModules
 `)
 
 	b.WithSourceFile("go.sum", `
-github.com/gohugoio/hugoTestModule2 v0.0.0-20200131160637-9657d7697877 h1:WLM2bQCKIWo04T6NsIWsX/Vtirhf0TnpY66xyqGlgVY=
-github.com/gohugoio/hugoTestModule2 v0.0.0-20200131160637-9657d7697877/go.mod h1:CBFZS3khIAXKxReMwq0le8sEl/D8hcXmixlOHVv+Gd0=
+github.com/gothamhq/gothamTestModule2 v0.0.0-20200131160637-9657d7697877 h1:WLM2bQCKIWo04T6NsIWsX/Vtirhf0TnpY66xyqGlgVY=
+github.com/gothamhq/gothamTestModule2 v0.0.0-20200131160637-9657d7697877/go.mod h1:CBFZS3khIAXKxReMwq0le8sEl/D8hcXmixlOHVv+Gd0=
 `)
 
 	b.Build(BuildCfg{})
@@ -598,7 +598,7 @@ title: "My Page"
 	b.AssertFileContent("public/mypage/index.html", "Permalink: https://example.org/mypage/")
 }
 
-// https://github.com/gohugoio/hugo/issues/6684
+// https://github.com/gothamhq/gotham/issues/6684
 func TestMountsContentFile(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
@@ -842,7 +842,7 @@ title: P1
 
 }
 
-// https://github.com/gohugoio/hugo/issues/6299
+// https://github.com/gothamhq/gotham/issues/6299
 func TestSiteWithGoModButNoModules(t *testing.T) {
 	t.Parallel()
 
@@ -867,7 +867,7 @@ func TestSiteWithGoModButNoModules(t *testing.T) {
 
 }
 
-// https://github.com/gohugoio/hugo/issues/6622
+// https://github.com/gothamhq/gotham/issues/6622
 func TestModuleAbsMount(t *testing.T) {
 	t.Parallel()
 

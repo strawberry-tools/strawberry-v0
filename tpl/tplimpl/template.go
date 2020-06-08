@@ -25,27 +25,27 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gohugoio/hugo/common/types"
+	"github.com/gothamhq/gotham/common/types"
 
-	"github.com/gohugoio/hugo/helpers"
+	"github.com/gothamhq/gotham/helpers"
 
-	"github.com/gohugoio/hugo/output"
+	"github.com/gothamhq/gotham/output"
 
-	"github.com/gohugoio/hugo/deps"
+	"github.com/gothamhq/gotham/deps"
 	"github.com/spf13/afero"
 
-	"github.com/gohugoio/hugo/common/herrors"
-	"github.com/gohugoio/hugo/hugofs"
-	"github.com/gohugoio/hugo/hugofs/files"
+	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/hugofs/files"
 	"github.com/pkg/errors"
 
-	"github.com/gohugoio/hugo/tpl/tplimpl/embedded"
+	"github.com/gothamhq/gotham/tpl/tplimpl/embedded"
 
-	htmltemplate "github.com/gohugoio/hugo/tpl/internal/go_templates/htmltemplate"
-	texttemplate "github.com/gohugoio/hugo/tpl/internal/go_templates/texttemplate"
+	htmltemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"
+	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
 
-	"github.com/gohugoio/hugo/identity"
-	"github.com/gohugoio/hugo/tpl"
+	"github.com/gothamhq/gotham/identity"
+	"github.com/gothamhq/gotham/tpl"
 )
 
 const (
@@ -616,7 +616,7 @@ func (t *templateHandler) applyBaseTemplate(overlay, base templateInfo) (tpl.Tem
 
 	// The extra lookup is a workaround, see
 	// * https://github.com/golang/go/issues/16101
-	// * https://github.com/gohugoio/hugo/issues/2549
+	// * https://github.com/gothamhq/gotham/issues/2549
 	templ = templ.Lookup(templ.Name())
 
 	return templ, err

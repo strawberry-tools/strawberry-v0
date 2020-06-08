@@ -18,7 +18,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
 	qt "github.com/frankban/quicktest"
 )

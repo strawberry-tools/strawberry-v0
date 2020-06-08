@@ -16,11 +16,11 @@ package strings
 import (
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting/hqt"
+	"github.com/gothamhq/gotham/htesting/hqt"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/deps"
-	"github.com/gohugoio/hugo/tpl/internal"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/tpl/internal"
 	"github.com/spf13/viper"
 )
 

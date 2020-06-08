@@ -18,10 +18,10 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/gothamhq/gotham/markup/converter"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gohugoio/hugo/markup/blackfriday/blackfriday_config"
+	"github.com/gothamhq/gotham/markup/blackfriday/blackfriday_config"
 	"github.com/russross/blackfriday"
 )
 

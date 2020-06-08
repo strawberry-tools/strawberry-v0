@@ -16,7 +16,7 @@ package commands
 import (
 	"context"
 
-	"github.com/gohugoio/hugo/deploy"
+	"github.com/gothamhq/gotham/deploy"
 	"github.com/spf13/cobra"
 )
 

@@ -16,7 +16,7 @@ package transform
 import (
 	"testing"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/spf13/viper"

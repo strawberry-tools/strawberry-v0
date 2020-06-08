@@ -17,8 +17,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/gohugoio/hugo/helpers"
-	"github.com/gohugoio/hugo/transform"
+	"github.com/gothamhq/gotham/helpers"
+	"github.com/gothamhq/gotham/transform"
 )
 
 type tag struct {

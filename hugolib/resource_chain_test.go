@@ -25,18 +25,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gohugoio/hugo/common/herrors"
+	"github.com/gothamhq/gotham/common/herrors"
 
-	"github.com/gohugoio/hugo/htesting"
+	"github.com/gothamhq/gotham/htesting"
 
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/gohugoio/hugo/hugofs"
+	"github.com/gothamhq/gotham/hugofs"
 
-	"github.com/gohugoio/hugo/common/loggers"
-	"github.com/gohugoio/hugo/resources/resource_transformers/tocss/scss"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/resources/resource_transformers/tocss/scss"
 )
 
 func TestSCSSWithIncludePaths(t *testing.T) {
@@ -239,7 +239,7 @@ T1: {{ $r.Content }}
 
 }
 
-// https://github.com/gohugoio/hugo/issues/6274
+// https://github.com/gothamhq/gotham/issues/6274
 func TestSCSSWithIncludePathsSass(t *testing.T) {
 	if !scss.Supports() {
 		t.Skip("Skip SCSS")
@@ -504,11 +504,11 @@ T1: Content: {{ $combined.Content }}|RelPermalink: {{ $combined.RelPermalink }}|
 {{ $combinedText := . | resources.Concat "bundle/concattxt.txt" }}
 T2: Content: {{ $combinedText.Content }}|{{ $combinedText.RelPermalink }}
 {{ end }}
-{{/* https://github.com/gohugoio/hugo/issues/5269 */}}
+{{/* https://github.com/gothamhq/gotham/issues/5269 */}}
 {{ $css := "body { color: blue; }" | resources.FromString "styles.css" }}
 {{ $minified := resources.Get "css/styles1.css" | minify }}
 {{ slice $css $minified | resources.Concat "bundle/mixed.css" }} 
-{{/* https://github.com/gohugoio/hugo/issues/5403 */}}
+{{/* https://github.com/gothamhq/gotham/issues/5403 */}}
 {{ $d := "function D {} // A comment" | resources.FromString "d.js"}}
 {{ $e := "(function E {})" | resources.FromString "e.js"}}
 {{ $f := "(function F {})()" | resources.FromString "f.js"}}
@@ -589,7 +589,7 @@ T1: {{ $result.Content }}|{{ $result.RelPermalink}}|{{$result.MediaType.Type }}|
 T2: {{ $result512.Content }}|{{ $result512.RelPermalink}}|{{$result512.MediaType.Type }}|{{ $result512.Data.Integrity }}|
 T3: {{ $resultMD5.Content }}|{{ $resultMD5.RelPermalink}}|{{$resultMD5.MediaType.Type }}|{{ $resultMD5.Data.Integrity }}|
 {{ $r2 := "bc" | resources.FromString "rocks/hugo2.txt" | fingerprint }}
-{{/* https://github.com/gohugoio/hugo/issues/5296 */}}
+{{/* https://github.com/gothamhq/gotham/issues/5296 */}}
 T4: {{ $r2.Data.Integrity }}|
 
 
@@ -601,7 +601,7 @@ T4: {{ $r2.Data.Integrity }}|
 			b.AssertFileContent("public/index.html", `T4: sha256-Hgu9bGhroFC46wP/7txk/cnYCUf86CGrvl1tyNJSxaw=|`)
 
 		}},
-		// https://github.com/gohugoio/hugo/issues/5226
+		// https://github.com/gothamhq/gotham/issues/5226
 		{"baseurl-path", func() bool { return true }, func(b *sitesBuilder) {
 			b.WithSimpleConfigFileAndBaseURL("https://example.com/hugo/")
 			b.WithTemplates("home.html", `
@@ -613,7 +613,7 @@ T1: {{ $r1.Permalink }}|{{ $r1.RelPermalink }}
 
 		}},
 
-		// https://github.com/gohugoio/hugo/issues/4944
+		// https://github.com/gothamhq/gotham/issues/4944
 		{"Prevent resource publish on .Content only", func() bool { return true }, func(b *sitesBuilder) {
 			b.WithTemplates("home.html", `
 {{ $cssInline := "body { color: green; }" | resources.FromString "inline.css" | minify }}
