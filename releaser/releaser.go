@@ -137,7 +137,7 @@ func (r *ReleaseHandler) Run() error {
 	defer r.gitPush() // TODO(bep)
 
 	if prepareRelaseNotes || shouldRelease {
-		gitCommits, err = getGitInfos(changeLogFromTag, "hugo", "", !r.try)
+		gitCommits, err = getGitInfos(changeLogFromTag, "gotham", "", !r.try)
 		if err != nil {
 			return err
 		}
