@@ -14,29 +14,18 @@ git:
 go:
   - "1.13.11"
   - "1.14.3"
-  - master
+  - "master"
 
 arch:
   - amd64
-  - arm64
 
 os:
   - linux
-  - osx
-  - windows
 
 jobs:
   allow_failures:
     - go: master
-    - arch: arm64
   fast_finish: true
-  exclude:
-    - os: windows
-      go: master
-    - arch: arm64
-      os: osx
-    - arch: arm64
-      os: windows
 
 cache:
   directories:
@@ -47,20 +36,15 @@ cache:
 
 before_install:
   - df -h
-    # https://travis-ci.community/t/go-cant-find-gcc-with-go1-11-1-on-windows/293/5
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then
-        choco install mingw -y;
-        export PATH=/c/tools/mingw64/bin:"$PATH";
-    fi
   - gem install asciidoctor
   - type asciidoctor
 
 install:
   - mkdir -p $HOME/src
   - mv $TRAVIS_BUILD_DIR $HOME/src
-  - export TRAVIS_BUILD_DIR=$HOME/src/hugo
-  - cd $HOME/src/hugo
-  - go get github.com/magefile/mage
+  - export TRAVIS_BUILD_DIR=$HOME/src/gotham
+  - cd $HOME/src/gotham
+  - curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_Linux-64bit.tar.gz" | sudo tar -xz -C /usr/local/bin mage
 
 script:
   - go mod download
@@ -71,7 +55,7 @@ script:
     else
         HUGO_TIMEOUT=30000 mage -v check;
     fi
-  - mage -v hugo
-  - ./hugo -s docs/
-  - ./hugo --renderToMemory -s docs/
+  - mage -v gotham
+  - ./gotham -s docs/
+  - ./gotham --renderToMemory -s docs/
   - df -h

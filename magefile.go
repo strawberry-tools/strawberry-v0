@@ -48,11 +48,11 @@ func Gotham() error {
 }
 
 // Build hugo binary with race detector enabled
-func HugoRace() error {
+func GothamRace() error {
 	return sh.RunWith(flagEnv(), goexe, "build", "-race", "-ldflags", ldflags, "-tags", buildTags(), packageName)
 }
 
-// Install hugo binary
+// Install gotham binary
 func Install() error {
 	return sh.RunWith(flagEnv(), goexe, "install", "-ldflags", ldflags, "-tags", buildTags(), packageName)
 }
@@ -171,7 +171,7 @@ func Test() error {
 // Run tests with race detector
 func TestRace() error {
 	env := map[string]string{"GOFLAGS": testGoFlags()}
-	return runCmd(env, goexe, "test", "-race", "./...", "-tags", buildTags())
+	return runCmd(env, goexe, "test", "-p 1", "-race", "./...", "-tags", buildTags())
 }
 
 // Run gofmt linter
@@ -179,7 +179,7 @@ func Fmt() error {
 	if !isGoLatest() {
 		return nil
 	}
-	pkgs, err := hugoPackages()
+	pkgs, err := gothamPackages()
 	if err != nil {
 		return err
 	}
@@ -221,7 +221,7 @@ var (
 	pkgsInit     sync.Once
 )
 
-func hugoPackages() ([]string, error) {
+func gothamPackages() ([]string, error) {
 	var err error
 	pkgsInit.Do(func() {
 		var s string
@@ -239,7 +239,7 @@ func hugoPackages() ([]string, error) {
 
 // Run golint linter
 func Lint() error {
-	pkgs, err := hugoPackages()
+	pkgs, err := gothamPackages()
 	if err != nil {
 		return err
 	}
@@ -280,7 +280,7 @@ func TestCoverHTML() error {
 	if _, err := f.Write([]byte("mode: count")); err != nil {
 		return err
 	}
-	pkgs, err := hugoPackages()
+	pkgs, err := gothamPackages()
 	if err != nil {
 		return err
 	}

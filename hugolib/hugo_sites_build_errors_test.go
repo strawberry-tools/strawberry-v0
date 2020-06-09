@@ -48,7 +48,7 @@ func TestSiteBuildErrors(t *testing.T) {
 		single      = "single"
 	)
 
-	// TODO(bep) add content tests after https://github.com/gothamhq/gotham/issues/5324
+	// TODO(bep) add content tests after https://github.com/gohugoio/hugo/issues/5324
 	// is implemented.
 
 	tests := []struct {

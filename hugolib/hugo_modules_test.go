@@ -50,7 +50,7 @@ workingDir = %q
 
 [module]
 [[module.imports]]
-path="github.com/gothamhq/gothamTestModule2"
+path="github.com/gohugoio/hugoTestModule2"
   [[module.imports.mounts]]
     source = "templates/hooks"
     target = "layouts/_default/_markup"
@@ -78,8 +78,8 @@ module github.com/gohugoio/tests/testHugoModules
 `)
 
 	b.WithSourceFile("go.sum", `
-github.com/gothamhq/gothamTestModule2 v0.0.0-20200131160637-9657d7697877 h1:WLM2bQCKIWo04T6NsIWsX/Vtirhf0TnpY66xyqGlgVY=
-github.com/gothamhq/gothamTestModule2 v0.0.0-20200131160637-9657d7697877/go.mod h1:CBFZS3khIAXKxReMwq0le8sEl/D8hcXmixlOHVv+Gd0=
+github.com/gohugoio/hugoTestModule2 v0.0.0-20200131160637-9657d7697877 h1:WLM2bQCKIWo04T6NsIWsX/Vtirhf0TnpY66xyqGlgVY=
+github.com/gohugoio/hugoTestModule2 v0.0.0-20200131160637-9657d7697877/go.mod h1:CBFZS3khIAXKxReMwq0le8sEl/D8hcXmixlOHVv+Gd0=
 `)
 
 	b.Build(BuildCfg{})

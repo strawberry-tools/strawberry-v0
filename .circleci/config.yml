@@ -1,11 +1,66 @@
+version: 2.1
+
+orbs:
+  go: circleci/go@1.2
+
 defaults: &defaults
   docker:
       - image: bepsays/ci-goreleaser:1.14.3
   environment:
     CGO_ENABLED: "0"
 
-version: 2
+workflows:
+  main:
+    jobs:
+      - test
+  release:
+      jobs:  
+        - build:
+            filters:
+              branches:
+                only: /release-.*/
+        - hold:
+            type: approval
+            requires:
+              - build
+        - release:
+            context: org-global
+            requires:
+              - hold
 jobs:
+  test:
+    machine:
+      image: ubuntu-1604:202004-01
+    environment:
+      #CGO_ENABLED: "1"
+      HUGO_BUILD_TAGS: "extended"
+      GO111MODULE: "on"
+    working_directory: "~/gotham"
+    steps:
+      - checkout
+      - go/install:
+          version: 1.14.3
+      - run:
+          name: "Install Mage"
+          command: |
+            curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
+            mage --version
+      - run:
+          name: "Pull & Verify Dependencies"
+          command: |
+            go mod download
+            go mod verify
+      - run:
+          name: "Mage Test"
+          command: mage -v test
+      - run:
+          name: "Mage Check"
+          command: mage -v check
+      - run:
+          name: "Build Binary"
+          command: |
+            mage -v gotham
+            ./gotham version
   build:
     <<: *defaults
     steps:
@@ -33,20 +88,3 @@ jobs:
                     git config --global user.email "bjorn.erik.pedersen+hugoreleaser@gmail.com"
                     git config --global user.name "hugoreleaser"
                     go run -tags release main.go release -r ${CIRCLE_BRANCH}
-
-workflows:
-  version: 2
-  release:
-      jobs:  
-        - build:
-            filters:
-              branches:
-                only: /release-.*/
-        - hold:
-            type: approval
-            requires:
-              - build
-        - release:
-            context: org-global
-            requires:
-              - hold
