@@ -134,12 +134,6 @@ func Check() {
 		return
 	}
 
-	if runtime.GOARCH == "amd64" && runtime.GOOS != "darwin" {
-		mg.Deps(Test386)
-	} else {
-		fmt.Printf("Skip Test386 on %s and/or %s\n", runtime.GOARCH, runtime.GOOS)
-	}
-
 	mg.Deps(Fmt, Vet)
 
 	// don't run two tests in parallel, they saturate the CPUs anyway, and running two
@@ -156,7 +150,9 @@ func testGoFlags() string {
 }
 
 // Run tests in 32-bit mode
-// Note that we don't run with the extended tag. Currently not supported in 32 bit.
+// This test doesn't support extended/SASS mode, which is the only build
+// offered by Gotham. Thus, this was removed from "mage -check". The test
+// function remains for manual running.
 func Test386() error {
 	env := map[string]string{"GOARCH": "386", "GOFLAGS": testGoFlags()}
 	return runCmd(env, goexe, "test", "./...")
