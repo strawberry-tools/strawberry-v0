@@ -12,7 +12,8 @@ defaults: &defaults
 workflows:
   main:
     jobs:
-      - test
+      - test-on-linux
+      - test-on-macos
   release:
       jobs:  
         - build:
@@ -28,7 +29,7 @@ workflows:
             requires:
               - hold
 jobs:
-  test:
+  test-on-linux:
     machine:
       image: ubuntu-1604:202004-01
     environment:
@@ -63,6 +64,48 @@ jobs:
           key: "go-test-cache-v1-{{ arch }}"
           paths:
             - "/home/circleci/.cache/go-build"
+      - run:
+          name: "Build Binary"
+          command: |
+            mage -v gotham
+            ./gotham version
+  test-on-macos:
+    macos:
+      xcode: 11.5.0
+    environment:
+      HUGO_BUILD_TAGS: "extended"
+      GO111MODULE: "on"
+    working_directory: "~/gotham"
+    steps:
+      - checkout
+      # https://github.com/CircleCI-Public/go-orb/issues/37
+      - run:
+          name: "Install Go"
+          command: brew install go
+      - run:
+          name: "Install Mage"
+          command: |
+            curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
+            mage --version
+      - go/load-cache
+      - restore_cache:
+          key: "go-test-cache-v3-{{ arch }}"
+      - run:
+          name: "Pull & Verify Dependencies"
+          command: |
+            go mod download
+            go mod verify
+      - run:
+          name: "Mage Test"
+          command: mage -v test
+      - run:
+          name: "Mage Check"
+          command: mage -v check
+      - go/save-cache
+      - save_cache:
+          key: "go-test-cache-v3-{{ arch }}"
+          paths:
+            - "/Users/distiller/Library/Caches/go-build"
       - run:
           name: "Build Binary"
           command: |

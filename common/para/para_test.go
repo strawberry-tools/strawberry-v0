@@ -66,7 +66,7 @@ func TestPara(t *testing.T) {
 	c.Run("Time", func(c *qt.C) {
 		const n = 100
 
-		p := New(5)
+		p := New(4)
 		r, _ := p.Start(context.Background())
 
 		start := time.Now()
@@ -83,7 +83,7 @@ func TestPara(t *testing.T) {
 
 		c.Assert(r.Wait(), qt.IsNil)
 		c.Assert(counter, qt.Equals, int64(n))
-		c.Assert(time.Since(start) < n/2*time.Millisecond, qt.Equals, true)
+		c.Assert(time.Since(start) < n*time.Millisecond, qt.Equals, true)
 
 	})
 
