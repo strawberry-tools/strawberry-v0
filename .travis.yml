@@ -56,6 +56,4 @@ script:
         HUGO_TIMEOUT=30000 mage -v check;
     fi
   - mage -v gotham
-  - ./gotham -s docs/
-  - ./gotham --renderToMemory -s docs/
   - df -h
