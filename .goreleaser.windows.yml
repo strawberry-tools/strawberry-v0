@@ -1,33 +1,17 @@
 project_name: gotham
-env:
-  - CGO_ENABLED=1
 before:
   hooks:
     - go mod download
 builds:
-  - id: linux
-    flags:
-      - -tags
-      - extended
+  - env:
+      - CC=o64-clang
+      - CXX=o64-clang++
     goos:
-      - linux
+      - darwin
     goarch:
       - amd64
     ldflags:
       - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }}
-  #- id: macos
-  #env:
-  #    - CC=o64-clang
-  #    - CXX=o64-clang++
-  #  flags:
-  #    - -tags
-  #    - extended
-  #  goos:
-  #    - darwin
-  #  goarch:
-  #    - amd64
-  #  ldflags:
-  #    - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }}
   #-
   #  id: windows
   #  env:

@@ -3,38 +3,34 @@ version: 2.1
 orbs:
   go: circleci/go@1.2
 
-defaults: &defaults
-  docker:
-      - image: bepsays/ci-goreleaser:1.14.3
-  environment:
-    CGO_ENABLED: "0"
-
 workflows:
   main:
     jobs:
       - test-on-linux
       - test-on-macos
-  release:
-      jobs:  
-        - build:
-            filters:
-              branches:
-                only: /release-.*/
-        - hold:
-            type: approval
-            requires:
-              - build
-        - release:
-            context: org-global
-            requires:
-              - hold
+      - release-on-linux:
+          requires:
+            - test-on-linux
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
+          context: main-context
+      - release-on-macos:
+          requires:
+            - release-on-linux
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
+          context: main-context
+
 jobs:
   test-on-linux:
     machine:
       image: ubuntu-1604:202004-01
-    environment:
-      HUGO_BUILD_TAGS: "extended"
-      GO111MODULE: "on"
     working_directory: "~/gotham"
     steps:
       - checkout
@@ -111,30 +107,39 @@ jobs:
           command: |
             mage -v gotham
             ./gotham version
-  build:
-    <<: *defaults
+  release-on-linux:
+    machine:
+      image: ubuntu-1604:202004-01
+    working_directory: "~/gotham"
     steps:
-      - checkout:
-          path: hugo
+      - checkout
+      - go/install:
+          version: 1.14.4
       - run:
-            command: |
-                git clone git@github.com:gohugoio/hugoDocs.git
-                cd hugo
-                go mod download
-                sleep 5
-                go mod verify
-                go test -p 1 ./...
-      - persist_to_workspace:
-          root: .
-          paths: .
-  release:
-    <<: *defaults
+          name: "Install GoReleaser"
+          command: |
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.137.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            goreleaser --version
+      - run:
+          name: "Release"
+          command: |
+            goreleaser release --config=.goreleaser.linux.yml
+  release-on-macos:
+    macos:
+      xcode: 11.5.0
+    working_directory: "~/gotham"
     steps:
-      - attach_workspace:
-          at: /root/project
+      - checkout
+      # https://github.com/CircleCI-Public/go-orb/issues/37
       - run:
-            command: |
-                    cd hugo
-                    git config --global user.email "bjorn.erik.pedersen+hugoreleaser@gmail.com"
-                    git config --global user.name "hugoreleaser"
-                    go run -tags release main.go release -r ${CIRCLE_BRANCH}
+          name: "Install Go"
+          command: brew install go
+      - run:
+          name: "Install GoReleaser"
+          command: |
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.137.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            goreleaser --version
+      - run:
+          name: "Release"
+          command: |
+            goreleaser release --config=.goreleaser.macos.yml
