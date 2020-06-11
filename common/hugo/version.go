@@ -73,7 +73,7 @@ func (h VersionString) Eq(other interface{}) bool {
 	return s == h.String()
 }
 
-var versionSuffixes = []string{"-test", "-DEV"}
+var versionSuffixes = []string{"-test", "-DEV", "-dev"}
 
 // ParseVersion parses a version string.
 func ParseVersion(s string) (Version, error) {

@@ -1,0 +1,25 @@
+project_name: gotham
+before:
+  hooks:
+    - go mod download
+builds:
+  #- env:
+  #    - CC=o64-clang
+  #    - CXX=o64-clang++
+  - goos:
+      - darwin
+    goarch:
+      - amd64
+    ldflags:
+      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash=
+
+archives:
+  - format: tar.gz
+    name_template: "{{.ProjectName}}-v{{.Version}}-{{.Os}}-{{.Arch}}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    replacements:
+      darwin: macos
+    files:
+      - README.md
+      - LICENSE
+changelog:
+  skip: true

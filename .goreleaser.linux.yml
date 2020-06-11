@@ -1,0 +1,34 @@
+project_name: gotham
+before:
+  hooks:
+    - go mod download
+builds:
+  - goos:
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash=
+
+archives:
+  -
+    format: tar.gz
+    name_template: "{{.ProjectName}}-v{{.Version}}-{{.Os}}-{{.Arch}}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    files:
+      - README.md
+      - LICENSE
+
+#nfpms:
+  #-
+    #builds:
+    #  - linux
+    #formats:
+    #    - deb
+    #vendor: "GothamHQ"
+    #homepage: "https://GothamHQ.com"
+    #maintainer: "GothamHQ Team <Team@GothamHQ.com>"
+    #description: "An awesome static site generator."
+    #license: "Apache 2.0"
+    #file_name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+changelog:
+  skip: true
