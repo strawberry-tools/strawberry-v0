@@ -15,6 +15,8 @@
 package commands
 
 import (
+	"errors"
+
 	"github.com/gothamhq/gotham/common/hugo"
 	"github.com/spf13/cobra"
 
@@ -27,16 +29,37 @@ type versionCmd struct {
 	*baseCmd
 }
 
+var vType string
+
 func newVersionCmd() *versionCmd {
-	return &versionCmd{
+
+	vc := &versionCmd{
 		newBaseCmd(&cobra.Command{
 			Use:   "version",
 			Short: "Print the version number of Gotham",
 			Long: `This will print the Gotham and Hugo version numbers. There
-			are flags available to print just the Gotham version for scripting.`,
-			Run: func(cmd *cobra.Command, args []string) {
-				jww.FEEDBACK.Println(hugo.PrintGothamVersion(hugo.VersionRegular))
+are flags available to print just the Gotham version for scripting.`,
+			RunE: func(cmd *cobra.Command, args []string) error {
+
+				var theType hugo.VersionType
+
+				if vType == "regular" {
+					theType = hugo.VersionRegular
+				} else if vType == "short" {
+					theType = hugo.VersionShort
+				} else if vType == "detailed" {
+					theType = hugo.VersionDetailed
+				} else {
+					return errors.New("Invalid value for --type.")
+				}
+
+				jww.FEEDBACK.Println(hugo.PrintGothamVersion(theType))
+				return nil
 			},
 		}),
 	}
+
+	vc.cmd.Flags().StringVarP(&vType, "type", "", "regular", "level of information to display: short, regular, or detailed")
+
+	return vc
 }

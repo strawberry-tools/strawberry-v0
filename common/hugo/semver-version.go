@@ -5,6 +5,7 @@ package hugo
 
 import (
 	"fmt"
+	"runtime"
 	"strings"
 )
 
@@ -39,6 +40,10 @@ func (v SemVerVersion) String() string {
 // Build complete version string for user via CLI
 func PrintGothamVersion(vType VersionType) string {
 
+	if vType == VersionShort {
+		return GothamVersion.String()
+	}
+
 	version := "Gotham v" + GothamVersion.String()
 
 	if commitHash != "" {
@@ -52,6 +57,20 @@ func PrintGothamVersion(vType VersionType) string {
 	}
 
 	version += ")"
+
+	if vType == VersionRegular {
+		return version
+	}
+
+	version += "\n"
+
+	date := buildDate
+	if date == "" {
+		date = "unknown"
+	}
+
+	version += "BuildDate: " + date + "\n"
+	version += "Platform: " + runtime.GOOS + "/" + runtime.GOARCH
 
 	return version
 }
