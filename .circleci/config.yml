@@ -6,8 +6,14 @@ orbs:
 workflows:
   main:
     jobs:
-      - test-on-linux
-      - test-on-macos
+      - test-on-linux:
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
+      - test-on-macos:
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
       - release-on-linux:
           requires:
             - test-on-linux
