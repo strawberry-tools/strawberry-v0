@@ -32,8 +32,8 @@ type envCmd struct {
 func newEnvCmd() *envCmd {
 	return &envCmd{baseCmd: newBaseCmd(&cobra.Command{
 		Use:   "env",
-		Short: "Print Hugo version and environment info",
-		Long:  `Print Hugo version and environment info. This is useful in Hugo bug reports.`,
+		Short: "Print Gotham version and environment info",
+		Long:  `Print Gotham version and environment info. This is useful in Gotham bug reports.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			hugo.PrintGothamVersion(hugo.VersionRegular)
 			jww.FEEDBACK.Printf("GOOS=%q\n", runtime.GOOS)

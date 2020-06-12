@@ -56,16 +56,16 @@ func newImportCmd() *importCmd {
 		Short: "Import your site from others.",
 		Long: `Import your site from other web site generators like Jekyll.
 
-Import requires a subcommand, e.g. ` + "`hugo import jekyll jekyll_root_path target_path`.",
+Import requires a subcommand, e.g. ` + "`gotham import jekyll jekyll_root_path target_path`.",
 		RunE: nil,
 	})
 
 	importJekyllCmd := &cobra.Command{
 		Use:   "jekyll",
-		Short: "hugo import from Jekyll",
-		Long: `hugo import from Jekyll.
+		Short: "gotham import from Jekyll",
+		Long: `gotham import from Jekyll.
 
-Import from Jekyll requires two paths, e.g. ` + "`hugo import jekyll jekyll_root_path target_path`.",
+Import from Jekyll requires two paths, e.g. ` + "`gotham import jekyll jekyll_root_path target_path`.",
 		RunE: cc.importFromJekyll,
 	}
 
@@ -156,7 +156,7 @@ func (i *importCmd) importFromJekyll(cmd *cobra.Command, args []string) error {
 	}
 
 	jww.FEEDBACK.Println("Congratulations!", fileCount, "post(s) imported!")
-	jww.FEEDBACK.Println("Now, start Hugo by yourself:\n" +
+	jww.FEEDBACK.Println("Now, start Gotham by yourself:\n" +
 		"$ git clone https://github.com/spf13/herring-cove.git " + args[1] + "/themes/herring-cove")
 	jww.FEEDBACK.Println("$ cd " + args[1] + "\n$ hugo server --theme=herring-cove")
 

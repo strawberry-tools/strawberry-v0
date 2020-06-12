@@ -47,14 +47,14 @@ url: %s
 
 	cc.baseCmd = newBaseCmd(&cobra.Command{
 		Use:   "doc",
-		Short: "Generate Markdown documentation for the Hugo CLI.",
-		Long: `Generate Markdown documentation for the Hugo CLI.
+		Short: "Generate Markdown documentation for the Gotham CLI.",
+		Long: `Generate Markdown documentation for the Gotham CLI.
 
 This command is, mostly, used to create up-to-date documentation
-of Hugo's command-line interface for http://gohugo.io/.
+of Gotham's command-line interface for http://gohugo.io/.
 
 It creates one Markdown file per command with front matter suitable
-for rendering in Hugo.`,
+for rendering in Gotham.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if !strings.HasSuffix(cc.gendocdir, helpers.FilePathSeparator) {
@@ -79,7 +79,7 @@ for rendering in Hugo.`,
 				return "/commands/" + strings.ToLower(base) + "/"
 			}
 
-			jww.FEEDBACK.Println("Generating Hugo command-line documentation in", cc.gendocdir, "...")
+			jww.FEEDBACK.Println("Generating Gotham command-line documentation in", cc.gendocdir, "...")
 			doc.GenMarkdownTreeCustom(cmd.Root(), cc.gendocdir, prepender, linkHandler)
 			jww.FEEDBACK.Println("Done.")
 
@@ -87,7 +87,7 @@ for rendering in Hugo.`,
 		},
 	})
 
-	cc.cmd.PersistentFlags().StringVar(&cc.gendocdir, "dir", "/tmp/hugodoc/", "the directory to write the doc.")
+	cc.cmd.PersistentFlags().StringVar(&cc.gendocdir, "dir", "/tmp/gothamdoc/", "the directory to write the doc.")
 
 	// For bash-completion
 	cc.cmd.PersistentFlags().SetAnnotation("dir", cobra.BashCompSubdirsInDir, []string{})
