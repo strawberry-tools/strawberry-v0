@@ -57,10 +57,10 @@ func (c *modCmd) newCleanCmd() *cobra.Command {
 	var all bool
 	cmd := &cobra.Command{
 		Use:   "clean",
-		Short: "Delete the Hugo Module cache for the current project.",
-		Long: `Delete the Hugo Module cache for the current project.
+		Short: "Delete the Gotham Module cache for the current project.",
+		Long: `Delete the Gotham Module cache for the current project.
 
-Note that after you run this command, all of your dependencies will be re-downloaded next time you run "hugo".
+Note that after you run this command, all of your dependencies will be re-downloaded next time you run "gotham".
 
 Also note that if you configure a positive maxAge for the "modules" file cache, it will also be cleaned as part of "hugo --gc".
  
@@ -103,7 +103,7 @@ See https://gohugo.io/hugo-modules/ for more information.
 
 	cmd := &cobra.Command{
 		Use:   "mod",
-		Short: "Various Hugo Modules helpers.",
+		Short: "Various Gotham Modules helpers.",
 		Long: `Various helpers to help manage the modules in your project's dependency graph.
 
 Most operations here requires a Go version installed on your system (>= Go 1.12) and the relevant VCS client (typically Git).
@@ -118,24 +118,24 @@ This is not needed if you only operate on modules inside /themes or if you have 
 		&cobra.Command{
 			Use:                "get",
 			DisableFlagParsing: true,
-			Short:              "Resolves dependencies in your current Hugo Project.",
+			Short:              "Resolves dependencies in your current Gotham Project.",
 			Long: `
-Resolves dependencies in your current Hugo Project.
+Resolves dependencies in your current Gotham Project.
 
 Some examples:
 
 Install the latest version possible for a given module:
 
-    hugo mod get github.com/gohugoio/testshortcodes
+    gotham mod get github.com/gohugoio/testshortcodes
     
 Install a specific version:
 
-    hugo mod get github.com/gohugoio/testshortcodes@v0.3.0
+    gotham mod get github.com/gohugoio/testshortcodes@v0.3.0
 
 Install the latest versions of all module dependencies:
 
-    hugo mod get -u
-    hugo mod get -u ./... (recursive)
+    gotham mod get -u
+    gotham mod get -u ./... (recursive)
 
 Run "go help get" for more information. All flags available for "go get" is also relevant here.
 ` + commonUsage,
@@ -212,13 +212,13 @@ Note that for vendored modules, that is the version listed and not the one from 
 		},
 		&cobra.Command{
 			Use:   "init",
-			Short: "Initialize this project as a Hugo Module.",
-			Long: `Initialize this project as a Hugo Module.
+			Short: "Initialize this project as a Gotham Module.",
+			Long: `Initialize this project as a Gotham Module.
 It will try to guess the module path, but you may help by passing it as an argument, e.g:
 
     hugo mod init github.com/gohugoio/testshortcodes
 
-Note that Hugo Modules supports multi-module projects, so you can initialize a Hugo Module
+Note that Gotham Modules supports multi-module projects, so you can initialize a Gotham Module
 inside a subfolder on GitHub, as one example.
 `,
 			RunE: func(cmd *cobra.Command, args []string) error {

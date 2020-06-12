@@ -73,17 +73,17 @@ func (b *commandsBuilder) newServerCmdSignaled(stop <-chan bool) *serverCmd {
 		Use:     "server",
 		Aliases: []string{"serve"},
 		Short:   "A high performance webserver",
-		Long: `Hugo provides its own webserver which builds and serves the site.
-While hugo server is high performance, it is a webserver with limited options.
+		Long: `Gotham provides its own webserver which builds and serves the site.
+While 'gotham server' is high performance, it is a webserver with limited options.
 Many run it in production, but the standard behavior is for people to use it
 in development and use a more full featured server such as Nginx or Caddy.
 
-'hugo server' will avoid writing the rendered and served content to disk,
+'gotham server' will avoid writing the rendered and served content to disk,
 preferring to store it in memory.
 
-By default hugo will also watch your files for any changes you make and
+By default Gotham will also watch your files for any changes you make and
 automatically rebuild the site. It will then live reload any open browser pages
-and push the latest content to them. As most Hugo sites are built in a fraction
+and push the latest content to them. As most Gotham sites are built in a fraction
 of a second, you will be able to save and see your changes nearly instantly.`,
 		RunE: cc.server,
 	})

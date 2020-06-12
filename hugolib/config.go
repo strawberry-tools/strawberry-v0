@@ -113,9 +113,9 @@ func LoadConfigDefault(fs afero.Fs) (*viper.Viper, error) {
 	return v, err
 }
 
-var ErrNoConfigFile = errors.New("Unable to locate config file or config directory. Perhaps you need to create a new site.\n       Run `hugo help new` for details.\n")
+var ErrNoConfigFile = errors.New("Unable to locate config file or config directory. Perhaps you need to create a new site.\n       Run `gotham help new` for details.\n")
 
-// LoadConfig loads Hugo configuration into a new Viper and then adds
+// LoadConfig loads Gotham configuration into a new Viper and then adds
 // a set of defaults.
 func LoadConfig(d ConfigSourceDescriptor, doWithConfig ...func(cfg config.Provider) error) (*viper.Viper, []string, error) {
 

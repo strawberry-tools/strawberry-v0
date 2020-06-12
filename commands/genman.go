@@ -37,16 +37,16 @@ func newGenManCmd() *genManCmd {
 
 	cc.baseCmd = newBaseCmd(&cobra.Command{
 		Use:   "man",
-		Short: "Generate man pages for the Hugo CLI",
-		Long: `This command automatically generates up-to-date man pages of Hugo's
+		Short: "Generate MAN pages for the Gotham CLI",
+		Long: `This command automatically generates up-to-date man pages of Gotham's
 command-line interface.  By default, it creates the man page files
 in the "man" directory under the current directory.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			header := &doc.GenManHeader{
 				Section: "1",
-				Manual:  "Hugo Manual",
-				Source:  fmt.Sprintf("Hugo %s", hugo.CurrentVersion),
+				Manual:  "Gotham Manual",
+				Source:  fmt.Sprintf("Gotham %s", hugo.GothamVersion),
 			}
 			if !strings.HasSuffix(cc.genmandir, helpers.FilePathSeparator) {
 				cc.genmandir += helpers.FilePathSeparator
@@ -59,7 +59,7 @@ in the "man" directory under the current directory.`,
 			}
 			cmd.Root().DisableAutoGenTag = true
 
-			jww.FEEDBACK.Println("Generating Hugo man pages in", cc.genmandir, "...")
+			jww.FEEDBACK.Println("Generating Gotham man pages in", cc.genmandir, "...")
 			doc.GenManTree(cmd.Root(), header, cc.genmandir)
 
 			jww.FEEDBACK.Println("Done.")
