@@ -25,6 +25,7 @@ workflows:
           context: main-context
       - release-on-macos:
           requires:
+            - test-on-macos
             - release-on-linux
           filters:
             branches:
