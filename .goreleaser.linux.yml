@@ -1,7 +1,9 @@
 project_name: gotham
+
 before:
   hooks:
     - go mod download
+
 builds:
   - goos:
       - linux
@@ -11,12 +13,14 @@ builds:
       - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash=
 
 archives:
-  -
-    format: tar.gz
-    name_template: "{{.ProjectName}}-v{{.Version}}-{{.Os}}-{{.Arch}}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     files:
       - README.md
       - LICENSE
+
+checksum:
+  name_template: "{{ .ProjectName }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}-checksum.txt"
 
 #nfpms:
   #-
