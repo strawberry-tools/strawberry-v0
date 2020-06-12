@@ -1,11 +1,10 @@
 project_name: gotham
+
 before:
   hooks:
     - go mod download
+
 builds:
-  #- env:
-  #    - CC=o64-clang
-  #    - CXX=o64-clang++
   - goos:
       - darwin
     goarch:
@@ -21,5 +20,9 @@ archives:
     files:
       - README.md
       - LICENSE
+
+checksum:
+  name_template: "{{ .ProjectName }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}-checksum.txt"
+
 changelog:
   skip: true
