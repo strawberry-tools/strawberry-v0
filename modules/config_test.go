@@ -30,9 +30,10 @@ func TestConfigHugoVersionIsValid(t *testing.T) {
 		in     HugoVersion
 		expect bool
 	}{
-		{HugoVersion{Min: "0.1.0-dev"}, true},
-		{HugoVersion{Min: "0.0.0", Max: "0.0.0"}, false},
-		{HugoVersion{Min: "0.1.0-dev", Max: "0.99.0"}, true},
+		{HugoVersion{Min: "0.33.0"}, true},
+		{HugoVersion{Min: "0.56.0-DEV"}, true},
+		{HugoVersion{Min: "0.33.0", Max: "0.55.0"}, false},
+		{HugoVersion{Min: "0.33.0", Max: "0.99.0"}, true},
 	} {
 		c.Assert(test.in.IsValid(), qt.Equals, test.expect)
 	}
@@ -44,8 +45,8 @@ func TestDecodeConfig(t *testing.T) {
 [module]
 
 [module.hugoVersion]
-min = "0.0.0"
-max = "0.2.0"
+min = "0.54.2"
+max = "0.99.0"
 extended = true
 
 [[module.mounts]]
@@ -68,7 +69,7 @@ lang="en"
 	mcfg, err := DecodeConfig(cfg)
 	c.Assert(err, qt.IsNil)
 
-	v056 := hugo.VersionString("0.1.0")
+	v056 := hugo.VersionString("0.56.0")
 
 	hv := mcfg.HugoVersion
 

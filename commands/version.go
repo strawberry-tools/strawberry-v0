@@ -1,4 +1,5 @@
 // Copyright 2015 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@ package commands
 import (
 	"github.com/gothamhq/gotham/common/hugo"
 	"github.com/spf13/cobra"
+
 	jww "github.com/spf13/jwalterweatherman"
 )
 
@@ -29,16 +31,12 @@ func newVersionCmd() *versionCmd {
 	return &versionCmd{
 		newBaseCmd(&cobra.Command{
 			Use:   "version",
-			Short: "Print the version number of Hugo",
-			Long:  `All software has versions. This is Hugo's.`,
-			RunE: func(cmd *cobra.Command, args []string) error {
-				printHugoVersion()
-				return nil
+			Short: "Print the version number of Gotham",
+			Long: `This will print the Gotham and Hugo version numbers. There
+			are flags available to print just the Gotham version for scripting.`,
+			Run: func(cmd *cobra.Command, args []string) {
+				jww.FEEDBACK.Println(hugo.PrintGothamVersion(hugo.VersionRegular))
 			},
 		}),
 	}
-}
-
-func printHugoVersion() {
-	jww.FEEDBACK.Println(hugo.BuildVersionString())
 }
