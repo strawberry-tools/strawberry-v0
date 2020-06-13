@@ -1,4 +1,5 @@
 // Copyright 2019 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,9 +15,10 @@
 package hugolib
 
 import (
+	"fmt"
 	"testing"
 
-	"fmt"
+	"html/template"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -33,6 +35,54 @@ menu:
 # Doc Menu
 `
 )
+
+// For now, just tests that NewTab outputs correctly for a template
+func TestMenuFields(t *testing.T) {
+
+	t.Parallel()
+
+	siteConfig := `
+baseurl = "http://example.com"
+title = "Section Menu"
+
+[[menu.main]]
+    name    = "Home"
+	url     = "/"
+	weight  = -1
+[[menu.main]]
+    name    = "Blog"
+	url     = "/blog/"
+	newtab  = false
+
+[[menu.social]]
+    name    = "Twitter"
+	url     = "https://twitter.com/GothamHQ_"
+	newtab  = true
+[[menu.social]]
+    name    = "Facebook"
+	url     = "https://Facebook.com/GothamHQ"
+`
+
+	b := newTestSitesBuilder(t).WithConfigFile("toml", siteConfig)
+	b.Build(BuildCfg{})
+	h := b.H
+	s := h.Sites[0]
+
+	// We defined two menu above, we should have two here
+	b.Assert(len(s.Menus()), qt.Equals, 2)
+
+	// Testting the output of NewTabHTML
+	for _, item := range s.Menus()["social"] {
+
+		if item.Name == "Twitter" {
+			b.Assert(item.NewTab, qt.Equals, true)
+			b.Assert(item.NewTabHTML(), qt.Equals, template.HTMLAttr(`target="_blank"`))
+		} else {
+			b.Assert(item.NewTab, qt.Equals, false)
+			b.Assert(item.NewTabHTML(), qt.Equals, template.HTMLAttr(""))
+		}
+	}
+}
 
 func TestSectionPagesMenu(t *testing.T) {
 	t.Parallel()

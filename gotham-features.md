@@ -28,3 +28,26 @@ My page.... blah blah blah.
 
 While this setting can be done page-by-page to opt them out of the sitemap, you can also set this in your Gotham config file to opt-out all pages by default.
 Then, you can manually opt-in pages.
+
+### Menu Items Support Opening in New Tabs
+
+If you have a menu item that you'd prefer to open in a new tab (or window, depending on browser), you can now do so via the Gotham config file.
+Here's an example:
+
+```yaml
+#... gotham config
+
+menu:
+  main:
+    - name: "Home"
+      url: "/"
+    - name: "Blog"
+      url: "/blog/"
+    - name: "Twitter"
+      url: "https://twitter.com/GothamHQ_"
+      newtab: true
+```
+
+In the example above, the homepage and the blog will open in the same tab when clicked, as expected.
+The Twitter menu item will open in a new tab.
+This is a common practice when linking to external URLs.
