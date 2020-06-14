@@ -1,4 +1,5 @@
 // Copyright 2019 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -39,6 +40,7 @@ type MenuEntry struct {
 	Weight        int
 	Parent        string
 	Children      Menu
+	NewTab        bool
 }
 
 func (m *MenuEntry) URL() string {
@@ -127,8 +129,19 @@ func (m *MenuEntry) MarshallMap(ime map[string]interface{}) {
 			m.Identifier = cast.ToString(v)
 		case "parent":
 			m.Parent = cast.ToString(v)
+		case "newtab":
+			m.NewTab = cast.ToBool(v)
 		}
 	}
+}
+
+func (m *MenuEntry) NewTabHTML() template.HTMLAttr {
+
+	if m.NewTab {
+		return `target="_blank"`
+	}
+
+	return ""
 }
 
 func (m Menu) Add(me *MenuEntry) Menu {
