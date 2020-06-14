@@ -10,6 +10,9 @@ workflows:
       - test-on-macos
       - release-on-linux
       - release-on-macos
+      - release-on-snap:
+          requires:
+            - release-on-linux
   release:
     jobs:
       - test-on-linux:
@@ -31,6 +34,10 @@ workflows:
       - release-on-macos:
           requires:
             - test-on-macos
+            - release-on-linux
+          context: main-context
+      - release-on-snap:
+          requires:
             - release-on-linux
           context: main-context
 
@@ -140,6 +147,10 @@ jobs:
             echo "======================================================="
             ls -lah dist/*/gotham
             dist/*/gotham version --type=detailed
+      - persist_to_workspace:
+          root: "."
+          paths:
+            - "dist"
   release-on-macos:
     macos:
       xcode: 11.5.0
@@ -168,3 +179,23 @@ jobs:
             echo "======================================================="
             ls -lah dist/*/gotham
             dist/*/gotham version --type=detailed
+  release-on-snap:
+    docker:
+      - image: cibuilds/snapcraft:core18
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Build Snap"
+          command: snapcraft
+      - run:
+          name: "Publish to Snap Store in the Stable Channel"
+          command: |
+            if [[ $CIRCLE_TAG == "" ]]; then
+              exit 0
+            fi
+
+            # Snapcraft Tokens are valid for 1 year. This one expires June 15th, 2021
+            echo $SNAPCRAFT_TOKEN | base64 --decode --ignore-garbage | snapcraft login --with -
+            snapcraft push *.snap --release=stable
