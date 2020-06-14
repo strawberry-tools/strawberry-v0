@@ -1,3 +1,7 @@
+// Copyright 2020 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package hugolib
 
 import (
@@ -716,6 +720,30 @@ func (s *sitesBuilder) AssertFileContent(filename string, matches ...string) {
 			}
 			if !strings.Contains(content, match) {
 				s.Fatalf("No match for %q in content for %s\n%s\n%q", match, filename, content, content)
+			}
+		}
+	}
+}
+
+// This works like AssertFileContent, but makes sure that there isn't a match.
+func (s *sitesBuilder) AssertFileContentInvert(filename string, matches ...string) {
+
+	s.T.Helper()
+
+	content := s.FileContent(filename)
+
+	for _, m := range matches {
+		lines := strings.Split(m, "\n")
+		for _, match := range lines {
+
+			match = strings.TrimSpace(match)
+
+			if match == "" {
+				continue
+			}
+
+			if strings.Contains(content, match) {
+				s.Fatalf("Match for %q in content for %s\n%s\n%q", match, filename, content, content)
 			}
 		}
 	}
