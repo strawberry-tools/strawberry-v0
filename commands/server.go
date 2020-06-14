@@ -1,4 +1,5 @@
 // Copyright 2019 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"os/signal"
 	"path/filepath"
 	"regexp"
@@ -55,6 +57,7 @@ type serverCmd struct {
 	liveReloadPort    int
 	serverWatch       bool
 	noHTTPCache       bool
+	openBrowser       bool
 
 	disableFastRender   bool
 	disableBrowserError bool
@@ -99,6 +102,7 @@ of a second, you will be able to save and see your changes nearly instantly.`,
 	cc.cmd.Flags().BoolVar(&cc.renderToDisk, "renderToDisk", false, "render to Destination path (default is render to memory & serve from there)")
 	cc.cmd.Flags().BoolVar(&cc.disableFastRender, "disableFastRender", false, "enables full re-renders on changes")
 	cc.cmd.Flags().BoolVar(&cc.disableBrowserError, "disableBrowserError", false, "do not show build errors in the browser")
+	cc.cmd.Flags().BoolVar(&cc.openBrowser, "open", false, "open server URL in default browser")
 
 	cc.cmd.Flags().String("memstats", "", "log memory usage to this file")
 	cc.cmd.Flags().String("meminterval", "100ms", "interval to poll memory usage (requires --memstats), valid time units are \"ns\", \"us\" (or \"µs\"), \"ms\", \"s\", \"m\", \"h\".")
@@ -491,6 +495,26 @@ func (c *commandeer) serve(s *serverCmd) error {
 				os.Exit(1)
 			}
 		}()
+
+		if s.openBrowser {
+
+			switch runtime.GOOS {
+			case "linux":
+				err = exec.Command("xdg-open", serverURL).Start()
+			case "darwin":
+				err = exec.Command("open", serverURL).Start()
+			case "windows":
+				err = exec.Command("rundll32", "url.dll,FileProtocolHandler", serverURL).Start()
+			default:
+				err = fmt.Errorf("Unsupported platform for --open.")
+			}
+
+			if err != nil {
+				jww.FEEDBACK.Println("Opening in browser didn't work.")
+			} else {
+				jww.FEEDBACK.Println("Opening in browser.")
+			}
+		}
 	}
 
 	jww.FEEDBACK.Println("Press Ctrl+C to stop")

@@ -51,3 +51,12 @@ menu:
 In the example above, the homepage and the blog will open in the same tab when clicked, as expected.
 The Twitter menu item will open in a new tab.
 This is a common practice when linking to external URLs.
+
+### Open Development Site in Browser
+
+When running the development server locally (gotham server), you can now optionally open the dev URL in your default browser.
+This can be done using the `--open` flag. For example:
+
+```bash
+gotham serve --open
+```
