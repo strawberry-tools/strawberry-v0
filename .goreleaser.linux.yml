@@ -20,7 +20,7 @@ archives:
       - LICENSE
 
 checksum:
-  name_template: "{{ .ProjectName }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}-checksum.txt"
+  name_template: "{{ .ProjectName }}-v{{ .Version }}-linux-amd64-checksum.txt"
 
 #nfpms:
   #-
