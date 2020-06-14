@@ -22,7 +22,7 @@ archives:
       - LICENSE
 
 checksum:
-  name_template: "{{ .ProjectName }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}-checksum.txt"
+  name_template: "{{ .ProjectName }}-v{{ .Version }}-macos-amd64-checksum.txt"
 
 changelog:
   skip: true
