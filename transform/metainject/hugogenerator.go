@@ -1,4 +1,5 @@
 // Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,14 +25,14 @@ import (
 )
 
 var metaTagsCheck = regexp.MustCompile(`(?i)<meta\s+name=['|"]?generator['|"]?`)
-var hugoGeneratorTag = fmt.Sprintf(`<meta name="generator" content="Hugo %s" />`, hugo.CurrentVersion)
+var hugoGeneratorTag = fmt.Sprintf(`<meta name="generator" content="Gotham %s" />`, hugo.GothamVersion)
 
-// HugoGenerator injects a meta generator tag for Hugo if none present.
+// HugoGenerator injects a meta generator tag for Gotham if none present.
 func HugoGenerator(ft transform.FromTo) error {
 	b := ft.From().Bytes()
 	if metaTagsCheck.Match(b) {
 		if _, err := ft.To().Write(b); err != nil {
-			helpers.DistinctWarnLog.Println("Failed to inject Hugo generator tag:", err)
+			helpers.DistinctWarnLog.Println("Failed to inject Gotham generator tag:", err)
 		}
 		return nil
 	}
@@ -47,7 +48,7 @@ func HugoGenerator(ft transform.FromTo) error {
 	}
 
 	if _, err := ft.To().Write(newcontent); err != nil {
-		helpers.DistinctWarnLog.Println("Failed to inject Hugo generator tag:", err)
+		helpers.DistinctWarnLog.Println("Failed to inject Gotham generator tag:", err)
 	}
 
 	return nil
