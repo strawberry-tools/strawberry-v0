@@ -6,32 +6,32 @@ orbs:
 workflows:
   main:
     jobs:
+      - test-on-linux
+      - test-on-macos
+      - release-on-linux
+      - release-on-macos
+  release:
+    jobs:
       - test-on-linux:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+$/
       - test-on-macos:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+$/
       - release-on-linux:
           requires:
             - test-on-linux
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
           context: main-context
       - release-on-macos:
           requires:
             - test-on-macos
             - release-on-linux
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
           context: main-context
 
 jobs:
@@ -128,9 +128,18 @@ jobs:
             curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.137.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
-          name: "Release"
+          name: "Build Snapshot or Release"
           command: |
-            goreleaser release --config=.goreleaser.linux.yml
+            if [[ $CIRCLE_TAG == "" ]]; then
+              goreleaser release --config=.goreleaser.linux.yml --snapshot --skip-publish
+            else
+              goreleaser release --config=.goreleaser.linux.yml
+            fi
+
+            echo "Some information about this binary built by GoReleaser:"
+            echo "======================================================="
+            ls -lah dist/*/gotham
+            dist/*/gotham version --type=detailed
   release-on-macos:
     macos:
       xcode: 11.5.0
@@ -147,6 +156,15 @@ jobs:
             curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.137.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
-          name: "Release"
+          name: "Build Snapshot or Release"
           command: |
-            goreleaser release --config=.goreleaser.macos.yml
+            if [[ $CIRCLE_TAG == "" ]]; then
+              goreleaser release --config=.goreleaser.macos.yml --snapshot --skip-publish
+            else
+              goreleaser release --config=.goreleaser.macos.yml
+            fi
+
+            echo "Some information about this binary built by GoReleaser:"
+            echo "======================================================="
+            ls -lah dist/*/gotham
+            dist/*/gotham version --type=detailed
