@@ -26,3 +26,20 @@ checksum:
 
 changelog:
   skip: true
+
+brews:
+  - github:
+      owner: gothamhq
+      name: homebrew-tap
+    commit_author:
+      name: "GoReleaser"
+      email: GoReleaser@GothamHQ.com
+    folder: Formula
+    homepage: "https://GothamHQ.com"
+    description: "An awesome static site generator based on Hugo."
+    dependencies:
+      - name: go
+    test: |
+      site = testpath/"hops-yeast-malt-water"
+      system "#{bin}/gotham", "new", "site", site
+      assert_predicate testpath/"#{site}/config.toml", :exist?
