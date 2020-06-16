@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  go: circleci/go@1.2
+  go: circleci/go@1.3
 
 workflows:
   main:
@@ -97,16 +97,11 @@ jobs:
   test-on-macos:
     macos:
       xcode: 11.5.0
-    environment:
-      HUGO_BUILD_TAGS: "extended"
-      GO111MODULE: "on"
     working_directory: "~/gotham"
     steps:
       - checkout
-      # https://github.com/CircleCI-Public/go-orb/issues/37
-      - run:
-          name: "Install Go"
-          command: brew install go
+      - go/install:
+          version: 1.14.4
       - run:
           name: "Install Mage"
           command: |
@@ -173,10 +168,8 @@ jobs:
     working_directory: "~/gotham"
     steps:
       - checkout
-      # https://github.com/CircleCI-Public/go-orb/issues/37
-      - run:
-          name: "Install Go"
-          command: brew install go
+      - go/install:
+          version: 1.14.4
       - run:
           name: "Install GoReleaser"
           command: |
