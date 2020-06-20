@@ -1,4 +1,5 @@
 // Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -52,9 +53,9 @@ func (i Info) Version() VersionString {
 	return CurrentVersion.Version()
 }
 
-// Generator a Hugo meta generator HTML tag.
+// Generator a Gotham meta generator HTML tag.
 func (i Info) Generator() template.HTML {
-	return template.HTML(fmt.Sprintf(`<meta name="generator" content="Hugo %s" />`, CurrentVersion.String()))
+	return template.HTML(fmt.Sprintf(`<meta name="generator" content="Gotham %s" />`, GothamVersion.String()))
 }
 
 func (i Info) IsProduction() bool {

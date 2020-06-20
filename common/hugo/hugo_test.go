@@ -1,4 +1,5 @@
 // Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,7 +31,7 @@ func TestHugoInfo(t *testing.T) {
 	c.Assert(hugoInfo.CommitHash, qt.Equals, commitHash)
 	c.Assert(hugoInfo.BuildDate, qt.Equals, buildDate)
 	c.Assert(hugoInfo.Environment, qt.Equals, "production")
-	c.Assert(string(hugoInfo.Generator()), qt.Contains, fmt.Sprintf("Hugo %s", hugoInfo.Version()))
+	c.Assert(string(hugoInfo.Generator()), qt.Contains, fmt.Sprintf("Gotham %s", GothamVersion.String()))
 	c.Assert(hugoInfo.IsProduction(), qt.Equals, true)
 
 	devHugoInfo := NewInfo("development")
