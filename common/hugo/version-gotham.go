@@ -8,6 +8,6 @@ package hugo
 var GothamVersion = SemVerVersion{
 	Major:  0,
 	Minor:  2,
-	Patch:  1,
+	Patch:  2,
 	Suffix: "",
 }
