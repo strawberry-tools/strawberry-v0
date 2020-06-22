@@ -21,6 +21,7 @@ apps:
     command: gotham
     completer: gotham-completion
     plugs:
+      - desktop
       - home
       - network-bind
       - removable-media
