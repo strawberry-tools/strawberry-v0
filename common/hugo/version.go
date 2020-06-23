@@ -128,7 +128,7 @@ func (v Version) NextPatchLevel(level int) Version {
 // BuildVersionString creates a version string. This is what you see when
 // running "hugo version".
 func BuildVersionString() string {
-	program := "Gotham Static Site Generator"
+	program := "Hugo Static Site Generator"
 
 	version := "v" + CurrentVersion.String()
 	if commitHash != "" {
