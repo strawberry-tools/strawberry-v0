@@ -1,4 +1,5 @@
 // Copyright 2019 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -125,7 +126,7 @@ func (c *commandeer) getErrorWithContext() interface{} {
 	m := make(map[string]interface{})
 
 	m["Error"] = errors.New(removeErrorPrefixFromLog(c.logger.Errors()))
-	m["Version"] = hugo.BuildVersionString()
+	m["Version"] = hugo.PrintGothamVersion(hugo.VersionDetailed)
 
 	fe := herrors.UnwrapErrorWithFileContext(c.buildErr)
 	if fe != nil {
