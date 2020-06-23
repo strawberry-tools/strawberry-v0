@@ -1,4 +1,5 @@
 // Copyright 2017-present The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@ import (
 func TestGitInfos(t *testing.T) {
 	c := qt.New(t)
 	skipIfCI(t)
-	infos, err := getGitInfos("v0.20", "hugo", "", false)
+	infos, err := getGitInfos("v0.1.0", "gotham", "", false)
 
 	c.Assert(err, qt.IsNil)
 	c.Assert(len(infos) > 0, qt.Equals, true)
@@ -51,15 +52,15 @@ See #456
 func TestGitVersionTagBefore(t *testing.T) {
 	skipIfCI(t)
 	c := qt.New(t)
-	v1, err := gitVersionTagBefore("v0.18")
+	v1, err := gitVersionTagBefore("v0.2.2")
 	c.Assert(err, qt.IsNil)
-	c.Assert(v1, qt.Equals, "v0.17")
+	c.Assert(v1, qt.Equals, "v0.2.1")
 }
 
 func TestTagExists(t *testing.T) {
 	skipIfCI(t)
 	c := qt.New(t)
-	b1, err := tagExists("v0.18")
+	b1, err := tagExists("v0.2.0")
 	c.Assert(err, qt.IsNil)
 	c.Assert(b1, qt.Equals, true)
 
