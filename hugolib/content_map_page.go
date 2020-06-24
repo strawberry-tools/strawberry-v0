@@ -47,7 +47,6 @@ func newPageMaps(h *HugoSites) *pageMaps {
 		workers: para.New(h.numWorkers),
 		pmaps:   mps,
 	}
-
 }
 
 type pageMap struct {
@@ -107,7 +106,7 @@ func (m *pageMap) newPageFromContentNode(n *contentNode, parentBucket *pagesMapB
 	sections := s.sectionsFromFile(f)
 
 	kind := s.kindFromFileInfoOrSections(f, sections)
-	if kind == page.KindTaxonomy {
+	if kind == page.KindTerm {
 		s.PathSpec.MakePathsSanitized(sections)
 	}
 
@@ -536,7 +535,7 @@ func (m *pageMap) assembleTaxonomies() error {
 			}
 		} else {
 			title := ""
-			if kind == page.KindTaxonomy {
+			if kind == page.KindTerm {
 				title = n.viewInfo.term()
 			}
 			n.p = m.s.newPage(n, parent.p.bucket, kind, title, sections...)
@@ -579,7 +578,6 @@ func (m *pageMap) attachPageToViews(s string, b *contentNode) {
 		if vals == nil {
 			continue
 		}
-
 		w := getParamToLower(b.p, viewName.plural+"_weight")
 		weight, err := cast.ToIntE(w)
 		if err != nil {
@@ -587,11 +585,12 @@ func (m *pageMap) attachPageToViews(s string, b *contentNode) {
 			// weight will equal zero, so let the flow continue
 		}
 
-		for _, v := range vals {
+		for i, v := range vals {
 			termKey := m.s.getTaxonomyKey(v)
 
 			bv := &contentNode{
 				viewInfo: &contentBundleViewInfo{
+					ordinal:    i,
 					name:       viewName,
 					termKey:    termKey,
 					termOrigin: v,

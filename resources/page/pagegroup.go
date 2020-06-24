@@ -23,6 +23,7 @@ import (
 
 	"github.com/gothamhq/gotham/common/collections"
 	"github.com/gothamhq/gotham/compare"
+	"github.com/spf13/cast"
 
 	"github.com/gothamhq/gotham/resources/resource"
 )
@@ -225,6 +226,10 @@ func (p Pages) groupByDateField(sorter func(p Pages) Pages, formatter func(p Pag
 		sp = sp.Reverse()
 	}
 
+	if sp == nil {
+		return nil, nil
+	}
+
 	date := formatter(sp[0].(Page))
 	var r []PageGroup
 	r = append(r, PageGroup{Key: date, Pages: make(Pages, 0)})
@@ -284,28 +289,55 @@ func (p Pages) GroupByExpiryDate(format string, order ...string) (PagesGroup, er
 	return p.groupByDateField(sorter, formatter, order...)
 }
 
+// GroupByLastmod groups by the given page's Lastmod value in
+// the given format and with the given order.
+// Valid values for order is asc, desc, rev and reverse.
+// For valid format strings, see https://golang.org/pkg/time/#Time.Format
+func (p Pages) GroupByLastmod(format string, order ...string) (PagesGroup, error) {
+	sorter := func(p Pages) Pages {
+		return p.ByLastmod()
+	}
+	formatter := func(p Page) string {
+		return p.Lastmod().Format(format)
+	}
+	return p.groupByDateField(sorter, formatter, order...)
+}
+
 // GroupByParamDate groups by a date set as a param on the page in
 // the given format and with the given order.
 // Valid values for order is asc, desc, rev and reverse.
 // For valid format strings, see https://golang.org/pkg/time/#Time.Format
 func (p Pages) GroupByParamDate(key string, format string, order ...string) (PagesGroup, error) {
-	sorter := func(p Pages) Pages {
+	// Cache the dates.
+	dates := make(map[Page]time.Time)
+
+	sorter := func(pages Pages) Pages {
 		var r Pages
-		for _, e := range p {
-			param := resource.GetParamToLower(e, key)
-			if _, ok := param.(time.Time); ok {
-				r = append(r, e)
+
+		for _, p := range pages {
+			param := resource.GetParamToLower(p, key)
+			var t time.Time
+
+			if param != nil {
+				var ok bool
+				if t, ok = param.(time.Time); !ok {
+					// Probably a string. Try to convert it to time.Time.
+					t = cast.ToTime(param)
+				}
 			}
+
+			dates[p] = t
+			r = append(r, p)
 		}
+
 		pdate := func(p1, p2 Page) bool {
-			p1p, p2p := p1.(Page), p2.(Page)
-			return resource.GetParamToLower(p1p, key).(time.Time).Unix() < resource.GetParamToLower(p2p, key).(time.Time).Unix()
+			return dates[p1].Unix() < dates[p2].Unix()
 		}
 		pageBy(pdate).Sort(r)
 		return r
 	}
 	formatter := func(p Page) string {
-		return resource.GetParamToLower(p, key).(time.Time).Format(format)
+		return dates[p].Format(format)
 	}
 	return p.groupByDateField(sorter, formatter, order...)
 }
