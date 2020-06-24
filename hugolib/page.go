@@ -132,6 +132,7 @@ func (p *pageState) GitInfo() *gitmap.GitInfo {
 }
 
 // GetTerms gets the terms defined on this page in the given taxonomy.
+// The pages returned will be ordered according to the front matter.
 func (p *pageState) GetTerms(taxonomy string) page.Pages {
 	if p.treeRef == nil {
 		return nil
@@ -147,8 +148,9 @@ func (p *pageState) GetTerms(taxonomy string) page.Pages {
 
 	m.taxonomies.WalkQuery(pageMapQuery{Prefix: prefix}, func(s string, n *contentNode) bool {
 		key := s + self
-		if _, found := m.taxonomyEntries.Get(key); found {
-			pas = append(pas, n.p)
+		if tn, found := m.taxonomyEntries.Get(key); found {
+			vi := tn.(*contentNode).viewInfo
+			pas = append(pas, pageWithOrdinal{pageState: n.p, ordinal: vi.ordinal})
 		}
 		return false
 	})
@@ -210,9 +212,9 @@ func (p *pageState) RegularPages() page.Pages {
 
 		switch p.Kind() {
 		case page.KindPage:
-		case page.KindSection, page.KindHome, page.KindTaxonomyTerm:
+		case page.KindSection, page.KindHome, page.KindTaxonomy:
 			pages = p.getPages()
-		case page.KindTaxonomy:
+		case page.KindTerm:
 			all := p.Pages()
 			for _, p := range all {
 				if p.IsPage() {
@@ -238,9 +240,9 @@ func (p *pageState) Pages() page.Pages {
 		case page.KindPage:
 		case page.KindSection, page.KindHome:
 			pages = p.getPagesAndSections()
-		case page.KindTaxonomy:
+		case page.KindTerm:
 			pages = p.bucket.getTaxonomyEntries()
-		case page.KindTaxonomyTerm:
+		case page.KindTaxonomy:
 			pages = p.bucket.getTaxonomies()
 		default:
 			pages = p.s.Pages()
@@ -434,7 +436,7 @@ func (p *pageState) getLayoutDescriptor() output.LayoutDescriptor {
 			if len(sections) > 0 {
 				section = sections[0]
 			}
-		case page.KindTaxonomyTerm, page.KindTaxonomy:
+		case page.KindTaxonomy, page.KindTerm:
 			b := p.getTreeRef().n
 			section = b.viewInfo.name.singular
 		default:
@@ -1005,4 +1007,23 @@ func (s *Site) sectionsFromFile(fi source.File) []string {
 	}
 
 	return parts
+}
+
+var (
+	_ page.Page         = (*pageWithOrdinal)(nil)
+	_ collections.Order = (*pageWithOrdinal)(nil)
+	_ pageWrapper       = (*pageWithOrdinal)(nil)
+)
+
+type pageWithOrdinal struct {
+	ordinal int
+	*pageState
+}
+
+func (p pageWithOrdinal) Ordinal() int {
+	return p.ordinal
+}
+
+func (p pageWithOrdinal) page() page.Page {
+	return p.pageState
 }

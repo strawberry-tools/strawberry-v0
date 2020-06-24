@@ -49,8 +49,10 @@ func preparePageGroupTestPages(t *testing.T) Pages {
 		p.date = cast.ToTime(src.date)
 		p.pubDate = cast.ToTime(src.date)
 		p.expiryDate = cast.ToTime(src.date)
+		p.lastMod = cast.ToTime(src.date).AddDate(3, 0, 0)
 		p.params["custom_param"] = src.param
 		p.params["custom_date"] = cast.ToTime(src.date)
+		p.params["custom_string_date"] = src.date
 		pages = append(pages, p)
 	}
 	return pages
@@ -375,6 +377,61 @@ func TestGroupByParamDate(t *testing.T) {
 	}
 	if !reflect.DeepEqual(groups, expect) {
 		t.Errorf("PagesGroup has unexpected groups. It should be %#v, got %#v", expect, groups)
+	}
+}
+
+// https://github.com/gohugoio/hugo/issues/3983
+func TestGroupByParamDateWithStringParams(t *testing.T) {
+	t.Parallel()
+	pages := preparePageGroupTestPages(t)
+	expect := PagesGroup{
+		{Key: "2012-04", Pages: Pages{pages[4], pages[2], pages[0]}},
+		{Key: "2012-03", Pages: Pages{pages[3]}},
+		{Key: "2012-01", Pages: Pages{pages[1]}},
+	}
+
+	groups, err := pages.GroupByParamDate("custom_string_date", "2006-01")
+	if err != nil {
+		t.Fatalf("Unable to make PagesGroup array: %s", err)
+	}
+	if !reflect.DeepEqual(groups, expect) {
+		t.Errorf("PagesGroup has unexpected groups. It should be %#v, got %#v", expect, groups)
+	}
+}
+
+func TestGroupByLastmod(t *testing.T) {
+	t.Parallel()
+	pages := preparePageGroupTestPages(t)
+	expect := PagesGroup{
+		{Key: "2015-04", Pages: Pages{pages[4], pages[2], pages[0]}},
+		{Key: "2015-03", Pages: Pages{pages[3]}},
+		{Key: "2015-01", Pages: Pages{pages[1]}},
+	}
+
+	groups, err := pages.GroupByLastmod("2006-01")
+	if err != nil {
+		t.Fatalf("Unable to make PagesGroup array: %s", err)
+	}
+	if !reflect.DeepEqual(groups, expect) {
+		t.Errorf("PagesGroup has unexpected groups. It should be %#v, got %#v", expect, groups)
+	}
+}
+
+func TestGroupByLastmodInReverseOrder(t *testing.T) {
+	t.Parallel()
+	pages := preparePageGroupTestPages(t)
+	expect := PagesGroup{
+		{Key: "2015-01", Pages: Pages{pages[1]}},
+		{Key: "2015-03", Pages: Pages{pages[3]}},
+		{Key: "2015-04", Pages: Pages{pages[0], pages[2], pages[4]}},
+	}
+
+	groups, err := pages.GroupByLastmod("2006-01", "asc")
+	if err != nil {
+		t.Fatalf("Unable to make PagesGroup array: %s", err)
+	}
+	if !reflect.DeepEqual(groups, expect) {
+		t.Errorf("PagesGroup has unexpected groups. It should be\n%#v, got\n%#v", expect, groups)
 	}
 }
 

@@ -281,9 +281,14 @@ func (s *sitesBuilder) WithSimpleConfigFile() *sitesBuilder {
 
 func (s *sitesBuilder) WithSimpleConfigFileAndBaseURL(baseURL string) *sitesBuilder {
 	s.T.Helper()
-	config := fmt.Sprintf("baseURL = %q", baseURL)
+	return s.WithSimpleConfigFileAndSettings(map[string]interface{}{"baseURL": baseURL})
+}
 
-	config = config + commonConfigSections
+func (s *sitesBuilder) WithSimpleConfigFileAndSettings(settings interface{}) *sitesBuilder {
+	s.T.Helper()
+	var buf bytes.Buffer
+	parser.InterfaceToConfig(settings, metadecoders.TOML, &buf)
+	config := buf.String() + commonConfigSections
 	return s.WithConfigFile("toml", config)
 }
 
@@ -749,6 +754,12 @@ func (s *sitesBuilder) AssertFileContentInvert(filename string, matches ...strin
 	}
 }
 
+func (s *sitesBuilder) AssertFileDoesNotExist(filename string) {
+	if s.CheckExists(filename) {
+		s.Fatalf("File %q exists but must not exist.", filename)
+	}
+}
+
 func (s *sitesBuilder) AssertImage(width, height int, filename string) {
 	filename = filepath.Join(s.workingDir, filename)
 	f, err := s.Fs.Destination.Open(filename)
@@ -1088,6 +1099,21 @@ func captureStderr(f func() error) (string, error) {
 
 	w.Close()
 	os.Stderr = old
+
+	var buf bytes.Buffer
+	io.Copy(&buf, r)
+	return buf.String(), err
+}
+
+func captureStdout(f func() error) (string, error) {
+	old := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	err := f()
+
+	w.Close()
+	os.Stdout = old
 
 	var buf bytes.Buffer
 	io.Copy(&buf, r)

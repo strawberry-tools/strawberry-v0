@@ -626,7 +626,7 @@ baseURL = "http://example.com/blog"
 
 paginate = 1
 
-disableKinds = ["section", "taxonomy", "taxonomyTerm", "RSS", "sitemap", "robotsTXT", "404"]
+disableKinds = ["section", "term", "taxonomy", "RSS", "sitemap", "robotsTXT", "404"]
 
 [outputs]
 home = [ "HTML", "AMP", "Calendar" ]
@@ -1314,5 +1314,25 @@ title: "Hugo Rocks!"
 
 		})
 	}
+
+}
+
+// https://github.com/gohugoio/hugo/issues/6857
+func TestShortcodeNoInner(t *testing.T) {
+	t.Parallel()
+
+	b := newTestSitesBuilder(t)
+
+	b.WithContent("page.md", `---
+title: "No Inner!"
+---
+{{< noinner >}}{{< /noinner >}}
+
+
+`).WithTemplatesAdded(
+		"layouts/shortcodes/noinner.html", `No inner here.`)
+
+	err := b.BuildE(BuildCfg{})
+	b.Assert(err.Error(), qt.Contains, `failed to extract shortcode: shortcode "noinner" has no .Inner, yet a closing tag was provided`)
 
 }

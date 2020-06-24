@@ -28,7 +28,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gothamhq/gotham/common/constants"
 	"github.com/gothamhq/gotham/resources"
+
+	"github.com/gothamhq/gotham/common/loggers"
 
 	"github.com/gothamhq/gotham/identity"
 
@@ -397,10 +400,32 @@ func newSite(cfg deps.DepsCfg) (*Site, error) {
 	if cfg.Language == nil {
 		cfg.Language = langs.NewDefaultLanguage(cfg.Cfg)
 	}
+	if cfg.Logger == nil {
+		panic("logger must be set")
+	}
+
+	ignoreErrors := cast.ToStringSlice(cfg.Language.Get("ignoreErrors"))
+	ignorableLogger := loggers.NewIgnorableLogger(cfg.Logger, ignoreErrors...)
 
 	disabledKinds := make(map[string]bool)
 	for _, disabled := range cast.ToStringSlice(cfg.Language.Get("disableKinds")) {
 		disabledKinds[disabled] = true
+	}
+
+	if disabledKinds["taxonomyTerm"] {
+		// Correct from the value it had before Hugo 0.73.0.
+		if disabledKinds[page.KindTaxonomy] {
+			disabledKinds[page.KindTerm] = true
+		} else {
+			disabledKinds[page.KindTaxonomy] = true
+		}
+
+		delete(disabledKinds, "taxonomyTerm")
+	} else if disabledKinds[page.KindTaxonomy] && !disabledKinds[page.KindTerm] {
+		// This is a potentially ambigous situation. It may be correct.
+		ignorableLogger.Errorf(constants.ErrIDAmbigousDisableKindTaxonomy, `You have the value 'taxonomy' in the disabledKinds list. In Hugo 0.73.0 we fixed these to be what most people expect (taxonomy and term).
+But this also means that your site configuration may not do what you expect. If it is correct, you can suppress this message by following the instructions below.`)
+
 	}
 
 	var (
@@ -444,7 +469,30 @@ func newSite(cfg deps.DepsCfg) (*Site, error) {
 		siteOutputFormatsConfig = tmp
 	}
 
-	outputFormats, err := createSiteOutputFormats(siteOutputFormatsConfig, cfg.Language, rssDisabled)
+	var siteOutputs map[string]interface{}
+	if cfg.Language.IsSet("outputs") {
+		siteOutputs = cfg.Language.GetStringMap("outputs")
+
+		// Check and correct taxonomy kinds vs pre Hugo 0.73.0.
+		v1, hasTaxonomyTerm := siteOutputs["taxonomyterm"]
+		v2, hasTaxonomy := siteOutputs[page.KindTaxonomy]
+		_, hasTerm := siteOutputs[page.KindTerm]
+		if hasTaxonomy && hasTaxonomyTerm {
+			siteOutputs[page.KindTaxonomy] = v1
+			siteOutputs[page.KindTerm] = v2
+			delete(siteOutputs, "taxonomyTerm")
+		} else if hasTaxonomy && !hasTerm {
+			// This is a potentially ambigous situation. It may be correct.
+			ignorableLogger.Errorf(constants.ErrIDAmbigousOutputKindTaxonomy, `You have configured output formats for 'taxonomy' in your site configuration. In Hugo 0.73.0 we fixed these to be what most people expect (taxonomy and term).
+But this also means that your site configuration may not do what you expect. If it is correct, you can suppress this message by following the instructions below.`)
+		}
+		if !hasTaxonomy && hasTaxonomyTerm {
+			siteOutputs[page.KindTaxonomy] = v1
+			delete(siteOutputs, "taxonomyterm")
+		}
+	}
+
+	outputFormats, err := createSiteOutputFormats(siteOutputFormatsConfig, siteOutputs, rssDisabled)
 	if err != nil {
 		return nil, err
 	}
@@ -1160,8 +1208,10 @@ func (s *Site) render(ctx *siteRenderContext) (err error) {
 			return
 		}
 
-		if err = s.renderRobotsTXT(); err != nil {
-			return
+		if ctx.multihost {
+			if err = s.renderRobotsTXT(); err != nil {
+				return
+			}
 		}
 
 		if err = s.render404(); err != nil {
@@ -1296,13 +1346,11 @@ func (s *Site) readAndProcessContent(filenames ...string) error {
 
 	proc := newPagesProcessor(s.h, sourceSpec)
 
-	c := newPagesCollector(sourceSpec, s.h.content, s.Log, s.h.ContentChanges, proc, filenames...)
+	c := newPagesCollector(sourceSpec, s.h.getContentMaps(), s.Log, s.h.ContentChanges, proc, filenames...)
 
 	if err := c.Collect(); err != nil {
 		return err
 	}
-
-	s.h.content = newPageMaps(s.h)
 
 	return nil
 }
@@ -1540,7 +1588,21 @@ func (s *SiteInfo) GetPage(ref ...string) (page.Page, error) {
 
 func (s *Site) permalink(link string) string {
 	return s.PathSpec.PermalinkForBaseURL(link, s.PathSpec.BaseURL.String())
+}
 
+func (s *Site) absURLPath(targetPath string) string {
+	var path string
+	if s.Info.relativeURLs {
+		path = helpers.GetDottedRelativePath(targetPath)
+	} else {
+		url := s.PathSpec.BaseURL.String()
+		if !strings.HasSuffix(url, "/") {
+			url += "/"
+		}
+		path = url
+	}
+
+	return path
 }
 
 func (s *Site) lookupLayouts(layouts ...string) tpl.Template {
@@ -1562,17 +1624,6 @@ func (s *Site) renderAndWriteXML(statCounter *uint64, name string, targetPath st
 		return err
 	}
 
-	var path string
-	if s.Info.relativeURLs {
-		path = helpers.GetDottedRelativePath(targetPath)
-	} else {
-		s := s.PathSpec.BaseURL.String()
-		if !strings.HasSuffix(s, "/") {
-			s += "/"
-		}
-		path = s
-	}
-
 	pd := publisher.Descriptor{
 		Src:         renderBuffer,
 		TargetPath:  targetPath,
@@ -1580,14 +1631,14 @@ func (s *Site) renderAndWriteXML(statCounter *uint64, name string, targetPath st
 		// For the minification part of XML,
 		// we currently only use the MIME type.
 		OutputFormat: output.RSSFormat,
-		AbsURLPath:   path,
+		AbsURLPath:   s.absURLPath(targetPath),
 	}
 
 	return s.publisher.Publish(pd)
-
 }
 
 func (s *Site) renderAndWritePage(statCounter *uint64, name string, targetPath string, p *pageState, templ tpl.Template) error {
+	s.Log.DEBUG.Printf("Render %s to %q", name, targetPath)
 	renderBuffer := bp.GetBuffer()
 	defer bp.PutBuffer(renderBuffer)
 
@@ -1604,18 +1655,6 @@ func (s *Site) renderAndWritePage(statCounter *uint64, name string, targetPath s
 	isHTML := of.IsHTML
 	isRSS := of.Name == "RSS"
 
-	var path string
-
-	if s.Info.relativeURLs {
-		path = helpers.GetDottedRelativePath(targetPath)
-	} else if isRSS || s.Info.canonifyURLs {
-		url := s.PathSpec.BaseURL.String()
-		if !strings.HasSuffix(url, "/") {
-			url += "/"
-		}
-		path = url
-	}
-
 	pd := publisher.Descriptor{
 		Src:          renderBuffer,
 		TargetPath:   targetPath,
@@ -1625,10 +1664,10 @@ func (s *Site) renderAndWritePage(statCounter *uint64, name string, targetPath s
 
 	if isRSS {
 		// Always canonify URLs in RSS
-		pd.AbsURLPath = path
+		pd.AbsURLPath = s.absURLPath(targetPath)
 	} else if isHTML {
 		if s.Info.relativeURLs || s.Info.canonifyURLs {
-			pd.AbsURLPath = path
+			pd.AbsURLPath = s.absURLPath(targetPath)
 		}
 
 		if s.running() && s.Cfg.GetBool("watch") && !s.Cfg.GetBool("disableLiveReload") {
@@ -1719,11 +1758,11 @@ func (s *Site) kindFromSections(sections []string) string {
 func (s *Site) kindFromSectionPath(sectionPath string) string {
 	for _, plural := range s.siteCfg.taxonomiesConfig {
 		if plural == sectionPath {
-			return page.KindTaxonomyTerm
+			return page.KindTaxonomy
 		}
 
 		if strings.HasPrefix(sectionPath, plural) {
-			return page.KindTaxonomy
+			return page.KindTerm
 		}
 
 	}

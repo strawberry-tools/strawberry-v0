@@ -255,8 +255,10 @@ func doTestMultiSitesBuild(t *testing.T, configTemplate, configSuffix string) {
 	b.AssertFileContent("public/fr/404.html", "404|fr|404 Page not found")
 
 	// Check robots.txt
-	b.AssertFileContent("public/en/robots.txt", "robots|en|")
-	b.AssertFileContent("public/nn/robots.txt", "robots|nn|")
+	// the domain root is the public directory, so the robots.txt has to be created there and not in the language directories
+	b.AssertFileContent("public/robots.txt", "robots")
+	b.AssertFileDoesNotExist("public/en/robots.txt")
+	b.AssertFileDoesNotExist("public/nn/robots.txt")
 
 	b.AssertFileContent("public/en/sect/doc1-slug/index.html", "Permalink: http://example.com/blog/en/sect/doc1-slug/")
 	b.AssertFileContent("public/en/sect/doc2/index.html", "Permalink: http://example.com/blog/en/sect/doc2/")
@@ -339,14 +341,14 @@ func doTestMultiSitesBuild(t *testing.T, configTemplate, configSuffix string) {
 
 	nnSite := sites[2]
 	c.Assert(nnSite.language.Lang, qt.Equals, "nn")
-	taxNn := nnSite.getPage(page.KindTaxonomyTerm, "lag")
+	taxNn := nnSite.getPage(page.KindTaxonomy, "lag")
 	c.Assert(taxNn, qt.Not(qt.IsNil))
 	c.Assert(len(taxNn.Translations()), qt.Equals, 1)
 	c.Assert(taxNn.Translations()[0].Language().Lang, qt.Equals, "nb")
 
-	taxTermNn := nnSite.getPage(page.KindTaxonomy, "lag", "sogndal")
+	taxTermNn := nnSite.getPage(page.KindTerm, "lag", "sogndal")
 	c.Assert(taxTermNn, qt.Not(qt.IsNil))
-	c.Assert(nnSite.getPage(page.KindTaxonomy, "LAG", "SOGNDAL"), qt.Equals, taxTermNn)
+	c.Assert(nnSite.getPage(page.KindTerm, "LAG", "SOGNDAL"), qt.Equals, taxTermNn)
 	c.Assert(len(taxTermNn.Translations()), qt.Equals, 1)
 	c.Assert(taxTermNn.Translations()[0].Language().Lang, qt.Equals, "nb")
 

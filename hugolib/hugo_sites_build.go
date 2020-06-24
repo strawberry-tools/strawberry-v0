@@ -263,7 +263,7 @@ func (h *HugoSites) assemble(bcfg *BuildCfg) error {
 		return nil
 	}
 
-	if err := h.content.AssemblePages(); err != nil {
+	if err := h.getContentMaps().AssemblePages(); err != nil {
 		return err
 	}
 
@@ -334,7 +334,10 @@ func (h *HugoSites) render(config *BuildCfg) error {
 	}
 
 	if !config.SkipRender {
-		if err := h.renderCrossSitesArtifacts(); err != nil {
+		if err := h.renderCrossSitesSitemap(); err != nil {
+			return err
+		}
+		if err := h.renderCrossSitesRobotsTXT(); err != nil {
 			return err
 		}
 	}
