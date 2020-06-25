@@ -70,9 +70,12 @@ jobs:
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
+      - run:
+          name: "Generate Go Test Cache Timestamp"
+          command: ./scripts/timestamp-generator.sh
       - go/load-cache
       - restore_cache:
-          key: "go-test-cache-v1-{{ arch }}"
+          key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
       - run:
           name: "Pull & Verify Dependencies"
           command: |
@@ -86,7 +89,7 @@ jobs:
           command: mage -v check
       - go/save-cache
       - save_cache:
-          key: "go-test-cache-v1-{{ arch }}"
+          key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
           paths:
             - "/home/circleci/.cache/go-build"
       - run:
@@ -107,9 +110,12 @@ jobs:
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
+      - run:
+          name: "Generate Go Test Cache Timestamp"
+          command: ./scripts/timestamp-generator.sh
       - go/load-cache
       - restore_cache:
-          key: "go-test-cache-v3-{{ arch }}"
+          key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
       - run:
           name: "Pull & Verify Dependencies"
           command: |
@@ -123,7 +129,7 @@ jobs:
           command: mage -v check
       - go/save-cache
       - save_cache:
-          key: "go-test-cache-v3-{{ arch }}"
+          key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
           paths:
             - "/Users/distiller/Library/Caches/go-build"
       - run:
