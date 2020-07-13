@@ -18,7 +18,7 @@ import (
 	"path/filepath"
 	"reflect"
 
-	"github.com/gothamhq/gotham/markup/asciidoc"
+	"github.com/gothamhq/gotham/markup/asciidocext"
 	"github.com/gothamhq/gotham/markup/rst"
 
 	"github.com/spf13/viper"
@@ -552,7 +552,7 @@ title: "Foo"
 
 	temp := tests[:0]
 	for _, test := range tests {
-		if strings.HasSuffix(test.contentPath, ".ad") && !asciidoc.Supports() {
+		if strings.HasSuffix(test.contentPath, ".ad") && !asciidocext.Supports() {
 			t.Log("Skip Asciidoc test case as no Asciidoc present.")
 			continue
 		} else if strings.HasSuffix(test.contentPath, ".rst") && !rst.Supports() {

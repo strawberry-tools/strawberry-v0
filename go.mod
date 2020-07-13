@@ -15,9 +15,12 @@ require (
 	github.com/bep/tmc v0.5.1
 	github.com/disintegration/gift v1.2.1
 	github.com/dustin/go-humanize v1.0.0
+	github.com/evanw/esbuild v0.6.2
 	github.com/fortytw2/leaktest v1.3.0
 	github.com/frankban/quicktest v1.7.2
 	github.com/fsnotify/fsnotify v1.4.7
+	github.com/getkin/kin-openapi v0.14.0
+	github.com/ghodss/yaml v1.0.0
 	github.com/gobwas/glob v0.2.3
 	github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95
 	github.com/google/go-cmp v0.3.2-0.20191028172631-481baca67f93
@@ -34,7 +37,7 @@ require (
 	github.com/muesli/smartcrop v0.3.0
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/nicksnyder/go-i18n v1.10.0
-	github.com/niklasfasching/go-org v1.1.0
+	github.com/niklasfasching/go-org v1.3.0
 	github.com/olekukonko/tablewriter v0.0.4
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1
@@ -66,7 +69,7 @@ require (
 	google.golang.org/genproto v0.0.0-20190522204451-c2c4e71fbf69 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
-	gopkg.in/yaml.v2 v2.2.7
+	gopkg.in/yaml.v2 v2.3.0
 )
 
 replace github.com/markbates/inflect => github.com/markbates/inflect v0.0.0-20171215194931-a12c3aec81a6

@@ -24,7 +24,7 @@ import (
 
 	"github.com/gothamhq/gotham/markup/org"
 
-	"github.com/gothamhq/gotham/markup/asciidoc"
+	"github.com/gothamhq/gotham/markup/asciidocext"
 	"github.com/gothamhq/gotham/markup/blackfriday"
 	"github.com/gothamhq/gotham/markup/converter"
 	"github.com/gothamhq/gotham/markup/mmark"
@@ -76,7 +76,7 @@ func NewConverterProvider(cfg converter.ProviderConfig) (ConverterProvider, erro
 	if err := add(mmark.Provider); err != nil {
 		return nil, err
 	}
-	if err := add(asciidoc.Provider, "ad", "adoc"); err != nil {
+	if err := add(asciidocext.Provider, "ad", "adoc"); err != nil {
 		return nil, err
 	}
 	if err := add(rst.Provider); err != nil {
