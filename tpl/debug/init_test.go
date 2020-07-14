@@ -1,4 +1,4 @@
-// Copyright 2019 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Hugo Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,25 +11,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org
+package debug
 
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/common/loggers"
-
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/gothamhq/gotham/htesting/hqt"
 
 	qt "github.com/frankban/quicktest"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/tpl/internal"
 )
 
-func TestConvert(t *testing.T) {
+func TestInit(t *testing.T) {
 	c := qt.New(t)
-	p, err := Provider.New(converter.ProviderConfig{Logger: loggers.NewErrorLogger()})
-	c.Assert(err, qt.IsNil)
-	conv, err := p.New(converter.DocumentContext{})
-	c.Assert(err, qt.IsNil)
-	b, err := conv.Convert(converter.RenderContext{Src: []byte("testContent")})
-	c.Assert(err, qt.IsNil)
-	c.Assert(string(b.Bytes()), qt.Equals, "<p>testContent</p>\n")
+	var found bool
+	var ns *internal.TemplateFuncsNamespace
+
+	for _, nsf := range internal.TemplateFuncsNamespaceRegistry {
+		ns = nsf(&deps.Deps{Log: loggers.NewErrorLogger()})
+		if ns.Name == name {
+			found = true
+			break
+		}
+	}
+
+	c.Assert(found, qt.Equals, true)
+	c.Assert(ns.Context(), hqt.IsSameType, &Namespace{})
 }

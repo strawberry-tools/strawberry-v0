@@ -1,4 +1,4 @@
-// Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Hugo Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,12 +11,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package hugo
+package openapi3
 
-// CurrentVersion represents the current build version.
-// This should be the only one.
-var CurrentVersion = Version{
-	Number:     0.75,
-	PatchLevel: 0,
-	Suffix:     "-DEV",
+import (
+	"github.com/gothamhq/gotham/deps"
+	"github.com/gothamhq/gotham/tpl/internal"
+)
+
+const name = "openapi3"
+
+func init() {
+	f := func(d *deps.Deps) *internal.TemplateFuncsNamespace {
+		ctx := New(d)
+
+		ns := &internal.TemplateFuncsNamespace{
+			Name:    name,
+			Context: func(args ...interface{}) interface{} { return ctx },
+		}
+
+		ns.AddMethodMapping(ctx.Unmarshal,
+			nil,
+			[][2]string{},
+		)
+
+		return ns
+
+	}
+
+	internal.AddTemplateFuncsNamespace(f)
 }

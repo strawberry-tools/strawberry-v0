@@ -20,11 +20,11 @@ import (
 	"testing"
 
 	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/resources/resource"
 
 	"github.com/gothamhq/gotham/media"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/spf13/viper"
 )
 

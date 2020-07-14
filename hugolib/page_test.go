@@ -20,7 +20,7 @@ import (
 
 	"github.com/gothamhq/gotham/markup/rst"
 
-	"github.com/gothamhq/gotham/markup/asciidoc"
+	"github.com/gothamhq/gotham/markup/asciidocext"
 
 	"github.com/gothamhq/gotham/config"
 
@@ -377,7 +377,7 @@ func testAllMarkdownEnginesForPages(t *testing.T,
 	}{
 		{"md", func() bool { return true }},
 		{"mmark", func() bool { return true }},
-		{"ad", func() bool { return asciidoc.Supports() }},
+		{"ad", func() bool { return asciidocext.Supports() }},
 		{"rst", func() bool { return rst.Supports() }},
 	}
 

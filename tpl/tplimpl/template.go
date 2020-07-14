@@ -138,7 +138,7 @@ func newTemplateExec(d *deps.Deps) (*templateExec, error) {
 		baseof:       make(map[string]templateInfo),
 		needsBaseof:  make(map[string]templateInfo),
 
-		main: newTemplateNamespace(funcMap, false),
+		main: newTemplateNamespace(funcMap),
 
 		Deps:                d,
 		layoutHandler:       output.NewLayoutHandler(),
@@ -174,17 +174,11 @@ func newTemplateExec(d *deps.Deps) (*templateExec, error) {
 	return e, nil
 }
 
-func newTemplateNamespace(funcs map[string]interface{}, lock bool) *templateNamespace {
-	var mu *sync.RWMutex
-	if lock {
-		mu = &sync.RWMutex{}
-	}
-
+func newTemplateNamespace(funcs map[string]interface{}) *templateNamespace {
 	return &templateNamespace{
 		prototypeHTML: htmltemplate.New("").Funcs(funcs),
 		prototypeText: texttemplate.New("").Funcs(funcs),
 		templateStateMap: &templateStateMap{
-			mu:        mu,
 			templates: make(map[string]*templateState),
 		},
 	}
@@ -354,6 +348,23 @@ func (t *templateHandler) LookupVariant(name string, variants tpl.TemplateVarian
 
 }
 
+// LookupVariants returns all variants of name, nil if none found.
+func (t *templateHandler) LookupVariants(name string) []tpl.Template {
+	name = templateBaseName(templateShortcode, name)
+	s, found := t.shortcodes[name]
+	if !found {
+		return nil
+	}
+
+	variants := make([]tpl.Template, len(s.variants))
+	for i := 0; i < len(variants); i++ {
+		variants[i] = s.variants[i].ts
+	}
+
+	return variants
+
+}
+
 func (t *templateHandler) HasTemplate(name string) bool {
 
 	if _, found := t.baseof[name]; found {
@@ -408,6 +419,10 @@ func (t *templateHandler) findLayout(d output.LayoutDescriptor, f output.Format)
 		}
 
 		t.applyTemplateTransformers(t.main, ts)
+
+		if err := t.extractPartials(ts.Template); err != nil {
+			return nil, false, err
+		}
 
 		return ts, true, nil
 
@@ -719,10 +734,66 @@ func (t *templateHandler) noBaseNeeded(name string) bool {
 	return strings.Contains(name, "_markup/")
 }
 
+func (t *templateHandler) extractPartials(templ tpl.Template) error {
+	templs := templates(templ)
+	for _, templ := range templs {
+		if templ.Name() == "" || !strings.HasPrefix(templ.Name(), "partials/") {
+			continue
+		}
+
+		ts := newTemplateState(templ, templateInfo{name: templ.Name()})
+		ts.typ = templatePartial
+
+		t.main.mu.RLock()
+		_, found := t.main.templates[templ.Name()]
+		t.main.mu.RUnlock()
+
+		if !found {
+			t.main.mu.Lock()
+			// This is a template defined inline.
+			_, err := applyTemplateTransformers(ts, t.main.newTemplateLookup(ts))
+			if err != nil {
+				t.main.mu.Unlock()
+				return err
+			}
+			t.main.templates[templ.Name()] = ts
+			t.main.mu.Unlock()
+
+		}
+	}
+
+	return nil
+
+}
+
 func (t *templateHandler) postTransform() error {
+	defineCheckedHTML := false
+	defineCheckedText := false
+
 	for _, v := range t.main.templates {
 		if v.typ == templateShortcode {
 			t.addShortcodeVariant(v)
+		}
+
+		if defineCheckedHTML && defineCheckedText {
+			continue
+		}
+
+		isText := isText(v.Template)
+		if isText {
+			if defineCheckedText {
+				continue
+			}
+			defineCheckedText = true
+		} else {
+			if defineCheckedHTML {
+				continue
+			}
+			defineCheckedHTML = true
+		}
+
+		if err := t.extractPartials(v.Template); err != nil {
+			return err
 		}
 	}
 
@@ -758,20 +829,12 @@ type templateNamespace struct {
 	*templateStateMap
 }
 
-func (t templateNamespace) Clone(lock bool) *templateNamespace {
-	if t.mu != nil {
-		t.mu.Lock()
-		defer t.mu.Unlock()
-	}
-
-	var mu *sync.RWMutex
-	if lock {
-		mu = &sync.RWMutex{}
-	}
+func (t templateNamespace) Clone() *templateNamespace {
+	t.mu.Lock()
+	defer t.mu.Unlock()
 
 	t.templateStateMap = &templateStateMap{
 		templates: make(map[string]*templateState),
-		mu:        mu,
 	}
 
 	t.prototypeText = texttemplate.Must(t.prototypeText.Clone())
@@ -781,18 +844,12 @@ func (t templateNamespace) Clone(lock bool) *templateNamespace {
 }
 
 func (t *templateNamespace) Lookup(name string) (tpl.Template, bool) {
-	if t.mu != nil {
-		t.mu.RLock()
-		defer t.mu.RUnlock()
-	}
+	t.mu.RLock()
+	defer t.mu.RUnlock()
 
 	templ, found := t.templates[name]
 	if !found {
 		return nil, false
-	}
-
-	if t.mu != nil {
-		return &templateWrapperWithLock{RWMutex: t.mu, Template: templ}, true
 	}
 
 	return templ, found
@@ -822,10 +879,8 @@ func (t *templateNamespace) newTemplateLookup(in *templateState) func(name strin
 }
 
 func (t *templateNamespace) parse(info templateInfo) (*templateState, error) {
-	if t.mu != nil {
-		t.mu.Lock()
-		defer t.mu.Unlock()
-	}
+	t.mu.Lock()
+	defer t.mu.Unlock()
 
 	if info.isText {
 		prototype := t.prototypeText
@@ -872,12 +927,17 @@ func (t *templateState) ParseInfo() tpl.ParseInfo {
 }
 
 func (t *templateState) isText() bool {
-	_, isText := t.Template.(*texttemplate.Template)
+	return isText(t.Template)
+}
+
+func isText(templ tpl.Template) bool {
+	_, isText := templ.(*texttemplate.Template)
 	return isText
+
 }
 
 type templateStateMap struct {
-	mu        *sync.RWMutex // May be nil
+	mu        sync.RWMutex
 	templates map[string]*templateState
 }
 
@@ -905,6 +965,10 @@ func (t *textTemplateWrapperWithLock) Lookup(name string) (tpl.Template, bool) {
 }
 
 func (t *textTemplateWrapperWithLock) LookupVariant(name string, variants tpl.TemplateVariants) (tpl.Template, bool, bool) {
+	panic("not supported")
+}
+
+func (t *textTemplateWrapperWithLock) LookupVariants(name string) []tpl.Template {
 	panic("not supported")
 }
 
@@ -959,4 +1023,23 @@ func unwrap(templ tpl.Template) tpl.Template {
 		return ts.Template
 	}
 	return templ
+}
+
+func templates(in tpl.Template) []tpl.Template {
+	var templs []tpl.Template
+	in = unwrap(in)
+	if textt, ok := in.(*texttemplate.Template); ok {
+		for _, t := range textt.Templates() {
+			templs = append(templs, t)
+		}
+	}
+
+	if htmlt, ok := in.(*htmltemplate.Template); ok {
+		for _, t := range htmlt.Templates() {
+			templs = append(templs, t)
+		}
+	}
+
+	return templs
+
 }

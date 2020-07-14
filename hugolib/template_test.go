@@ -598,3 +598,126 @@ func collectIdentities(set map[identity.Identity]bool, provider identity.Provide
 func ident(level int) string {
 	return strings.Repeat(" ", level)
 }
+
+func TestPartialInline(t *testing.T) {
+
+	b := newTestSitesBuilder(t)
+
+	b.WithContent("p1.md", "")
+
+	b.WithTemplates(
+		"index.html", `
+
+{{ $p1 := partial "p1" . }}
+{{ $p2 := partial "p2" . }}
+
+P1: {{ $p1 }}
+P2: {{ $p2 }}
+
+{{ define "partials/p1" }}Inline: p1{{ end }}
+
+{{ define "partials/p2" }}
+{{ $value := 32 }}
+{{ return $value }}
+{{ end }}
+
+
+`,
+	)
+
+	b.CreateSites().Build(BuildCfg{})
+
+	b.AssertFileContent("public/index.html",
+		`
+P1: Inline: p1
+P2: 32`,
+	)
+
+}
+
+func TestPartialInlineBase(t *testing.T) {
+
+	b := newTestSitesBuilder(t)
+
+	b.WithContent("p1.md", "")
+
+	b.WithTemplates(
+		"baseof.html", `{{ $p3 := partial "p3" . }}P3: {{ $p3 }}
+{{ block "main" . }}{{ end }}{{ define "partials/p3" }}Inline: p3{{ end }}`,
+		"index.html", `
+{{ define "main" }}
+
+{{ $p1 := partial "p1" . }}
+{{ $p2 := partial "p2" . }}
+
+P1: {{ $p1 }}
+P2: {{ $p2 }}
+
+{{ end }}
+
+
+{{ define "partials/p1" }}Inline: p1{{ end }}
+
+{{ define "partials/p2" }}
+{{ $value := 32 }}
+{{ return $value }}
+{{ end }}
+
+
+`,
+	)
+
+	b.CreateSites().Build(BuildCfg{})
+
+	b.AssertFileContent("public/index.html",
+		`
+P1: Inline: p1
+P2: 32
+P3: Inline: p3
+`,
+	)
+
+}
+
+// https://github.com/gohugoio/hugo/issues/7478
+func TestBaseWithAndWithoutDefine(t *testing.T) {
+
+	b := newTestSitesBuilder(t)
+
+	b.WithContent("p1.md", "---\ntitle: P\n---\nContent")
+
+	b.WithTemplates(
+		"_default/baseof.html", `
+::Header Start:{{ block "header" . }}{{ end }}:Header End:
+::{{ block "main" . }}Main{{ end }}::
+`, "index.html", `
+{{ define "header" }}
+Home Header
+{{ end }}
+{{ define "main" }}
+This is home main
+{{ end }}
+`,
+
+		"_default/single.html", `
+{{ define "main" }}
+This is single main
+{{ end }}
+`,
+	)
+
+	b.CreateSites().Build(BuildCfg{})
+
+	b.AssertFileContent("public/index.html", `
+Home Header
+This is home main
+`,
+	)
+
+	b.AssertFileContent("public/p1/index.html", `
+ ::Header Start::Header End:
+This is single main
+`,
+	)
+
+}

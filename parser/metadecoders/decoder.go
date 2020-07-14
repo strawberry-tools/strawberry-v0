@@ -18,6 +18,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/gothamhq/gotham/common/herrors"
@@ -62,7 +63,7 @@ func (d Decoder) UnmarshalToMap(data []byte, f Format) (map[string]interface{}, 
 		return m, nil
 	}
 
-	err := d.unmarshal(data, f, &m)
+	err := d.UnmarshalTo(data, f, &m)
 
 	return m, err
 }
@@ -121,13 +122,13 @@ func (d Decoder) Unmarshal(data []byte, f Format) (interface{}, error) {
 
 	}
 	var v interface{}
-	err := d.unmarshal(data, f, &v)
+	err := d.UnmarshalTo(data, f, &v)
 
 	return v, err
 }
 
-// unmarshal unmarshals data in format f into v.
-func (d Decoder) unmarshal(data []byte, f Format, v interface{}) error {
+// UnmarshalTo unmarshals data in format f into v.
+func (d Decoder) UnmarshalTo(data []byte, f Format, v interface{}) error {
 
 	var err error
 
@@ -155,15 +156,17 @@ func (d Decoder) unmarshal(data []byte, f Format, v interface{}) error {
 		case *interface{}:
 			ptr = *v.(*interface{})
 		default:
-			return errors.Errorf("unknown type %T in YAML unmarshal", v)
+			// Not a map.
 		}
 
-		if mm, changed := stringifyMapKeys(ptr); changed {
-			switch v.(type) {
-			case *map[string]interface{}:
-				*v.(*map[string]interface{}) = mm.(map[string]interface{})
-			case *interface{}:
-				*v.(*interface{}) = mm
+		if ptr != nil {
+			if mm, changed := stringifyMapKeys(ptr); changed {
+				switch v.(type) {
+				case *map[string]interface{}:
+					*v.(*map[string]interface{}) = mm.(map[string]interface{})
+				case *interface{}:
+					*v.(*interface{}) = mm
+				}
 			}
 		}
 	case CSV:
@@ -203,6 +206,14 @@ func (d Decoder) unmarshalCSV(data []byte, v interface{}) error {
 
 }
 
+func parseORGDate(s string) string {
+	r := regexp.MustCompile(`[<\[](\d{4}-\d{2}-\d{2}) .*[>\]]`)
+	if m := r.FindStringSubmatch(s); m != nil {
+		return m[1]
+	}
+	return s
+}
+
 func (d Decoder) unmarshalORG(data []byte, v interface{}) error {
 	config := org.New()
 	config.Log = jww.WARN
@@ -218,6 +229,8 @@ func (d Decoder) unmarshalORG(data []byte, v interface{}) error {
 		} else if k == "tags" || k == "categories" || k == "aliases" {
 			jww.WARN.Printf("Please use '#+%s[]:' notation, automatic conversion is deprecated.", k)
 			frontMatter[k] = strings.Fields(v)
+		} else if k == "date" {
+			frontMatter[k] = parseORGDate(v)
 		} else {
 			frontMatter[k] = v
 		}
