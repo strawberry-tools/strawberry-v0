@@ -9,5 +9,5 @@ var GothamVersion = SemVerVersion{
 	Major:  0,
 	Minor:  4,
 	Patch:  0,
-	Suffix: "dev",
+	Suffix: "",
 }
