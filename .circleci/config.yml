@@ -6,6 +6,7 @@ orbs:
 workflows:
   main:
     jobs:
+      - generic-tests
       - test-on-linux
       - test-on-macos
       - release-on-linux
@@ -15,6 +16,12 @@ workflows:
             - release-on-linux
   release:
     jobs:
+      - generic-tests:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
       - test-on-linux:
           filters:
             branches:
@@ -57,6 +64,15 @@ workflows:
           context: main-context
 
 jobs:
+  generic-tests:
+    docker:
+      - image: cimg/base:2020.06
+    working_directory: "~/gotham"
+    steps:
+      - checkout
+      - run:
+          name: "Fork Tests"
+          command: ./scripts/fork-tests.sh
   test-on-linux:
     machine:
       image: ubuntu-1604:202007-01
