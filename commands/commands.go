@@ -57,13 +57,14 @@ func (b *commandsBuilder) addAll() *commandsBuilder {
 		newGenCmd(),
 		createReleaser(),
 		b.newModCmd(),
+		b.newBuildCmd(),
 	)
 
 	return b
 }
 
 func (b *commandsBuilder) build() *hugoCmd {
-	h := b.newHugoCmd()
+	h := b.newBuildCmd()
 	addCommands(h.getCommand(), b.commands...)
 	return h
 }
@@ -141,12 +142,13 @@ func (c *nilCommand) flagsToConfig(cfg config.Provider) {
 
 }
 
-func (b *commandsBuilder) newHugoCmd() *hugoCmd {
+func (b *commandsBuilder) newBuildCmd() *hugoCmd {
 	cc := &hugoCmd{}
 
 	cc.baseBuilderCmd = b.newBuilderCmd(&cobra.Command{
-		Use:   "gotham",
-		Short: "gotham builds your site",
+		Use:     "build",
+		Short:   "gotham builds your site",
+		Aliases: []string{"build"},
 		Long: `gotham is the main command, used to build your Gotham site.
 
 Gotham is a Fast and Flexible Static Site Generator.`,
