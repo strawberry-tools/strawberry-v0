@@ -11,12 +11,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package hugo
-
-// CurrentVersion represents the current build version.
-// This should be the only one.
-var CurrentVersion = Version{
-	Number:     0.74,
-	PatchLevel: 3,
-	Suffix:     "",
-}
+// Package pageparser provides a parser for Hugo content files (Markdown, HTML etc.) in Hugo.
+// This implementation is highly inspired by the great talk given by Rob Pike called "Lexical Scanning in Go"
+// It's on YouTube, Google it!.
+// See slides here: http://cuddle.googlecode.com/hg/talk/lex.html
+package pageparser
