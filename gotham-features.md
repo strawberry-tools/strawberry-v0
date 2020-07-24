@@ -60,3 +60,7 @@ This can be done using the `--open` flag. For example:
 ```bash
 gotham serve --open
 ```
+
+### YouTube Shortcode
+
+The shortcode has a title parameter.
