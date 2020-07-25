@@ -4,7 +4,12 @@
 {{- $id := .Get "id" | default (.Get 0) -}}
 {{- $class := .Get "class" | default (.Get 1) -}}
 {{- $title := .Get "title" | default "YouTube Video" }}
+{{ $urlParams := slice }}
+{{ with .Get "autoplay" }}{{ $urlParams = $urlParams | append "autoplay=1" }}{{ end }}
+{{ with .Get "start" }}{{ $urlParams = $urlParams | append (print "start=" .) }}{{ end }}
+{{ with .Get "end" }}{{ $urlParams = $urlParams | append (print "end=" .) }}{{ end }}
+{{ $urlParamsStr := delimit $urlParams "&" }}
 <div {{ with $class }}class="{{ . }}"{{ else }}style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"{{ end }}>
-	<iframe src="https://{{ $ytHost }}/embed/{{ $id }}{{ with .Get "autoplay" }}{{ if eq . "true" }}?autoplay=1{{ end }}{{ end }}" {{ if not $class }}style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" {{ end }}allowfullscreen title="{{ $title }}"></iframe>
+	<iframe src="https://{{ $ytHost }}/embed/{{ $id }}{{ if gt (len $urlParams) 0 }}?{{ $urlParamsStr | safeURL }}{{ end }}" {{ if not $class }}style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" {{ end }}allowfullscreen title="{{ $title }}"></iframe>
 </div>
 {{ end -}}
