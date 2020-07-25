@@ -16,7 +16,6 @@ package js
 
 import (
 	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
 	"github.com/gothamhq/gotham/resources"
 	"github.com/gothamhq/gotham/resources/resource"
 	"github.com/gothamhq/gotham/resources/resource_transformers/js"
@@ -58,16 +57,10 @@ func (ns *Namespace) Build(args ...interface{}) (resource.Resource, error) {
 		}
 	}
 
-	var options js.Options
 	if targetPath != "" {
-		options.TargetPath = helpers.ToSlashTrimLeading(targetPath)
-	} else if m != nil {
-		options, err = js.DecodeOptions(m)
-		if err != nil {
-			return nil, err
-		}
+		m = map[string]interface{}{"targetPath": targetPath}
 	}
 
-	return ns.client.Process(r, options)
+	return ns.client.Process(r, m)
 
 }
