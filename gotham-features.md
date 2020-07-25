@@ -63,4 +63,5 @@ gotham serve --open
 
 ### YouTube Shortcode
 
-The shortcode has a title parameter.
+- The shortcode has a title parameter.
+- The shortcode has start and stop parameters, measured in seconds.

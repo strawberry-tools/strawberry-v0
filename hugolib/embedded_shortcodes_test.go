@@ -189,6 +189,11 @@ func TestShortcodeYoutube(t *testing.T) {
 			`{{< youtube id="w7Ft2ymGmfc" class="youtube" title="My Video Custom Title" >}}`,
 			"(?s)\n<div class=\"youtube\">.*?<iframe src=\"https://www.youtube.com/embed/w7Ft2ymGmfc\" allowfullscreen title=\"My Video Custom Title\">.*?</iframe>.*?</div>",
 		},
+		// set class start and stop times
+		{
+			`{{< youtube id="w7Ft2ymGmfc" start="5" end="25" class="youtube" >}}`,
+			"(?s)\n<div class=\"youtube\">.*?<iframe src=\"https://www.youtube.com/embed/w7Ft2ymGmfc\\?start=5&amp;end=25\".*?allowfullscreen title=\"YouTube Video\">.*?</iframe>.*?</div>\n",
+		},
 	} {
 		var (
 			cfg, fs = newTestCfg()
