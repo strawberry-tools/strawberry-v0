@@ -1,4 +1,5 @@
 // Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -48,7 +49,7 @@ func (b *commandsBuilder) newNewSiteCmd() *newSiteCmd {
 		Short: "Create a new site (skeleton)",
 		Long: `Create a new site in the provided directory.
 The new site will have the correct structure, but no content or theme yet.
-Use ` + "`hugo new [contentPath]`" + ` to create new content.`,
+Use ` + "`gotham new [contentPath]`" + ` to create new content.`,
 		RunE: cc.newSite,
 	}
 
@@ -105,13 +106,13 @@ func (n *newSiteCmd) doNewSite(fs *hugofs.Fs, basepath string, force bool) error
 	helpers.SafeWriteToDisk(filepath.Join(archeTypePath, "default.md"),
 		strings.NewReader(create.ArchetypeTemplateTemplate), fs.Source)
 
-	jww.FEEDBACK.Printf("Congratulations! Your new Hugo site is created in %s.\n\n", basepath)
+	jww.FEEDBACK.Printf("Congratulations! Your new Gotham site is created in %s.\n\n", basepath)
 	jww.FEEDBACK.Println(nextStepsText())
 
 	return nil
 }
 
-// newSite creates a new Hugo site and initializes a structured Hugo directory.
+// newSite creates a new Gotham site and initializes a structured Gotham directory.
 func (n *newSiteCmd) newSite(cmd *cobra.Command, args []string) error {
 	if len(args) < 1 {
 		return newUserError("path needs to be provided")
@@ -130,7 +131,7 @@ func (n *newSiteCmd) newSite(cmd *cobra.Command, args []string) error {
 func createConfig(fs *hugofs.Fs, inpath string, kind string) (err error) {
 	in := map[string]string{
 		"baseURL":      "http://example.org/",
-		"title":        "My New Hugo Site",
+		"title":        "My New Gotham Site",
 		"languageCode": "en-us",
 	}
 
@@ -143,21 +144,22 @@ func createConfig(fs *hugofs.Fs, inpath string, kind string) (err error) {
 	return helpers.WriteToDisk(filepath.Join(inpath, "config."+kind), &buf, fs.Source)
 }
 
+//Todo: Update https://themes.gohugo.io/ to Gotham theme site when available
 func nextStepsText() string {
 	var nextStepsText bytes.Buffer
 
 	nextStepsText.WriteString(`Just a few more steps and you're ready to go:
 
 1. Download a theme into the same-named folder.
-   Choose a theme from https://themes.gohugo.io/ or
-   create your own with the "hugo new theme <THEMENAME>" command.
+   Choose a theme from https://themes.gohugo.io/ or 
+   create your own with the "gotham new theme <THEMENAME>" command.
 2. Perhaps you want to add some content. You can add single files
-   with "hugo new `)
+   with "gotham new `)
 
 	nextStepsText.WriteString(filepath.Join("<SECTIONNAME>", "<FILENAME>.<FORMAT>"))
 
 	nextStepsText.WriteString(`".
-3. Start the built-in live server via "hugo server".
+3. Start the built-in live server via "gotham serve".
 
 Visit https://gohugo.io/ for quickstart guide and full documentation.`)
 
