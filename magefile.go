@@ -42,17 +42,17 @@ func init() {
 	os.Setenv("GO111MODULE", "on")
 }
 
-// Build Gotham binary
-func Gotham() error {
+// Build hugo binary
+func Hugo() error {
 	return sh.RunWith(flagEnv(), goexe, "build", "-ldflags", ldflags, "-tags", buildTags(), packageName)
 }
 
 // Build hugo binary with race detector enabled
-func GothamRace() error {
+func HugoRace() error {
 	return sh.RunWith(flagEnv(), goexe, "build", "-race", "-ldflags", ldflags, "-tags", buildTags(), packageName)
 }
 
-// Install gotham binary
+// Install hugo binary
 func Install() error {
 	return sh.RunWith(flagEnv(), goexe, "install", "-ldflags", ldflags, "-tags", buildTags(), packageName)
 }
@@ -110,7 +110,7 @@ func GenDocsHelper() error {
 // Build hugo without git info
 func HugoNoGitInfo() error {
 	ldflags = noGitLdflags
-	return Gotham()
+	return Hugo()
 }
 
 var docker = sh.RunCmd("docker")
@@ -156,9 +156,7 @@ func testGoFlags() string {
 }
 
 // Run tests in 32-bit mode
-// This test doesn't support extended/SASS mode, which is the only build
-// offered by Gotham. Thus, this was removed from "mage -check". The test
-// function remains for manual running.
+// Note that we don't run with the extended tag. Currently not supported in 32 bit.
 func Test386() error {
 	env := map[string]string{"GOARCH": "386", "GOFLAGS": testGoFlags()}
 	return runCmd(env, goexe, "test", "./...")
@@ -181,7 +179,7 @@ func Fmt() error {
 	if !isGoLatest() {
 		return nil
 	}
-	pkgs, err := gothamPackages()
+	pkgs, err := hugoPackages()
 	if err != nil {
 		return err
 	}
@@ -223,7 +221,7 @@ var (
 	pkgsInit     sync.Once
 )
 
-func gothamPackages() ([]string, error) {
+func hugoPackages() ([]string, error) {
 	var err error
 	pkgsInit.Do(func() {
 		var s string
@@ -241,7 +239,7 @@ func gothamPackages() ([]string, error) {
 
 // Run golint linter
 func Lint() error {
-	pkgs, err := gothamPackages()
+	pkgs, err := hugoPackages()
 	if err != nil {
 		return err
 	}
@@ -282,7 +280,7 @@ func TestCoverHTML() error {
 	if _, err := f.Write([]byte("mode: count")); err != nil {
 		return err
 	}
-	pkgs, err := gothamPackages()
+	pkgs, err := hugoPackages()
 	if err != nil {
 		return err
 	}
