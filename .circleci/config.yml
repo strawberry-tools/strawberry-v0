@@ -77,6 +77,8 @@ jobs:
     machine:
       image: ubuntu-1604:202007-01
     working_directory: "~/gotham"
+    environment:
+      GOTESTSUM_JUNITFILE: "junit/unit-tests-linux.xml"
     steps:
       - checkout
       - go/install:
@@ -100,8 +102,14 @@ jobs:
             go mod download
             go mod verify
       - run:
-          name: "Mage Test"
-          command: mage -v testGotham
+          name: "Run Tests"
+          command: |
+            mkdir junit
+            mage -v testGotham
+      - store_test_results:
+          path: junit
+      - store_artifacts:
+          path: junit/unit-tests-linux.xml
       - run:
           name: "Mage Check"
           command: mage -v check
@@ -119,6 +127,8 @@ jobs:
     macos:
       xcode: 11.5.0
     working_directory: "~/gotham"
+    environment:
+      GOTESTSUM_JUNITFILE: "junit/unit-tests-macos.xml"
     steps:
       - checkout
       - go/install:
@@ -142,8 +152,12 @@ jobs:
             go mod download
             go mod verify
       - run:
-          name: "Mage Test"
-          command: mage -v testGotham
+          name: "Run Tests"
+          command: |
+            mkdir junit
+            mage -v testGotham
+      - store_artifacts:
+          path: junit/unit-tests-macos.xml
       - run:
           name: "Mage Check"
           command: mage -v check
