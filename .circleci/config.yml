@@ -82,10 +82,12 @@ jobs:
       - go/install:
           version: 1.14.4
       - run:
-          name: "Install Mage"
+          name: "Install Dependencies"
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
+            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.5.2/gotestsum_0.5.2_linux_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
+            gotestsum --version
       - run:
           name: "Generate Go Test Cache Timestamp"
           command: ./scripts/timestamp-generator.sh
@@ -99,7 +101,7 @@ jobs:
             go mod verify
       - run:
           name: "Mage Test"
-          command: mage -v test
+          command: mage -v testGotham
       - run:
           name: "Mage Check"
           command: mage -v check
@@ -122,10 +124,12 @@ jobs:
       - go/install:
           version: 1.14.4
       - run:
-          name: "Install Mage"
+          name: "Install Dependencies"
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
+            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.5.2/gotestsum_0.5.2_darwin_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
+            gotestsum --version
       - run:
           name: "Generate Go Test Cache Timestamp"
           command: ./scripts/timestamp-generator.sh
@@ -139,7 +143,7 @@ jobs:
             go mod verify
       - run:
           name: "Mage Test"
-          command: mage -v test
+          command: mage -v testGotham
       - run:
           name: "Mage Check"
           command: mage -v check
