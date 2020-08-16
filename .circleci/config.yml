@@ -67,20 +67,22 @@ jobs:
   generic-tests:
     docker:
       - image: cimg/base:2020.06
-    working_directory: "~/gotham"
+    working_directory: "~/gotham/src"
     steps:
-      - checkout
+      - checkout:
+          path: ".."
       - run:
           name: "Fork Tests"
-          command: ./scripts/fork-tests.sh
+          command: ../scripts/fork-tests.sh
   test-on-linux:
     machine:
       image: ubuntu-1604:202007-01
-    working_directory: "~/gotham"
+    working_directory: "~/gotham/src"
     environment:
       GOTESTSUM_JUNITFILE: "junit/unit-tests-linux.xml"
     steps:
-      - checkout
+      - checkout:
+          path: ".."
       - go/install:
           version: "1.15"
       - run:
@@ -92,7 +94,7 @@ jobs:
             gotestsum --version
       - run:
           name: "Generate Go Test Cache Timestamp"
-          command: ./scripts/timestamp-generator.sh
+          command: ../scripts/timestamp-generator.sh
       - go/load-cache
       - restore_cache:
           key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
@@ -126,11 +128,12 @@ jobs:
   test-on-macos:
     macos:
       xcode: 11.5.0
-    working_directory: "~/gotham"
+    working_directory: "~/gotham/src"
     environment:
       GOTESTSUM_JUNITFILE: "junit/unit-tests-macos.xml"
     steps:
-      - checkout
+      - checkout:
+          path: ".."
       - go/install:
           version: "1.15"
       - run:
@@ -142,7 +145,7 @@ jobs:
             gotestsum --version
       - run:
           name: "Generate Go Test Cache Timestamp"
-          command: ./scripts/timestamp-generator.sh
+          command: ../scripts/timestamp-generator.sh
       - go/load-cache
       - restore_cache:
           key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
