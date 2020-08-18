@@ -82,7 +82,7 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: 1.14.4
+          version: "1.15"
       - run:
           name: "Install Dependencies"
           command: |
@@ -132,7 +132,7 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: 1.14.4
+          version: "1.15"
       - run:
           name: "Install Dependencies"
           command: |
@@ -178,7 +178,7 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: 1.14.4
+          version: "1.15"
       - run:
           name: "Install GoReleaser"
           command: |
@@ -209,7 +209,7 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: 1.14.4
+          version: "1.15"
       - run:
           name: "Install GoReleaser"
           command: |
