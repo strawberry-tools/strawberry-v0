@@ -24,6 +24,6 @@ resources/sunset.jpg
 vendor
 
 # Binaries / Packages
-/gotham
-gotham.exe
+/src/gotham
+/src/gotham.exe
 *.snap
