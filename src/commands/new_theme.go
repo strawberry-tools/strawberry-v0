@@ -40,7 +40,7 @@ func (b *commandsBuilder) newNewThemeCmd() *newThemeCmd {
 		Short: "Create a new theme",
 		Long: `Create a new theme (skeleton) called [name] in the current directory.
 New theme is a skeleton. Please add content to the touched files. Add your
-name to the copyright line in the license and adjust the theme.toml file
+name to the copyright line in the license and adjust the theme.yml file
 as you see fit.`,
 		RunE: cc.newTheme,
 	}
@@ -102,7 +102,7 @@ func (n *newThemeCmd) newTheme(cmd *cobra.Command, args []string) error {
 
 	mkdir(createpath, "archetypes")
 
-	archDefault := []byte("+++\n+++\n")
+	archDefault := []byte("---\n---\n")
 
 	err = helpers.WriteToDisk(filepath.Join(createpath, "archetypes", "default.md"), bytes.NewReader(archDefault), cfg.Fs.Source)
 	if err != nil {
@@ -146,8 +146,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 func (n *newThemeCmd) createThemeMD(fs *hugofs.Fs, inpath string) (err error) {
 
-	by := []byte(`# theme.toml template for a Hugo theme
-# See https://github.com/gothamhq/gothamThemes#themetoml for an example
+	by := []byte(`# theme.yml template for a Gotham theme
+# See https://github.com/gohugoio/hugoThemes#themetoml for an example
 
 name = "` + strings.Title(helpers.MakeTitle(filepath.Base(inpath))) + `"
 license = "MIT"
@@ -169,7 +169,7 @@ min_version = "0.41.0"
   repo = ""
 `)
 
-	err = helpers.WriteToDisk(filepath.Join(inpath, "theme.toml"), bytes.NewReader(by), fs.Source)
+	err = helpers.WriteToDisk(filepath.Join(inpath, "theme.yml"), bytes.NewReader(by), fs.Source)
 	if err != nil {
 		return
 	}

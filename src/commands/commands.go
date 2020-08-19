@@ -170,7 +170,7 @@ Gotham is a Fast and Flexible Static Site Generator.`,
 		},
 	})
 
-	cc.cmd.PersistentFlags().StringVar(&cc.cfgFile, "config", "", "config file (default is path/config.yaml|json|toml)")
+	cc.cmd.PersistentFlags().StringVar(&cc.cfgFile, "config", "", "config file (default is path/config.yml|json|toml)")
 	cc.cmd.PersistentFlags().StringVar(&cc.cfgDir, "configDir", "config", "config dir")
 	cc.cmd.PersistentFlags().BoolVar(&cc.quiet, "quiet", false, "build in quiet mode")
 
