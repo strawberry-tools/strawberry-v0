@@ -34,7 +34,7 @@ parts:
 
       snapcraftctl build
 
-      cp ./dist/gotham_linux_amd64/gotham $SNAPCRAFT_PART_INSTALL
+      cp ./dist/gotham-linux_linux_amd64/gotham $SNAPCRAFT_PART_INSTALL
       chmod +x $SNAPCRAFT_PART_INSTALL/gotham
 
       $SNAPCRAFT_PART_INSTALL/gotham gen autocomplete --completionfile=./gotham-completion
