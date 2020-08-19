@@ -104,10 +104,11 @@ jobs:
             go mod download
             go mod verify
       - run:
-          name: "Run Tests"
+          name: "Run Tests & Coverage"
           command: |
             mkdir junit
             mage -v testGotham
+            bash <(curl -s https://codecov.io/bash)
       - store_test_results:
           path: junit
       - store_artifacts:
@@ -155,10 +156,11 @@ jobs:
             go mod download
             go mod verify
       - run:
-          name: "Run Tests"
+          name: "Run Tests & Coverage"
           command: |
             mkdir junit
             mage -v testGotham
+            bash <(curl -s https://codecov.io/bash)
       - store_artifacts:
           path: junit/unit-tests-macos.xml
       - run:
