@@ -4,6 +4,7 @@ docs/public*
 *.prof
 nohup.out
 cover.out
+coverage.txt
 *.swp
 *.swo
 .DS_Store
