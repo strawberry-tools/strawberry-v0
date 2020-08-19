@@ -86,7 +86,7 @@ jobs:
       - run:
           name: "Install Dependencies"
           command: |
-            curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
+            curl -sSL "https://github.com/magefile/mage/releases/download/v1.10.0/mage_1.10.0_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
             curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.5.2/gotestsum_0.5.2_linux_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
             gotestsum --version
@@ -136,7 +136,7 @@ jobs:
       - run:
           name: "Install Dependencies"
           command: |
-            curl -sSL "https://github.com/magefile/mage/releases/download/v1.9.0/mage_1.9.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
+            curl -sSL "https://github.com/magefile/mage/releases/download/v1.10.0/mage_1.10.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
             curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.5.2/gotestsum_0.5.2_darwin_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
             gotestsum --version
@@ -182,7 +182,7 @@ jobs:
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.137.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.141.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
@@ -213,7 +213,7 @@ jobs:
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.137.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.141.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
