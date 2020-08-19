@@ -1,11 +1,8 @@
 project_name: gotham
 
-before:
-  hooks:
-    - go mod download
-
 builds:
-  - goos:
+  - dir: src
+    goos:
       - linux
     goarch:
       - amd64
