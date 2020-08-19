@@ -1,23 +1,43 @@
 project_name: gotham
 
 builds:
-  - dir: src
+  - id: gotham-linux
+    dir: src
     goos:
       - linux
     goarch:
       - amd64
     ldflags:
       - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }} -extldflags "-static"
+  - id: gotham-windows
+    dir: src
+    env:
+      - CGO_ENABLED=1
+      - CC=x86_64-w64-mingw32-gcc
+      - CXX=x86_64-w64-mingw32-g++
+    flags:
+      - -buildmode
+      - exe
+      - -tags
+    goos:
+      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }}
 
 archives:
   - format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
     name_template: "{{ .ProjectName }}-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     files:
       - README.md
       - LICENSE
 
 checksum:
-  name_template: "{{ .ProjectName }}-v{{ .Version }}-linux-amd64-checksum.txt"
+  name_template: "{{ .ProjectName }}-v{{ .Version }}-linux-windows-amd64-checksum.txt"
 
 #nfpms:
   #-
