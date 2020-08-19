@@ -10,7 +10,8 @@ builds:
     goarch:
       - amd64
     ldflags:
-      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash=
+      #  -extldflags "-static" is purposely left out on macOS due to compiling libSASS
+      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }}
 
 archives:
   - format: tar.gz
@@ -28,7 +29,7 @@ changelog:
   skip: true
 
 brews:
-  - github:
+  - tap:
       owner: gothamhq
       name: homebrew-tap
     commit_author:
