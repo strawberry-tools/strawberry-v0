@@ -32,7 +32,7 @@ var Default = Config{
 		TaskList:       true,
 	},
 	Renderer: Renderer{
-		Unsafe: false,
+		Unsafe: true,
 	},
 	Parser: Parser{
 		AutoHeadingID:     true,
