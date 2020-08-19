@@ -110,8 +110,8 @@ func TestExecute(t *testing.T) {
 		themesDir := filepath.Join(dir, "mythemes")
 		resp := Execute([]string{"new", "theme", "mytheme", "-s=" + dir, "-e=staging", "--themesDir=" + themesDir})
 		c.Assert(resp.Err, qt.IsNil)
-		themeTOML := readFileFrom(c, filepath.Join(themesDir, "mytheme", "theme.toml"))
-		c.Assert(themeTOML, qt.Contains, "name = \"Mytheme\"")
+		themeCFG := readFileFrom(c, filepath.Join(themesDir, "mytheme", "theme.yml"))
+		c.Assert(themeCFG, qt.Contains, "name = \"Mytheme\"")
 	})
 
 	c.Run("new site", func(c *qt.C) {
@@ -120,7 +120,7 @@ func TestExecute(t *testing.T) {
 		siteDir := filepath.Join(dir, "mysite")
 		resp := Execute([]string{"new", "site", siteDir, "-e=staging"})
 		c.Assert(resp.Err, qt.IsNil)
-		config := readFileFrom(c, filepath.Join(siteDir, "config.toml"))
+		config := readFileFrom(c, filepath.Join(siteDir, "config.yml"))
 		c.Assert(config, qt.Contains, "baseURL = \"http://example.org/\"")
 		checkNewSiteInited(c, siteDir)
 	})
@@ -134,7 +134,7 @@ func checkNewSiteInited(c *qt.C, basepath string) {
 		filepath.Join(basepath, "archetypes"),
 		filepath.Join(basepath, "static"),
 		filepath.Join(basepath, "data"),
-		filepath.Join(basepath, "config.toml"),
+		filepath.Join(basepath, "config.yml"),
 	}
 
 	for _, path := range paths {
