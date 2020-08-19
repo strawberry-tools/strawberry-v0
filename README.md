@@ -8,6 +8,11 @@ It is written in [Go][go-site] and is a soft fork of [Hugo][hugo-site].
 [Twitter](https://twitter.com/GothamHQ_)
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/gothamhq/gotham)](https://goreportcard.com/report/github.com/gothamhq/gotham)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/gothamhq/gotham)
+[![CircleCI](https://circleci.com/gh/gothamhq/gotham.svg?style=shield)](https://circleci.com/gh/gothamhq/gotham)
+[![codecov](https://codecov.io/gh/gothamhq/gotham/branch/master/graph/badge.svg)](https://codecov.io/gh/gothamhq/gotham)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 
 **Gotham is a very new project only recently forked from Hugo.
 Please stay tuned while we continue to update this readme and convert things over.**
