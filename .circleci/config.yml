@@ -240,7 +240,7 @@ jobs:
             dist/*/gotham version --type=detailed
   release-on-snap:
     docker:
-      - image: cibuilds/snapcraft:core18
+      - image: cibuilds/snapcraft:core20
     steps:
       - checkout
       - attach_workspace:
