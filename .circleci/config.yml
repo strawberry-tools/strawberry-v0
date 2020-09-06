@@ -257,4 +257,4 @@ jobs:
 
             # Snapcraft Tokens are valid for 1 year. This one expires June 15th, 2021
             echo $SNAPCRAFT_TOKEN | base64 --decode --ignore-garbage | snapcraft login --with -
-            snapcraft push *.snap --release=stable
+            snapcraft upload *.snap --release=stable
