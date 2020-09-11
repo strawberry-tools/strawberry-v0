@@ -85,7 +85,7 @@ jobs:
       - checkout:
           path: ".."
       - go/install:
-          version: "1.15.1"
+          version: "1.15.2"
       - run:
           name: "Install Dependencies"
           command: |
@@ -137,7 +137,7 @@ jobs:
       - checkout:
           path: ".."
       - go/install:
-          version: "1.15"
+          version: "1.15.2"
       - run:
           name: "Install Dependencies"
           command: |
@@ -184,7 +184,7 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: "1.15.1"
+          version: "1.15.2"
       - run:
           name: "Install Deps"
           command: sudo apt-get update && sudo apt-get install mingw-w64
@@ -218,7 +218,7 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: "1.15.1"
+          version: "1.15.2"
       - run:
           name: "Install GoReleaser"
           command: |
