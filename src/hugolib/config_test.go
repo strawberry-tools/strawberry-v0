@@ -389,7 +389,7 @@ func TestLoadConfigModules(t *testing.T) {
 
 	c := qt.New(t)
 
-	// https://github.com/gothamhq/gothamThemes#themetoml
+	// https://github.com/gohugoio/hugoThemes#themetoml
 
 	const (
 		// Before Hugo 0.56 each theme/component could have its own theme.toml
