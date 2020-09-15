@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package asciidocext converts Asciidoc to HTML using Asciidoc or Asciidoctor
-// external binaries. The `asciidoc` module is reserved for a future golang
+// Package asciidocext converts AsciiDoc to HTML using Asciidoctor
+// external binary. The `asciidoc` module is reserved for a future golang
 // implementation.
 
 package asciidocext
@@ -24,6 +24,7 @@ import (
 	"github.com/gothamhq/gotham/common/loggers"
 	"github.com/gothamhq/gotham/markup/converter"
 	"github.com/gothamhq/gotham/markup/markup_config"
+	"github.com/gothamhq/gotham/markup/tableofcontents"
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
@@ -50,7 +51,7 @@ func TestAsciidoctorDefaultArgs(t *testing.T) {
 	c.Assert(ac, qt.Not(qt.IsNil))
 
 	args := ac.parseArgs(converter.DocumentContext{})
-	expected := []string{"--no-header-footer", "--trace"}
+	expected := []string{"--no-header-footer"}
 	c.Assert(args, qt.DeepEquals, expected)
 }
 
@@ -90,7 +91,7 @@ func TestAsciidoctorDisallowedArgs(t *testing.T) {
 	cfg := viper.New()
 	mconf := markup_config.Default
 	mconf.AsciidocExt.Backend = "disallowed-backend"
-	mconf.AsciidocExt.Extensions = []string{"disallowed-extention"}
+	mconf.AsciidocExt.Extensions = []string{"disallowed-extension"}
 	mconf.AsciidocExt.Attributes = map[string]string{"outdir": "disallowed-attribute"}
 	mconf.AsciidocExt.SafeMode = "disallowed-safemode"
 	mconf.AsciidocExt.FailureLevel = "disallowed-failurelevel"
@@ -110,7 +111,7 @@ func TestAsciidoctorDisallowedArgs(t *testing.T) {
 	c.Assert(ac, qt.Not(qt.IsNil))
 
 	args := ac.parseArgs(converter.DocumentContext{})
-	expected := []string{"--no-header-footer", "--trace"}
+	expected := []string{"--no-header-footer"}
 	c.Assert(args, qt.DeepEquals, expected)
 }
 
@@ -250,7 +251,7 @@ func TestAsciidoctorAttributes(t *testing.T) {
 
 func TestConvert(t *testing.T) {
 	if !Supports() {
-		t.Skip("asciidoc/asciidoctor not installed")
+		t.Skip("asciidoctor not installed")
 	}
 	c := qt.New(t)
 
@@ -269,4 +270,78 @@ func TestConvert(t *testing.T) {
 	b, err := conv.Convert(converter.RenderContext{Src: []byte("testContent")})
 	c.Assert(err, qt.IsNil)
 	c.Assert(string(b.Bytes()), qt.Equals, "<div class=\"paragraph\">\n<p>testContent</p>\n</div>\n")
+}
+
+func TestTableOfContents(t *testing.T) {
+	if !Supports() {
+		t.Skip("asciidoctor not installed")
+	}
+	c := qt.New(t)
+	p, err := Provider.New(converter.ProviderConfig{Logger: loggers.NewErrorLogger()})
+	c.Assert(err, qt.IsNil)
+	conv, err := p.New(converter.DocumentContext{})
+	c.Assert(err, qt.IsNil)
+	b, err := conv.Convert(converter.RenderContext{Src: []byte(`:toc: macro
+:toclevels: 4
+toc::[]
+
+=== Introduction
+
+== Section 1
+
+=== Section 1.1
+
+==== Section 1.1.1
+
+=== Section 1.2
+
+testContent
+
+== Section 2
+`)})
+	c.Assert(err, qt.IsNil)
+	toc, ok := b.(converter.TableOfContentsProvider)
+	c.Assert(ok, qt.Equals, true)
+	root := toc.TableOfContents()
+	c.Assert(root.ToHTML(2, 4, false), qt.Equals, "<nav id=\"TableOfContents\">\n  <ul>\n    <li><a href=\"#_introduction\">Introduction</a></li>\n    <li><a href=\"#_section_1\">Section 1</a>\n      <ul>\n        <li><a href=\"#_section_1_1\">Section 1.1</a>\n          <ul>\n            <li><a href=\"#_section_1_1_1\">Section 1.1.1</a></li>\n          </ul>\n        </li>\n        <li><a href=\"#_section_1_2\">Section 1.2</a></li>\n      </ul>\n    </li>\n    <li><a href=\"#_section_2\">Section 2</a></li>\n  </ul>\n</nav>")
+	c.Assert(root.ToHTML(2, 3, false), qt.Equals, "<nav id=\"TableOfContents\">\n  <ul>\n    <li><a href=\"#_introduction\">Introduction</a></li>\n    <li><a href=\"#_section_1\">Section 1</a>\n      <ul>\n        <li><a href=\"#_section_1_1\">Section 1.1</a></li>\n        <li><a href=\"#_section_1_2\">Section 1.2</a></li>\n      </ul>\n    </li>\n    <li><a href=\"#_section_2\">Section 2</a></li>\n  </ul>\n</nav>")
+}
+
+func TestTableOfContentsWithCode(t *testing.T) {
+	if !Supports() {
+		t.Skip("asciidoctor not installed")
+	}
+	c := qt.New(t)
+	mconf := markup_config.Default
+	p, err := Provider.New(
+		converter.ProviderConfig{
+			MarkupConfig: mconf,
+			Logger:       loggers.NewErrorLogger(),
+		},
+	)
+	c.Assert(err, qt.IsNil)
+	conv, err := p.New(converter.DocumentContext{})
+	c.Assert(err, qt.IsNil)
+	b, err := conv.Convert(converter.RenderContext{Src: []byte(`:toc: auto
+
+== Some ` + "`code`" + ` in the title
+`)})
+	c.Assert(err, qt.IsNil)
+	toc, ok := b.(converter.TableOfContentsProvider)
+	c.Assert(ok, qt.Equals, true)
+	expected := tableofcontents.Headers{
+		{},
+		{
+			ID:   "",
+			Text: "",
+			Headers: tableofcontents.Headers{
+				{
+					ID:      "_some_code_in_the_title",
+					Text:    "Some <code>code</code> in the title",
+					Headers: nil,
+				},
+			},
+		},
+	}
+	c.Assert(toc.TableOfContents().Headers, qt.DeepEquals, expected)
 }
