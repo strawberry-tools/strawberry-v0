@@ -22,7 +22,6 @@ require (
 	github.com/getkin/kin-openapi v0.22.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gobwas/glob v0.2.3
-	github.com/gohugoio/hugo v0.75.0
 	github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95
 	github.com/google/go-cmp v0.5.2
 	github.com/gorilla/websocket v1.4.2
@@ -45,7 +44,6 @@ require (
 	github.com/russross/blackfriday v1.5.3-0.20200218234912-41c5fccfd6f6
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/sanity-io/litter v1.3.0
-	github.com/sirupsen/logrus v1.2.0
 	github.com/spf13/afero v1.2.2
 	github.com/spf13/cast v1.3.1
 	github.com/spf13/cobra v0.0.7
