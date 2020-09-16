@@ -12,9 +12,9 @@ env:
 git:
   depth: false
 go:
-  - "1.13.11"
-  - "1.14.3"
-  - "master"
+  - "1.14.8"
+  - "1.15.1"
+  - master
 
 arch:
   - amd64

@@ -18,8 +18,11 @@ package page
 import (
 	"html/template"
 
+	"github.com/gothamhq/gotham/identity"
+
 	"github.com/bep/gitmap"
 	"github.com/gothamhq/gotham/config"
+	"github.com/gothamhq/gotham/tpl"
 
 	"github.com/gothamhq/gotham/common/hugo"
 	"github.com/gothamhq/gotham/common/maps"
@@ -97,6 +100,9 @@ type GetPageProvider interface {
 	// This will return nil when no page could be found, and will return
 	// an error if the ref is ambiguous.
 	GetPage(ref string) (Page, error)
+
+	// GetPageWithTemplateInfo is for internal use only.
+	GetPageWithTemplateInfo(info tpl.Info, ref string) (Page, error)
 }
 
 // GitInfoProvider provides Git info.
@@ -259,6 +265,9 @@ type PageWithoutContent interface {
 	// GetTerms gets the terms of a given taxonomy,
 	// e.g. GetTerms("categories")
 	GetTerms(taxonomy string) Pages
+
+	// Used in change/dependency tracking.
+	identity.Provider
 
 	DeprecatedWarningPageMethods
 }
