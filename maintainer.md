@@ -12,7 +12,7 @@ Checklist for major/minor releases:
 
 1. Make sure that the milestone is complete.
 1. Create a new branch called `release-vx.y.0`.
-1. Edit `common/hugo/version-gotham.go`. Make sure that the version number is correct and "dev" is removed.
+1. Edit `src/common/hugo/version-gotham.go`. Make sure that the version number is correct and "dev" is removed.
 1. Create a full commit message: `git commit` (no `-m`)
 1. The commit title should have the format: `Release: Gotham vx.y.0`
 1. The first paragraph should be a friendly message summarizing the release.
@@ -24,7 +24,7 @@ Checklist for major/minor releases:
 1. Push tag up, which will kick off the actual release.
 1. Close the current milestone.
 1. Create a new branch called `dev-vx.y.0` which should target what is likely going to be the next release version.
-1. Edit `common/hugo/version-gotham.go`. Make sure that the version number is correct and "dev" is added back.
+1. Edit `src/common/hugo/version-gotham.go`. Make sure that the version number is correct and "dev" is added back.
 1. Commit this with the message: `Open dev for next release.`.
 1. Push up and open PR. Once this PR is merged, development is ready for the next version. In the meantime, the current release is likely close to being done.
 
@@ -33,7 +33,7 @@ Checklist for major/minor releases:
 Checklist for patch releases:
 
 1. If it doesn't exists already, create a branch called `release-vX.Y.x-patches`. 'X' and 'Y' should be replaced with the appropriate major and minor version numbers. The 'x' is a literal 'x'.
-1. Edit `common/hugo/version-gotham.go`. Make sure that the version number is correct and "dev" is removed.
+1. Edit `src/common/hugo/version-gotham.go`. Make sure that the version number is correct and "dev" is removed.
 1. Cherry pick the relevant commits from the `master` branch.
 1. Create a full commit message: `git commit` (no `-m`)
 1. The commit title should have the format: `Release: Gotham vx.y.z`
@@ -69,8 +69,8 @@ Whichever has the highest priority between patch, minor, and major, that's what 
   - `git add` each file **as you fix it**. This ensures that whenever you run `git status`, it's an accurate reflection of the remaining work.
   - if a file is added to or modified in `./docs`, delete it with `git rm -r ./docs/`. Unlike upstream, we don't keep user docs in this repo.
   - Often you'll see conflicts in the Go imports. When this happens, an import was added/modified/removed. If one was added or modified, you also need to make sure you correct the important path if it's a module within Hugo's codebase.
-1. Make sure that `mage -v test` and `mage -v check` are passing.
-1. Confirm that `./common/hugo/version-current.go` contains the Hugo version you expect.
+1. Make sure that `mage -v testGotham` and `mage -v check` are passing.
+1. Confirm that `src/common/hugo/version_current.go` contains the Hugo version you expect.
 1. With all conflicts resolved, run `git commit`. In the text editor, use the commit message "Upstream: Pull in changes from Hugo vx.y.z" with the appropriate version number in place.
 1. Push it up and open a PR with the title being the same of the commit message. If this PR is likely to be included in the next scheduled Gotham minor release, include it in the milestone. If a patch release is expected, there's no need.
 1. When the PR is ready to be merged, temporarily turn on "merge commits" for the repo, and use a merge commit to merge the PR. Then turn off the setting again.
