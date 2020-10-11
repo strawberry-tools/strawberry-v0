@@ -21,6 +21,7 @@ import (
 	"github.com/gothamhq/gotham/common/maps"
 	"github.com/gothamhq/gotham/config"
 	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/gothamhq/gotham/identity"
 	"github.com/gothamhq/gotham/langs"
 	"github.com/gothamhq/gotham/media"
 	"github.com/gothamhq/gotham/navigation"
@@ -87,6 +88,7 @@ func MarshalPageToJSON(p Page) ([]byte, error) {
 	isTranslated := p.IsTranslated()
 	allTranslations := p.AllTranslations()
 	translations := p.Translations()
+	getIdentity := p.GetIdentity()
 
 	s := struct {
 		Content                  interface{}
@@ -143,6 +145,7 @@ func MarshalPageToJSON(p Page) ([]byte, error) {
 		IsTranslated             bool
 		AllTranslations          Pages
 		Translations             Pages
+		GetIdentity              identity.Identity
 	}{
 		Content:                  content,
 		Plain:                    plain,
@@ -198,6 +201,7 @@ func MarshalPageToJSON(p Page) ([]byte, error) {
 		IsTranslated:             isTranslated,
 		AllTranslations:          allTranslations,
 		Translations:             translations,
+		GetIdentity:              getIdentity,
 	}
 
 	return json.Marshal(&s)
