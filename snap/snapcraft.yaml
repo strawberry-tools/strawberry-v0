@@ -10,7 +10,7 @@ description: |
   can run `gotham version` to see which specific version of Hugo its compatible 
   with.
 license: "Apache-2.0"
-base: core18
+base: core20
 grade: stable
 confinement: strict
 icon: "img/logo-icon-x1000.png"
