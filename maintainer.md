@@ -66,11 +66,12 @@ Whichever has the highest priority between patch, minor, and major, that's what 
 	git merge <commit-hash>
 	```
 1. If you have merge conflicts, fix them, one by one. Some tips:
-  - `git add` each file **as you fix it**. This ensures that whenever you run `git status`, it's an accurate reflection of the remaining work.
-  - if a file is added to or modified in `./docs`, delete it with `git rm -r ./docs/`. Unlike upstream, we don't keep user docs in this repo.
-  - Often you'll see conflicts in the Go imports. When this happens, an import was added/modified/removed. If one was added or modified, you also need to make sure you correct the important path if it's a module within Hugo's codebase.
+    - `git add` each file **as you fix it**. This ensures that whenever you run `git status`, it's an accurate reflection of the remaining work.
+    - if a file is added to or modified in `./docs`, delete it with `git rm -r ./docs/`. Unlike upstream, we don't keep user docs in this repo.
+    - Often you'll see conflicts in the Go imports. When this happens, an import was added/modified/removed. If one was added or modified, you also need to make sure you correct the important path if it's a module within Hugo's codebase.
 1. Make sure that `mage -v testGotham` and `mage -v check` are passing.
 1. Confirm that `src/common/hugo/version_current.go` contains the Hugo version you expect.
+1. Make sure to run `go mod tidy` from within the `src` directory.
 1. With all conflicts resolved, run `git commit`. In the text editor, use the commit message "Upstream: Pull in changes from Hugo vx.y.z" with the appropriate version number in place.
 1. Push it up and open a PR with the title being the same of the commit message. If this PR is likely to be included in the next scheduled Gotham minor release, include it in the milestone. If a patch release is expected, there's no need.
 1. When the PR is ready to be merged, temporarily turn on "merge commits" for the repo, and use a merge commit to merge the PR. Then turn off the setting again.
