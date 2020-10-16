@@ -45,7 +45,14 @@ parts:
     stage-packages:
       - nodejs
       - npm
-
+  git:
+    plugin: nil
+    stage-packages:
+      - git
+    organize:
+      usr/bin/: bin/
+    prime:
+      - bin/git
   pygments:
     plugin: python
     python-packages: [Pygments]
@@ -61,3 +68,7 @@ parts:
       - -usr/lib/python*/lib2to3/*
       - -usr/lib/python*/tkinter/*
       - -usr/lib/python*/unittest/*
+  nodejs:
+    plugin: npm
+    source: .
+    npm-node-version: 12.19.0

@@ -1,0 +1,28 @@
+{
+  "name": "gotham",
+  "version": "0.8.0",
+  "description": "Dependenies pulled in from Hugo.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gothamhq/gotham.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gothamhq/gotham/issues"
+  },
+  "homepage": "https://github.com/gothamhq/gotham#readme",
+  "dependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "postcss": "^8.1.1",
+    "postcss-cli": "^8.1.0"
+  }
+}
