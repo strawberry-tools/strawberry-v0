@@ -29,12 +29,12 @@ apps:
 parts:
   gotham:
     plugin: dump
-    source: .
+    source: ./dist
     override-build: |
 
       snapcraftctl build
 
-      cp ./dist/gotham-linux_linux_amd64/gotham $SNAPCRAFT_PART_INSTALL
+      cp ./gotham-linux_linux_amd64/gotham $SNAPCRAFT_PART_INSTALL
       chmod +x $SNAPCRAFT_PART_INSTALL/gotham
 
       $SNAPCRAFT_PART_INSTALL/gotham gen autocomplete --completionfile=./gotham-completion
@@ -43,21 +43,17 @@ parts:
       $SNAPCRAFT_PART_INSTALL/gotham version --type=short > VERSION
       snapcraftctl set-version v$(cat VERSION)
     stage-packages:
+      - git
       - nodejs
       - npm
-
   pygments:
     plugin: python
     python-packages: [Pygments]
-    prime:
-      - bin/pygmentize
-      - lib/python*/site-packages/Pygments-*.dist-info/*
-      - lib/python*/site-packages/pygments/*
-      - usr/bin/python*
-      - -usr/bin/python*m
-      - usr/lib/python*/*
-      - -usr/lib/python*/distutils/*
-      - -usr/lib/python*/email/*
-      - -usr/lib/python*/lib2to3/*
-      - -usr/lib/python*/tkinter/*
-      - -usr/lib/python*/unittest/*
+    stage:
+      - lib64/*
+  nodejs:
+    plugin: npm
+    source: .
+    npm-node-version: 12.19.0
+    stage:
+      - lib64/*
