@@ -56,4 +56,6 @@ script:
         HUGO_TIMEOUT=30000 mage -v check;
     fi
   - mage -v gotham
+  - HUGO_IGNOREERRORS=error-remote-getjson ./hugo -s docs/
+  - HUGO_IGNOREERRORS=error-remote-getjson ./hugo --renderToMemory -s docs/
   - df -h
