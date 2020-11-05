@@ -14,6 +14,7 @@
 package hugolib
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -143,6 +144,11 @@ func TestJSBuild(t *testing.T) {
 		t.Skip("skip (relative) long running modules test when running locally")
 	}
 
+	if runtime.GOOS == "windows" {
+		// TODO(bep) we really need to get this working on Travis.
+		t.Skip("skip npm test on Windows")
+	}
+
 	wd, _ := os.Getwd()
 	defer func() {
 		os.Chdir(wd)
@@ -150,51 +156,57 @@ func TestJSBuild(t *testing.T) {
 
 	c := qt.New(t)
 
-	mainJS := `
-	import "./included";
-	
-	console.log("main");
-
-`
-	includedJS := `
-	console.log("included");
-	
-	`
-
-	workDir, clean, err := htesting.CreateTempDir(hugofs.Os, "hugo-test-js")
+	workDir, clean, err := htesting.CreateTempDir(hugofs.Os, "hugo-test-js-mod")
 	c.Assert(err, qt.IsNil)
 	defer clean()
 
-	v := viper.New()
-	v.Set("workingDir", workDir)
-	v.Set("disableKinds", []string{"taxonomy", "term", "page"})
-	b := newTestSitesBuilder(t).WithLogger(loggers.NewWarningLogger())
+	config := fmt.Sprintf(`
+baseURL = "https://example.org"
+workingDir = %q
 
-	b.Fs = hugofs.NewDefault(v)
-	b.WithWorkingDir(workDir)
-	b.WithViper(v)
-	b.WithContent("p1.md", "")
+disableKinds = ["page", "section", "term", "taxonomy"]
 
-	b.WithTemplates("index.html", `
-{{ $js := resources.Get "js/main.js" | js.Build }}
-JS:  {{ template "print" $js }}
+[module]
+[[module.imports]]
+path="github.com/gohugoio/hugoTestProjectJSModImports"
 
 
-{{ define "print" }}RelPermalink: {{.RelPermalink}}|MIME: {{ .MediaType }}|Content: {{ .Content | safeJS }}{{ end }}
+
+`, workDir)
+
+	b := newTestSitesBuilder(t)
+	b.Fs = hugofs.NewDefault(viper.New())
+	b.WithWorkingDir(workDir).WithConfigFile("toml", config).WithLogger(loggers.NewInfoLogger())
+	b.WithSourceFile("go.mod", `module github.com/gohugoio/tests/testHugoModules
+        
+go 1.15
+        
+require github.com/gohugoio/hugoTestProjectJSModImports v0.5.0 // indirect
 
 `)
 
-	jsDir := filepath.Join(workDir, "assets", "js")
-	b.Assert(os.MkdirAll(jsDir, 0777), qt.IsNil)
+	b.WithContent("p1.md", "").WithNothingAdded()
+
+	b.WithSourceFile("package.json", `{
+ "dependencies": {
+  "date-fns": "^2.16.1"
+ }
+}`)
+
 	b.Assert(os.Chdir(workDir), qt.IsNil)
-	b.WithSourceFile("assets/js/main.js", mainJS)
-	b.WithSourceFile("assets/js/included.js", includedJS)
+	_, err = exec.Command("npm", "install").CombinedOutput()
+	b.Assert(err, qt.IsNil)
 
 	b.Build(BuildCfg{})
 
-	b.AssertFileContent("public/index.html", `
-console.log(&#34;included&#34;);
-
-`)
+	b.AssertFileContent("public/js/main.js", `
+greeting: "greeting configured in mod2"
+Hello1 from mod1: $
+return "Hello2 from mod1";
+var Hugo = "Rocks!";
+Hello3 from mod2. Date from date-fns: ${today}
+Hello from lib in the main project
+Hello5 from mod2.
+var myparam = "Hugo Rocks!";`)
 
 }
