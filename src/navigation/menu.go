@@ -41,6 +41,7 @@ type MenuEntry struct {
 	Parent        string
 	Children      Menu
 	NewTab        bool
+	Params        maps.Params
 }
 
 func (m *MenuEntry) URL() string {
@@ -131,6 +132,8 @@ func (m *MenuEntry) MarshallMap(ime map[string]interface{}) {
 			m.Parent = cast.ToString(v)
 		case "newtab":
 			m.NewTab = cast.ToBool(v)
+		case "params":
+			m.Params = maps.ToStringMap(v)
 		}
 	}
 }
