@@ -65,3 +65,16 @@ gotham serve --open
 
 - The shortcode has a title parameter.
 - The shortcode has start and stop parameters, measured in seconds.
+
+### QR Code Shortcode
+
+There's a new shortcode available called "qrcode".
+You can pass it a URL and it will output that URL encoded as a QR code to the page.
+This shortcode shares the HTML and features of the `figure` shortcode minus the embedded link.
+This means parameters such as `alt` and `class` can be used.
+Instead of `width` and `height`, this shortcode has a `size` parameter to specify the dimensions of the square.
+Usage:
+
+```
+{{< qrcode url="https://google.com" >}}
+```

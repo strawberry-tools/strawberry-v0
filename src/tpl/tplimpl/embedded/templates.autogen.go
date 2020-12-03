@@ -446,6 +446,29 @@ if (!doNotTrack) {
 {{- with $name -}}
 {{- with ($.Page.Param .) }}{{ . }}{{ else }}{{ errorf "Param %q not found: %s" $name $.Position }}{{ end -}}
 {{- else }}{{ errorf "Missing param key: %s" $.Position }}{{ end -}}`},
+	{`shortcodes/qrcode.html`, `<figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
+    <img {{ printf "src=%q" (qrcoder (.Get "url")) | safeHTMLAttr }}
+         {{- if or (.Get "alt") (.Get "caption") }}
+         alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
+         {{- end -}}
+		 {{- with .Get "size" }} width="{{ . }}" height="{{ . }}"{{- else }} width="256" height="256"{{ end }} /> <!-- Closing img tag -->
+    {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
+        <figcaption>
+            {{ with (.Get "title") -}}
+                <h4>{{ . }}</h4>
+            {{- end -}}
+            {{- if or (.Get "caption") (.Get "attr") -}}<p>
+                {{- .Get "caption" | markdownify -}}
+                {{- with .Get "attrlink" }}
+                    <a href="{{ . }}">
+                {{- end -}}
+                {{- .Get "attr" | markdownify -}}
+                {{- if .Get "attrlink" }}</a>{{ end }}</p>
+            {{- end }}
+        </figcaption>
+    {{- end }}
+</figure>
+`},
 	{`shortcodes/ref.html`, `{{ ref . .Params }}`},
 	{`shortcodes/relref.html`, `{{ relref . .Params }}`},
 	{`shortcodes/twitter.html`, `{{- $pc := .Page.Site.Config.Privacy.Twitter -}}

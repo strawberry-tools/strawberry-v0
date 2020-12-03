@@ -46,6 +46,7 @@ require (
 	github.com/russross/blackfriday v1.5.3-0.20200218234912-41c5fccfd6f6
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/sanity-io/litter v1.3.0
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/afero v1.4.1
 	github.com/spf13/cast v1.3.1
 	github.com/spf13/cobra v1.1.1

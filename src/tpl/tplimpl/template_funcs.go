@@ -39,6 +39,7 @@ import (
 	_ "github.com/gothamhq/gotham/tpl/debug"
 	_ "github.com/gothamhq/gotham/tpl/encoding"
 	_ "github.com/gothamhq/gotham/tpl/fmt"
+	_ "github.com/gothamhq/gotham/tpl/gotham"
 	_ "github.com/gothamhq/gotham/tpl/hugo"
 	_ "github.com/gothamhq/gotham/tpl/images"
 	_ "github.com/gothamhq/gotham/tpl/inflect"
