@@ -1,5 +1,7 @@
 module github.com/gothamhq/gotham
 
+go 1.15
+
 require (
 	github.com/BurntSushi/locker v0.0.0-20171006230638-a6e239ea1c69
 	github.com/BurntSushi/toml v0.3.1
@@ -69,5 +71,3 @@ require (
 )
 
 replace github.com/markbates/inflect => github.com/markbates/inflect v0.0.0-20171215194931-a12c3aec81a6
-
-go 1.15

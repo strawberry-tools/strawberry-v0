@@ -67,7 +67,7 @@ workflows:
 jobs:
   generic-tests:
     docker:
-      - image: cimg/base:2020.09
+      - image: cimg/base:2020.12
     working_directory: "~/gotham/src"
     steps:
       - checkout:
@@ -85,13 +85,13 @@ jobs:
       - checkout:
           path: ".."
       - go/install:
-          version: "1.15.2"
+          version: "1.15.6"
       - run:
           name: "Install Dependencies"
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.10.0/mage_1.10.0_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
-            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.5.4/gotestsum_0.5.4_linux_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
+            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.6.0/gotestsum_0.6.0_linux_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
             gotestsum --version
       - run:
           name: "Generate Go Test Cache Timestamp"
@@ -137,13 +137,13 @@ jobs:
       - checkout:
           path: ".."
       - go/install:
-          version: "1.15.2"
+          version: "1.15.6"
       - run:
           name: "Install Dependencies"
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.10.0/mage_1.10.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
-            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.5.4/gotestsum_0.5.4_darwin_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
+            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.6.0/gotestsum_0.6.0_darwin_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
             gotestsum --version
       - run:
           name: "Generate Go Test Cache Timestamp"
@@ -184,14 +184,14 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: "1.15.2"
+          version: "1.15.6"
       - run:
           name: "Install Deps"
           command: sudo apt-get update && sudo apt-get install mingw-w64
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.144.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.149.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
@@ -218,11 +218,11 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: "1.15.2"
+          version: "1.15.6"
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.144.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.149.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
