@@ -37,7 +37,7 @@ func (v SemVerVersion) String() string {
 	}
 }
 
-// Build complete version string for user via CLI
+// PrintGothamVersion - Build complete version string for user via CLI
 func PrintGothamVersion(vType VersionType) string {
 
 	if vType == VersionShort {
@@ -46,7 +46,7 @@ func PrintGothamVersion(vType VersionType) string {
 
 	version := "Gotham v" + GothamVersion.String()
 
-	if commitHash != "" {
+	if strings.Contains(version, "-dev") {
 		version += "-" + strings.ToUpper(commitHash)
 	}
 
