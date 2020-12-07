@@ -27,6 +27,7 @@ func createDefaultOutputFormats(allFormats output.Formats) map[string]output.For
 	htmlOut, _ := allFormats.GetByName(output.HTMLFormat.Name)
 	robotsOut, _ := allFormats.GetByName(output.RobotsTxtFormat.Name)
 	sitemapOut, _ := allFormats.GetByName(output.SitemapFormat.Name)
+	jsonOut, _ := allFormats.GetByName(output.JSONFormat.Name)
 
 	defaultListTypes := output.Formats{htmlOut}
 	if rssFound {
@@ -40,9 +41,10 @@ func createDefaultOutputFormats(allFormats output.Formats) map[string]output.For
 		page.KindTerm:     defaultListTypes,
 		page.KindTaxonomy: defaultListTypes,
 		// Below are for consistency. They are currently not used during rendering.
-		kindSitemap:   {sitemapOut},
-		kindRobotsTXT: {robotsOut},
-		kind404:       {htmlOut},
+		kindSitemap:    {sitemapOut},
+		kindRobotsTXT:  {robotsOut},
+		kind404:        {htmlOut},
+		kindAssetLinks: {jsonOut},
 	}
 
 	// May be disabled

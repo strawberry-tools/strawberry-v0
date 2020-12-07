@@ -18,6 +18,12 @@ package embedded
 
 // EmbeddedTemplates represents all embedded templates.
 var EmbeddedTemplates = [][2]string{
+	{`_default/assetlinks.json`, `[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "{{ .Site.Config.Services.AssetLinks.PackageName }}",
+               "sha256_cert_fingerprints": ["{{ .Site.Config.Services.AssetLinks.Fingerprint }}"] }
+}]
+`},
 	{`_default/robots.txt`, `User-agent: *`},
 	{`_default/rss.xml`, `{{- $pctx := . -}}
 {{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}

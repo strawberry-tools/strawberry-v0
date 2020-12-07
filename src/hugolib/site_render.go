@@ -292,6 +292,41 @@ func (s *Site) renderSitemap() error {
 	return s.renderAndWriteXML(&s.PathSpec.ProcessingStats.Sitemaps, "sitemap", targetPath, p, templ)
 }
 
+func (s *Site) renderAssetLinks() error {
+
+	p, err := newPageStandalone(&pageMeta{
+		s:    s,
+		kind: kindAssetLinks,
+		urlPaths: pagemeta.URLPath{
+			URL: ".well-known/assetlinks.json",
+		}},
+		output.JSONFormat,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	if !p.render {
+		return nil
+	}
+
+	// only render if both config settings are set
+	if s.Cfg.GetString("assetLinksPackageName") == "" || s.Cfg.GetString("assetLinksFingerprint") == "" {
+		return nil
+	}
+
+	targetPath := p.targetPaths().TargetFilename
+
+	if targetPath == "" {
+		return errors.New("failed to create targetPath for sitemap")
+	}
+
+	templ := s.lookupLayouts("assetlinks.json", "_default/assetlinks.json", "_internal/_default/assetlinks.json")
+
+	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "assetlinks", targetPath, p, templ)
+}
+
 func (s *Site) renderRobotsTXT() error {
 	if !s.Cfg.GetBool("enableRobotsTXT") {
 		return nil
