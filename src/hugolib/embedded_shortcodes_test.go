@@ -1,4 +1,5 @@
 // Copyright 2019 The Hugo Authors. All rights reserved.
+// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -439,5 +440,61 @@ title: Shorty
 
 		th.assertFileContentRegexp(filepath.Join("public", "simple", "index.html"), this.expected)
 
+	}
+}
+
+func TestShortcodeMastodon(t *testing.T) {
+
+	t.Parallel()
+
+	testCases := []struct {
+		shortcode string
+		resp      string
+		expected  string
+	}{
+		{
+			`{{< mastodon url="https://mastodon.social/@popey/101544533764122938" >}}`,
+			`{"type":"rich","version":"1.0","author_name":"Alan Pope  ✅ 🍺 🐧 🐱","author_url":"https://mastodon.social/@popey","provider_name":"mastodon.social","provider_url":"https://mastodon.social/","cache_age":86400,"html":"\u003ciframe src=\"https://mastodon.social/@popey/101544533764122938/embed\" class=\"mastodon-embed\" style=\"max-width: 100%; border: 0\" width=\"400\" allowfullscreen=\"allowfullscreen\"\u003e\u003c/iframe\u003e\u003cscript src=\"https://mastodon.social/embed.js\" async=\"async\"\u003e\u003c/script\u003e","width":400,"height":null}`,
+			`(?s)<iframe src="https://mastodon.social/@popey/101544533764122938/embed" class="mastodon-embed".*?width="400".*?></iframe><script src="https://mastodon.social/embed.js" async="async"></script>`,
+		},
+		{
+			`{{< mastodon url="https://mastodon.social/@popey/101544533764122938" width=900 >}}`,
+			`{"type":"rich","version":"1.0","author_name":"Alan Pope  ✅ 🍺 🐧 🐱","author_url":"https://mastodon.social/@popey","provider_name":"mastodon.social","provider_url":"https://mastodon.social/","cache_age":86400,"html":"\u003ciframe src=\"https://mastodon.social/@popey/101544533764122938/embed\" class=\"mastodon-embed\" style=\"max-width: 100%; border: 0\" width=\"900\" allowfullscreen=\"allowfullscreen\"\u003e\u003c/iframe\u003e\u003cscript src=\"https://mastodon.social/embed.js\" async=\"async\"\u003e\u003c/script\u003e","width":900,"height":null}`,
+			`(?s)<iframe src="https://mastodon.social/@popey/101544533764122938/embed" class="mastodon-embed".*?width="900".*?></iframe><script src="https://mastodon.social/embed.js" async="async"></script>`,
+		},
+		{
+			`{{< mastodon url="https://mastodon.social/@popey/101544533764122938" width=300 height=200 >}}`,
+			`{"type":"rich","version":"1.0","author_name":"Alan Pope  ✅ 🍺 🐧 🐱","author_url":"https://mastodon.social/@popey","provider_name":"mastodon.social","provider_url":"https://mastodon.social/","cache_age":86400,"html":"\u003ciframe src=\"https://mastodon.social/@popey/101544533764122938/embed\" class=\"mastodon-embed\" style=\"max-width: 100%; border: 0\" width=\"300\" height=\"200\" allowfullscreen=\"allowfullscreen\"\u003e\u003c/iframe\u003e\u003cscript src=\"https://mastodon.social/embed.js\" async=\"async\"\u003e\u003c/script\u003e","width":300,"height":200}`,
+			`(?s)<iframe src="https://mastodon.social/@popey/101544533764122938/embed" class="mastodon-embed".*?width="300".*?height="200".*?></iframe><script src="https://mastodon.social/embed.js" async="async"></script>`,
+		},
+	}
+
+	for i, tc := range testCases {
+
+		// overload getJSON to return mock API response from Mastodon
+		mastodonFuncMap := template.FuncMap{
+			"getJSON": func(urlParts ...string) interface{} {
+				var v interface{}
+				err := json.Unmarshal([]byte(tc.resp), &v)
+				if err != nil {
+					t.Fatalf("[%d] unexpected error in json.Unmarshal: %s", i, err)
+					return err
+				}
+				return v
+			},
+		}
+
+		var (
+			cfg, fs = newTestCfg()
+			th      = newTestHelper(cfg, fs, t)
+		)
+
+		writeSource(t, fs, filepath.Join("content", "simple.md"), fmt.Sprintf(`---
+title: Shorty
+---
+%s`, tc.shortcode))
+		writeSource(t, fs, filepath.Join("layouts", "_default", "single.html"), `{{ .Content | safeHTML }}`)
+		buildSingleSite(t, deps.DepsCfg{Fs: fs, Cfg: cfg, OverloadedTemplateFuncs: mastodonFuncMap}, BuildCfg{})
+		th.assertFileContentRegexp(filepath.Join("public", "simple", "index.html"), tc.expected)
 	}
 }

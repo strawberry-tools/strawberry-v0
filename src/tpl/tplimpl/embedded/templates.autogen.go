@@ -448,6 +448,12 @@ if (!doNotTrack) {
 </style>
 {{ end }}
 {{ end }}`},
+	{`shortcodes/mastodon.html`, `{{ $url := .Get "url" | urls.Parse }}
+{{ $api := printf "%s://%s/api/oembed/?" $url.Scheme $url.Host }}
+{{ $width := .Get "width" | default "400" }}
+{{ $height := .Get "height" | default "null" }}
+{{ with getJSON $api (querify "url" $url "width" $width "height" $height) }}{{ .html | safeHTML }}{{ end }}
+`},
 	{`shortcodes/param.html`, `{{- $name := (.Get 0) -}}
 {{- with $name -}}
 {{- with ($.Page.Param .) }}{{ . }}{{ else }}{{ errorf "Param %q not found: %s" $name $.Position }}{{ end -}}

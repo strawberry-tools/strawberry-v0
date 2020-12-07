@@ -94,3 +94,15 @@ Resources:
 - https://developer.android.com/training/app-links/verify-site-associations
 - https://developers.google.com/digital-asset-links/tools/generator
 - https://developers.google.com/digital-asset-links/v1/getting-started
+
+### Mastodon Shortcode
+
+Embed Mastodon toots in your Gotham pages with this Mastodon shortcode.
+You can pass the toot URL and optionally, a width and height.
+Keep in mind that the width and height are considered suggestions to Mastodon and it will render mostly based on the content it's trying to show.
+
+Usage:
+
+```
+{{< mastodon url="https://mastodon.social/@Gargron/105303408810292711" >}}
+```
