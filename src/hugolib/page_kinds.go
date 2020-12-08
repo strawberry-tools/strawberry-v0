@@ -32,19 +32,21 @@ const (
 
 	// The following are (currently) temporary nodes,
 	// i.e. nodes we create just to render in isolation.
-	kindRSS       = "RSS"
-	kindSitemap   = "sitemap"
-	kindRobotsTXT = "robotsTXT"
-	kind404       = "404"
+	kindRSS        = "RSS"
+	kindSitemap    = "sitemap"
+	kindRobotsTXT  = "robotsTXT"
+	kind404        = "404"
+	kindAssetLinks = "assetLinks"
 
 	pageResourceType = "page"
 )
 
 var kindMap = map[string]string{
-	strings.ToLower(kindRSS):       kindRSS,
-	strings.ToLower(kindSitemap):   kindSitemap,
-	strings.ToLower(kindRobotsTXT): kindRobotsTXT,
-	strings.ToLower(kind404):       kind404,
+	strings.ToLower(kindRSS):        kindRSS,
+	strings.ToLower(kindSitemap):    kindSitemap,
+	strings.ToLower(kindRobotsTXT):  kindRobotsTXT,
+	strings.ToLower(kind404):        kind404,
+	strings.ToLower(kindAssetLinks): kindAssetLinks,
 }
 
 func getKind(s string) string {

@@ -78,3 +78,19 @@ Usage:
 ```
 {{< qrcode url="https://google.com" >}}
 ```
+
+### Digital Asset Links
+
+A Gotham site can generate an Asset Links file (`assetlinks.json`) by providing two key bits of information in your Gotham config.
+
+```yaml
+#... gotham config
+assetLinksPackageName: "<my-package-name>"
+assetLinksFingerprint: "<my-android-certificate-sha>"
+```
+
+Resources:
+
+- https://developer.android.com/training/app-links/verify-site-associations
+- https://developers.google.com/digital-asset-links/tools/generator
+- https://developers.google.com/digital-asset-links/v1/getting-started

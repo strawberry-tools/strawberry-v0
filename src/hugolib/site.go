@@ -1248,6 +1248,10 @@ func (s *Site) render(ctx *siteRenderContext) (err error) {
 		if err = s.render404(); err != nil {
 			return
 		}
+
+		if err = s.renderAssetLinks(); err != nil {
+			return
+		}
 	}
 
 	if !ctx.renderSingletonPages() {

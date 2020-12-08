@@ -21,9 +21,11 @@ import (
 const (
 	servicesConfigKey = "services"
 
-	disqusShortnameKey = "disqusshortname"
-	googleAnalyticsKey = "googleanalytics"
-	rssLimitKey        = "rssLimit"
+	disqusShortnameKey       = "disqusshortname"
+	googleAnalyticsKey       = "googleanalytics"
+	rssLimitKey              = "rssLimit"
+	assetLinksPackageNameKey = "assetLinksPackageName"
+	assetLinksFingerprintKey = "assetLinksFingerprint"
 )
 
 // Config is a privacy configuration for all the relevant services in Hugo.
@@ -33,6 +35,7 @@ type Config struct {
 	Instagram       Instagram
 	Twitter         Twitter
 	RSS             RSS
+	AssetLinks      AssetLinks
 }
 
 // Disqus holds the functional configuration settings related to the Disqus template.
@@ -69,6 +72,12 @@ type RSS struct {
 	Limit int
 }
 
+// AssetLinks holds the functional configuration settings related to Google Digital Asset Links.
+type AssetLinks struct {
+	PackageName string
+	Fingerprint string
+}
+
 // DecodeConfig creates a services Config from a given Hugo configuration.
 func DecodeConfig(cfg config.Provider) (c Config, err error) {
 	m := cfg.GetStringMap(servicesConfigKey)
@@ -80,12 +89,18 @@ func DecodeConfig(cfg config.Provider) (c Config, err error) {
 		// Try the global config
 		c.GoogleAnalytics.ID = cfg.GetString(googleAnalyticsKey)
 	}
+
 	if c.Disqus.Shortname == "" {
 		c.Disqus.Shortname = cfg.GetString(disqusShortnameKey)
 	}
 
 	if c.RSS.Limit == 0 {
 		c.RSS.Limit = cfg.GetInt(rssLimitKey)
+	}
+
+	if c.AssetLinks.PackageName == "" {
+		c.AssetLinks.PackageName = cfg.GetString(assetLinksPackageNameKey)
+		c.AssetLinks.Fingerprint = cfg.GetString(assetLinksFingerprintKey)
 	}
 
 	return
