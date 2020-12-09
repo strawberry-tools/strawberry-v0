@@ -18,6 +18,24 @@ package embedded
 
 // EmbeddedTemplates represents all embedded templates.
 var EmbeddedTemplates = [][2]string{
+	{`_default/apple_app_site_association.json`, `{
+	"applinks": {
+		"details": [{
+			"appIDs": [ "{{ printf "%s.%s" .Site.Config.Services.AASA.Prefix .Site.Config.Services.AASA.Bundle }}" ],
+			"components": [{
+					"#": "no_universal_links",
+					"exclude": true,
+					"comment": "Matches any URL whose fragment equals no_universal_links and instructs the system not to open it as a universal link"
+				},
+				{
+					"/": "*",
+					"comment": "Matches any URL on the domain (wildcard)"
+				}
+			]
+		}]
+	}
+}
+`},
 	{`_default/assetlinks.json`, `[{
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target" : { "namespace": "android_app", "package_name": "{{ .Site.Config.Services.AssetLinks.PackageName }}",

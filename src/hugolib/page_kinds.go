@@ -37,6 +37,7 @@ const (
 	kindRobotsTXT  = "robotsTXT"
 	kind404        = "404"
 	kindAssetLinks = "assetLinks"
+	kindAASA       = "AASA"
 
 	pageResourceType = "page"
 )
@@ -47,6 +48,7 @@ var kindMap = map[string]string{
 	strings.ToLower(kindRobotsTXT):  kindRobotsTXT,
 	strings.ToLower(kind404):        kind404,
 	strings.ToLower(kindAssetLinks): kindAssetLinks,
+	strings.ToLower(kindAASA):       kindAASA,
 }
 
 func getKind(s string) string {
