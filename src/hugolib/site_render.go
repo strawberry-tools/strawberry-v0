@@ -319,7 +319,7 @@ func (s *Site) renderAssetLinks() error {
 	targetPath := p.targetPaths().TargetFilename
 
 	if targetPath == "" {
-		return errors.New("failed to create targetPath for sitemap")
+		return errors.New("failed to create targetPath for assetlinks")
 	}
 
 	templ := s.lookupLayouts("assetlinks.json", "_default/assetlinks.json", "_internal/_default/assetlinks.json")
