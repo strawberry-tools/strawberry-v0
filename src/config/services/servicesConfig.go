@@ -26,6 +26,8 @@ const (
 	rssLimitKey              = "rssLimit"
 	assetLinksPackageNameKey = "assetLinksPackageName"
 	assetLinksFingerprintKey = "assetLinksFingerprint"
+	aasaPrefixKey            = "aasaPrefix"
+	aasaBundleKey            = "aasaBundle"
 )
 
 // Config is a privacy configuration for all the relevant services in Hugo.
@@ -36,6 +38,7 @@ type Config struct {
 	Twitter         Twitter
 	RSS             RSS
 	AssetLinks      AssetLinks
+	AASA            AASA
 }
 
 // Disqus holds the functional configuration settings related to the Disqus template.
@@ -78,6 +81,12 @@ type AssetLinks struct {
 	Fingerprint string
 }
 
+// AASA holds the functional configuration settings related to Apple App Site Association.
+type AASA struct {
+	Prefix string
+	Bundle string
+}
+
 // DecodeConfig creates a services Config from a given Hugo configuration.
 func DecodeConfig(cfg config.Provider) (c Config, err error) {
 	m := cfg.GetStringMap(servicesConfigKey)
@@ -101,6 +110,11 @@ func DecodeConfig(cfg config.Provider) (c Config, err error) {
 	if c.AssetLinks.PackageName == "" {
 		c.AssetLinks.PackageName = cfg.GetString(assetLinksPackageNameKey)
 		c.AssetLinks.Fingerprint = cfg.GetString(assetLinksFingerprintKey)
+	}
+
+	if c.AASA.Prefix == "" {
+		c.AASA.Prefix = cfg.GetString(aasaPrefixKey)
+		c.AASA.Bundle = cfg.GetString(aasaBundleKey)
 	}
 
 	return

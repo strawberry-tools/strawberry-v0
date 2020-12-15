@@ -45,6 +45,7 @@ func createDefaultOutputFormats(allFormats output.Formats) map[string]output.For
 		kindRobotsTXT:  {robotsOut},
 		kind404:        {htmlOut},
 		kindAssetLinks: {jsonOut},
+		kindAASA:       {jsonOut},
 	}
 
 	// May be disabled

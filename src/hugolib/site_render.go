@@ -327,6 +327,41 @@ func (s *Site) renderAssetLinks() error {
 	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "assetlinks", targetPath, p, templ)
 }
 
+func (s *Site) renderAASA() error {
+
+	p, err := newPageStandalone(&pageMeta{
+		s:    s,
+		kind: kindAASA,
+		urlPaths: pagemeta.URLPath{
+			URL: ".well-known/apple-app-site-association",
+		}},
+		output.JSONFormat,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	if !p.render {
+		return nil
+	}
+
+	// only render if both config settings are set
+	if s.Cfg.GetString("aasaPrefix") == "" || s.Cfg.GetString("aasaBundle") == "" {
+		return nil
+	}
+
+	targetPath := p.targetPaths().TargetFilename
+
+	if targetPath == "" {
+		return errors.New("failed to create targetPath for Apple App Site Associate")
+	}
+
+	templ := s.lookupLayouts("apple_app_site_association.json", "_default/apple_app_site_association.json", "_internal/_default/apple_app_site_association.json")
+
+	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Associate", targetPath, p, templ)
+}
+
 func (s *Site) renderRobotsTXT() error {
 	if !s.Cfg.GetBool("enableRobotsTXT") {
 		return nil
