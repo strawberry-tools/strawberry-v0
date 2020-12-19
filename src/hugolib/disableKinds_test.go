@@ -203,7 +203,7 @@ title: Headless Local Lists Sub
 		b.Assert(getPageInSitePages(b, "/sect"), qt.IsNil)
 		home := getPage(b, "/")
 		b.Assert(getPageInPagePages(home, "/sect"), qt.IsNil)
-		b.Assert(home.OutputFormats(), qt.HasLen, 2)
+		b.Assert(home.OutputFormats(), qt.HasLen, 3)
 		page := getPage(b, "/sect/page.md")
 		b.Assert(page, qt.Not(qt.IsNil))
 		b.Assert(page.CurrentSection(), qt.Equals, sect)
@@ -219,7 +219,16 @@ title: Headless Local Lists Sub
 		b.Build(BuildCfg{})
 		b.Assert(b.CheckExists("public/index.xml"), qt.Equals, false)
 		home := getPage(b, "/")
-		b.Assert(home.OutputFormats(), qt.HasLen, 1)
+		b.Assert(home.OutputFormats(), qt.HasLen, 2)
+	})
+
+	disableKind = kindJSONFeed
+	c.Run("Disable "+disableKind, func(c *qt.C) {
+		b := newSitesBuilder(c, disableKind)
+		b.Build(BuildCfg{})
+		b.Assert(b.CheckExists("public/feed.json"), qt.Equals, false)
+		home := getPage(b, "/")
+		b.Assert(home.OutputFormats(), qt.HasLen, 2)
 	})
 
 	disableKind = kindSitemap

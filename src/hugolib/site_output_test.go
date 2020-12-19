@@ -341,14 +341,14 @@ func TestCreateSiteOutputFormats(t *testing.T) {
 		cfg := viper.New()
 		cfg.Set("outputs", outputsConfig)
 
-		outputs, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false)
+		outputs, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false, false)
 		c.Assert(err, qt.IsNil)
 		c.Assert(outputs[page.KindSection], deepEqualsOutputFormats, output.Formats{output.JSONFormat})
 		c.Assert(outputs[page.KindHome], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.JSONFormat})
 
 		// Defaults
-		c.Assert(outputs[page.KindTerm], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.RSSFormat})
-		c.Assert(outputs[page.KindTaxonomy], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.RSSFormat})
+		c.Assert(outputs[page.KindTerm], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.RSSFormat, output.JSONFeedFormat})
+		c.Assert(outputs[page.KindTaxonomy], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.RSSFormat, output.JSONFeedFormat})
 		c.Assert(outputs[page.KindPage], deepEqualsOutputFormats, output.Formats{output.HTMLFormat})
 
 		// These aren't (currently) in use when rendering in Hugo,
@@ -373,7 +373,7 @@ func TestCreateSiteOutputFormats(t *testing.T) {
 		}
 		cfg.Set("outputs", outputsConfig)
 
-		outputs, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false)
+		outputs, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false, false)
 		c.Assert(err, qt.IsNil)
 		c.Assert(outputs[page.KindTaxonomy], deepEqualsOutputFormats, output.Formats{output.JSONFormat})
 
@@ -391,7 +391,7 @@ func TestCreateSiteOutputFormatsInvalidConfig(t *testing.T) {
 	cfg := viper.New()
 	cfg.Set("outputs", outputsConfig)
 
-	_, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false)
+	_, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false, false)
 	c.Assert(err, qt.Not(qt.IsNil))
 }
 
@@ -405,9 +405,9 @@ func TestCreateSiteOutputFormatsEmptyConfig(t *testing.T) {
 	cfg := viper.New()
 	cfg.Set("outputs", outputsConfig)
 
-	outputs, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false)
+	outputs, err := createSiteOutputFormats(output.DefaultFormats, cfg.GetStringMap("outputs"), false, false)
 	c.Assert(err, qt.IsNil)
-	c.Assert(outputs[page.KindHome], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.RSSFormat})
+	c.Assert(outputs[page.KindHome], deepEqualsOutputFormats, output.Formats{output.HTMLFormat, output.RSSFormat, output.JSONFeedFormat})
 }
 
 func TestCreateSiteOutputFormatsCustomFormats(t *testing.T) {
@@ -425,7 +425,7 @@ func TestCreateSiteOutputFormatsCustomFormats(t *testing.T) {
 		customHTML = output.Format{Name: "HTML", BaseName: "customHTML"}
 	)
 
-	outputs, err := createSiteOutputFormats(output.Formats{customRSS, customHTML}, cfg.GetStringMap("outputs"), false)
+	outputs, err := createSiteOutputFormats(output.Formats{customRSS, customHTML}, cfg.GetStringMap("outputs"), false, false)
 	c.Assert(err, qt.IsNil)
 	c.Assert(outputs[page.KindHome], deepEqualsOutputFormats, output.Formats{customHTML, customRSS})
 }

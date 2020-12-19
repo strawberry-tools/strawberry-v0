@@ -133,13 +133,14 @@ var (
 	TSXType        = Type{MainType: "text", SubType: "tsx", Suffixes: []string{"tsx"}, Delimiter: defaultDelimiter}
 	JSXType        = Type{MainType: "text", SubType: "jsx", Suffixes: []string{"jsx"}, Delimiter: defaultDelimiter}
 
-	JSONType = Type{MainType: "application", SubType: "json", Suffixes: []string{"json"}, Delimiter: defaultDelimiter}
-	RSSType  = Type{MainType: "application", SubType: "rss", mimeSuffix: "xml", Suffixes: []string{"xml"}, Delimiter: defaultDelimiter}
-	XMLType  = Type{MainType: "application", SubType: "xml", Suffixes: []string{"xml"}, Delimiter: defaultDelimiter}
-	SVGType  = Type{MainType: "image", SubType: "svg", mimeSuffix: "xml", Suffixes: []string{"svg"}, Delimiter: defaultDelimiter}
-	TextType = Type{MainType: "text", SubType: "plain", Suffixes: []string{"txt"}, Delimiter: defaultDelimiter}
-	TOMLType = Type{MainType: "application", SubType: "toml", Suffixes: []string{"toml"}, Delimiter: defaultDelimiter}
-	YAMLType = Type{MainType: "application", SubType: "yaml", Suffixes: []string{"yaml", "yml"}, Delimiter: defaultDelimiter}
+	JSONType     = Type{MainType: "application", SubType: "json", Suffixes: []string{"json"}, Delimiter: defaultDelimiter}
+	RSSType      = Type{MainType: "application", SubType: "rss", mimeSuffix: "xml", Suffixes: []string{"xml"}, Delimiter: defaultDelimiter}
+	JSONFeedType = Type{MainType: "application", SubType: "feed", mimeSuffix: "json", Suffixes: []string{"feed.json"}, Delimiter: defaultDelimiter}
+	XMLType      = Type{MainType: "application", SubType: "xml", Suffixes: []string{"xml"}, Delimiter: defaultDelimiter}
+	SVGType      = Type{MainType: "image", SubType: "svg", mimeSuffix: "xml", Suffixes: []string{"svg"}, Delimiter: defaultDelimiter}
+	TextType     = Type{MainType: "text", SubType: "plain", Suffixes: []string{"txt"}, Delimiter: defaultDelimiter}
+	TOMLType     = Type{MainType: "application", SubType: "toml", Suffixes: []string{"toml"}, Delimiter: defaultDelimiter}
+	YAMLType     = Type{MainType: "application", SubType: "yaml", Suffixes: []string{"yaml", "yml"}, Delimiter: defaultDelimiter}
 
 	// Common image types
 	PNGType  = Type{MainType: "image", SubType: "png", Suffixes: []string{"png"}, Delimiter: defaultDelimiter}
@@ -173,6 +174,7 @@ var DefaultTypes = Types{
 	JSXType,
 	JSONType,
 	RSSType,
+	JSONFeedType,
 	XMLType,
 	SVGType,
 	TextType,

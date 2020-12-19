@@ -24,6 +24,8 @@ const (
 	disqusShortnameKey       = "disqusshortname"
 	googleAnalyticsKey       = "googleanalytics"
 	rssLimitKey              = "rssLimit"
+	jsonFeedLimitKey         = "jsonFeedLimit"
+	jsonFeedFullKey          = "jsonFeedFull"
 	assetLinksPackageNameKey = "assetLinksPackageName"
 	assetLinksFingerprintKey = "assetLinksFingerprint"
 	aasaPrefixKey            = "aasaPrefix"
@@ -37,6 +39,7 @@ type Config struct {
 	Instagram       Instagram
 	Twitter         Twitter
 	RSS             RSS
+	JSONFeed        JSONFeed
 	AssetLinks      AssetLinks
 	AASA            AASA
 }
@@ -75,6 +78,12 @@ type RSS struct {
 	Limit int
 }
 
+// JSONFeed holds the config settings for a JSON Feed: https://www.jsonfeed.org/
+type JSONFeed struct {
+	Limit int  // limit number of pages included in feed
+	Full  bool // Whether or not to use the full content or just the summary
+}
+
 // AssetLinks holds the functional configuration settings related to Google Digital Asset Links.
 type AssetLinks struct {
 	PackageName string
@@ -105,6 +114,14 @@ func DecodeConfig(cfg config.Provider) (c Config, err error) {
 
 	if c.RSS.Limit == 0 {
 		c.RSS.Limit = cfg.GetInt(rssLimitKey)
+	}
+
+	if c.JSONFeed.Limit == 0 {
+		c.JSONFeed.Limit = cfg.GetInt(jsonFeedLimitKey)
+	}
+
+	if c.JSONFeed.Full == false {
+		c.JSONFeed.Full = cfg.GetBool(jsonFeedFullKey)
 	}
 
 	if c.AssetLinks.PackageName == "" {

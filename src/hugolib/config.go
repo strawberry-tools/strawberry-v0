@@ -631,6 +631,8 @@ func loadDefaultSettingsFor(v *viper.Viper) error {
 	v.SetDefault("paginatePath", "page")
 	v.SetDefault("summaryLength", 70)
 	v.SetDefault("rssLimit", -1)
+	v.SetDefault("jsonFeedLimit", -1)
+	v.SetDefault("jsonFeedFull", true)
 	v.SetDefault("sectionPagesMenu", "")
 	v.SetDefault("disablePathToLower", false)
 	v.SetDefault("hasCJKLanguage", false)
