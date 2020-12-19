@@ -20,7 +20,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gohugoio/hugo/common/hexec"
+	"github.com/gothamhq/gotham/common/hexec"
 )
 
 var issueRe = regexp.MustCompile(`(?i)[Updates?|Closes?|Fix.*|See] #(\d+)`)

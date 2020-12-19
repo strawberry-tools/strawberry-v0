@@ -6,7 +6,9 @@ require (
 	github.com/BurntSushi/locker v0.0.0-20171006230638-a6e239ea1c69
 	github.com/BurntSushi/toml v0.3.1
 	github.com/PuerkitoBio/purell v1.1.1
+	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/alecthomas/chroma v0.8.2
+	github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 // indirect
 	github.com/armon/go-radix v1.0.0
 	github.com/aws/aws-sdk-go v1.35.0
 	github.com/bep/debounce v1.2.0
@@ -15,6 +17,7 @@ require (
 	github.com/bep/tmc v0.5.1
 	github.com/cli/safeexec v1.0.0
 	github.com/disintegration/gift v1.2.1
+	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0
 	github.com/evanw/esbuild v0.8.15
 	github.com/fortytw2/leaktest v1.3.0
@@ -23,7 +26,6 @@ require (
 	github.com/getkin/kin-openapi v0.31.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gobwas/glob v0.2.3
-	github.com/gohugoio/hugo v0.79.1
 	github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95
 	github.com/google/go-cmp v0.5.3
 	github.com/gorilla/websocket v1.4.2
@@ -37,6 +39,7 @@ require (
 	github.com/mitchellh/hashstructure v1.0.0
 	github.com/mitchellh/mapstructure v1.3.3
 	github.com/muesli/smartcrop v0.3.0
+	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.1.1
 	github.com/niklasfasching/go-org v1.3.2
 	github.com/olekukonko/tablewriter v0.0.4
@@ -63,6 +66,8 @@ require (
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
 	golang.org/x/text v0.3.4
 	google.golang.org/api v0.13.0
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 )
 
