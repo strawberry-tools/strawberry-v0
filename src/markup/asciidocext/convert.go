@@ -18,14 +18,16 @@ package asciidocext
 
 import (
 	"bytes"
-	"os/exec"
 	"path/filepath"
+
+	"github.com/cli/safeexec"
 
 	"github.com/gothamhq/gotham/identity"
 	"github.com/gothamhq/gotham/markup/asciidocext/asciidocext_config"
 	"github.com/gothamhq/gotham/markup/converter"
 	"github.com/gothamhq/gotham/markup/internal"
 	"github.com/gothamhq/gotham/markup/tableofcontents"
+
 	"golang.org/x/net/html"
 )
 
@@ -194,7 +196,7 @@ func (a *asciidocConverter) appendArg(args []string, option, value, defaultValue
 }
 
 func getAsciidoctorExecPath() string {
-	path, err := exec.LookPath("asciidoctor")
+	path, err := safeexec.LookPath("asciidoctor")
 	if err != nil {
 		return ""
 	}

@@ -26,6 +26,8 @@ import (
 	"path/filepath"
 	"regexp"
 
+	"github.com/gothamhq/gotham/common/hexec"
+
 	hglob "github.com/gothamhq/gotham/hugofs/glob"
 
 	"github.com/gobwas/glob"
@@ -545,7 +547,10 @@ func (c *Client) runGo(
 	}
 
 	stderr := new(bytes.Buffer)
-	cmd := exec.CommandContext(ctx, "go", args...)
+	cmd, err := hexec.SafeCommandContext(ctx, "go", args...)
+	if err != nil {
+		return err
+	}
 
 	cmd.Env = c.environ
 	cmd.Dir = c.ccfg.WorkingDir
