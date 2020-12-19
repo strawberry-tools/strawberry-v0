@@ -21,10 +21,10 @@ import (
 
 	"io"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 
+	"github.com/gothamhq/gotham/common/hexec"
 	"github.com/gothamhq/gotham/hugofs/files"
 
 	"github.com/gothamhq/gotham/hugofs"
@@ -106,7 +106,10 @@ func NewContent(
 		jww.FEEDBACK.Printf("Editing %s with %q ...\n", targetPath, editor)
 
 		editorCmd := append(strings.Fields(editor), contentPath)
-		cmd := exec.Command(editorCmd[0], editorCmd[1:]...)
+		cmd, err := hexec.SafeCommand(editorCmd[0], editorCmd[1:]...)
+		if err != nil {
+			return err
+		}
 		cmd.Stdin = os.Stdin
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
