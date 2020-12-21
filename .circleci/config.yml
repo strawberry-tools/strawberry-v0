@@ -129,7 +129,7 @@ jobs:
             ./gotham version
   test-on-macos:
     macos:
-      xcode: 11.5.0
+      xcode: 12.3.0
     working_directory: "~/gotham/src"
     environment:
       GOTESTSUM_JUNITFILE: "junit/unit-tests-macos.xml"
@@ -213,7 +213,7 @@ jobs:
             - "dist"
   release-on-macos:
     macos:
-      xcode: 11.5.0
+      xcode: 12.3.0
     working_directory: "~/gotham"
     steps:
       - checkout
