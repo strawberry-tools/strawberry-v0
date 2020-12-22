@@ -30,13 +30,13 @@ func TestHugoWithContentDirOverride(t *testing.T) {
 
 	cfgStr := `
 
-baseURL = "https://example.org"
-title = "Hugo Commands"
+baseURL: "https://example.org"
+title: "Hugo Commands"
 
-contentDir = "thisdoesnotexist"
+contentDir: "thisdoesnotexist"
 
 `
-	dir, clean, err := createSimpleTestSite(t, testSiteConfig{configTOML: cfgStr, contentDir: contentDir})
+	dir, clean, err := createSimpleTestSite(t, testSiteConfig{configFile: cfgStr, contentDir: contentDir})
 	c.Assert(err, qt.IsNil)
 	defer clean()
 

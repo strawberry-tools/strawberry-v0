@@ -82,7 +82,7 @@ func TestExecute(t *testing.T) {
 			return resp.Err
 		})
 		c.Assert(err, qt.IsNil)
-		c.Assert(out, qt.Contains, "params = map[myparam:paramstaging]", qt.Commentf(out))
+		c.Assert(out, qt.Contains, "params: map[myparam:paramstaging]", qt.Commentf(out))
 	})
 
 	c.Run("deploy, environment set", func(c *qt.C) {
@@ -120,8 +120,8 @@ func TestExecute(t *testing.T) {
 		siteDir := filepath.Join(dir, "mysite")
 		resp := Execute([]string{"new", "site", siteDir, "-e=staging"})
 		c.Assert(resp.Err, qt.IsNil)
-		config := readFileFrom(c, filepath.Join(siteDir, "config.toml"))
-		c.Assert(config, qt.Contains, "baseURL = \"http://example.org/\"")
+		config := readFileFrom(c, filepath.Join(siteDir, "config.yml"))
+		c.Assert(config, qt.Contains, "baseURL: http://example.org/")
 		checkNewSiteInited(c, siteDir)
 	})
 
@@ -134,7 +134,7 @@ func checkNewSiteInited(c *qt.C, basepath string) {
 		filepath.Join(basepath, "archetypes"),
 		filepath.Join(basepath, "static"),
 		filepath.Join(basepath, "data"),
-		filepath.Join(basepath, "config.toml"),
+		filepath.Join(basepath, "config.yml"),
 	}
 
 	for _, path := range paths {
@@ -334,7 +334,7 @@ func TestCommandsExecute(t *testing.T) {
 }
 
 type testSiteConfig struct {
-	configTOML string
+	configFile string
 	contentDir string
 }
 
@@ -346,16 +346,16 @@ func createSimpleTestSite(t *testing.T, cfg testSiteConfig) (string, func(), err
 
 	cfgStr := `
 
-baseURL = "https://example.org"
-title = "Hugo Commands"
+baseURL: "https://example.org"
+title: "Hugo Commands"
 
 
 `
 
 	contentDir := "content"
 
-	if cfg.configTOML != "" {
-		cfgStr = cfg.configTOML
+	if cfg.configFile != "" {
+		cfgStr = cfg.configFile
 	}
 	if cfg.contentDir != "" {
 		contentDir = cfg.contentDir
@@ -364,7 +364,7 @@ title = "Hugo Commands"
 	os.MkdirAll(filepath.Join(d, "public"), 0777)
 
 	// Just the basic. These are for CLI tests, not site testing.
-	writeFile(t, filepath.Join(d, "config.toml"), cfgStr)
+	writeFile(t, filepath.Join(d, "config.yml"), cfgStr)
 	writeFile(t, filepath.Join(d, "config", "staging", "params.toml"), `myparam="paramstaging"`)
 	writeFile(t, filepath.Join(d, "config", "staging", "deployment.toml"), `
 [[targets]]
