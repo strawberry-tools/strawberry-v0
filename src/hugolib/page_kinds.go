@@ -33,6 +33,7 @@ const (
 	// The following are (currently) temporary nodes,
 	// i.e. nodes we create just to render in isolation.
 	kindRSS        = "RSS"
+	kindJSONFeed   = "JSONFeed"
 	kindSitemap    = "sitemap"
 	kindRobotsTXT  = "robotsTXT"
 	kind404        = "404"
@@ -44,6 +45,7 @@ const (
 
 var kindMap = map[string]string{
 	strings.ToLower(kindRSS):        kindRSS,
+	strings.ToLower(kindJSONFeed):   kindJSONFeed,
 	strings.ToLower(kindSitemap):    kindSitemap,
 	strings.ToLower(kindRobotsTXT):  kindRobotsTXT,
 	strings.ToLower(kind404):        kind404,

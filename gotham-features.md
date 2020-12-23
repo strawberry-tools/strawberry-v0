@@ -25,3 +25,38 @@ Resources:
 
 - https://developer.apple.com/documentation/safariservices/supporting_associated_domains
 - https://search.developer.apple.com/appsearch-validation-tool
+
+### JSON Feeds
+
+Gotham pre-bakes [JSON Feeds](https://www.jsonfeed.org/) for you as it would RSS feeds.
+The limit for the number of pages can be set in the Gotham config with the `jsonFeedLimit` key.
+For example:
+
+```yaml
+jsonFeedLimit: 10
+```
+
+Would limit each feed to a max of 10 pages/items.
+A value of `-1` means "all", which is the default.
+
+JSONFeeds can be turned off completely by disabling the kind `JSONFeed`.
+For example:
+
+```yaml
+disableKinds:
+  - JSONFeed
+```
+
+This can also be done at runtime:
+
+```bash
+gotham --disableKinds=JSONFeed
+```
+
+By default, Gotham shows the full page content in a JSON Feed.
+This functionality can be switched to just show the summary instead by setting `jsonFeedFull` to false.
+Here's an example:
+
+```yaml
+jsonFeedFull: false
+```

@@ -1,0 +1,53 @@
+{{- $thePage := . -}}
+{{- if .IsHome -}}{{ $thePage = $.Site }}{{- end -}}
+{{- $pages2 := $thePage.RegularPages -}}
+{{- $limit2 := .Site.Config.Services.JSONFeed.Limit -}}
+{{- if ge $limit2 1 -}}
+{{- $pages2 = $pages2 | first $limit2 -}}
+{{- end -}}
+{
+	"version": "https://jsonfeed.org/version/1.1",
+	"title": "{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}",
+	"description": "Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ .Site.Title }}",
+	"home_page_url": "{{ .Site.BaseURL }}",
+	{{ with .OutputFormats.Get "JSON" -}}
+	"feed_url": "{{ .Permalink }}",
+	{{ end -}}
+	{{ with .Site.LanguageCode -}}
+	"language": "{{ . }}",
+	{{ end -}}
+	{{ with $.Param "icon" -}}
+	"icon": "{{ . | absURL }}",
+	{{ end -}}
+	{{ with $.Param "favicon" -}}
+	"favicon": "{{ . | absURL }}",
+	{{ end -}}
+	{{ with .Site.Author.name -}}
+	"authors": [
+		{
+			"name": "{{ . }}"{{ with $.Site.Author.url }},
+			"url": "{{ . }}"{{ end }}{{ with $.Site.Author.avatar }},
+			"avatar": "{{ . | absURL }}"{{ end }}
+		}
+	],
+	{{ end -}}
+	"items": [
+	{{- range $index, $element2 := $pages2 }}
+		{
+			"title": {{ $element2.Title | jsonify }},
+			"date_published": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+			"date_modified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+			"id": "{{ $element2.Permalink }}",
+			"url": "{{ $element2.Permalink }}",
+			{{ with .Params.author -}}
+			"authors": [
+				{
+					"name": "{{ . }}"
+				}
+			],
+			{{ end -}}
+			"content_html": {{ if .Site.Config.Services.JSONFeed.Full }}{{ $element2.Content | jsonify }}{{ else }}{{ $element2.Summary | jsonify }}{{ end }}
+		}{{- if ne (add $index 1) (len $pages2) -}},{{- end }}
+	{{ end -}}
+	]
+}

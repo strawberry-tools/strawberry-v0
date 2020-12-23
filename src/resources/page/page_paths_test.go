@@ -95,6 +95,11 @@ func TestPageTargetPath(t *testing.T) {
 						Kind:     "rss",
 						Sections: []string{"sect1"},
 						Type:     output.RSSFormat}, TargetPaths{TargetFilename: "/sect1/index.xml", SubResourceBaseTarget: "/sect1", Link: "/sect1/index.xml"}},
+					{"JSON Feed home", TargetPathDescriptor{Kind: "jsonFeed", Type: output.JSONFeedFormat}, TargetPaths{TargetFilename: "/index.feed.json", SubResourceBaseTarget: "", Link: "/index.feed.json"}},
+					{"JSON Feed section list", TargetPathDescriptor{
+						Kind:     "jsonFeed",
+						Sections: []string{"sect1"},
+						Type:     output.JSONFeedFormat}, TargetPaths{TargetFilename: "/sect1/index.feed.json", SubResourceBaseTarget: "/sect1", Link: "/sect1/index.feed.json"}},
 					{
 						"AMP page", TargetPathDescriptor{
 							Kind:     KindPage,

@@ -470,6 +470,18 @@ But this also means that your site configuration may not do what you expect. If 
 		siteOutputFormatsConfig = tmp
 	}
 
+	jsonFeedDisabled := disabledKinds[kindJSONFeed]
+	if jsonFeedDisabled {
+		// Legacy
+		tmp := siteOutputFormatsConfig[:0]
+		for _, x := range siteOutputFormatsConfig {
+			if !strings.EqualFold(x.Name, "jsonFeed") {
+				tmp = append(tmp, x)
+			}
+		}
+		siteOutputFormatsConfig = tmp
+	}
+
 	var siteOutputs map[string]interface{}
 	if cfg.Language.IsSet("outputs") {
 		siteOutputs = cfg.Language.GetStringMap("outputs")
@@ -493,7 +505,7 @@ But this also means that your site configuration may not do what you expect. If 
 		}
 	}
 
-	outputFormats, err := createSiteOutputFormats(siteOutputFormatsConfig, siteOutputs, rssDisabled)
+	outputFormats, err := createSiteOutputFormats(siteOutputFormatsConfig, siteOutputs, rssDisabled, jsonFeedDisabled)
 	if err != nil {
 		return nil, err
 	}

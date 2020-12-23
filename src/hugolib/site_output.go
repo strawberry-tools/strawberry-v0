@@ -24,14 +24,20 @@ import (
 
 func createDefaultOutputFormats(allFormats output.Formats) map[string]output.Formats {
 	rssOut, rssFound := allFormats.GetByName(output.RSSFormat.Name)
+	jsonFeedOut, jsonFeedFound := allFormats.GetByName(output.JSONFeedFormat.Name)
 	htmlOut, _ := allFormats.GetByName(output.HTMLFormat.Name)
 	robotsOut, _ := allFormats.GetByName(output.RobotsTxtFormat.Name)
 	sitemapOut, _ := allFormats.GetByName(output.SitemapFormat.Name)
 	jsonOut, _ := allFormats.GetByName(output.JSONFormat.Name)
 
 	defaultListTypes := output.Formats{htmlOut}
+
 	if rssFound {
 		defaultListTypes = append(defaultListTypes, rssOut)
+	}
+
+	if jsonFeedFound {
+		defaultListTypes = append(defaultListTypes, jsonFeedOut)
 	}
 
 	m := map[string]output.Formats{
@@ -53,11 +59,16 @@ func createDefaultOutputFormats(allFormats output.Formats) map[string]output.For
 		m[kindRSS] = output.Formats{rssOut}
 	}
 
+	// May be disabled
+	if jsonFeedFound {
+		m[kindJSONFeed] = output.Formats{jsonFeedOut}
+	}
+
 	return m
 
 }
 
-func createSiteOutputFormats(allFormats output.Formats, outputs map[string]interface{}, rssDisabled bool) (map[string]output.Formats, error) {
+func createSiteOutputFormats(allFormats output.Formats, outputs map[string]interface{}, rssDisabled, jsonFeedDisabled bool) (map[string]output.Formats, error) {
 	defaultOutputFormats := createDefaultOutputFormats(allFormats)
 
 	if outputs == nil {
@@ -89,6 +100,13 @@ func createSiteOutputFormats(allFormats output.Formats, outputs map[string]inter
 					continue
 
 				}
+
+				if jsonFeedDisabled && strings.EqualFold(format, "JSONFeed") {
+					// copying rss behavior
+					continue
+
+				}
+
 				return nil, fmt.Errorf("failed to resolve output format %q from site config", format)
 			}
 			formats = append(formats, f)

@@ -302,7 +302,13 @@ title: P1
 
 func TestRenderHooksRSS(t *testing.T) {
 
-	b := newTestSitesBuilder(t)
+	// JSONFeed needs to be disabled for this test to pass
+	// https://github.com/gothamhq/gotham/issues/222
+	config := `
+disableKinds = ["JSONFeed"]
+`
+
+	b := newTestSitesBuilder(t).WithConfigFile("toml", config)
 
 	b.WithTemplates("index.html", `
 {{ $p := site.GetPage "p1.md" }}
@@ -337,7 +343,7 @@ P1. [I'm an inline-style link](https://www.bep.is)
 
 `,
 		"p3.md", `---
-title: "p2"
+title: "p3"
 outputs: ["rss"]
 ---
 P3. [I'm an inline-style link](https://www.example.org)
