@@ -18,26 +18,43 @@ func TestAASAOutput(t *testing.T) {
 	testCases := []struct {
 		prefix  string
 		bundle  string
+		version string
 		passing bool
 	}{
 		{
 			"ABCDE12345",
 			"com.gothamhq.ios",
+			"",
 			true,
 		},
 		{
 			"",
 			"com.gothamhq.ios",
+			"",
 			false,
 		},
 		{
 			"ABCDE12345",
 			"",
+			"",
 			false,
 		},
 		{
 			"",
 			"",
+			"",
+			false,
+		},
+		{
+			"ABCDE12345",
+			"com.gothamhq.ios",
+			"v1",
+			true,
+		},
+		{
+			"",
+			"",
+			"v1",
 			false,
 		},
 	}
@@ -66,6 +83,7 @@ func TestAASAOutput(t *testing.T) {
 		th.assertFileContent(outputAASA,
 			tc.prefix,
 			tc.bundle,
+			tc.version,
 		)
 
 		content := readDestination(th, th.Fs, outputAASA)

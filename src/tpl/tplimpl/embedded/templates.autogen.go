@@ -36,6 +36,16 @@ var EmbeddedTemplates = [][2]string{
 	}
 }
 `},
+	{`_default/apple_app_site_association_v1.json`, `{
+	"applinks": {
+		"apps": [],
+		"details": [{
+			"appID": "{{ printf "%s.%s" .Site.Config.Services.AASA.Prefix .Site.Config.Services.AASA.Bundle }}",
+			"paths": ["*"]
+		}]
+	}
+}
+`},
 	{`_default/assetlinks.json`, `[{
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target" : { "namespace": "android_app", "package_name": "{{ .Site.Config.Services.AssetLinks.PackageName }}",

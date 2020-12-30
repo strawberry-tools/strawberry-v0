@@ -359,6 +359,10 @@ func (s *Site) renderAASA() error {
 
 	templ := s.lookupLayouts("apple_app_site_association.json", "_default/apple_app_site_association.json", "_internal/_default/apple_app_site_association.json")
 
+	if s.Cfg.GetString("aasaVersion") == "v1" {
+		templ = s.lookupLayouts("apple_app_site_association_v1.json", "_default/apple_app_site_association_v1.json", "_internal/_default/apple_app_site_association_v1.json")
+	}
+
 	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Associate", targetPath, p, templ)
 }
 
