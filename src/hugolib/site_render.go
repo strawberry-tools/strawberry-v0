@@ -353,9 +353,19 @@ func (s *Site) renderAASA() error {
 		return errors.New("failed to create targetPath for Apple App Site Associate")
 	}
 
-	templ := s.lookupLayouts("apple_app_site_association.json", "_default/apple_app_site_association.json", "_internal/_default/apple_app_site_association.json")
+	var templ tpl.Template
 
-	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Associate", targetPath, p, templ)
+	version := s.Cfg.GetInt("aasaVersion")
+
+	if version == 1 {
+		templ = s.lookupLayouts("aasa_v1.json", "_default/aasa_v1.json", "_internal/_default/aasa_v1.json")
+	} else if version == 2 {
+		templ = s.lookupLayouts("aasa_v2.json", "_default/aasa_v2.json", "_internal/_default/aasa_v2.json")
+	} else {
+		return fmt.Errorf("%d is not a valid AASA version", version)
+	}
+
+	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Association", targetPath, p, templ)
 }
 
 func (s *Site) renderRobotsTXT() error {

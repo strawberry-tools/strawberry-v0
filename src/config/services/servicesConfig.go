@@ -30,6 +30,7 @@ const (
 	assetLinksFingerprintKey = "assetLinksFingerprint"
 	aasaPrefixKey            = "aasaPrefix"
 	aasaBundleKey            = "aasaBundle"
+	aasaVersion              = "aasaVersion"
 )
 
 // Config is a privacy configuration for all the relevant services in Hugo.
@@ -92,8 +93,9 @@ type AssetLinks struct {
 
 // AASA holds the functional configuration settings related to Apple App Site Association.
 type AASA struct {
-	Prefix string
-	Bundle string
+	Prefix  string
+	Bundle  string
+	Version int
 }
 
 // DecodeConfig creates a services Config from a given Hugo configuration.
@@ -132,6 +134,10 @@ func DecodeConfig(cfg config.Provider) (c Config, err error) {
 	if c.AASA.Prefix == "" {
 		c.AASA.Prefix = cfg.GetString(aasaPrefixKey)
 		c.AASA.Bundle = cfg.GetString(aasaBundleKey)
+	}
+
+	if c.AASA.Version == 0 {
+		c.AASA.Version = cfg.GetInt(aasaVersion)
 	}
 
 	return

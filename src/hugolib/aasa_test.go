@@ -15,6 +15,8 @@ func TestAASAOutput(t *testing.T) {
 
 	t.Parallel()
 
+	testVersions := []int{0, 1, 2, 42} // assuming that 42 is not a valid version
+
 	testCases := []struct {
 		prefix  string
 		bundle  string
@@ -44,32 +46,57 @@ func TestAASAOutput(t *testing.T) {
 
 	for _, tc := range testCases {
 
-		c := qt.New(t)
-		cfg, fs := newTestCfg()
-		cfg.Set("baseURL", "http://gotham/test/")
-		cfg.Set("aasaPrefix", tc.prefix)
-		cfg.Set("aasaBundle", tc.bundle)
+		for _, tv := range testVersions {
+			c := qt.New(t)
+			cfg, fs := newTestCfg()
+			cfg.Set("baseURL", "http://gotham/test/")
+			cfg.Set("aasaPrefix", tc.prefix)
+			cfg.Set("aasaBundle", tc.bundle)
 
-		depsCfg := deps.DepsCfg{Fs: fs, Cfg: cfg}
+			if tv != 0 {
+				cfg.Set("aasaVersion", tv)
+			}
 
-		writeSourcesToSource(t, "content", fs, weightedSources...)
-		s := buildSingleSite(t, depsCfg, BuildCfg{})
-		th := newTestHelper(s.Cfg, s.Fs, t)
-		outputAASA := "public/.well-known/apple-app-site-association"
+			depsCfg := deps.DepsCfg{Fs: fs, Cfg: cfg}
 
-		if !tc.passing {
+			writeSourcesToSource(t, "content", fs, weightedSources...)
 
-			th.assertFileNotExist(outputAASA)
-			return
+			var s *Site
+
+			if tv == 42 {
+				s = buildSingleSiteExpected(t, false, true, depsCfg, BuildCfg{})
+				return
+			} else {
+				s = buildSingleSite(t, depsCfg, BuildCfg{})
+			}
+
+			th := newTestHelper(s.Cfg, s.Fs, t)
+			outputAASA := "public/.well-known/apple-app-site-association"
+
+			if !tc.passing {
+
+				th.assertFileNotExist(outputAASA)
+				return
+			}
+
+			realVersion := cfg.Get("aasaVersion")
+
+			if realVersion == 2 {
+				th.assertFileContent(outputAASA, "\"components\":")
+			} else if realVersion == 1 {
+				th.assertFileContent(outputAASA, "\"apps\": []")
+			} else {
+				t.Errorf("Error: %d is not a valid AASA version.", realVersion)
+			}
+
+			th.assertFileContent(outputAASA,
+				tc.prefix,
+				tc.bundle,
+			)
+
+			content := readDestination(th, th.Fs, outputAASA)
+			c.Assert(content, qt.Contains, tc.prefix)
+			c.Assert(content, qt.Contains, tc.bundle)
 		}
-
-		th.assertFileContent(outputAASA,
-			tc.prefix,
-			tc.bundle,
-		)
-
-		content := readDestination(th, th.Fs, outputAASA)
-		c.Assert(content, qt.Contains, tc.prefix)
-		c.Assert(content, qt.Contains, tc.bundle)
 	}
 }
