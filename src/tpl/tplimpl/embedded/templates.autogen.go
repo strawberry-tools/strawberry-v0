@@ -18,7 +18,17 @@ package embedded
 
 // EmbeddedTemplates represents all embedded templates.
 var EmbeddedTemplates = [][2]string{
-	{`_default/apple_app_site_association.json`, `{
+	{`_default/apple_app_site_association_v1.json`, `{
+	"applinks": {
+		"apps": [],
+		"details": [{
+			"appID": "{{ printf "%s.%s" .Site.Config.Services.AASA.Prefix .Site.Config.Services.AASA.Bundle }}",
+			"paths": ["*"]
+		}]
+	}
+}
+`},
+	{`_default/apple_app_site_association_v2.json`, `{
 	"applinks": {
 		"details": [{
 			"appIDs": [ "{{ printf "%s.%s" .Site.Config.Services.AASA.Prefix .Site.Config.Services.AASA.Bundle }}" ],
@@ -32,16 +42,6 @@ var EmbeddedTemplates = [][2]string{
 					"comment": "Matches any URL on the domain (wildcard)"
 				}
 			]
-		}]
-	}
-}
-`},
-	{`_default/apple_app_site_association_v1.json`, `{
-	"applinks": {
-		"apps": [],
-		"details": [{
-			"appID": "{{ printf "%s.%s" .Site.Config.Services.AASA.Prefix .Site.Config.Services.AASA.Bundle }}",
-			"paths": ["*"]
 		}]
 	}
 }

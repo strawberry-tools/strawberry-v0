@@ -357,7 +357,7 @@ func (s *Site) renderAASA() error {
 		return errors.New("failed to create targetPath for Apple App Site Associate")
 	}
 
-	templ := s.lookupLayouts("apple_app_site_association.json", "_default/apple_app_site_association.json", "_internal/_default/apple_app_site_association.json")
+	templ := s.lookupLayouts("apple_app_site_association_v2.json", "_default/apple_app_site_association_v2.json", "_internal/_default/apple_app_site_association_v2.json")
 
 	if s.Cfg.GetString("aasaVersion") == "v1" {
 		templ = s.lookupLayouts("apple_app_site_association_v1.json", "_default/apple_app_site_association_v1.json", "_internal/_default/apple_app_site_association_v1.json")
