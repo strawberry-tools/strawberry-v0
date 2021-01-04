@@ -18,43 +18,43 @@ func TestAASAOutput(t *testing.T) {
 	testCases := []struct {
 		prefix  string
 		bundle  string
-		version string
+		version int
 		passing bool
 	}{
 		{
 			"ABCDE12345",
 			"com.gothamhq.ios",
-			"",
+			2,
 			true,
 		},
 		{
 			"",
 			"com.gothamhq.ios",
-			"",
+			2,
 			false,
 		},
 		{
 			"ABCDE12345",
 			"",
-			"",
+			2,
 			false,
 		},
 		{
 			"",
 			"",
-			"",
+			2,
 			false,
 		},
 		{
 			"ABCDE12345",
 			"com.gothamhq.ios",
-			"v1",
+			1,
 			true,
 		},
 		{
 			"",
 			"",
-			"v1",
+			1,
 			false,
 		},
 	}

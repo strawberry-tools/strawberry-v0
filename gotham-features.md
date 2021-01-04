@@ -19,7 +19,11 @@ This allows you connect your app and your Gotham website to provide both a nativ
 #... gotham config
 aasaPrefix: "<my-application-identifier-prefix>"
 aasaBundle: "<my-bundle-identifier>"
+aasaVersion: 2
 ```
+
+Gotham supports multiple versions of the Apple App Site Association file via the `aasaVersion` key.
+The default value is set to `2`, which uses the latest version that Apple released in 2019. If you would like to use the earlier version you can pass `1` to the `aasaVersion` key. This key expects an integer.
 
 Resources:
 

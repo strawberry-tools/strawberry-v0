@@ -648,6 +648,7 @@ func loadDefaultSettingsFor(v *viper.Viper) error {
 	v.SetDefault("disableFastRender", false)
 	v.SetDefault("timeout", "30s")
 	v.SetDefault("enableInlineShortcodes", false)
+	v.SetDefault("aasaVersion", 2)
 
 	return nil
 }

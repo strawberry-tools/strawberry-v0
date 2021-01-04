@@ -95,7 +95,7 @@ type AssetLinks struct {
 type AASA struct {
 	Prefix  string
 	Bundle  string
-	Version string
+	Version int
 }
 
 // DecodeConfig creates a services Config from a given Hugo configuration.
@@ -134,7 +134,10 @@ func DecodeConfig(cfg config.Provider) (c Config, err error) {
 	if c.AASA.Prefix == "" {
 		c.AASA.Prefix = cfg.GetString(aasaPrefixKey)
 		c.AASA.Bundle = cfg.GetString(aasaBundleKey)
-		c.AASA.Version = cfg.GetString(aasaVersion)
+	}
+
+	if c.AASA.Version == 0 {
+		c.AASA.Version = cfg.GetInt(aasaVersion)
 	}
 
 	return
