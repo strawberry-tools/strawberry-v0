@@ -83,7 +83,6 @@ func TestAASAOutput(t *testing.T) {
 		th.assertFileContent(outputAASA,
 			tc.prefix,
 			tc.bundle,
-			tc.version,
 		)
 
 		content := readDestination(th, th.Fs, outputAASA)
