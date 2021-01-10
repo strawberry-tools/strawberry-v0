@@ -360,9 +360,9 @@ func (s *Site) renderAASA() error {
 	var templ tpl.Template
 
 	if s.Cfg.GetInt("aasaVersion") == 1 {
-		templ = s.lookupLayouts("apple_app_site_association_v1.json", "_default/apple_app_site_association_v1.json", "_internal/_default/apple_app_site_association_v1.json")
+		templ = s.lookupLayouts("aasa_v1.json", "_default/aasa_v1.json", "_internal/_default/aasa_v1.json")
 	} else {
-		templ = s.lookupLayouts("apple_app_site_association_v2.json", "_default/apple_app_site_association_v2.json", "_internal/_default/apple_app_site_association_v2.json")
+		templ = s.lookupLayouts("aasa_v2.json", "_default/aasa_v2.json", "_internal/_default/aasa_v2.json")
 	}
 
 	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Associate", targetPath, p, templ)

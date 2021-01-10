@@ -18,7 +18,7 @@ package embedded
 
 // EmbeddedTemplates represents all embedded templates.
 var EmbeddedTemplates = [][2]string{
-	{`_default/apple_app_site_association_v1.json`, `{
+	{`_default/aasa_v1.json`, `{
 	"applinks": {
 		"apps": [],
 		"details": [{
@@ -28,7 +28,7 @@ var EmbeddedTemplates = [][2]string{
 	}
 }
 `},
-	{`_default/apple_app_site_association_v2.json`, `{
+	{`_default/aasa_v2.json`, `{
 	"applinks": {
 		"details": [{
 			"appIDs": [ "{{ printf "%s.%s" .Site.Config.Services.AASA.Prefix .Site.Config.Services.AASA.Bundle }}" ],
