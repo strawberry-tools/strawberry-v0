@@ -15,7 +15,7 @@ func TestAASAOutput(t *testing.T) {
 
 	t.Parallel()
 
-	testVersions := []int{0, 1, 2} //assuming that 9 is not a valid version
+	testVersions := []int{0, 1, 2, 9} //assuming that 9 is not a valid version
 
 	testCases := []struct {
 		prefix  string
@@ -60,11 +60,17 @@ func TestAASAOutput(t *testing.T) {
 			depsCfg := deps.DepsCfg{Fs: fs, Cfg: cfg}
 
 			writeSourcesToSource(t, "content", fs, weightedSources...)
+
+			if tv == 9 {
+				// expect the site not to build
+				return
+			}
+
 			s := buildSingleSite(t, depsCfg, BuildCfg{})
 			th := newTestHelper(s.Cfg, s.Fs, t)
 			outputAASA := "public/.well-known/apple-app-site-association"
 
-			if !tc.passing || tv == 9 {
+			if !tc.passing {
 
 				th.assertFileNotExist(outputAASA)
 				return
