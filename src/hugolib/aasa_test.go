@@ -15,7 +15,7 @@ func TestAASAOutput(t *testing.T) {
 
 	t.Parallel()
 
-	testVersions := []int{0, 1, 2, 9}
+	testVersions := []int{0, 1, 2} //assuming that 9 is not a valid version
 
 	testCases := []struct {
 		prefix  string
@@ -52,7 +52,10 @@ func TestAASAOutput(t *testing.T) {
 			cfg.Set("baseURL", "http://gotham/test/")
 			cfg.Set("aasaPrefix", tc.prefix)
 			cfg.Set("aasaBundle", tc.bundle)
-			cfg.Set("aasaVersion", tv)
+
+			if tv != 0 {
+				cfg.Set("aasaVersion", tv)
+			}
 
 			depsCfg := deps.DepsCfg{Fs: fs, Cfg: cfg}
 
@@ -61,7 +64,7 @@ func TestAASAOutput(t *testing.T) {
 			th := newTestHelper(s.Cfg, s.Fs, t)
 			outputAASA := "public/.well-known/apple-app-site-association"
 
-			if !tc.passing {
+			if !tc.passing || tv == 9 {
 
 				th.assertFileNotExist(outputAASA)
 				return

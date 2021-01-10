@@ -366,7 +366,7 @@ func (s *Site) renderAASA() error {
 	} else if version == 2 {
 		templ = s.lookupLayouts("aasa_v2.json", "_default/aasa_v2.json", "_internal/_default/aasa_v2.json")
 	} else {
-		return fmt.Errorf("Error: %d is not a valid AASA version.", version)
+		return fmt.Errorf("%d is not a valid AASA version", version)
 	}
 
 	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Associate", targetPath, p, templ)
