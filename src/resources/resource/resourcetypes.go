@@ -14,12 +14,13 @@
 package resource
 
 import (
+	"image"
+
+	"github.com/gothamhq/gotham/common/hugio"
 	"github.com/gothamhq/gotham/common/maps"
 	"github.com/gothamhq/gotham/langs"
 	"github.com/gothamhq/gotham/media"
 	"github.com/gothamhq/gotham/resources/images/exif"
-
-	"github.com/gothamhq/gotham/common/hugio"
 )
 
 // Cloner is an internal template and not meant for use in the templates. It
@@ -59,6 +60,9 @@ type ImageOps interface {
 	Resize(spec string) (Image, error)
 	Filter(filters ...interface{}) (Image, error)
 	Exif() *exif.Exif
+
+	// Internal
+	DecodeImage() (image.Image, error)
 }
 
 type ResourceTypeProvider interface {

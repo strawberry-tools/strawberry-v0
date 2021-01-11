@@ -27,23 +27,20 @@ import (
 
 	"github.com/cli/safeexec"
 
-	"github.com/gothamhq/gotham/common/hexec"
-
-	"github.com/gothamhq/gotham/common/hugo"
-
-	"github.com/gothamhq/gotham/common/loggers"
-
-	"github.com/gothamhq/gotham/resources/internal"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/hugofs"
 	"github.com/pkg/errors"
 
 	"github.com/mitchellh/mapstructure"
 
 	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/gothamhq/gotham/common/hexec"
+	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/hugofs"
 	"github.com/gothamhq/gotham/resources"
+	"github.com/gothamhq/gotham/resources/internal"
 	"github.com/gothamhq/gotham/resources/resource"
 )
 
@@ -141,7 +138,6 @@ func (t *postcssTransformation) Key() internal.ResourceTransformationKey {
 // npm install -g postcss-cli
 // npm install -g autoprefixer
 func (t *postcssTransformation) Transform(ctx *resources.ResourceTransformationCtx) error {
-
 	const localPostCSSPath = "node_modules/.bin/"
 	const binaryName = "postcss"
 
@@ -170,13 +166,12 @@ func (t *postcssTransformation) Transform(ctx *resources.ResourceTransformationC
 
 	configFile = filepath.Clean(configFile)
 
-	// We need an abolute filename to the config file.
+	// We need an absolute filename to the config file.
 	if !filepath.IsAbs(configFile) {
 		configFile = t.rs.BaseFs.ResolveJSConfigFile(configFile)
 		if configFile == "" && t.options.Config != "" {
-			// Only fail if the user specificed config file is not found.
+			// Only fail if the user specified config file is not found.
 			return errors.Errorf("postcss config %q not found:", configFile)
-
 		}
 	}
 
@@ -276,7 +271,6 @@ func (imp *importResolver) importRecursive(
 	lineNum int,
 	content string,
 	inPath string) (int, string, error) {
-
 	basePath := path.Dir(inPath)
 
 	var replacements []string
@@ -355,7 +349,6 @@ func (imp *importResolver) resolve() (io.Reader, error) {
 	}
 
 	return strings.NewReader(newContent), nil
-
 }
 
 // See https://www.w3schools.com/cssref/pr_import_rule.asp

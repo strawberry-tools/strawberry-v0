@@ -14,18 +14,15 @@
 package create_test
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/gothamhq/gotham/deps"
-
-	"github.com/gothamhq/gotham/hugolib"
-
-	"fmt"
-
 	"github.com/gothamhq/gotham/hugofs"
+	"github.com/gothamhq/gotham/hugolib"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/gothamhq/gotham/create"
@@ -35,7 +32,6 @@ import (
 )
 
 func TestNewContent(t *testing.T) {
-
 	cases := []struct {
 		kind     string
 		path     string
@@ -59,7 +55,8 @@ func TestNewContent(t *testing.T) {
 			`title = "GO"`,
 			"{{< myshortcode >}}",
 			"{{% myshortcode %}}",
-			"{{</* comment */>}}\n{{%/* comment */%}}"}}, // shortcodes
+			"{{</* comment */>}}\n{{%/* comment */%}}",
+		}}, // shortcodes
 	}
 
 	for i, cas := range cases {
@@ -140,7 +137,6 @@ i18n: {{ T "hugo" }}
 	c.Assert(create.NewContent(h, "my-theme-bundle", "post/my-theme-post"), qt.IsNil)
 	cContains(c, readFileFromFs(t, fs.Source, filepath.Join("content", "post/my-theme-post/index.md")), `File: index.md`, `Site Lang: en`, `Name: My Theme Post`, `i18n: Hugo Rocks!`)
 	cContains(c, readFileFromFs(t, fs.Source, filepath.Join("content", "post/my-theme-post/resources/hugo1.json")), `hugo1: {{ printf "no template handling in here" }}`)
-
 }
 
 func initFs(fs afero.Fs) error {
@@ -248,7 +244,6 @@ func readFileFromFs(t *testing.T, fs afero.Fs, filename string) string {
 }
 
 func newTestCfg(c *qt.C, mm afero.Fs) (*viper.Viper, *hugofs.Fs) {
-
 	cfg := `
 
 theme = "mytheme"
@@ -281,5 +276,4 @@ other = "Hugo Rokkar!"`), 0755), qt.IsNil)
 	c.Assert(err, qt.IsNil)
 
 	return v, hugofs.NewFrom(mm, v)
-
 }

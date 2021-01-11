@@ -59,7 +59,6 @@ Use ` + "`gotham new [contentPath]`" + ` to create new content.`,
 	cc.baseBuilderCmd = b.newBuilderBasicCmd(cmd)
 
 	return cc
-
 }
 
 func (n *newSiteCmd) doNewSite(fs *hugofs.Fs, basepath string, force bool) error {

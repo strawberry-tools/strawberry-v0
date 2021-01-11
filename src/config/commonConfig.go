@@ -14,11 +14,11 @@
 package config
 
 import (
-	"github.com/pkg/errors"
-
 	"sort"
 	"strings"
 	"sync"
+
+	"github.com/pkg/errors"
 
 	"github.com/gothamhq/gotham/common/types"
 
@@ -34,7 +34,7 @@ var DefaultBuild = Build{
 	WriteStats:           false,
 }
 
-// Build holds some build related condfiguration.
+// Build holds some build related configuration.
 type Build struct {
 	UseResourceCacheWhen string // never, fallback, always. Default is fallback
 
@@ -89,7 +89,6 @@ type Sitemap struct {
 }
 
 func DecodeSitemap(prototype Sitemap, input map[string]interface{}) Sitemap {
-
 	for key, value := range input {
 		switch key {
 		case "changefreq":
@@ -119,7 +118,6 @@ type Server struct {
 }
 
 func (s *Server) init() {
-
 	s.compiledInit.Do(func() {
 		for _, h := range s.Headers {
 			s.compiledHeaders = append(s.compiledHeaders, glob.MustCompile(h.For))
@@ -153,7 +151,6 @@ func (s *Server) MatchHeaders(pattern string) []types.KeyValueStr {
 	})
 
 	return matches
-
 }
 
 func (s *Server) MatchRedirect(pattern string) Redirect {
@@ -179,7 +176,6 @@ func (s *Server) MatchRedirect(pattern string) Redirect {
 	}
 
 	return Redirect{}
-
 }
 
 type Headers struct {

@@ -16,6 +16,7 @@ package commands
 import (
 	"bytes"
 	"fmt"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -34,14 +35,10 @@ import (
 
 	"github.com/gothamhq/gotham/hugolib"
 
-	"path/filepath"
-
 	"github.com/spf13/cobra"
 )
 
-var (
-	_ cmder = (*convertCmd)(nil)
-)
+var _ cmder = (*convertCmd)(nil)
 
 type convertCmd struct {
 	outputDir string

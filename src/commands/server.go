@@ -232,7 +232,6 @@ func (sc *serverCmd) server(cmd *cobra.Command, args []string) error {
 		}
 
 		return err
-
 	}
 
 	if err := memStats(); err != nil {
@@ -266,7 +265,6 @@ func (sc *serverCmd) server(cmd *cobra.Command, args []string) error {
 			jww.FEEDBACK.Printf("Watching for changes in %s\n", group)
 		}
 		watcher, err := c.newWatcher(watchDirs...)
-
 		if err != nil {
 			return err
 		}
@@ -276,7 +274,6 @@ func (sc *serverCmd) server(cmd *cobra.Command, args []string) error {
 	}
 
 	return c.serve(sc)
-
 }
 
 func getRootWatchDirsStr(baseDir string, watchDirs []string) string {
@@ -305,7 +302,6 @@ func (f *fileServer) rewriteRequest(r *http.Request, toPath string) *http.Reques
 	r2.Header.Set("X-Rewrite-Original-URI", r.URL.RequestURI())
 
 	return r2
-
 }
 
 func (f *fileServer) createEndpoint(i int) (*http.ServeMux, string, string, error) {
@@ -361,7 +357,9 @@ func (f *fileServer) createEndpoint(i int) (*http.ServeMux, string, string, erro
 					if !f.c.paused {
 						port = f.c.Cfg.GetInt("liveReloadPort")
 					}
-					fmt.Fprint(w, injectLiveReloadScript(r, port))
+					lr := *u
+					lr.Host = fmt.Sprintf("%s:%d", lr.Hostname(), port)
+					fmt.Fprint(w, injectLiveReloadScript(r, lr))
 
 					return
 				}
@@ -395,7 +393,6 @@ func (f *fileServer) createEndpoint(i int) (*http.ServeMux, string, string, erro
 						} else {
 							doRedirect = false
 						}
-
 					}
 				}
 
@@ -415,7 +412,6 @@ func (f *fileServer) createEndpoint(i int) (*http.ServeMux, string, string, erro
 			}
 
 			if f.c.fastRenderMode && f.c.buildErr == nil {
-
 				if strings.HasSuffix(requestURI, "/") || strings.HasSuffix(requestURI, "html") || strings.HasSuffix(requestURI, "htm") {
 					if !f.c.visitedURLs.Contains(requestURI) {
 						// If not already on stack, re-render that single page.
@@ -455,8 +451,8 @@ var logErrorRe = regexp.MustCompile(`(?s)ERROR \d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{
 func removeErrorPrefixFromLog(content string) string {
 	return logErrorRe.ReplaceAllLiteralString(content, "")
 }
-func (c *commandeer) serve(s *serverCmd) error {
 
+func (c *commandeer) serve(s *serverCmd) error {
 	isMultiHost := c.hugo().IsMultihost()
 
 	var (
@@ -498,15 +494,20 @@ func (c *commandeer) serve(s *serverCmd) error {
 		livereload.Initialize()
 	}
 
-	var sigs = make(chan os.Signal, 1)
+	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	for i := range baseURLs {
 		mu, serverURL, endpoint, err := srv.createEndpoint(i)
 
 		if doLiveReload {
-			mu.HandleFunc("/livereload.js", livereload.ServeJS)
-			mu.HandleFunc("/livereload", livereload.Handler)
+			u, err := url.Parse(helpers.SanitizeURL(baseURLs[i]))
+			if err != nil {
+				return err
+			}
+
+			mu.HandleFunc(u.Path+"/livereload.js", livereload.ServeJS)
+			mu.HandleFunc(u.Path+"/livereload", livereload.Handler)
 		}
 		jww.FEEDBACK.Printf("Web Server is available at %s (bind address %s)\n", serverURL, s.serverInterface)
 		go func() {
@@ -548,6 +549,8 @@ func (c *commandeer) serve(s *serverCmd) error {
 	} else {
 		<-sigs
 	}
+
+	c.hugo().Close()
 
 	return nil
 }

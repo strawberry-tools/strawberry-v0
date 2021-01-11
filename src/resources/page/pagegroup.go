@@ -315,7 +315,7 @@ func (p Pages) GroupByParamDate(key string, format string, order ...string) (Pag
 		var r Pages
 
 		for _, p := range pages {
-			param := resource.GetParamToLower(p, key)
+			param := resource.GetParam(p, key)
 			var t time.Time
 
 			if param != nil {
@@ -342,7 +342,7 @@ func (p Pages) GroupByParamDate(key string, format string, order ...string) (Pag
 	return p.groupByDateField(sorter, formatter, order...)
 }
 
-// ProbablyEq wraps comare.ProbablyEqer
+// ProbablyEq wraps compare.ProbablyEqer
 func (p PageGroup) ProbablyEq(other interface{}) bool {
 	otherP, ok := other.(PageGroup)
 	if !ok {
@@ -354,7 +354,6 @@ func (p PageGroup) ProbablyEq(other interface{}) bool {
 	}
 
 	return p.Pages.ProbablyEq(otherP.Pages)
-
 }
 
 // Slice is not meant to be used externally. It's a bridge function
@@ -387,7 +386,7 @@ func (psg PagesGroup) Len() int {
 	return l
 }
 
-// ProbablyEq wraps comare.ProbablyEqer
+// ProbablyEq wraps compare.ProbablyEqer
 func (psg PagesGroup) ProbablyEq(other interface{}) bool {
 	otherPsg, ok := other.(PagesGroup)
 	if !ok {
@@ -405,7 +404,6 @@ func (psg PagesGroup) ProbablyEq(other interface{}) bool {
 	}
 
 	return true
-
 }
 
 // ToPagesGroup tries to convert seq into a PagesGroup.

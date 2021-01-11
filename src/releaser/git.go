@@ -86,7 +86,7 @@ func gitInfosToChangeLog(infos, docInfos gitInfos) *changeLog {
 	for _, info := range infos {
 		los := strings.ToLower(info.Subject)
 		isFix := strings.Contains(los, "fix")
-		var category = otherChanges
+		category := otherChanges
 
 		// TODO(bep) improve
 		if regexp.MustCompile("(?i)deprecate").MatchString(los) {
@@ -177,7 +177,6 @@ func (c countribCount) AuthorLink() string {
 	}
 
 	return c.Author[:strings.Index(c.Author, "@")]
-
 }
 
 type contribCounts []countribCount
@@ -299,7 +298,6 @@ func gitShort(args ...string) (output string, err error) {
 
 func tagExists(tag string) (bool, error) {
 	out, err := git("tag", "-l", tag)
-
 	if err != nil {
 		return false, err
 	}

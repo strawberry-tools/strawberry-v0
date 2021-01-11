@@ -54,7 +54,6 @@ func NewSpec(
 	errorHandler herrors.ErrorSender,
 	outputFormats output.Formats,
 	mimeTypes media.Types) (*Spec, error) {
-
 	imgConfig, err := images.DecodeConfig(s.Cfg.GetStringMap("imaging"))
 	if err != nil {
 		return nil, err
@@ -97,12 +96,12 @@ func NewSpec(
 			fileCaches.ImageCache(),
 
 			s,
-		)}
+		),
+	}
 
 	rs.ResourceCache = newResourceCache(rs)
 
 	return rs, nil
-
 }
 
 type Spec struct {
@@ -190,7 +189,6 @@ func (r *Spec) newGenericResource(sourceFs afero.Fs,
 		baseFilename,
 		mediaType,
 	)
-
 }
 
 func (r *Spec) newGenericResourceWithBase(
@@ -202,7 +200,6 @@ func (r *Spec) newGenericResourceWithBase(
 	sourceFilename,
 	baseFilename string,
 	mediaType media.Type) *genericResource {
-
 	if osFileInfo != nil && osFileInfo.IsDir() {
 		panic(fmt.Sprintf("dirs not supported resource types: %v", osFileInfo))
 	}
@@ -212,12 +209,7 @@ func (r *Spec) newGenericResourceWithBase(
 	baseFilename = helpers.ToSlashTrimLeading(baseFilename)
 	fpath, fname := path.Split(baseFilename)
 
-	var resourceType string
-	if mediaType.MainType == "image" {
-		resourceType = mediaType.MainType
-	} else {
-		resourceType = mediaType.SubType
-	}
+	resourceType := mediaType.MainType
 
 	pathDescriptor := &resourcePathDescriptor{
 		baseTargetPathDirs: helpers.UniqueStringsReuse(targetPathBaseDirs),
@@ -251,7 +243,6 @@ func (r *Spec) newGenericResourceWithBase(
 	}
 
 	return g
-
 }
 
 func (r *Spec) newResource(sourceFs afero.Fs, fd ResourceSourceDescriptor) (resource.Resource, error) {
@@ -279,7 +270,7 @@ func (r *Spec) newResource(sourceFs afero.Fs, fd ResourceSourceDescriptor) (reso
 
 	ext := strings.ToLower(filepath.Ext(fd.RelTargetFilename))
 	mimeType, found := r.MediaTypes.GetFirstBySuffix(strings.TrimPrefix(ext, "."))
-	// TODO(bep) we need to handle these ambigous types better, but in this context
+	// TODO(bep) we need to handle these ambiguous types better, but in this context
 	// we most likely want the application/xml type.
 	if mimeType.Suffix() == "xml" && mimeType.SubType == "rss" {
 		mimeType, found = r.MediaTypes.GetByType("application/xml")
@@ -319,7 +310,6 @@ func (r *Spec) newResource(sourceFs afero.Fs, fd ResourceSourceDescriptor) (reso
 	}
 
 	return newResourceAdapter(gr.spec, fd.LazyPublish, gr), nil
-
 }
 
 func (r *Spec) newResourceFor(fd ResourceSourceDescriptor) (resource.Resource, error) {
