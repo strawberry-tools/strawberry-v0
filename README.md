@@ -13,6 +13,7 @@ It is written in [Go][go-site] and is a soft fork of [Hugo][hugo-site].
 [![codecov](https://codecov.io/gh/gothamhq/gotham/branch/master/graph/badge.svg)](https://codecov.io/gh/gothamhq/gotham)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
+[![GoDoc](https://godoc.org/github.com/gohugoio/hugo?status.svg)](https://pkg.go.dev/github.com/gohugoio/hugo)
 
 **Gotham is a very new project only recently forked from Hugo.
 Please stay tuned while we continue to update this readme and convert things over.**

@@ -65,7 +65,6 @@ func createDefaultOutputFormats(allFormats output.Formats) map[string]output.For
 	}
 
 	return m
-
 }
 
 func createSiteOutputFormats(allFormats output.Formats, outputs map[string]interface{}, rssDisabled, jsonFeedDisabled bool) (map[string]output.Formats, error) {
@@ -98,7 +97,6 @@ func createSiteOutputFormats(allFormats output.Formats, outputs map[string]inter
 					// This is legacy behaviour. We used to have both
 					// a RSS page kind and output format.
 					continue
-
 				}
 
 				if jsonFeedDisabled && strings.EqualFold(format, "JSONFeed") {
@@ -128,5 +126,4 @@ func createSiteOutputFormats(allFormats output.Formats, outputs map[string]inter
 	}
 
 	return outFormats, nil
-
 }

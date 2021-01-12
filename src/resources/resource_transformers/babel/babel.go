@@ -52,6 +52,7 @@ func DecodeOptions(m map[string]interface{}) (opts Options, err error) {
 	err = mapstructure.WeakDecode(m, &opts)
 	return
 }
+
 func (opts Options) toArgs() []string {
 	var args []string
 
@@ -112,7 +113,6 @@ func (t *babelTransformation) Transform(ctx *resources.ResourceTransformationCtx
 		// Try PATH
 		binary = binaryName
 		if _, err := safeexec.LookPath(binary); err != nil {
-
 			// This may be on a CI server etc. Will fall back to pre-built assets.
 			return herrors.ErrFeatureNotAvailable
 		}
@@ -132,11 +132,11 @@ func (t *babelTransformation) Transform(ctx *resources.ResourceTransformationCtx
 
 	configFile = filepath.Clean(configFile)
 
-	// We need an abolute filename to the config file.
+	// We need an absolute filename to the config file.
 	if !filepath.IsAbs(configFile) {
 		configFile = t.rs.BaseFs.ResolveJSConfigFile(configFile)
 		if configFile == "" && t.options.Config != "" {
-			// Only fail if the user specificed config file is not found.
+			// Only fail if the user specified config file is not found.
 			return errors.Errorf("babel config %q not found:", configFile)
 		}
 	}

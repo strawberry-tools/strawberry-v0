@@ -16,6 +16,7 @@ package resources
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/gothamhq/gotham/hugofs/glob"
 	"github.com/gothamhq/gotham/media"
@@ -23,8 +24,6 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cast"
-
-	"strings"
 
 	"github.com/gothamhq/gotham/common/maps"
 )

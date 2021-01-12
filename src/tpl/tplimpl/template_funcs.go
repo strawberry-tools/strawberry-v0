@@ -61,8 +61,10 @@ import (
 	_ "github.com/gothamhq/gotham/tpl/urls"
 )
 
-var _ texttemplate.ExecHelper = (*templateExecHelper)(nil)
-var zero reflect.Value
+var (
+	_    texttemplate.ExecHelper = (*templateExecHelper)(nil)
+	zero reflect.Value
+)
 
 type templateExecHelper struct {
 	running bool // whether we're in server mode.
@@ -146,7 +148,6 @@ func newTemplateExecuter(d *deps.Deps) (texttemplate.Executer, map[string]reflec
 }
 
 func createFuncMap(d *deps.Deps) map[string]interface{} {
-
 	funcMap := template.FuncMap{}
 
 	// Merge the namespace funcs
@@ -173,5 +174,4 @@ func createFuncMap(d *deps.Deps) map[string]interface{} {
 	}
 
 	return funcMap
-
 }

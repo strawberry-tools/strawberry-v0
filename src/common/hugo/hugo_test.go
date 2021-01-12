@@ -36,5 +36,4 @@ func TestHugoInfo(t *testing.T) {
 
 	devHugoInfo := NewInfo("development")
 	c.Assert(devHugoInfo.IsProduction(), qt.Equals, false)
-
 }

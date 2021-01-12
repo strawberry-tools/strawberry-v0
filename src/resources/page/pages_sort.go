@@ -95,7 +95,6 @@ var (
 	}
 
 	lessPageLanguage = func(p1, p2 Page) bool {
-
 		if p1.Language().Weight == p2.Language().Weight {
 			if p1.Date().Unix() == p2.Date().Unix() {
 				c := compare.Strings(p1.LinkTitle(), p2.LinkTitle())
@@ -173,7 +172,6 @@ func SortByDefault(pages Pages) {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByTitle() Pages {
-
 	const key = "pageSort.ByTitle"
 
 	pages, _ := spc.get(key, pageBy(lessPageTitle).Sort, p)
@@ -186,7 +184,6 @@ func (p Pages) ByTitle() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByLinkTitle() Pages {
-
 	const key = "pageSort.ByLinkTitle"
 
 	pages, _ := spc.get(key, pageBy(lessPageLinkTitle).Sort, p)
@@ -200,7 +197,6 @@ func (p Pages) ByLinkTitle() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByDate() Pages {
-
 	const key = "pageSort.ByDate"
 
 	pages, _ := spc.get(key, pageBy(lessPageDate).Sort, p)
@@ -214,7 +210,6 @@ func (p Pages) ByDate() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByPublishDate() Pages {
-
 	const key = "pageSort.ByPublishDate"
 
 	pages, _ := spc.get(key, pageBy(lessPagePubDate).Sort, p)
@@ -228,7 +223,6 @@ func (p Pages) ByPublishDate() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByExpiryDate() Pages {
-
 	const key = "pageSort.ByExpiryDate"
 
 	expDate := func(p1, p2 Page) bool {
@@ -246,7 +240,6 @@ func (p Pages) ByExpiryDate() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByLastmod() Pages {
-
 	const key = "pageSort.ByLastmod"
 
 	date := func(p1, p2 Page) bool {
@@ -264,11 +257,9 @@ func (p Pages) ByLastmod() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByLength() Pages {
-
 	const key = "pageSort.ByLength"
 
 	length := func(p1, p2 Page) bool {
-
 		p1l, ok1 := p1.(resource.LengthProvider)
 		p2l, ok2 := p2.(resource.LengthProvider)
 
@@ -294,7 +285,6 @@ func (p Pages) ByLength() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByLanguage() Pages {
-
 	const key = "pageSort.ByLanguage"
 
 	pages, _ := spc.get(key, pageBy(lessPageLanguage).Sort, p)
@@ -364,7 +354,6 @@ func (p Pages) ByParam(paramsKey interface{}) Pages {
 		s2 := cast.ToString(v2)
 
 		return compare.LessStrings(s1, s2)
-
 	}
 
 	pages, _ := spc.get(key, pageBy(paramsKeyComparator).Sort, p)

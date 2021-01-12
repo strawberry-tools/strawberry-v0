@@ -25,35 +25,27 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
-
-	"github.com/gothamhq/gotham/common/hexec"
+	"strings"
+	"time"
 
 	hglob "github.com/gothamhq/gotham/hugofs/glob"
 
 	"github.com/gobwas/glob"
 
+	"github.com/gothamhq/gotham/common/hexec"
+	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/gothamhq/gotham/config"
 	"github.com/gothamhq/gotham/hugofs"
-
 	"github.com/gothamhq/gotham/hugofs/files"
 
-	"github.com/gothamhq/gotham/common/loggers"
-
-	"strings"
-	"time"
-
-	"github.com/gothamhq/gotham/config"
-
 	"github.com/rogpeppe/go-internal/module"
-
-	"github.com/gothamhq/gotham/common/hugio"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 )
 
-var (
-	fileSeparator = string(os.PathSeparator)
-)
+var fileSeparator = string(os.PathSeparator)
 
 const (
 	goBinaryStatusOK goBinaryStatus = iota
@@ -95,7 +87,6 @@ func NewClient(cfg ClientConfig) *Client {
 	if cfg.CacheDir != "" {
 		// Module cache stored below $GOPATH/pkg
 		config.SetEnvVars(&env, "GOPATH", cfg.CacheDir)
-
 	}
 
 	logger := cfg.Logger
@@ -115,7 +106,8 @@ func NewClient(cfg ClientConfig) *Client {
 		noVendor:          noVendor,
 		moduleConfig:      mcfg,
 		environ:           env,
-		GoModulesFilename: goModFilename}
+		GoModulesFilename: goModFilename,
+	}
 }
 
 // Client contains most of the API provided by this package.
@@ -167,7 +159,6 @@ func (c *Client) Graph(w io.Writer) error {
 				// Local dir.
 				dep += " => " + replace.Dir()
 			}
-
 		}
 		fmt.Fprintln(w, prefix+dep)
 	}
@@ -357,9 +348,8 @@ var verifyErrorDirRe = regexp.MustCompile(`dir has been modified \((.*?)\)`)
 // which are stored in a local downloaded source cache, have not been
 // modified since being downloaded.
 func (c *Client) Verify(clean bool) error {
-	// TODO1 add path to mod clean
+	// TODO(bep) add path to mod clean
 	err := c.runVerify()
-
 	if err != nil {
 		if clean {
 			m := verifyErrorDirRe.FindAllStringSubmatch(err.Error(), -1)
@@ -452,7 +442,6 @@ func (c *Client) listGoMods() (goModules, error) {
 	}
 
 	return modules, err
-
 }
 
 func (c *Client) rewriteGoMod(name string, isGoMod map[string]bool) error {
@@ -517,7 +506,6 @@ func (c *Client) rewriteGoModRewrite(name string, isGoMod map[string]bool) ([]by
 	}
 
 	return b.Bytes(), nil
-
 }
 
 func (c *Client) rmVendorDir(vendorDir string) error {
@@ -541,7 +529,6 @@ func (c *Client) runGo(
 	ctx context.Context,
 	stdout io.Writer,
 	args ...string) error {
-
 	if c.goBinaryStatus != 0 {
 		return nil
 	}

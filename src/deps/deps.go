@@ -95,6 +95,9 @@ type Deps struct {
 	// BuildStartListeners will be notified before a build starts.
 	BuildStartListeners *Listeners
 
+	// Resources that gets closed when the build is done or the server shuts down.
+	BuildClosers *Closers
+
 	// Atomic values set during a build.
 	// This is common/global for all sites.
 	BuildState *BuildState
@@ -232,7 +235,6 @@ func New(cfg DepsCfg) (*Deps, error) {
 	}
 
 	ps, err := helpers.NewPathSpec(fs, cfg.Language, logger)
-
 	if err != nil {
 		return nil, errors.Wrap(err, "create PathSpec")
 	}
@@ -286,6 +288,7 @@ func New(cfg DepsCfg) (*Deps, error) {
 		Site:                    cfg.Site,
 		FileCaches:              fileCaches,
 		BuildStartListeners:     &Listeners{},
+		BuildClosers:            &Closers{},
 		BuildState:              buildState,
 		Running:                 cfg.Running,
 		Timeout:                 time.Duration(timeoutms) * time.Millisecond,
@@ -297,6 +300,10 @@ func New(cfg DepsCfg) (*Deps, error) {
 	}
 
 	return d, nil
+}
+
+func (d *Deps) Close() error {
+	return d.BuildClosers.Close()
 }
 
 // ForLanguage creates a copy of the Deps with the language dependent
@@ -348,7 +355,6 @@ func (d Deps) ForLanguage(cfg DepsCfg, onCreated func(d *Deps) error) (*Deps, er
 	d.BuildStartListeners = &Listeners{}
 
 	return &d, nil
-
 }
 
 // DepsCfg contains configuration options that can be used to configure Hugo
@@ -401,4 +407,31 @@ func (b *BuildState) Incr() int {
 
 func NewBuildState() BuildState {
 	return BuildState{}
+}
+
+type Closer interface {
+	Close() error
+}
+
+type Closers struct {
+	mu sync.Mutex
+	cs []Closer
+}
+
+func (cs *Closers) Add(c Closer) {
+	cs.mu.Lock()
+	defer cs.mu.Unlock()
+	cs.cs = append(cs.cs, c)
+}
+
+func (cs *Closers) Close() error {
+	cs.mu.Lock()
+	defer cs.mu.Unlock()
+	for _, c := range cs.cs {
+		c.Close()
+	}
+
+	cs.cs = cs.cs[:0]
+
+	return nil
 }

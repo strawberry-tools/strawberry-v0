@@ -46,7 +46,6 @@ See #456
 	c.Assert(len(issues), qt.Equals, 4)
 	c.Assert(issues[0], qt.Equals, 123)
 	c.Assert(issues[2], qt.Equals, 543)
-
 }
 
 func TestGitVersionTagBefore(t *testing.T) {
@@ -67,7 +66,6 @@ func TestTagExists(t *testing.T) {
 	b2, err := tagExists("adfagdsfg")
 	c.Assert(err, qt.IsNil)
 	c.Assert(b2, qt.Equals, false)
-
 }
 
 func skipIfCI(t *testing.T) {

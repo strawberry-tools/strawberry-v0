@@ -15,13 +15,13 @@
 package navigation
 
 import (
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/common/types"
-	"github.com/gothamhq/gotham/compare"
-
 	"html/template"
 	"sort"
 	"strings"
+
+	"github.com/gothamhq/gotham/common/maps"
+	"github.com/gothamhq/gotham/common/types"
+	"github.com/gothamhq/gotham/compare"
 
 	"github.com/spf13/cast"
 )

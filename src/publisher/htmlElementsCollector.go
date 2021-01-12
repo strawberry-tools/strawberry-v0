@@ -14,15 +14,14 @@
 package publisher
 
 import (
-	"regexp"
-
-	"github.com/gothamhq/gotham/helpers"
-	"golang.org/x/net/html"
-
 	"bytes"
+	"regexp"
 	"sort"
 	"strings"
 	"sync"
+
+	"github.com/gothamhq/gotham/helpers"
+	"golang.org/x/net/html"
 )
 
 func newHTMLElementsCollector() *htmlElementsCollector {
@@ -52,7 +51,6 @@ func (h *HTMLElements) Merge(other HTMLElements) {
 	h.Tags = helpers.UniqueStringsReuse(h.Tags)
 	h.Classes = helpers.UniqueStringsReuse(h.Classes)
 	h.IDs = helpers.UniqueStringsReuse(h.IDs)
-
 }
 
 func (h *HTMLElements) Sort() {
@@ -142,7 +140,7 @@ func (w *cssClassCollectorWriter) Write(p []byte) (n int, err error) {
 	return
 }
 
-// The net/html parser does not handle single table elemnts as input, e.g. tbody.
+// The net/html parser does not handle single table elements as input, e.g. tbody.
 // We only care about the element/class/ids, so just store away the original tag name
 // and pretend it's a <div>.
 func (c *cssClassCollectorWriter) insertStandinHTMLElement(el string) (string, string) {
@@ -153,7 +151,6 @@ func (c *cssClassCollectorWriter) insertStandinHTMLElement(el string) (string, s
 	}
 	newv := strings.Replace(el, tag, "div", 1)
 	return newv, strings.ToLower(tag)
-
 }
 
 func (c *cssClassCollectorWriter) endCollecting(drop bool) {
@@ -196,7 +193,6 @@ type htmlElementsCollector struct {
 }
 
 func (c *htmlElementsCollector) getHTMLElements() HTMLElements {
-
 	var (
 		classes []string
 		ids     []string

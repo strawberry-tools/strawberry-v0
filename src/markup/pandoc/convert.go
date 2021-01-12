@@ -16,6 +16,7 @@ package pandoc
 
 import (
 	"github.com/cli/safeexec"
+	"github.com/gothamhq/gotham/htesting"
 	"github.com/gothamhq/gotham/identity"
 	"github.com/gothamhq/gotham/markup/internal"
 
@@ -35,7 +36,6 @@ func (p provider) New(cfg converter.ProviderConfig) (converter.Provider, error) 
 			cfg: cfg,
 		}, nil
 	}), nil
-
 }
 
 type pandocConverter struct {
@@ -75,5 +75,8 @@ func getPandocExecPath() string {
 
 // Supports returns whether Pandoc is installed on this computer.
 func Supports() bool {
+	if htesting.SupportsAll() {
+		return true
+	}
 	return getPandocExecPath() != ""
 }
