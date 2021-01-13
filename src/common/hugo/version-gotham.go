@@ -7,7 +7,7 @@ package hugo
 // There's an include base version of Hugo in a different file.
 var GothamVersion = SemVerVersion{
 	Major:  0,
-	Minor:  12,
+	Minor:  13,
 	Patch:  0,
-	Suffix: "",
+	Suffix: "dev",
 }
