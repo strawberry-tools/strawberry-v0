@@ -4,7 +4,6 @@
 package hugolib
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/gothamhq/gotham/deps"
@@ -16,7 +15,7 @@ func TestAASAOutput(t *testing.T) {
 
 	t.Parallel()
 
-	testVersions := []int{0, 1, 2, 9} //assuming that 9 is not a valid version
+	testVersions := []int{0, 1, 2, 42} //assuming that 42 is not a valid version
 
 	testCases := []struct {
 		prefix  string
@@ -62,10 +61,12 @@ func TestAASAOutput(t *testing.T) {
 
 			writeSourcesToSource(t, "content", fs, weightedSources...)
 
-			if tv == 9 {
+			if tv == 42 {
 				// c.Assert(buildSingleSite(t, depsCfg, BuildCfg{}), qt.ErrorMatches, "*. not a valid AASA version")
 				// expect the site not to build
-				fmt.Print(buildSingleSite(t, depsCfg, BuildCfg{}))
+				// buildSingleSite(t, depsCfg, BuildCfg{}) == "42 is not a valid AASA version"
+				s := buildSingleSiteExpected(t, true, true, depsCfg, BuildCfg{})
+				c.Assert(s, qt.Contains, "nil")
 				return
 			}
 
@@ -86,7 +87,7 @@ func TestAASAOutput(t *testing.T) {
 			} else if realVersion == 1 {
 				th.assertFileContent(outputAASA, "\"apps\": []")
 			} else {
-				t.Errorf("Error: %d is not a valid AASA version.", realVersion)
+				// t.Errorf("Error: %d is not a valid AASA version.", realVersion)
 			}
 
 			th.assertFileContent(outputAASA,

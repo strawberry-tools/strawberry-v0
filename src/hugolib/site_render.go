@@ -369,7 +369,7 @@ func (s *Site) renderAASA() error {
 		return fmt.Errorf("%d is not a valid AASA version", version)
 	}
 
-	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Associate", targetPath, p, templ)
+	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Apple App Site Association", targetPath, p, templ)
 }
 
 func (s *Site) renderRobotsTXT() error {
