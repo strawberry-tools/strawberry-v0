@@ -15,7 +15,7 @@ func TestAASAOutput(t *testing.T) {
 
 	t.Parallel()
 
-	testVersions := []int{0, 1, 2, 42} //assuming that 42 is not a valid version
+	testVersions := []int{0, 1, 2, 42} // assuming that 42 is not a valid version
 
 	testCases := []struct {
 		prefix  string
@@ -61,16 +61,15 @@ func TestAASAOutput(t *testing.T) {
 
 			writeSourcesToSource(t, "content", fs, weightedSources...)
 
+			var s *Site
+
 			if tv == 42 {
-				// c.Assert(buildSingleSite(t, depsCfg, BuildCfg{}), qt.ErrorMatches, "*. not a valid AASA version")
-				// expect the site not to build
-				// buildSingleSite(t, depsCfg, BuildCfg{}) == "42 is not a valid AASA version"
-				// s := buildSingleSiteExpected(t, true, true, depsCfg, BuildCfg{})
-				// c.Assert(s, qt.Contains, "nil")
+				s = buildSingleSiteExpected(t, false, true, depsCfg, BuildCfg{})
 				return
+			} else {
+				s = buildSingleSite(t, depsCfg, BuildCfg{})
 			}
 
-			s := buildSingleSite(t, depsCfg, BuildCfg{})
 			th := newTestHelper(s.Cfg, s.Fs, t)
 			outputAASA := "public/.well-known/apple-app-site-association"
 
