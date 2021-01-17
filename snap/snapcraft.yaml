@@ -1,14 +1,10 @@
 name: gotham
 title: Gotham
-summary: "An awesome and super fast Static Site Generator."
+summary: "Gotham has been superseded by Strawberry"
 description: |
-  Gotham is an awesome and super fast Static Site Generator. It's written in Go
-  which is where it gets its speed. It can build Markdown into static and lean
-  HTML, CSS, and JavaScript.
-
-  Gotham is fully compatible with Hugo, from which it was "soft forked". You 
-  can run `gotham version` to see which specific version of Hugo its compatible 
-  with.
+  Gotham has been superseded by Strawberry. v0.13.0 is the last version called 
+  Gotham. Please install Strawberry to continue receiving updates. Follow the 
+  migration guide here: https://docs.strawberryssg.com/migration
 license: "Apache-2.0"
 base: core20
 grade: stable

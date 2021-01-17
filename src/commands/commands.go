@@ -149,6 +149,8 @@ func (b *commandsBuilder) newHugoCmd() *hugoCmd {
 		Short: "gotham builds your site",
 		Long: `gotham is the main command, used to build your Gotham site.
 
+Gotham is becoming Strawberry. Migration guide here: https://docs.strawberryssg.com/migration/
+
 Gotham is a Fast and Flexible Static Site Generator.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
