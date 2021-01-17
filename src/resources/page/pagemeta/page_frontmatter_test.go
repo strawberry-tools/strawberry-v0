@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"

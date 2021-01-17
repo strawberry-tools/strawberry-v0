@@ -21,10 +21,10 @@ import (
 	"strings"
 
 	"github.com/bep/golibsass/libsass"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/pkg/errors"
 )
 

@@ -24,36 +24,36 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
 	radix "github.com/armon/go-radix"
 
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/gothamhq/gotham/common/para"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/common/para"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/source"
 
 	"github.com/bep/gitmap"
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/publisher"
+	"github.com/strawberryssg/strawberry-v0/publisher"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/lazy"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/lazy"
 
-	"github.com/gothamhq/gotham/langs/i18n"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/page/pagemeta"
-	"github.com/gothamhq/gotham/tpl"
-	"github.com/gothamhq/gotham/tpl/tplimpl"
+	"github.com/strawberryssg/strawberry-v0/langs/i18n"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl/tplimpl"
 )
 
 // HugoSites represents the sites to build. Each site represents a language.

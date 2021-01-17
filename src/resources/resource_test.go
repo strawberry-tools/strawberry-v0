@@ -23,9 +23,9 @@ import (
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	qt "github.com/frankban/quicktest"
 )

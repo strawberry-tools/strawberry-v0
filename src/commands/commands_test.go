@@ -20,13 +20,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

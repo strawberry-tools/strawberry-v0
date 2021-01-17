@@ -16,8 +16,8 @@ package hugolib
 import (
 	"fmt"
 
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
 )
 
 var (

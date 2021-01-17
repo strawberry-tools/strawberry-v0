@@ -17,10 +17,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/transform"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/transform"
 )
 
 const (

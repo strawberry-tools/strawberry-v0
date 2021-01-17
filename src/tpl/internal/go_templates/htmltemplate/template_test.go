@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"
+	. "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
 )
 
 func TestTemplateClone(t *testing.T) {

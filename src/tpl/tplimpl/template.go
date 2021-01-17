@@ -25,27 +25,27 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/tpl/tplimpl/embedded"
+	"github.com/strawberryssg/strawberry-v0/tpl/tplimpl/embedded"
 
-	htmltemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"
-	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
+	htmltemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
+	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
 
-	"github.com/gothamhq/gotham/identity"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/identity"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 )
 
 const (

@@ -14,8 +14,8 @@
 package commands
 
 import (
-	"github.com/gothamhq/gotham/hugolib"
-	"github.com/gothamhq/gotham/modules/npm"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
+	"github.com/strawberryssg/strawberry-v0/modules/npm"
 	"github.com/spf13/cobra"
 )
 

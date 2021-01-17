@@ -16,11 +16,11 @@ package pandoc
 
 import (
 	"github.com/cli/safeexec"
-	"github.com/gothamhq/gotham/htesting"
-	"github.com/gothamhq/gotham/identity"
-	"github.com/gothamhq/gotham/markup/internal"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/identity"
+	"github.com/strawberryssg/strawberry-v0/markup/internal"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 )
 
 // Provider is the package entry point.

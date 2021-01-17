@@ -20,9 +20,9 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/gothamhq/gotham/hugolib"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/modules"
 	"github.com/spf13/cobra"
 )
 

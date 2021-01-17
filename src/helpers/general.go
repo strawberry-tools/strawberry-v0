@@ -31,15 +31,15 @@ import (
 
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
 	"github.com/spf13/afero"
 
 	"github.com/jdkato/prose/transform"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/pflag"
 )

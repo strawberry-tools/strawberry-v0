@@ -25,23 +25,23 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/parser/pageparser"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	_errors "github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/common/text"
-	"github.com/gothamhq/gotham/common/urls"
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/urls"
+	"github.com/strawberryssg/strawberry-v0/output"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
-	"github.com/gothamhq/gotham/tpl"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 )
 
 var (

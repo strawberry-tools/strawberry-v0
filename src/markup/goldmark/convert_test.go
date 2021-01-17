@@ -17,15 +17,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/markup/goldmark/goldmark_config"
+	"github.com/strawberryssg/strawberry-v0/markup/goldmark/goldmark_config"
 
-	"github.com/gothamhq/gotham/markup/highlight"
+	"github.com/strawberryssg/strawberry-v0/markup/highlight"
 
-	"github.com/gothamhq/gotham/markup/markup_config"
+	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	qt "github.com/frankban/quicktest"
 )

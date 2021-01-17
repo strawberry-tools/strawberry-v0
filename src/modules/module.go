@@ -17,7 +17,7 @@
 package modules
 
 import (
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 )
 
 var _ Module = (*moduleAdapter)(nil)

@@ -17,7 +17,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	qt "github.com/frankban/quicktest"
 )

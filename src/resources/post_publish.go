@@ -14,8 +14,8 @@
 package resources
 
 import (
-	"github.com/gothamhq/gotham/resources/postpub"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/postpub"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 type transformationKeyer interface {

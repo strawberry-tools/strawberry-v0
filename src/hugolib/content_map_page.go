@@ -21,20 +21,20 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
-	"github.com/gothamhq/gotham/common/types"
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/common/types"
+	"github.com/strawberryssg/strawberry-v0/resources"
 
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugofs/files"
-	"github.com/gothamhq/gotham/parser/pageparser"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/common/para"
+	"github.com/strawberryssg/strawberry-v0/common/para"
 	"github.com/pkg/errors"
 )
 

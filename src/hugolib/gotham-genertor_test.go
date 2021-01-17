@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 )
 
 // Test if the Gotham meta generator tag was injected into the homepage correctly

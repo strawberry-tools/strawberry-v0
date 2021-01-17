@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/cli/safeexec"
-	"github.com/gothamhq/gotham/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 )
 
 func ExternallyRenderContent(

@@ -20,10 +20,10 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 // Client contains methods perform concatenation and other bundling related

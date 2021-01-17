@@ -14,11 +14,11 @@
 package cast
 
 import (
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/docshelper"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/tpl/internal"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/docshelper"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 	"github.com/spf13/viper"
 )
 

@@ -22,17 +22,17 @@ import (
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 
-	"github.com/gothamhq/gotham/hugolib/filesystems"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
 
 	"github.com/evanw/esbuild/pkg/api"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 // Client context for ESBuild.

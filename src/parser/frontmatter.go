@@ -18,7 +18,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
 	"github.com/BurntSushi/toml"
 

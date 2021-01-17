@@ -14,7 +14,7 @@
 package tplimpl
 
 import (
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 )

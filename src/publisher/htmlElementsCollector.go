@@ -20,7 +20,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"golang.org/x/net/html"
 )
 

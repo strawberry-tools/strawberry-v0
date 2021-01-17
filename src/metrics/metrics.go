@@ -25,9 +25,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gothamhq/gotham/common/types"
-	"github.com/gothamhq/gotham/compare"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/common/types"
+	"github.com/strawberryssg/strawberry-v0/compare"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 // The Provider interface defines an interface for measuring metrics.

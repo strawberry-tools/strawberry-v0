@@ -16,10 +16,10 @@ package minifier
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/resources/resource_transformers/htesting"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/htesting"
 )
 
 func TestTransform(t *testing.T) {

@@ -32,7 +32,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/spf13/afero"
 	"gocloud.dev/blob"
 	"gocloud.dev/blob/fileblob"

@@ -14,7 +14,7 @@
 package services
 
 import (
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/mitchellh/mapstructure"
 )
 

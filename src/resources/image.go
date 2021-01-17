@@ -31,16 +31,16 @@ import (
 
 	"github.com/disintegration/gift"
 
-	"github.com/gothamhq/gotham/cache/filecache"
-	"github.com/gothamhq/gotham/resources/images/exif"
+	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	"github.com/pkg/errors"
 	_errors "github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/resources/images"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
 
 	// Blind import for image.Decode
 	_ "golang.org/x/image/webp"

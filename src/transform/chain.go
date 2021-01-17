@@ -17,7 +17,7 @@ import (
 	"bytes"
 	"io"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 )
 
 // Transformer is the func that needs to be implemented by a transformation step.

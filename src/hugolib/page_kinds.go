@@ -16,7 +16,7 @@ package hugolib
 import (
 	"strings"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 // This is all the kinds we can expect to find in .Site.Pages.

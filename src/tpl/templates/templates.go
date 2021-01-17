@@ -15,7 +15,7 @@
 package templates
 
 import (
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 )
 
 // New returns a new instance of the templates-namespaced template functions.

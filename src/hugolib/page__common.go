@@ -17,13 +17,13 @@ import (
 	"sync"
 
 	"github.com/bep/gitmap"
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/compare"
-	"github.com/gothamhq/gotham/lazy"
-	"github.com/gothamhq/gotham/navigation"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/compare"
+	"github.com/strawberryssg/strawberry-v0/lazy"
+	"github.com/strawberryssg/strawberry-v0/navigation"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 type treeRefProvider interface {

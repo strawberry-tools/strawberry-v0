@@ -20,17 +20,17 @@ import (
 	"strconv"
 
 	"github.com/cli/safeexec"
-	"github.com/gothamhq/gotham/common/hexec"
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/pkg/errors"
 )
 

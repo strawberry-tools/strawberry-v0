@@ -19,8 +19,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/output"
 )
 
 func TestPageTargetPath(t *testing.T) {

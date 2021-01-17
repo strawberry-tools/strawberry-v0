@@ -25,36 +25,36 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/bep/gitmap"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/common/collections"
-	"github.com/gothamhq/gotham/common/text"
-	"github.com/gothamhq/gotham/markup/converter/hooks"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/collections"
+	"github.com/strawberryssg/strawberry-v0/common/text"
+	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 var (

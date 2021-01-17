@@ -18,12 +18,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/gothamhq/gotham/hugolib/paths"
+	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
 
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/cobra"
 )
 

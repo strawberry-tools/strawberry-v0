@@ -23,7 +23,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/spf13/afero"
 )

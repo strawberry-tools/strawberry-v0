@@ -21,8 +21,8 @@ import (
 
 	_errors "github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/resources"
 )
 
 // We allow string or a map as the first argument in some cases.

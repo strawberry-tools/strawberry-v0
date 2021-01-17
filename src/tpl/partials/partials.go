@@ -25,15 +25,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/common/hreflect"
-	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
-	"github.com/gothamhq/gotham/deps"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
+	"github.com/strawberryssg/strawberry-v0/deps"
 )
 
 // TestTemplateProvider is global deps.ResourceProvider.

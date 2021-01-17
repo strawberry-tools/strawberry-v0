@@ -30,29 +30,29 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/common/terminal"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/terminal"
 
-	"github.com/gothamhq/gotham/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
 	flag "github.com/spf13/pflag"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugolib"
-	"github.com/gothamhq/gotham/livereload"
-	"github.com/gothamhq/gotham/watcher"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
+	"github.com/strawberryssg/strawberry-v0/livereload"
+	"github.com/strawberryssg/strawberry-v0/watcher"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/fsync"

@@ -13,7 +13,7 @@
 
 package internal
 
-import "github.com/gothamhq/gotham/helpers"
+import "github.com/strawberryssg/strawberry-v0/helpers"
 
 // ResourceTransformationKey are provided by the different transformation implementations.
 // It identifies the transformation (name) and its configuration (elements).

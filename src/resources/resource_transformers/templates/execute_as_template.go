@@ -15,11 +15,11 @@
 package templates
 
 import (
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/internal"
-	"github.com/gothamhq/gotham/resources/resource"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 	"github.com/pkg/errors"
 )
 

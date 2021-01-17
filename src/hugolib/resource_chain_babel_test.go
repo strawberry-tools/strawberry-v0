@@ -20,19 +20,19 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 
 	jww "github.com/spf13/jwalterweatherman"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 )
 
 func TestResourceChainBabel(t *testing.T) {

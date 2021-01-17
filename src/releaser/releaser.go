@@ -24,9 +24,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/pkg/errors"
 )
 

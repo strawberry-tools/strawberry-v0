@@ -20,16 +20,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/markup/asciidocext"
-	"github.com/gothamhq/gotham/markup/rst"
+	"github.com/strawberryssg/strawberry-v0/markup/asciidocext"
+	"github.com/strawberryssg/strawberry-v0/markup/rst"
 
 	"github.com/spf13/viper"
 
-	"github.com/gothamhq/gotham/parser/pageparser"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 	"github.com/spf13/cast"
 
 	qt "github.com/frankban/quicktest"

@@ -18,9 +18,9 @@ import (
 	"reflect"
 	"regexp"
 
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 
-	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
+	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
 )
 
 // TemplateManager manages the collection of templates.

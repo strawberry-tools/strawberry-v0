@@ -24,9 +24,9 @@ import (
 
 	"github.com/evanw/esbuild/pkg/api"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cast"
 )

@@ -17,7 +17,7 @@ package commands
 import (
 	"errors"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/spf13/cobra"
 
 	jww "github.com/spf13/jwalterweatherman"

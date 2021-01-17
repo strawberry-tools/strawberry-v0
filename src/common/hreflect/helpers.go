@@ -19,7 +19,7 @@ package hreflect
 import (
 	"reflect"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 )
 
 // TODO(bep) replace the private versions in /tpl with these.

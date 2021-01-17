@@ -6,7 +6,7 @@ package hugolib
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 
 	qt "github.com/frankban/quicktest"
 )

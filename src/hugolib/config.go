@@ -18,30 +18,30 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	"github.com/gobwas/glob"
-	hglob "github.com/gothamhq/gotham/hugofs/glob"
+	hglob "github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/cache/filecache"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/hugolib/paths"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/modules"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/config/privacy"
-	"github.com/gothamhq/gotham/config/services"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/config/privacy"
+	"github.com/strawberryssg/strawberry-v0/config/services"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

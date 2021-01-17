@@ -18,21 +18,21 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/modules"
 
-	"github.com/gothamhq/gotham/tpl/tplimpl"
+	"github.com/strawberryssg/strawberry-v0/tpl/tplimpl"
 
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 var logger = loggers.NewErrorLogger()

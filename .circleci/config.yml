@@ -68,7 +68,7 @@ jobs:
   generic-tests:
     docker:
       - image: cimg/base:2020.12
-    working_directory: "~/gotham/src"
+    working_directory: "~/strawberry-v0/src"
     steps:
       - checkout:
           path: ".."
@@ -78,7 +78,7 @@ jobs:
   test-on-linux:
     machine:
       image: ubuntu-2004:202010-01
-    working_directory: "~/gotham/src"
+    working_directory: "~/strawberry-v0/src"
     environment:
       GOTESTSUM_JUNITFILE: "junit/unit-tests-linux.xml"
     steps:
@@ -126,11 +126,11 @@ jobs:
           name: "Build Binary"
           command: |
             mage -v hugo
-            ./gotham version
+            ./strawberry-v0 version
   test-on-macos:
     macos:
       xcode: 12.3.0
-    working_directory: "~/gotham/src"
+    working_directory: "~/strawberry-v0/src"
     environment:
       GOTESTSUM_JUNITFILE: "junit/unit-tests-macos.xml"
     steps:
@@ -176,11 +176,11 @@ jobs:
           name: "Build Binary"
           command: |
             mage -v hugo
-            ./gotham version
+            ./strawberry-v0 version
   release:
     machine:
       image: ubuntu-2004:202010-01
-    working_directory: "~/gotham"
+    working_directory: "~/strawberry"
     steps:
       - checkout
       - go/install:
@@ -214,7 +214,7 @@ jobs:
   release-on-macos:
     macos:
       xcode: 12.3.0
-    working_directory: "~/gotham"
+    working_directory: "~/strawberry"
     steps:
       - checkout
       - go/install:

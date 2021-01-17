@@ -18,10 +18,10 @@ package dartsass
 import (
 	"io"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugolib/filesystems"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/spf13/afero"
 
 	"github.com/bep/godartsass"

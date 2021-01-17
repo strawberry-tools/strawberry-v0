@@ -18,21 +18,21 @@ package page
 import (
 	"html/template"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
 	"github.com/bep/gitmap"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/compare"
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/compare"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/gothamhq/gotham/navigation"
-	"github.com/gothamhq/gotham/related"
-	"github.com/gothamhq/gotham/resources/resource"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/navigation"
+	"github.com/strawberryssg/strawberry-v0/related"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 // Clear clears any global package state.

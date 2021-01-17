@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gothamhq/gotham/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 )
 
 // Resources represents a slice of resources, which can be a mix of different types.

@@ -14,7 +14,7 @@
 package tplimpl
 
 import (
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 )
 
 // TemplateProvider manages templates.

@@ -16,7 +16,7 @@ package hugolib
 import (
 	"html/template"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 var tocShortcodePlaceholder = createShortcodePlaceholder("TOC", 0)

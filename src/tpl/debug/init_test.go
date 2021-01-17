@@ -16,12 +16,12 @@ package debug
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/htesting/hqt"
+	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/tpl/internal"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 )
 
 func TestInit(t *testing.T) {

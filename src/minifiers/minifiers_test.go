@@ -19,10 +19,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/spf13/viper"
 )
 

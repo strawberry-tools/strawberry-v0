@@ -21,11 +21,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gothamhq/gotham/common/collections"
-	"github.com/gothamhq/gotham/compare"
+	"github.com/strawberryssg/strawberry-v0/common/collections"
+	"github.com/strawberryssg/strawberry-v0/compare"
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 var (

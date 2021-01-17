@@ -17,8 +17,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/spf13/cast"
 )
 

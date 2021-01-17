@@ -14,14 +14,14 @@
 package markup_config
 
 import (
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/docshelper"
-	"github.com/gothamhq/gotham/markup/asciidocext/asciidocext_config"
-	"github.com/gothamhq/gotham/markup/blackfriday/blackfriday_config"
-	"github.com/gothamhq/gotham/markup/goldmark/goldmark_config"
-	"github.com/gothamhq/gotham/markup/highlight"
-	"github.com/gothamhq/gotham/markup/tableofcontents"
-	"github.com/gothamhq/gotham/parser"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/docshelper"
+	"github.com/strawberryssg/strawberry-v0/markup/asciidocext/asciidocext_config"
+	"github.com/strawberryssg/strawberry-v0/markup/blackfriday/blackfriday_config"
+	"github.com/strawberryssg/strawberry-v0/markup/goldmark/goldmark_config"
+	"github.com/strawberryssg/strawberry-v0/markup/highlight"
+	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
+	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/mitchellh/mapstructure"
 )
 

@@ -22,15 +22,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/publisher"
+	"github.com/strawberryssg/strawberry-v0/publisher"
 
 	"github.com/spf13/viper"
 
 	"github.com/markbates/inflect"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 const (

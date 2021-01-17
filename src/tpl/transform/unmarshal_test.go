@@ -19,10 +19,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/spf13/viper"

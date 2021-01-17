@@ -17,10 +17,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/hreflect"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 )

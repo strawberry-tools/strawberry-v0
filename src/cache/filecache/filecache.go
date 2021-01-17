@@ -24,9 +24,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/BurntSushi/locker"
 	"github.com/spf13/afero"

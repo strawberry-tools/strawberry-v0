@@ -21,10 +21,10 @@ import (
 	"github.com/pkg/errors"
 
 	kopenapi3 "github.com/getkin/kin-openapi/openapi3"
-	"github.com/gothamhq/gotham/cache/namedmemcache"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/parser/metadecoders"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/cache/namedmemcache"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 // New returns a new instance of the openapi3-namespaced template functions.

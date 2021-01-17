@@ -19,15 +19,15 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/modules"
 
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
 	"github.com/spf13/viper"
 )

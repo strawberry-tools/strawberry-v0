@@ -16,10 +16,10 @@ package paths
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/viper"
 )
 

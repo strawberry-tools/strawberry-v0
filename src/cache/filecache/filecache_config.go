@@ -19,9 +19,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"

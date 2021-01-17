@@ -17,10 +17,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gothamhq/gotham/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/fsync"
 )
 

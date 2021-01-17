@@ -20,7 +20,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
 	"github.com/pkg/errors"
 

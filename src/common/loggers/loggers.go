@@ -24,7 +24,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/gothamhq/gotham/common/terminal"
+	"github.com/strawberryssg/strawberry-v0/common/terminal"
 
 	jww "github.com/spf13/jwalterweatherman"
 )

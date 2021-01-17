@@ -22,26 +22,26 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
-	"github.com/gothamhq/gotham/related"
+	"github.com/strawberryssg/strawberry-v0/related"
 
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/markbates/inflect"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/page/pagemeta"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/spf13/cast"
 )
 

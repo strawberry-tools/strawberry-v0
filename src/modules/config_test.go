@@ -16,9 +16,9 @@ package modules
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
 	qt "github.com/frankban/quicktest"
 )

@@ -14,7 +14,7 @@
 package tpl
 
 import (
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 )
 
 // Increments on breaking changes.

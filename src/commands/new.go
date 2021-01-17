@@ -19,9 +19,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/create"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugolib"
+	"github.com/strawberryssg/strawberry-v0/create"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"

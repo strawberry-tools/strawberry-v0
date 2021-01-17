@@ -20,20 +20,20 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/parser"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/hugolib"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 
 	"github.com/spf13/cobra"
 )

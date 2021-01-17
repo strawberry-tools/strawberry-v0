@@ -19,17 +19,17 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/markup/blackfriday"
+	"github.com/strawberryssg/strawberry-v0/markup/blackfriday"
 
-	"github.com/gothamhq/gotham/markup/goldmark/goldmark_config"
+	"github.com/strawberryssg/strawberry-v0/markup/goldmark/goldmark_config"
 
-	"github.com/gothamhq/gotham/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/util"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 )
 
 func sanitizeAnchorNameString(s string, idType string) string {

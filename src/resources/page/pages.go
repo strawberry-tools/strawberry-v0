@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/gothamhq/gotham/compare"
+	"github.com/strawberryssg/strawberry-v0/compare"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 var (

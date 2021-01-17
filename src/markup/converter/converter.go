@@ -16,12 +16,12 @@ package converter
 import (
 	"bytes"
 
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/identity"
-	"github.com/gothamhq/gotham/markup/converter/hooks"
-	"github.com/gothamhq/gotham/markup/markup_config"
-	"github.com/gothamhq/gotham/markup/tableofcontents"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/identity"
+	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
+	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
+	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
 	"github.com/spf13/afero"
 )
 

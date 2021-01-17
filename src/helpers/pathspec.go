@@ -16,11 +16,11 @@ package helpers
 import (
 	"strings"
 
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugolib/filesystems"
-	"github.com/gothamhq/gotham/hugolib/paths"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
 )
 
 // PathSpec holds methods that decides how paths in URLs and files in Hugo should look like.

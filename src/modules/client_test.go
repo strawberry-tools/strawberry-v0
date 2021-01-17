@@ -20,11 +20,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
 	qt "github.com/frankban/quicktest"
 )

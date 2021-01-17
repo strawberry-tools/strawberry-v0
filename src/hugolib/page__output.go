@@ -14,10 +14,10 @@
 package hugolib
 
 import (
-	"github.com/gothamhq/gotham/markup/converter"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 func newPageOutput(

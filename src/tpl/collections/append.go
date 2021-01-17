@@ -16,7 +16,7 @@ package collections
 import (
 	"errors"
 
-	"github.com/gothamhq/gotham/common/collections"
+	"github.com/strawberryssg/strawberry-v0/common/collections"
 )
 
 // Append appends the arguments up to the last one to the slice in the last argument.

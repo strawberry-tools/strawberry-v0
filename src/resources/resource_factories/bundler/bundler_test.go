@@ -16,10 +16,10 @@ package bundler
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 )
 
 func TestMultiReadSeekCloser(t *testing.T) {

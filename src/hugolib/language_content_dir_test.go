@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	qt "github.com/frankban/quicktest"
 )

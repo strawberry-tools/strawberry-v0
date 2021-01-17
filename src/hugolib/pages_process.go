@@ -18,15 +18,15 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/source"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 func newPagesProcessor(h *HugoSites, sp *source.SourceSpec) *pagesProcessor {

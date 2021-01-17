@@ -8,13 +8,13 @@ import (
 	"time"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/htesting"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	"github.com/fortytw2/leaktest"
 	"github.com/fsnotify/fsnotify"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/afero"
 )
 

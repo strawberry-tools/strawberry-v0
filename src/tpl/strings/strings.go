@@ -21,8 +21,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	_errors "github.com/pkg/errors"
 	"github.com/spf13/cast"

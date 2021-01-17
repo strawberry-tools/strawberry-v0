@@ -16,11 +16,11 @@ package resource
 import (
 	"image"
 
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources/images/exif"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
 )
 
 // Cloner is an internal template and not meant for use in the templates. It

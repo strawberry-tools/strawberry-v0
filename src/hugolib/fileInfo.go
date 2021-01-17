@@ -16,15 +16,15 @@ package hugolib
 import (
 	"strings"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 // fileInfo implements the File and ReadableFile interface.

@@ -24,7 +24,7 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 
 	qt "github.com/frankban/quicktest"
 )

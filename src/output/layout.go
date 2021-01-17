@@ -17,7 +17,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 // These may be used as content sections with potential conflicts. Avoid that.

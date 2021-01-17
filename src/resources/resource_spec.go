@@ -23,25 +23,25 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/resources/jsconfig"
+	"github.com/strawberryssg/strawberry-v0/resources/jsconfig"
 
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/resources/postpub"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/resources/postpub"
 
-	"github.com/gothamhq/gotham/cache/filecache"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources/images"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
 	"github.com/spf13/afero"
 )

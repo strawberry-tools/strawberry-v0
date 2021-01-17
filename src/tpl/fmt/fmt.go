@@ -17,8 +17,8 @@ package fmt
 import (
 	_fmt "fmt"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 // New returns a new instance of the fmt-namespaced template functions.

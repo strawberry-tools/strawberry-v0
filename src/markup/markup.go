@@ -16,20 +16,20 @@ package markup
 import (
 	"strings"
 
-	"github.com/gothamhq/gotham/markup/highlight"
+	"github.com/strawberryssg/strawberry-v0/markup/highlight"
 
-	"github.com/gothamhq/gotham/markup/markup_config"
+	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
 
-	"github.com/gothamhq/gotham/markup/goldmark"
+	"github.com/strawberryssg/strawberry-v0/markup/goldmark"
 
-	"github.com/gothamhq/gotham/markup/org"
+	"github.com/strawberryssg/strawberry-v0/markup/org"
 
-	"github.com/gothamhq/gotham/markup/asciidocext"
-	"github.com/gothamhq/gotham/markup/blackfriday"
-	"github.com/gothamhq/gotham/markup/converter"
-	"github.com/gothamhq/gotham/markup/mmark"
-	"github.com/gothamhq/gotham/markup/pandoc"
-	"github.com/gothamhq/gotham/markup/rst"
+	"github.com/strawberryssg/strawberry-v0/markup/asciidocext"
+	"github.com/strawberryssg/strawberry-v0/markup/blackfriday"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/mmark"
+	"github.com/strawberryssg/strawberry-v0/markup/pandoc"
+	"github.com/strawberryssg/strawberry-v0/markup/rst"
 )
 
 func NewConverterProvider(cfg converter.ProviderConfig) (ConverterProvider, error) {

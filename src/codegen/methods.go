@@ -171,8 +171,8 @@ func (c *Inspector) MethodsFromTypes(include []reflect.Type, exclude []reflect.T
 
 func (c *Inspector) parseSource() {
 	c.init.Do(func() {
-		if !strings.Contains(c.ProjectRootDir, "gotham") {
-			panic("dir must be set to the Gotham root")
+		if !strings.Contains(c.ProjectRootDir, "strawberry-v0") {
+			panic("dir must be set to the Strawberry root")
 		}
 
 		c.methodWeight = make(map[string]map[string]int)
