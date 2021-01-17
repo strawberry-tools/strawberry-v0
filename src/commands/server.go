@@ -500,6 +500,14 @@ func (c *commandeer) serve(s *serverCmd) error {
 	for i := range baseURLs {
 		mu, serverURL, endpoint, err := srv.createEndpoint(i)
 
+		// Empty lines to space out the migration warning.
+		jww.FEEDBACK.Println("")
+		helpers.DistinctWarnLog.Printf(
+			"%s has been renamed to Strawberry. To use newer versions of Strawberry/Gotham, it needs to be reinstalled.\nPlease read the migration guide: %s\n",
+			"Gotham",
+			"https://docs.StrawberrySSG.com/migration",
+		)
+
 		if doLiveReload {
 			u, err := url.Parse(helpers.SanitizeURL(baseURLs[i]))
 			if err != nil {
