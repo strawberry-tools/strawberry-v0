@@ -20,14 +20,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
 	_errors "github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/create"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/parser"
+	"github.com/strawberryssg/strawberry-v0/create"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"

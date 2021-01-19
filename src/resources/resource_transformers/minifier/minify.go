@@ -14,10 +14,10 @@
 package minifier
 
 import (
-	"github.com/gothamhq/gotham/minifiers"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/internal"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/minifiers"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 // Client for minification of Resource objects. Supported minifiers are:

@@ -23,16 +23,16 @@ import (
 
 	"github.com/gobwas/glob"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugolib/paths"
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
+	"github.com/strawberryssg/strawberry-v0/modules"
 	"github.com/spf13/viper"
 )
 

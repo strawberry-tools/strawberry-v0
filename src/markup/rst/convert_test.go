@@ -16,9 +16,9 @@ package rst
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	qt "github.com/frankban/quicktest"
 )

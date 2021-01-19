@@ -19,10 +19,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 )
 
 const slugDoc1 = "---\ntitle: slug doc 1\nslug: slug-doc-1\naliases:\n - /sd1/foo/\n - /sd2\n - /sd3/\n - /sd4.html\n---\nslug doc 1 content\n"

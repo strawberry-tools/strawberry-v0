@@ -17,8 +17,8 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/gothamhq/gotham/markup/blackfriday/blackfriday_config"
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/blackfriday/blackfriday_config"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 	"github.com/miekg/mmark"
 )
 

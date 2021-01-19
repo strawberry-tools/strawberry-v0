@@ -16,7 +16,7 @@ package main
 import (
 	"os"
 
-	"github.com/gothamhq/gotham/commands"
+	"github.com/strawberryssg/strawberry-v0/commands"
 )
 
 func main() {

@@ -21,10 +21,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/viper"
 )
 

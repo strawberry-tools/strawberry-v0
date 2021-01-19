@@ -21,8 +21,8 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/parser"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 )
 
 func BenchmarkCascade(b *testing.B) {

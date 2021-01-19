@@ -22,7 +22,7 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 )
 
 // Format represents an output representation, usually to a file on disk.

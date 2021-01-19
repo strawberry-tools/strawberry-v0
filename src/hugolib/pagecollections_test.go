@@ -22,9 +22,9 @@ import (
 	"time"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 )
 
 const pageCollectionsPageTemplate = `---

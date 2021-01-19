@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/fortytw2/leaktest"
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 )
 
 type testSiteBuildErrorAsserter struct {

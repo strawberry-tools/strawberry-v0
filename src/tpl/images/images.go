@@ -20,8 +20,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/resources/images"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	// Importing image codecs for image.DecodeConfig
 	_ "image/gif"
@@ -31,7 +31,7 @@ import (
 	// Import webp codec
 	_ "golang.org/x/image/webp"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/spf13/cast"
 )
 

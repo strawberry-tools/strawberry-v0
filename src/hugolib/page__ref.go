@@ -16,7 +16,7 @@ package hugolib
 import (
 	"fmt"
 
-	"github.com/gothamhq/gotham/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"

@@ -22,14 +22,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"golang.org/x/text/unicode/norm"
 
 	"github.com/pkg/errors"
 
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/common/hreflect"
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
 
 	"github.com/spf13/afero"
 )

@@ -17,8 +17,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	qt "github.com/frankban/quicktest"
 

@@ -18,7 +18,7 @@ package commands
 import (
 	"context"
 
-	"github.com/gothamhq/gotham/deploy"
+	"github.com/strawberryssg/strawberry-v0/deploy"
 	"github.com/spf13/cobra"
 )
 

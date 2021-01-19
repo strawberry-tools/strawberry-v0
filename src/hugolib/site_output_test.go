@@ -19,12 +19,12 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/spf13/viper"
 )
 

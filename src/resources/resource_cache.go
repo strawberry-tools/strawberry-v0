@@ -22,13 +22,13 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/cache/filecache"
 
 	"github.com/BurntSushi/locker"
 )

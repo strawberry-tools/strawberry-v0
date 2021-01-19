@@ -19,10 +19,10 @@ import (
 	"regexp"
 	"runtime"
 
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/cast"
 )
 

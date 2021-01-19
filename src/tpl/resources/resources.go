@@ -19,27 +19,27 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/tpl/internal/resourcehelpers"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal/resourcehelpers"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/resources/postpub"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/resources/postpub"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/resources/resource_factories/bundler"
-	"github.com/gothamhq/gotham/resources/resource_factories/create"
-	"github.com/gothamhq/gotham/resources/resource_transformers/babel"
-	"github.com/gothamhq/gotham/resources/resource_transformers/integrity"
-	"github.com/gothamhq/gotham/resources/resource_transformers/minifier"
-	"github.com/gothamhq/gotham/resources/resource_transformers/postcss"
-	"github.com/gothamhq/gotham/resources/resource_transformers/templates"
-	"github.com/gothamhq/gotham/resources/resource_transformers/tocss/dartsass"
-	"github.com/gothamhq/gotham/resources/resource_transformers/tocss/scss"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_factories/bundler"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_factories/create"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/babel"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/integrity"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/minifier"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/postcss"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/templates"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/tocss/dartsass"
+	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/tocss/scss"
 	"github.com/spf13/cast"
 )
 

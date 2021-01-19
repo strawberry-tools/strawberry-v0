@@ -18,8 +18,8 @@ import (
 	"io"
 	"net/url"
 
-	"github.com/gothamhq/gotham/transform"
-	"github.com/gothamhq/gotham/transform/livereloadinject"
+	"github.com/strawberryssg/strawberry-v0/transform"
+	"github.com/strawberryssg/strawberry-v0/transform/livereloadinject"
 )
 
 var buildErrorTemplate = `<!doctype html>

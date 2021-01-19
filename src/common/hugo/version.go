@@ -19,7 +19,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gothamhq/gotham/compare"
+	"github.com/strawberryssg/strawberry-v0/compare"
 	"github.com/spf13/cast"
 )
 

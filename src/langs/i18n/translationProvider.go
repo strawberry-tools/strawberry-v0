@@ -17,13 +17,13 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"golang.org/x/text/language"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 
 	toml "github.com/pelletier/go-toml"

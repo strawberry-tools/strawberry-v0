@@ -17,13 +17,13 @@ import (
 	"html/template"
 	"time"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/navigation"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/navigation"
 )
 
 // Site represents a site in the build. This is currently a very narrow interface,

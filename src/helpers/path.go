@@ -25,13 +25,13 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/gothamhq/gotham/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 	_errors "github.com/pkg/errors"
 	"github.com/spf13/afero"
 )

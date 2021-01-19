@@ -20,13 +20,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugolib"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/create"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/create"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

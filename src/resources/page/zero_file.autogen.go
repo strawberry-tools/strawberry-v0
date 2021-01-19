@@ -16,9 +16,9 @@
 package page
 
 import (
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 // ZeroFile represents a zero value of source.File with warnings if invoked.

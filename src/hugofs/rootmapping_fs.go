@@ -19,7 +19,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/pkg/errors"
 

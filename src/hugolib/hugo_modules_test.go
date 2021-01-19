@@ -22,18 +22,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gothamhq/gotham/modules/npm"
+	"github.com/strawberryssg/strawberry-v0/modules/npm"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
-	"github.com/gothamhq/gotham/htesting"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/gohugoio/testmodBuilder/mods"

@@ -23,12 +23,12 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/publisher"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/publisher"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 )
 
 type aliasHandler struct {

@@ -17,8 +17,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/hreflect"
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
 	"github.com/pkg/errors"
 )

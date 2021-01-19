@@ -14,8 +14,8 @@
 package debug
 
 import (
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/tpl/internal"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 )
 
 const name = "debug"

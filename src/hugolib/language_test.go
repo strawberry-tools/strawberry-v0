@@ -18,7 +18,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	qt "github.com/frankban/quicktest"
 )

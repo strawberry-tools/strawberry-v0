@@ -16,7 +16,7 @@ package hooks
 import (
 	"io"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 )
 
 type LinkContext interface {

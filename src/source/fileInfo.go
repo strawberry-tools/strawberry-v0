@@ -18,15 +18,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 // fileInfo implements the File interface.

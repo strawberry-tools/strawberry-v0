@@ -18,8 +18,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/spf13/cast"
 )
 

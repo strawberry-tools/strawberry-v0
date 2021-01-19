@@ -20,11 +20,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 )
 
 func TestTaxonomiesCountOrder(t *testing.T) {

@@ -24,7 +24,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 // PermalinkExpander holds permalin mappings per section.

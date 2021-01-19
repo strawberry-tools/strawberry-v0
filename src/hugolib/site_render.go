@@ -19,15 +19,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
 )
 
 type siteRenderContext struct {

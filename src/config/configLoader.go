@@ -17,8 +17,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

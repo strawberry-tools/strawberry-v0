@@ -17,10 +17,10 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/htesting/hqt"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/tpl/internal"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 	"github.com/spf13/viper"
 )
 

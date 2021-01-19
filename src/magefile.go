@@ -15,15 +15,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gothamhq/gotham/codegen"
-	"github.com/gothamhq/gotham/resources/page/page_generate"
+	"github.com/strawberryssg/strawberry-v0/codegen"
+	"github.com/strawberryssg/strawberry-v0/resources/page/page_generate"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 )
 
 const (
-	packageName  = "github.com/gothamhq/gotham"
+	packageName  = "github.com/strawberryssg/strawberry-v0"
 	noGitLdflags = "-X $PACKAGE/common/hugo.buildDate=$BUILD_DATE"
 )
 

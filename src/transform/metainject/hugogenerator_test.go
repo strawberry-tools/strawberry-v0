@@ -18,7 +18,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/transform"
+	"github.com/strawberryssg/strawberry-v0/transform"
 )
 
 func TestHugoGeneratorInject(t *testing.T) {

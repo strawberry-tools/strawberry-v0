@@ -19,7 +19,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 	"github.com/mitchellh/mapstructure"
 )
 

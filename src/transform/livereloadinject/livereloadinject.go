@@ -20,8 +20,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/transform"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/transform"
 )
 
 type tag struct {

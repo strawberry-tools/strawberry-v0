@@ -14,7 +14,7 @@
 package hugolib
 
 import (
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 // Sections returns the top level sections.

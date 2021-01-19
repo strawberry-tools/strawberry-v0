@@ -34,8 +34,8 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/gobwas/glob"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 	jww "github.com/spf13/jwalterweatherman"

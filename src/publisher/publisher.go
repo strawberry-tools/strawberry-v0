@@ -19,22 +19,22 @@ import (
 	"net/url"
 	"sync/atomic"
 
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/resources"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
-	"github.com/gothamhq/gotham/minifiers"
+	"github.com/strawberryssg/strawberry-v0/minifiers"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
-	"github.com/gothamhq/gotham/helpers"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/transform"
-	"github.com/gothamhq/gotham/transform/livereloadinject"
-	"github.com/gothamhq/gotham/transform/metainject"
-	"github.com/gothamhq/gotham/transform/urlreplacers"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/transform"
+	"github.com/strawberryssg/strawberry-v0/transform/livereloadinject"
+	"github.com/strawberryssg/strawberry-v0/transform/metainject"
+	"github.com/strawberryssg/strawberry-v0/transform/urlreplacers"
 )
 
 // Descriptor describes the needed publishing chain for an item.

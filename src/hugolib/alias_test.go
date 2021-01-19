@@ -18,7 +18,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
 	qt "github.com/frankban/quicktest"
 )

@@ -19,7 +19,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/transform"
+	"github.com/strawberryssg/strawberry-v0/transform"
 )
 
 type absurllexer struct {

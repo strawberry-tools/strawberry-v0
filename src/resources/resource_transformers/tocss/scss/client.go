@@ -16,9 +16,9 @@ package scss
 import (
 	"regexp"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugolib/filesystems"
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/spf13/afero"
 
 	"github.com/mitchellh/mapstructure"

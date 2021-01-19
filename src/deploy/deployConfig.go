@@ -20,9 +20,9 @@ import (
 	"regexp"
 
 	"github.com/gobwas/glob"
-	"github.com/gothamhq/gotham/config"
-	hglob "github.com/gothamhq/gotham/hugofs/glob"
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/config"
+	hglob "github.com/strawberryssg/strawberry-v0/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/mitchellh/mapstructure"
 )
 

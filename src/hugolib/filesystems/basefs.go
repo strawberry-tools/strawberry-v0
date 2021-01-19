@@ -24,17 +24,17 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/modules"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/hugolib/paths"
+	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
 	"github.com/spf13/afero"
 )
 

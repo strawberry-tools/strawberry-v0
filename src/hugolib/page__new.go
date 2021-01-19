@@ -17,16 +17,16 @@ import (
 	"html/template"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/source"
 
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 
-	"github.com/gothamhq/gotham/lazy"
+	"github.com/strawberryssg/strawberry-v0/lazy"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 func newPageBase(metaProvider *pageMeta) (*pageState, error) {

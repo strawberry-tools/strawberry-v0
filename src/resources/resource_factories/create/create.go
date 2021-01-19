@@ -20,13 +20,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 // Client contains methods to create Resource objects.

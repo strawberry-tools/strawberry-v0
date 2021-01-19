@@ -16,7 +16,7 @@ package transform
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/spf13/viper"

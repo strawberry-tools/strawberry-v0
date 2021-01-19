@@ -16,7 +16,7 @@ package hugolib
 import (
 	"sync"
 
-	"github.com/gothamhq/gotham/navigation"
+	"github.com/strawberryssg/strawberry-v0/navigation"
 )
 
 type pageMenus struct {

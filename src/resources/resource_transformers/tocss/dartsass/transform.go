@@ -23,17 +23,17 @@ import (
 
 	"github.com/cli/safeexec"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/htesting"
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/media"
 
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/resources"
 
-	"github.com/gothamhq/gotham/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
 	"github.com/bep/godartsass"
 )

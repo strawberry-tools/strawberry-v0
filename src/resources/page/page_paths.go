@@ -18,8 +18,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/output"
 )
 
 const slash = "/"

@@ -23,12 +23,12 @@ import (
 	"html/template"
 	"io"
 
-	"github.com/gothamhq/gotham/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 const defaultHashAlgo = "sha256"

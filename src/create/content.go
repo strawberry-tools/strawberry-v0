@@ -23,13 +23,13 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/hexec"
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugolib"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 	"github.com/spf13/afero"
 	jww "github.com/spf13/jwalterweatherman"
 )

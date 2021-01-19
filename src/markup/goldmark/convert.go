@@ -21,16 +21,16 @@ import (
 	"path/filepath"
 	"runtime/debug"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
 	"github.com/pkg/errors"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/markup/converter"
-	"github.com/gothamhq/gotham/markup/highlight"
-	"github.com/gothamhq/gotham/markup/tableofcontents"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/highlight"
+	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
 	"github.com/yuin/goldmark"
 	hl "github.com/yuin/goldmark-highlighting"
 	"github.com/yuin/goldmark/extension"

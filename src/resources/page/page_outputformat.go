@@ -18,8 +18,8 @@ package page
 import (
 	"strings"
 
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/output"
 )
 
 // OutputFormats holds a list of the relevant output formats for a given page.

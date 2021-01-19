@@ -29,50 +29,50 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gothamhq/gotham/common/constants"
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/common/constants"
+	"github.com/strawberryssg/strawberry-v0/resources"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
-	"github.com/gothamhq/gotham/markup/converter/hooks"
+	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/publisher"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/publisher"
 	_errors "github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/lazy"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/lazy"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	"github.com/fsnotify/fsnotify"
-	bp "github.com/gothamhq/gotham/bufferpool"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/navigation"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/related"
-	"github.com/gothamhq/gotham/resources/page/pagemeta"
-	"github.com/gothamhq/gotham/source"
-	"github.com/gothamhq/gotham/tpl"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/navigation"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/related"
+	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/source"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"

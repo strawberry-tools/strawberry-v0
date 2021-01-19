@@ -20,7 +20,7 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 )
 
 // Index returns the result of indexing its first argument by the following

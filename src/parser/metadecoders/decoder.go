@@ -21,7 +21,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/niklasfasching/go-org/org"
 
 	"github.com/BurntSushi/toml"

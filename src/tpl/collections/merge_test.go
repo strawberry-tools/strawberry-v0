@@ -18,10 +18,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/parser"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
 	qt "github.com/frankban/quicktest"
 )

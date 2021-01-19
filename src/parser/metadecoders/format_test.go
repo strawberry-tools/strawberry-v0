@@ -16,7 +16,7 @@ package metadecoders
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	qt "github.com/frankban/quicktest"
 )

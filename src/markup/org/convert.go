@@ -17,9 +17,9 @@ package org
 import (
 	"bytes"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 	"github.com/niklasfasching/go-org/org"
 	"github.com/spf13/afero"
 )

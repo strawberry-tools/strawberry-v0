@@ -16,8 +16,8 @@ package page
 import (
 	"sync"
 
-	"github.com/gothamhq/gotham/common/types"
-	"github.com/gothamhq/gotham/related"
+	"github.com/strawberryssg/strawberry-v0/common/types"
+	"github.com/strawberryssg/strawberry-v0/related"
 	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 )

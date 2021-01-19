@@ -17,13 +17,13 @@ import (
 	"regexp"
 	"strings"
 
-	htmltemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"
-	texttemplate "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
+	htmltemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
+	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
 
-	"github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate/parse"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate/parse"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
 )

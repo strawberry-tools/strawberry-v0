@@ -17,10 +17,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 	"github.com/spf13/afero"
 )
 

@@ -22,26 +22,26 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
-	"github.com/gothamhq/gotham/markup/rst"
+	"github.com/strawberryssg/strawberry-v0/markup/rst"
 
-	"github.com/gothamhq/gotham/markup/asciidocext"
+	"github.com/strawberryssg/strawberry-v0/markup/asciidocext"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 const (

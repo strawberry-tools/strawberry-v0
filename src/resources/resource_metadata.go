@@ -18,14 +18,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gothamhq/gotham/hugofs/glob"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 )
 
 var (

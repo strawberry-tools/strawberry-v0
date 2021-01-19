@@ -1,13 +1,13 @@
 package helpers
 
 import (
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/modules"
 )
 
 func newTestPathSpec(fs *hugofs.Fs, v *viper.Viper) *PathSpec {

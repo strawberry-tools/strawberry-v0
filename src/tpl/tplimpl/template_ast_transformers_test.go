@@ -15,10 +15,10 @@ package tplimpl
 import (
 	"testing"
 
-	template "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"
+	template "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 )
 
 // Issue #2927

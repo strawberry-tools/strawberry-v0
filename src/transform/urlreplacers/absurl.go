@@ -13,7 +13,7 @@
 
 package urlreplacers
 
-import "github.com/gothamhq/gotham/transform"
+import "github.com/strawberryssg/strawberry-v0/transform"
 
 var ar = newAbsURLReplacer()
 

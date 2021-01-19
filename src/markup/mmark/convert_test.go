@@ -18,11 +18,11 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/markup/blackfriday/blackfriday_config"
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/blackfriday/blackfriday_config"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 	"github.com/miekg/mmark"
 )
 

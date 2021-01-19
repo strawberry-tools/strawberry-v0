@@ -20,8 +20,8 @@ import (
 	"html/template"
 	"net/url"
 
-	"github.com/gothamhq/gotham/common/urls"
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/common/urls"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	_errors "github.com/pkg/errors"
 	"github.com/spf13/cast"
 )

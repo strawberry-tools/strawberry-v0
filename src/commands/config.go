@@ -22,10 +22,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gothamhq/gotham/parser"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/modules"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

@@ -16,7 +16,7 @@ package js
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	"github.com/evanw/esbuild/pkg/api"
 

@@ -18,10 +18,10 @@ import (
 	"html"
 	"html/template"
 
-	"github.com/gothamhq/gotham/cache/namedmemcache"
+	"github.com/strawberryssg/strawberry-v0/cache/namedmemcache"
 
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/cast"
 )
 

@@ -26,17 +26,17 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/gothamhq/gotham/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
 
-	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugolib"
-	"github.com/gothamhq/gotham/parser"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
+	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"

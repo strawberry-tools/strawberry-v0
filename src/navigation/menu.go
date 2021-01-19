@@ -19,9 +19,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/common/types"
-	"github.com/gothamhq/gotham/compare"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/types"
+	"github.com/strawberryssg/strawberry-v0/compare"
 
 	"github.com/spf13/cast"
 )

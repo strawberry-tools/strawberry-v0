@@ -16,7 +16,7 @@ package herrors
 import (
 	"encoding/json"
 
-	"github.com/gothamhq/gotham/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 
 	"github.com/pkg/errors"
 )

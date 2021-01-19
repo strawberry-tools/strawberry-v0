@@ -24,16 +24,16 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
 	"github.com/spf13/afero"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
-	"github.com/gothamhq/gotham/markup"
+	"github.com/strawberryssg/strawberry-v0/markup"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
-	"github.com/gothamhq/gotham/config"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
+	"github.com/strawberryssg/strawberry-v0/config"
 )
 
 // SummaryDivider denotes where content summarization should end. The default is "<!--more-->".

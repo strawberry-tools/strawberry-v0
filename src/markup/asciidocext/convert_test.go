@@ -21,10 +21,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/markup/converter"
-	"github.com/gothamhq/gotham/markup/markup_config"
-	"github.com/gothamhq/gotham/markup/tableofcontents"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
+	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"

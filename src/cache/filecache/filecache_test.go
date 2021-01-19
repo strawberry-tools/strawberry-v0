@@ -27,14 +27,14 @@ import (
 
 	"github.com/gobwas/glob"
 
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/modules"
 
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"

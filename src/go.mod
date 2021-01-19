@@ -1,4 +1,4 @@
-module github.com/gothamhq/gotham
+module github.com/strawberryssg/strawberry-v0
 
 go 1.15
 

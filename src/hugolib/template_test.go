@@ -20,12 +20,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
 	"github.com/spf13/viper"
 )

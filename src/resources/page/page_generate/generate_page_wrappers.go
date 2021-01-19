@@ -22,11 +22,11 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
-	"github.com/gothamhq/gotham/codegen"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/codegen"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 const header = `// Copyright 2019 The Hugo Authors. All rights reserved.

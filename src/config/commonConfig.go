@@ -20,10 +20,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	"github.com/gobwas/glob"
-	"github.com/gothamhq/gotham/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cast"
 	jww "github.com/spf13/jwalterweatherman"

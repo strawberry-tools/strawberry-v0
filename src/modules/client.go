@@ -28,16 +28,16 @@ import (
 	"strings"
 	"time"
 
-	hglob "github.com/gothamhq/gotham/hugofs/glob"
+	hglob "github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
 	"github.com/gobwas/glob"
 
-	"github.com/gothamhq/gotham/common/hexec"
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/rogpeppe/go-internal/module"
 

@@ -14,7 +14,7 @@
 package resource
 
 import (
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 
 	"github.com/spf13/cast"
 )

@@ -22,34 +22,34 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
-	"github.com/gothamhq/gotham/output"
+	"github.com/strawberryssg/strawberry-v0/output"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/gothamhq/gotham/parser"
+	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/pkg/errors"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/sanity-io/litter"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 	"github.com/spf13/viper"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 var (

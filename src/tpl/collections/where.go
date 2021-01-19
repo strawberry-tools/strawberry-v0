@@ -19,7 +19,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 )
 
 // Where returns a filtered subset of a given data type.

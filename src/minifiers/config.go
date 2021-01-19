@@ -14,10 +14,10 @@
 package minifiers
 
 import (
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/docshelper"
-	"github.com/gothamhq/gotham/parser"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/docshelper"
+	"github.com/strawberryssg/strawberry-v0/parser"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/tdewolff/minify/v2/css"

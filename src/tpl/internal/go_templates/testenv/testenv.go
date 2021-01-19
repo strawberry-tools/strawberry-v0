@@ -23,7 +23,7 @@ import (
 	"testing"
 
 	"github.com/cli/safeexec"
-	"github.com/gothamhq/gotham/tpl/internal/go_templates/cfg"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/cfg"
 )
 
 // Builder reports the name of the builder running this test

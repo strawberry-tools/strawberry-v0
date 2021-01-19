@@ -18,8 +18,8 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/gothamhq/gotham/common/collections"
-	"github.com/gothamhq/gotham/common/math"
+	"github.com/strawberryssg/strawberry-v0/common/collections"
+	"github.com/strawberryssg/strawberry-v0/common/math"
 )
 
 // Scratch is a writable context used for stateful operations in Page/Node rendering.

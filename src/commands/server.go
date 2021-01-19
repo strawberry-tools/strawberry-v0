@@ -35,10 +35,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/livereload"
+	"github.com/strawberryssg/strawberry-v0/livereload"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"

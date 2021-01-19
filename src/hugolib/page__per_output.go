@@ -23,21 +23,21 @@ import (
 	"sync"
 	"unicode/utf8"
 
-	"github.com/gothamhq/gotham/identity"
+	"github.com/strawberryssg/strawberry-v0/identity"
 
-	"github.com/gothamhq/gotham/markup/converter/hooks"
+	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 
-	"github.com/gothamhq/gotham/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
-	"github.com/gothamhq/gotham/lazy"
+	"github.com/strawberryssg/strawberry-v0/lazy"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
-	"github.com/gothamhq/gotham/tpl"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources/page"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 var (

@@ -19,13 +19,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/source"
 
-	"github.com/gothamhq/gotham/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/afero"
 )
 

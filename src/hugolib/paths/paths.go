@@ -18,12 +18,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/langs"
-	"github.com/gothamhq/gotham/modules"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/modules"
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 var FilePathSeparator = string(filepath.Separator)

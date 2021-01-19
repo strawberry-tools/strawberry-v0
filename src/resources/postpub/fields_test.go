@@ -18,7 +18,7 @@ import (
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 )
 
 func TestCreatePlaceholders(t *testing.T) {

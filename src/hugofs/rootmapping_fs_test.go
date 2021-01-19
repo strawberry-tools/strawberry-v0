@@ -23,7 +23,7 @@ import (
 	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/htesting"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 	"github.com/spf13/afero"
 )
 

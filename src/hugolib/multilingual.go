@@ -17,9 +17,9 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 )
 
 // Multilingual manages the all languages used in a multilingual site.

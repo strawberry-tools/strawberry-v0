@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/gothamhq/gotham/compare"
+	"github.com/strawberryssg/strawberry-v0/compare"
 
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 // The TaxonomyList is a list of all taxonomies and their values

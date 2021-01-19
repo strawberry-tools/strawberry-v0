@@ -22,8 +22,8 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/gothamhq/gotham/deps"
-	"github.com/gothamhq/gotham/hugofs"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"

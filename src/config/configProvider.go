@@ -14,7 +14,7 @@
 package config
 
 import (
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 )
 
 // Provider provides the configuration settings for Hugo.

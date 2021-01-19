@@ -17,14 +17,14 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 	"github.com/pkg/errors"
 
 	"github.com/spf13/cast"

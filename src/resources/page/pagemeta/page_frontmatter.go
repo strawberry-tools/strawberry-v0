@@ -17,11 +17,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gothamhq/gotham/common/loggers"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/config"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/spf13/cast"
 )
 

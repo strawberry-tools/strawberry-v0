@@ -24,19 +24,19 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/resources/images/exif"
+	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
 	"github.com/spf13/afero"
 
-	bp "github.com/gothamhq/gotham/bufferpool"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 
-	"github.com/gothamhq/gotham/common/herrors"
-	"github.com/gothamhq/gotham/common/hugio"
-	"github.com/gothamhq/gotham/common/maps"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/resources/internal"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 )
 
 var (

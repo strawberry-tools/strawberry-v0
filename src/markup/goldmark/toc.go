@@ -16,7 +16,7 @@ package goldmark
 import (
 	"bytes"
 
-	"github.com/gothamhq/gotham/markup/tableofcontents"
+	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
 
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"

@@ -15,9 +15,9 @@ package scss
 
 import (
 	"github.com/bep/golibsass/libsass"
-	"github.com/gothamhq/gotham/resources"
-	"github.com/gothamhq/gotham/resources/internal"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
 type options struct {

@@ -22,11 +22,11 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/source"
 
-	"github.com/gothamhq/gotham/hugolib"
-	"github.com/gothamhq/gotham/tpl"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 	"github.com/spf13/afero"
 )
 

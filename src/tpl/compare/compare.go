@@ -20,9 +20,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gothamhq/gotham/compare"
+	"github.com/strawberryssg/strawberry-v0/compare"
 
-	"github.com/gothamhq/gotham/common/types"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 )
 
 // New returns a new instance of the compare-namespaced template functions.

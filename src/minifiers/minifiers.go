@@ -20,11 +20,11 @@ import (
 	"io"
 	"regexp"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/transform"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/transform"
 
-	"github.com/gothamhq/gotham/media"
+	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/tdewolff/minify/v2"
 )
 

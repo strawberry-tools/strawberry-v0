@@ -16,8 +16,8 @@ package resources
 import (
 	"testing"
 
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	qt "github.com/frankban/quicktest"
 )

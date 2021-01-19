@@ -14,7 +14,7 @@
 package hugolib
 
 import (
-	"github.com/gothamhq/gotham/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 func pagesToTranslationsMap(sites []*Site) map[string]page.Pages {

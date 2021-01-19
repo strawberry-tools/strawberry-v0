@@ -32,14 +32,14 @@ import (
 
 	"github.com/disintegration/gift"
 
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/resources/images"
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/gothamhq/gotham/htesting/hqt"
+	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
 
 	qt "github.com/frankban/quicktest"
 )

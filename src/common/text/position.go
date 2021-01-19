@@ -18,7 +18,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/terminal"
+	"github.com/strawberryssg/strawberry-v0/common/terminal"
 )
 
 // Positioner represents a thing that knows its position in a text file or stream,

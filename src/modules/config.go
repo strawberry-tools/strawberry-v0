@@ -20,10 +20,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gothamhq/gotham/common/hugo"
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/hugofs/files"
-	"github.com/gothamhq/gotham/langs"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/mitchellh/mapstructure"
 )
 

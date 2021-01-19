@@ -15,8 +15,8 @@ import (
 	"strings"
 	"testing"
 
-	template "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate"
-	"github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate/parse"
+	template "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate/parse"
 )
 
 type badMarshaler struct{}

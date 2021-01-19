@@ -18,10 +18,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gothamhq/gotham/htesting/hqt"
-	"github.com/gothamhq/gotham/source"
+	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
+	"github.com/strawberryssg/strawberry-v0/source"
 
-	"github.com/gothamhq/gotham/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	qt "github.com/frankban/quicktest"
 )

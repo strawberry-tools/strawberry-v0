@@ -16,12 +16,12 @@ package htesting
 import (
 	"path/filepath"
 
-	"github.com/gothamhq/gotham/cache/filecache"
-	"github.com/gothamhq/gotham/helpers"
-	"github.com/gothamhq/gotham/hugofs"
-	"github.com/gothamhq/gotham/media"
-	"github.com/gothamhq/gotham/output"
-	"github.com/gothamhq/gotham/resources"
+	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )

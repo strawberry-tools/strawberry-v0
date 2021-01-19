@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gothamhq/gotham/deps"
+	"github.com/strawberryssg/strawberry-v0/deps"
 
 	"github.com/gopherlibs/jsonfeed/jsonfeed"
 )

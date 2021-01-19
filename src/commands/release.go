@@ -18,8 +18,8 @@ package commands
 import (
 	"errors"
 
-	"github.com/gothamhq/gotham/config"
-	"github.com/gothamhq/gotham/releaser"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/releaser"
 	"github.com/spf13/cobra"
 )
 

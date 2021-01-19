@@ -20,10 +20,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gothamhq/gotham/resources/images"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
 
-	"github.com/gothamhq/gotham/cache/filecache"
-	"github.com/gothamhq/gotham/helpers"
+	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 type imageCache struct {
