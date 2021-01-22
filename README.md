@@ -1,58 +1,58 @@
-# Gotham - an awesome static site generator
+# Strawberry - the main ingredient of your JAM stack
 
-Gotham is a static site generator that is extremely fast, efficient, and modular.
+Strawberry is a Static Site Generator that is extremely fast, efficient, and modular.
 It is written in [Go][go-site] and is a soft fork of [Hugo][hugo-site].
 
-[Website](https://GothamHQ.com) |
+[Website](https://www.StrawberrySSG.com) |
 [Contribution Guide](CONTRIBUTING.md) |
-[Twitter](https://twitter.com/GothamHQ_)
+[Twitter](https://twitter.com/StrawberrySSG)
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/gothamhq/gotham)](https://goreportcard.com/report/github.com/gothamhq/gotham)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/gothamhq/gotham)
-[![CircleCI](https://circleci.com/gh/gothamhq/gotham.svg?style=shield)](https://circleci.com/gh/gothamhq/gotham)
-[![codecov](https://codecov.io/gh/gothamhq/gotham/branch/master/graph/badge.svg)](https://codecov.io/gh/gothamhq/gotham)
+[![Go Report Card](https://goreportcard.com/badge/github.com/strawberryssg/strawberry-v0)](https://goreportcard.com/report/github.com/strawberryssg/strawberry-v0)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/strawberryssg/strawberry-v0)
+[![CircleCI](https://circleci.com/gh/strawberryssg/strawberry-v0.svg?style=shield)](https://circleci.com/gh/strawberryssg/strawberry-v0)
+[![codecov](https://codecov.io/gh/strawberryssg/strawberry-v0/branch/master/graph/badge.svg)](https://codecov.io/gh/strawberryssg/strawberry-v0)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 [![GoDoc](https://godoc.org/github.com/gohugoio/hugo?status.svg)](https://pkg.go.dev/github.com/gohugoio/hugo)
 
-**Gotham is a very new project only recently forked from Hugo.
+**Strawberry is a relatively new project forked from Hugo.
 Please stay tuned while we continue to update this readme and convert things over.**
 
 ## Overview
 
-Gotham is a static HTML and CSS website generator written in [Go][].
+Strawberry is a static HTML and CSS website generator written in [Go][].
 It is optimized for speed, ease of use, and configurability.
-Gotham takes a directory with content and templates and renders them into a full HTML website.
+Strawberry takes a directory with content and templates and renders them into a full HTML website.
 
-Gotham relies on Markdown files with front matter for metadata, and you can run Gotham from any directory.
+Strawberry relies on Markdown files with front matter for metadata, and you can run Strawberry from any directory.
 This works well for shared hosts and other systems where you don’t have a privileged account.
 
-Gotham renders a typical website of moderate size in a fraction of a second.
+Strawberry renders a typical website of moderate size in a fraction of a second.
 A good rule of thumb is that each piece of content renders in around 1 millisecond.
 
-Gotham is designed to work well for any kind of website including docs, blogs, marketing sites, newsletters, and more.
+Strawberry is designed to work well for any kind of website including docs, blogs, marketing sites, newsletters, and more.
 
 #### Supported Architectures
 
-Currently, we provide pre-built Gotham binaries for Windows, Linux, FreeBSD, NetBSD, DragonFly BSD, Open BSD, macOS (Darwin), and [Android](https://gist.github.com/bep/a0d8a26cf6b4f8bc992729b8e50b480b) for x64, i386 and ARM architectures.
+Currently, we provide pre-built Strawberry binaries for Windows, Linux, FreeBSD, NetBSD, DragonFly BSD, Open BSD, macOS (Darwin), and [Android](https://gist.github.com/bep/a0d8a26cf6b4f8bc992729b8e50b480b) for x64, i386 and ARM architectures.
 
-Gotham may also be compiled from source wherever the Go compiler tool chain can run, e.g. for other operating systems including Plan 9 and Solaris.
+Strawberry may also be compiled from source wherever the Go compiler tool chain can run, e.g. for other operating systems including Plan 9 and Solaris.
 
-**Complete documentation is available at [Gotham Documentation](https://gohugo.io/getting-started/).**
+**Complete documentation is available at [Strawberry Documentation](https://gohugo.io/getting-started/).**
 
 ## Choose How to Install
 
-If you want to use Gotham as your site generator, simply install the Gotham binary.
-The Gotham binary have no external dependencies.
+If you want to use Strawberry as your site generator, simply install the Strawberry binary.
+The Strawberry binary have no external dependencies.
 
-To contribute to the Gotham source code or documentation, you should [fork the Gotham GitHub project](https://github.com/gothamhq/gotham#fork-destination-box) and clone it to your local machine.
+To contribute to the Strawberry source code or documentation, you should [fork the Strawberry GitHub project](https://github.com/strawberryssg/strawberry-v0#fork-destination-box) and clone it to your local machine.
 
-Finally, you can install the Gotham source code with `go`, build the binary yourself, and run Gotham that way.
+Finally, you can install the Strawberry source code with `go`, build the binary yourself, and run Strawberry that way.
 Building the binary is an easy task for an experienced `go` getter.
 
-### Install Gotham as Your Site Generator (Binary Install)
+### Install Strawberry as Your Site Generator (Binary Install)
 
-Use the [installation instructions in the Gotham documentation](https://gohugo.io/getting-started/installing/).
+Use the [installation instructions in the Strawberry documentation](https://gohugo.io/getting-started/installing/).
 
 ### Build and Install the Binaries from Source (Advanced Install)
 
@@ -63,28 +63,28 @@ Use the [installation instructions in the Gotham documentation](https://gohugo.i
 
 #### Fetch from GitHub
 
-Gotham uses the Go Modules support built into Go 1.11 to build. The easiest is to clone Gotham in a directory outside of `GOPATH`, as in the following example:
+Strawberry uses the Go Modules support built into Go 1.11 to build. The easiest is to clone Strawberry in a directory outside of `GOPATH`, as in the following example:
 
 ```bash
 mkdir $HOME/src
 cd $HOME/src
-git clone https://github.com/gothamhq/gotham.git
-cd gotham
+git clone https://github.com/strawberryssg/strawberry-v0.git
+cd strawberry-v0
 go install
 ```
 
 **If you are a Windows user, substitute the `$HOME` environment variable above with `%USERPROFILE%`.**
 	
-## Contributing to Gotham
+## Contributing to Strawberry
 
-For a complete guide to contributing to Gotham, see the [Contribution Guide](CONTRIBUTING.md).
+For a complete guide to contributing to Strawberry, see the [Contribution Guide](CONTRIBUTING.md).
 
-We welcome contributions to Gotham of any kind including documentation, themes,
+We welcome contributions to Strawberry of any kind including documentation, themes,
 organization, tutorials, blog posts, bug reports, issues, feature requests,
 feature implementations, pull requests, answering questions on the forum,
 helping to manage issues, etc.
 
-The Gotham community and maintainers are [very active](https://github.com/gothamhq/gotham/pulse/monthly) and helpful, and the project benefits greatly from this activity.
+The Strawberry community and maintainers are [very active](https://github.com/strawberryssg/strawberry-v0/pulse/monthly) and helpful, and the project benefits greatly from this activity.
 
 ### Asking Support Questions
 
@@ -93,27 +93,27 @@ You can use the GitHub Issue tracker to ask questions for now.
 
 ### Reporting Issues
 
-If you believe you have found a defect in Gotham or its documentation, use
-the GitHub issue tracker to report the problem to the Gotham maintainers.
-When reporting the issue, please provide the version of Gotham in use (`gotham version`).
+If you believe you have found a defect in Strawberry or its documentation, use
+the GitHub issue tracker to report the problem to the Strawberry maintainers.
+When reporting the issue, please provide the version of Strawberry in use (`strawberry version`).
 
 ### Submitting Patches
 
-The Gotham project welcomes all contributors and contributions regardless of skill or experience level.
+The Strawberry project welcomes all contributors and contributions regardless of skill or experience level.
 If you are interested in helping with the project, we will help you with your contribution.
-Gotham is a very active project with many contributions happening daily.
+Strawberry is a very active project with many contributions happening daily.
 
 We want to create the best possible product for our users and the best contribution experience for our developers,
 we have a set of guidelines which ensure that all contributions are acceptable.
 The guidelines are not intended as a filter or barrier to participation.
-If you are unfamiliar with the contribution process, the Gotham team will help you and teach you how to bring your contribution in accordance with the guidelines.
+If you are unfamiliar with the contribution process, the Strawberry team will help you and teach you how to bring your contribution in accordance with the guidelines.
 
-For a complete guide to contributing code to Gotham, see the [Contribution Guide](CONTRIBUTING.md).
+For a complete guide to contributing code to Strawberry, see the [Contribution Guide](CONTRIBUTING.md).
 
 
 ## Dependencies
 
-Gotham stands on the shoulder of many great open source libraries, especially [Hugo][hugo-site]:
+Strawberry stands on the shoulder of many great open source libraries, especially [Hugo][hugo-site]:
 
  | Dependency  | License |
  | :------------- | :------------- |

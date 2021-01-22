@@ -1,15 +1,15 @@
-project_name: gotham
+project_name: strawberry
 
 builds:
-  - id: gotham-linux
+  - id: strawberry-linux
     dir: src
     goos:
       - linux
     goarch:
       - amd64
     ldflags:
-      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }} -extldflags "-static"
-  - id: gotham-windows
+      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }} -extldflags "-static"
+  - id: strawberry-windows
     dir: src
     env:
       - CGO_ENABLED=1
@@ -24,7 +24,7 @@ builds:
     goarch:
       - amd64
     ldflags:
-      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }}
+      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }}
 
 archives:
   - format: tar.gz

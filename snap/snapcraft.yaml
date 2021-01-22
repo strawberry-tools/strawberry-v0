@@ -1,5 +1,5 @@
-name: gotham
-title: Gotham
+name: strawberry
+title: Strawberry
 summary: "Gotham has been superseded by Strawberry"
 description: |
   Gotham has been superseded by Strawberry. v0.13.0 is the last version called 
@@ -10,11 +10,11 @@ base: core20
 grade: stable
 confinement: strict
 icon: "img/logo-icon-x1000.png"
-adopt-info: gotham
+adopt-info: strawberry
 
 apps:
-  gotham:
-    command: gotham
+  strawberry:
+    command: strawberry
     completer: gotham-completion
     plugs:
       - desktop
@@ -23,20 +23,20 @@ apps:
       - removable-media
 
 parts:
-  gotham:
+  strawberry:
     plugin: dump
     source: ./dist
     override-build: |
 
       snapcraftctl build
 
-      cp ./gotham-linux_linux_amd64/gotham $SNAPCRAFT_PART_INSTALL
-      chmod +x $SNAPCRAFT_PART_INSTALL/gotham
+      cp ./strawberry-linux_linux_amd64/strawberry $SNAPCRAFT_PART_INSTALL
+      chmod +x $SNAPCRAFT_PART_INSTALL/strawberry
 
-      $SNAPCRAFT_PART_INSTALL/gotham gen autocomplete --completionfile=./gotham-completion
+      $SNAPCRAFT_PART_INSTALL/strawberry gen autocomplete --completionfile=./gotham-completion
       mv -v gotham-completion $SNAPCRAFT_PART_INSTALL/
 
-      $SNAPCRAFT_PART_INSTALL/gotham version --type=short > VERSION
+      $SNAPCRAFT_PART_INSTALL/strawberry version --type=short > VERSION
       snapcraftctl set-version v$(cat VERSION)
     stage-packages:
       - git

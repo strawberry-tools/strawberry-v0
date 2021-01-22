@@ -220,7 +220,7 @@ func Fmt() error {
 }
 
 var (
-	pkgPrefixLen = len("github.com/gothamhq/gotham")
+	pkgPrefixLen = len("github.com/strawberryssg/strawberry-v0")
 	pkgs         []string
 	pkgsInit     sync.Once
 )
