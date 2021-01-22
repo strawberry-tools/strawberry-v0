@@ -172,12 +172,6 @@ func Test386() error {
 	return runCmd(env, goexe, "test", "./...")
 }
 
-// Run tests
-func Test() error {
-	env := map[string]string{"GOFLAGS": testGoFlags()}
-	return runCmd(env, goexe, "test", "./...", buildFlags(), "-tags", buildTags())
-}
-
 // Run tests with race detector
 func TestRace() error {
 	env := map[string]string{"GOFLAGS": testGoFlags()}
