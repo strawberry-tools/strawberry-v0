@@ -8,8 +8,7 @@ workflows:
   main:
     jobs:
       - generic-tests
-      - test-on-linux
-      - test-on-macos
+      - unit-tests
       - release
       - release-on-macos
       - release-on-snap:
@@ -23,13 +22,7 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+$/
-      - test-on-linux:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-      - test-on-macos:
+      - unit-tests:
           filters:
             branches:
               ignore: /.*/
@@ -37,7 +30,7 @@ workflows:
               only: /^v\d+\.\d+\.\d+$/
       - release:
           requires:
-            - test-on-linux
+            - unit-tests
           filters:
             branches:
               ignore: /.*/
@@ -46,7 +39,6 @@ workflows:
           context: main-context
       - release-on-macos:
           requires:
-            - test-on-macos
             - release
           filters:
             branches:
@@ -75,7 +67,7 @@ jobs:
       - run:
           name: "Fork Tests"
           command: ../scripts/fork-tests.sh
-  test-on-linux:
+  unit-tests:
     machine:
       image: ubuntu-2004:202010-01
     working_directory: "~/strawberry-v0/src"
@@ -122,56 +114,6 @@ jobs:
           key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
           paths:
             - "/home/circleci/.cache/go-build"
-      - run:
-          name: "Build Binary"
-          command: |
-            mage -v hugo
-            ./strawberry-v0 version
-  test-on-macos:
-    macos:
-      xcode: 12.3.0
-    working_directory: "~/strawberry-v0/src"
-    environment:
-      GOTESTSUM_JUNITFILE: "junit/unit-tests-macos.xml"
-    steps:
-      - checkout:
-          path: ".."
-      - go/install:
-          version: "1.15.6"
-      - run:
-          name: "Install Dependencies"
-          command: |
-            curl -sSL "https://github.com/magefile/mage/releases/download/v1.10.0/mage_1.10.0_macOS-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
-            mage --version
-            curl -sSL "https://github.com/gotestyourself/gotestsum/releases/download/v0.6.0/gotestsum_0.6.0_darwin_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin gotestsum
-            gotestsum --version
-      - run:
-          name: "Generate Go Test Cache Timestamp"
-          command: ../scripts/timestamp-generator.sh
-      - go/load-cache
-      - restore_cache:
-          key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
-      - run:
-          name: "Pull & Verify Dependencies"
-          command: |
-            go mod download
-            go mod verify
-      - run:
-          name: "Run Tests & Coverage"
-          command: |
-            mkdir junit
-            mage -v testGotham
-            bash <(curl -s https://codecov.io/bash)
-      - store_artifacts:
-          path: junit/unit-tests-macos.xml
-      - run:
-          name: "Mage Check"
-          command: mage -v check
-      - go/save-cache
-      - save_cache:
-          key: go-test-cache-v1-{{ arch }}-{{ checksum "./GO_CACHE_TIMESTAMP" }}
-          paths:
-            - "/Users/distiller/Library/Caches/go-build"
       - run:
           name: "Build Binary"
           command: |
