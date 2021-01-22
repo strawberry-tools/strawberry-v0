@@ -1,4 +1,4 @@
-project_name: gotham
+project_name: strawberry
 
 builds:
   - dir: src
@@ -8,7 +8,7 @@ builds:
       - amd64
     ldflags:
       #  -extldflags "-static" is purposely left out on macOS due to compiling libSASS
-      - -s -w -X github.com/gothamhq/gotham/common/hugo.buildDate={{.Date}} -X github.com/gothamhq/gotham/common/hugo.commitHash={{ .ShortCommit }}
+      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }}
 
 archives:
   - format: tar.gz
@@ -31,13 +31,13 @@ brews:
       name: homebrew-tap
     commit_author:
       name: "GoReleaser"
-      email: GoReleaser@GothamHQ.com
+      email: FelicianoTech@gmail.com
     folder: Formula
-    homepage: "https://GothamHQ.com"
+    homepage: "https://www.StrawberrySSG.com"
     description: "An awesome static site generator based on Hugo."
     dependencies:
       - name: go
     test: |
       site = testpath/"hops-yeast-malt-water"
-      system "#{bin}/gotham", "new", "site", site
+      system "#{bin}/strawberry", "new", "site", site
       assert_predicate testpath/"#{site}/config.toml", :exist?

@@ -146,9 +146,9 @@ jobs:
 
             echo "Some information about this binary built by GoReleaser:"
             echo "======================================================="
-            ls -lah dist/*/gotham
+            ls -lah dist/*/strawberry
             echo ""
-            dist/*/gotham version --type=detailed
+            dist/*/strawberry version --type=detailed
       - persist_to_workspace:
           root: "."
           paths:
@@ -177,9 +177,9 @@ jobs:
 
             echo "Some information about this binary built by GoReleaser:"
             echo "======================================================="
-            ls -lah dist/*/gotham
+            ls -lah dist/*/strawberry
             echo ""
-            dist/*/gotham version --type=detailed
+            dist/*/strawberry version --type=detailed
   release-on-snap:
     docker:
       - image: cibuilds/snapcraft:core20
