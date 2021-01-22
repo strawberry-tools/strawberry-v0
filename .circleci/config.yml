@@ -100,7 +100,7 @@ jobs:
           name: "Run Tests & Coverage"
           command: |
             mkdir junit
-            mage -v testGotham
+            mage -v test
             bash <(curl -s https://codecov.io/bash)
       - store_test_results:
           path: junit

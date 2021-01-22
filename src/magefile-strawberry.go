@@ -2,7 +2,7 @@
 
 package main
 
-func TestGotham() error {
+func Test() error {
 
 	env := map[string]string{"GOFLAGS": testGoFlags()}
 
