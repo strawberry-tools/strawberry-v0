@@ -14,6 +14,7 @@ workflows:
       - release-on-snap:
           requires:
             - release
+          context: main-context
   release:
     jobs:
       - generic-tests:
@@ -193,10 +194,11 @@ jobs:
       - run:
           name: "Publish to Snap Store in the Stable Channel"
           command: |
-            if [[ $CIRCLE_TAG == "" ]]; then
-              exit 0
-            fi
-
-            # Snapcraft Tokens are valid for 1 year. This one expires June 15th, 2021
+            # Snapcraft Tokens are valid for 1 year. This one expires February 4th, 2022
             echo $SNAPCRAFT_TOKEN | base64 --decode --ignore-garbage | snapcraft login --with -
-            snapcraft upload *.snap --release=stable
+
+            if [[ $CIRCLE_TAG != "" ]]; then
+              snapcraft upload *.snap --release=stable
+            elif [[ $CIRCLE_BRANCH == "trunk" ]]; then
+              snapcraft upload *.snap --release=edge
+            fi
