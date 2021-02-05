@@ -25,6 +25,7 @@ import (
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/navigation"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/source"
 	"html/template"
 	"time"
