@@ -16,8 +16,8 @@
 package page
 
 import (
-	"github.com/gothamhq/gotham/helpers"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"html/template"
 )

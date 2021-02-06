@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gothamhq/gotham/common/hexec"
-	"github.com/gothamhq/gotham/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 
 	"github.com/spf13/afero"
 )
@@ -52,9 +52,9 @@ type goPackage struct {
 
 var (
 	textTemplateReplacers = strings.NewReplacer(
-		`"text/template/`, `"github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate/`,
-		`"internal/fmtsort"`, `"github.com/gothamhq/gotham/tpl/internal/go_templates/fmtsort"`,
-		`"internal/testenv"`, `"github.com/gothamhq/gotham/tpl/internal/go_templates/testenv"`,
+		`"text/template/`, `"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate/`,
+		`"internal/fmtsort"`, `"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/fmtsort"`,
+		`"internal/testenv"`, `"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/testenv"`,
 		"TestLinkerGC", "_TestLinkerGC",
 		// Rename types and function that we want to overload.
 		"type state struct", "type stateOld struct",
@@ -65,13 +65,13 @@ var (
 	)
 
 	testEnvReplacers = strings.NewReplacer(
-		`"internal/cfg"`, `"github.com/gothamhq/gotham/tpl/internal/go_templates/cfg"`,
+		`"internal/cfg"`, `"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/cfg"`,
 	)
 
 	htmlTemplateReplacers = strings.NewReplacer(
-		`. "html/template"`, `. "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"`,
-		`"html/template"`, `template "github.com/gothamhq/gotham/tpl/internal/go_templates/htmltemplate"`,
-		"\"text/template\"\n", "template \"github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate\"\n",
+		`. "html/template"`, `. "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"`,
+		`"html/template"`, `template "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"`,
+		"\"text/template\"\n", "template \"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate\"\n",
 		`"html/template"`, `htmltemplate "html/template"`,
 		`"fmt"`, `htmltemplate "html/template"`,
 	)
@@ -118,20 +118,20 @@ var goPackages = []goPackage{
 			for _, s := range []string{"CSS", "HTML", "HTMLAttr", "JS", "JSStr", "URL", "Srcset"} {
 				rewrite(name, fmt.Sprintf("%s -> htmltemplate.%s", s, s))
 			}
-			rewrite(name, `"text/template/parse" -> "github.com/gothamhq/gotham/tpl/internal/go_templates/texttemplate/parse"`)
+			rewrite(name, `"text/template/parse" -> "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate/parse"`)
 		},
 	},
 	{srcPkg: "internal/fmtsort", dstPkg: "fmtsort", rewriter: func(name string) {
-		rewrite(name, `"internal/fmtsort" -> "github.com/gothamhq/gotham/tpl/internal/go_templates/fmtsort"`)
+		rewrite(name, `"internal/fmtsort" -> "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/fmtsort"`)
 	}},
 	{
 		srcPkg: "internal/testenv", dstPkg: "testenv",
 		replacer: func(name, content string) string { return testEnvReplacers.Replace(content) }, rewriter: func(name string) {
-			rewrite(name, `"internal/testenv" -> "github.com/gothamhq/gotham/tpl/internal/go_templates/testenv"`)
+			rewrite(name, `"internal/testenv" -> "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/testenv"`)
 		},
 	},
 	{srcPkg: "internal/cfg", dstPkg: "cfg", rewriter: func(name string) {
-		rewrite(name, `"internal/cfg" -> "github.com/gothamhq/gotham/tpl/internal/go_templates/cfg"`)
+		rewrite(name, `"internal/cfg" -> "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/cfg"`)
 	}},
 }
 

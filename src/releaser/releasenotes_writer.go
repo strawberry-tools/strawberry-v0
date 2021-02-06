@@ -29,7 +29,7 @@ import (
 )
 
 const (
-	issueLinkTemplate                        = "[#%d](https://github.com/gothamhq/gotham/issues/%d)"
+	issueLinkTemplate                        = "[#%d](https://github.com/strawberryssg/strawberry-v0/issues/%d)"
 	linkTemplate                             = "[%s](%s)"
 	releaseNotesMarkdownTemplatePatchRelease = `
 {{ if eq (len .All) 1 }}
@@ -73,8 +73,8 @@ which has received **{{ len .Docs }} contributions by {{ len $docsContribsPerAut
 Hugo now has:
 
 {{ with .Repo -}}
-* {{ .Stars }}+ [stars](https://github.com/gothamhq/gotham/stargazers)
-* {{ len .Contributors }}+ [contributors](https://github.com/gothamhq/gotham/graphs/contributors)
+* {{ .Stars }}+ [stars](https://github.com/strawberryssg/strawberry-v0/stargazers)
+* {{ len .Contributors }}+ [contributors](https://github.com/strawberryssg/strawberry-v0/graphs/contributors)
 {{- end -}}
 {{ with .ThemeCount }}
 * {{ . }}+ [themes](http://themes.gohugo.io/)

@@ -395,11 +395,11 @@ Hugo: {{ hugo.Generator }}
 	b.AssertFileContent("public/en/index.html",
 		"Site: en / en / http://example.com/blog",
 		"Sites: en",
-		"Hugo: <meta name=\"generator\" content=\"Gotham")
+		"Hugo: <meta name=\"generator\" content=\"Strawberry")
 	b.AssertFileContent("public/fr/index.html",
 		"Site: fr / fr / http://example.com/blog",
 		"Sites: en",
-		"Hugo: <meta name=\"generator\" content=\"Gotham",
+		"Hugo: <meta name=\"generator\" content=\"Strawberry",
 	)
 }
 
