@@ -38,8 +38,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/spf13/afero"
+	"github.com/strawberryssg/strawberry-v0/config"
 )
 
 var ErrNotExist = errors.New("module does not exist")
@@ -98,7 +98,6 @@ func (h *Client) collect(tidy bool) (ModulesConfig, *collector) {
 		return ModulesConfig{}, c
 	}
 
-	// https://github.com/gothamhq/gotham/issues/6115
 	/*if !c.skipTidy && tidy {
 		if err := h.tidy(c.modules, true); err != nil {
 			c.err = err

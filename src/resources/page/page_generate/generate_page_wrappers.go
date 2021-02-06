@@ -111,7 +111,7 @@ func generateMarshalJSON(c *codegen.Inspector) error {
 
 	marshalJSON, pkgImports := methods.ToMarshalJSON(
 		"Page",
-		"github.com/gothamhq/gotham/resources/page",
+		"github.com/strawberryssg/strawberry-v0/resources/page",
 		// Exclusion regexps. Matches method names.
 		`\bPage\b`,
 	)
@@ -178,7 +178,7 @@ func generateDeprecatedWrappers(c *codegen.Inspector) error {
 
 	}
 
-	pkgImports := append(methods.Imports(), "github.com/gothamhq/gotham/helpers")
+	pkgImports := append(methods.Imports(), "github.com/strawberryssg/strawberry-v0/helpers")
 
 	fmt.Fprintf(f, `%s
 
@@ -235,7 +235,7 @@ func generateFileIsZeroWrappers(c *codegen.Inspector) error {
 
 	}
 
-	pkgImports := append(methods.Imports(), "github.com/gothamhq/gotham/helpers", "github.com/gothamhq/gotham/source")
+	pkgImports := append(methods.Imports(), "github.com/strawberryssg/strawberry-v0/helpers", "github.com/strawberryssg/strawberry-v0/source")
 
 	fmt.Fprintf(f, `%s
 

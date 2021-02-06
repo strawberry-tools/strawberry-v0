@@ -62,7 +62,7 @@ func (i Info) Version() VersionString {
 
 // Generator a Gotham meta generator HTML tag.
 func (i Info) Generator() template.HTML {
-	return template.HTML(fmt.Sprintf(`<meta name="generator" content="Gotham %s" />`, StrawberryVersion.String()))
+	return template.HTML(fmt.Sprintf(`<meta name="generator" content="Strawberry %s" />`, StrawberryVersion.String()))
 }
 
 func (i Info) IsProduction() bool {

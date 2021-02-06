@@ -552,7 +552,7 @@ func (c *Client) runGo(
 
 		if strings.Contains(stderr.String(), "invalid version: unknown revision") {
 			// See https://github.com/gohugoio/hugo/issues/6825
-			c.logger.Println(`gotham: you need to manually edit go.mod to resolve the unknown revision.`)
+			c.logger.Println(`strawberry: you need to manually edit go.mod to resolve the unknown revision.`)
 		}
 
 		_, ok := err.(*exec.ExitError)
