@@ -1,5 +1,6 @@
 // Copyright 2015 The Hugo Authors. All rights reserved.
 // Copyright 2020 The Gotham Authors. All rights reserved.
+// Copyright 2021 Ricardo N Feliciano. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@ package commands
 import (
 	"errors"
 
-	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/spf13/cobra"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
 	jww "github.com/spf13/jwalterweatherman"
 )
@@ -36,9 +37,9 @@ func newVersionCmd() *versionCmd {
 	vc := &versionCmd{
 		newBaseCmd(&cobra.Command{
 			Use:   "version",
-			Short: "Print the version number of Gotham",
-			Long: `This will print the Gotham and Hugo version numbers. There
-are flags available to print just the Gotham version for scripting.`,
+			Short: "Print the version number of Strawberry",
+			Long: `This will print the Strawberry and Hugo version numbers. There
+are flags available to print just the Strawberry version for scripting.`,
 			RunE: func(cmd *cobra.Command, args []string) error {
 
 				var theType hugo.VersionType
@@ -53,7 +54,7 @@ are flags available to print just the Gotham version for scripting.`,
 					return errors.New("Invalid value for --type.")
 				}
 
-				jww.FEEDBACK.Println(hugo.PrintGothamVersion(theType))
+				jww.FEEDBACK.Println(hugo.PrintStrawberryVersion(theType))
 				return nil
 			},
 		}),

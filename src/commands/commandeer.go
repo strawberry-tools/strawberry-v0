@@ -38,8 +38,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/strawberryssg/strawberry-v0/hugolib"
 	"github.com/spf13/afero"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 
 	"github.com/bep/debounce"
 	"github.com/strawberryssg/strawberry-v0/common/types"
@@ -124,7 +124,7 @@ func (c *commandeer) getErrorWithContext() interface{} {
 	m := make(map[string]interface{})
 
 	m["Error"] = errors.New(removeErrorPrefixFromLog(c.logger.Errors()))
-	m["Version"] = hugo.PrintGothamVersion(hugo.VersionDetailed)
+	m["Version"] = hugo.PrintStrawberryVersion(hugo.VersionDetailed)
 
 	fe := herrors.UnwrapErrorWithFileContext(c.buildErr)
 	if fe != nil {

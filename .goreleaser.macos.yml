@@ -27,7 +27,7 @@ changelog:
 
 brews:
   - tap:
-      owner: gothamhq
+      owner: strawberryssg
       name: homebrew-tap
     commit_author:
       name: "GoReleaser"

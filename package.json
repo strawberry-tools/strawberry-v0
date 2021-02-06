@@ -1,7 +1,7 @@
 {
-  "name": "gotham",
-  "version": "0.8.0",
-  "description": "Dependenies pulled in from Hugo.",
+  "name": "strawberry",
+  "version": "0.14.0",
+  "description": "Dependencies pulled in from Hugo.",
   "main": "index.js",
   "directories": {
     "example": "examples"
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gothamhq/gotham.git"
+    "url": "git+https://github.com/strawberryssg/strawberry-v0.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gothamhq/gotham/issues"
+    "url": "https://github.com/strawberryssg/strawberry-v0/issues"
   },
-  "homepage": "https://github.com/gothamhq/gotham#readme",
+  "homepage": "https://github.com/strawberryssg/strawberry-v0#readme",
   "dependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
