@@ -1,4 +1,5 @@
 // Copyright 2020 Gotham Authors. All rights reserved.
+// Copyright 2021 Ricardo N Feliciano. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package hugo
@@ -8,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestPrintGothamVersion(t *testing.T) {
+func TestPrintStrawberryVersion(t *testing.T) {
 
 	testCases := []struct {
 		vType      VersionType
@@ -39,7 +40,7 @@ func TestPrintGothamVersion(t *testing.T) {
 			},
 			"1991-01-21T00:00:00-0500",
 			"IMaHASH",
-			"Gotham v0.5.0-dev-IMAHASH (compatible with Hugo v" + CurrentVersion.String() + "/extended)",
+			"Strawberry v0.5.0-dev-IMAHASH (compatible with Hugo v" + CurrentVersion.String() + "/extended)",
 		},
 		{
 			VersionRegular,
@@ -51,7 +52,7 @@ func TestPrintGothamVersion(t *testing.T) {
 			},
 			"1991-01-21T00:00:00-0500",
 			"IMaHASH",
-			"Gotham v0.5.0 (compatible with Hugo v" + CurrentVersion.String() + "/extended)",
+			"Strawberry v0.5.0 (compatible with Hugo v" + CurrentVersion.String() + "/extended)",
 		},
 		{
 			VersionDetailed,
@@ -63,7 +64,7 @@ func TestPrintGothamVersion(t *testing.T) {
 			},
 			"2020-06-04T00:00:00-0500",
 			"",
-			"Gotham v1.0.2 (compatible with Hugo v" + CurrentVersion.String() + "/extended)\nBuildDate: 2020-06-04T00:00:00-0500\nPlatform: " + runtime.GOOS + "/" + runtime.GOARCH,
+			"Strawberry v1.0.2 (compatible with Hugo v" + CurrentVersion.String() + "/extended)\nBuildDate: 2020-06-04T00:00:00-0500\nPlatform: " + runtime.GOOS + "/" + runtime.GOARCH,
 		},
 	}
 
@@ -77,11 +78,11 @@ func TestPrintGothamVersion(t *testing.T) {
 
 		commitHash = tc.commitHash
 
-		GothamVersion = tc.version
-		actual := PrintGothamVersion(tc.vType)
+		StrawberryVersion = tc.version
+		actual := PrintStrawberryVersion(tc.vType)
 
 		if actual != tc.expected {
-			t.Errorf("PrintGothamVersion test[%d]:\nexpected %s,\n\nactual %s", i, tc.expected, actual)
+			t.Errorf("PrintStrawberryVersion test[%d]:\nexpected %s,\n\nactual %s", i, tc.expected, actual)
 		}
 	}
 }

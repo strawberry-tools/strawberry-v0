@@ -17,8 +17,8 @@ package commands
 import (
 	"runtime"
 
-	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/spf13/cobra"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
 
 	jww "github.com/spf13/jwalterweatherman"
 )
@@ -33,10 +33,10 @@ func newEnvCmd() *envCmd {
 	return &envCmd{
 		baseCmd: newBaseCmd(&cobra.Command{
 			Use:   "env",
-			Short: "Print Gotham version and environment info",
-			Long:  `Print Gotham version and environment info. This is useful in Gotham bug reports.`,
+			Short: "Print Strawberry version and environment info",
+			Long:  `Print Strawberry version and environment info. This is useful in Strawberry bug reports.`,
 			RunE: func(cmd *cobra.Command, args []string) error {
-				hugo.PrintGothamVersion(hugo.VersionRegular)
+				hugo.PrintStrawberryVersion(hugo.VersionRegular)
 				jww.FEEDBACK.Printf("GOOS=%q\n", runtime.GOOS)
 				jww.FEEDBACK.Printf("GOARCH=%q\n", runtime.GOARCH)
 				jww.FEEDBACK.Printf("GOVERSION=%q\n", runtime.Version())

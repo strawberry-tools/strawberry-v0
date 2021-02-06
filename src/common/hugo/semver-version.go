@@ -1,4 +1,5 @@
 // Copyright 2020 Gotham Authors. All rights reserved.
+// Copyright 2021 Ricardo N Feliciano. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package hugo
@@ -18,7 +19,7 @@ const (
 )
 
 // SemVerVersion represents a simplified representation of a Semantic
-// Versioning version number. Used for the GothamVersion as well as any other
+// Versioning version number. Used for the StrawberryVersion as well as any other
 // SemVer versions.
 type SemVerVersion struct {
 	Major  uint
@@ -37,14 +38,14 @@ func (v SemVerVersion) String() string {
 	}
 }
 
-// PrintGothamVersion - Build complete version string for user via CLI
-func PrintGothamVersion(vType VersionType) string {
+// PrintStrawberryVersion - Build complete version string for user via CLI
+func PrintStrawberryVersion(vType VersionType) string {
 
 	if vType == VersionShort {
-		return GothamVersion.String()
+		return StrawberryVersion.String()
 	}
 
-	version := "Gotham v" + GothamVersion.String()
+	version := "Strawberry v" + StrawberryVersion.String()
 
 	if strings.Contains(version, "-dev") {
 		version += "-" + strings.ToUpper(commitHash)

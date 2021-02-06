@@ -1,6 +1,6 @@
-# Maintaining Gotham
+# Maintaining Strawberry
 
-This is documentation for maintainers of Gotham.
+This is documentation for maintainers of Strawberry.
 This doc covers best practices and procedures on what to do for certain maintaining tasks.
 
 

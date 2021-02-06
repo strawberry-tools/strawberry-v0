@@ -1,4 +1,5 @@
 // Copyright 2020 Gotham Authors. All rights reserved.
+// Copyright 2021 Ricardo N Feliciano. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package hugolib
@@ -15,8 +16,8 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 )
 
-// Test if the Gotham meta generator tag was injected into the homepage correctly
-func TestGothamGeneratorInject(t *testing.T) {
+// Test if the Strawberry meta generator tag was injected into the homepage correctly
+func TestStrawberryGeneratorInject(t *testing.T) {
 
 	t.Parallel()
 
@@ -53,8 +54,8 @@ title = "Section Menu"
 	b.WithTemplatesAdded("layouts/index.html", htmlTemplate)
 	b.Build(BuildCfg{})
 
-	// Check if our Gotham meta gen tag is present
-	metaGenTag := fmt.Sprintf(`<meta name="generator" content="Gotham %s" />`, hugo.GothamVersion)
+	// Check if our Strawberry meta gen tag is present
+	metaGenTag := fmt.Sprintf(`<meta name="generator" content="Strawberry %s" />`, hugo.StrawberryVersion)
 	b.AssertHome(metaGenTag)
 
 	// Make sure that the Hugo meta gen tag is not present

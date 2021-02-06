@@ -3,9 +3,9 @@
 
 package hugo
 
-// The defacto version of Gotham.
+// The defacto version of Strawberry.
 // There's an include base version of Hugo in a different file.
-var GothamVersion = SemVerVersion{
+var StrawberryVersion = SemVerVersion{
 	Major:  0,
 	Minor:  14,
 	Patch:  0,

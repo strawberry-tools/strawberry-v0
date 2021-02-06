@@ -31,7 +31,7 @@ func TestHugoInfo(t *testing.T) {
 	c.Assert(hugoInfo.CommitHash, qt.Equals, commitHash)
 	c.Assert(hugoInfo.BuildDate, qt.Equals, buildDate)
 	c.Assert(hugoInfo.Environment, qt.Equals, "production")
-	c.Assert(string(hugoInfo.Generator()), qt.Contains, fmt.Sprintf("Gotham %s", GothamVersion.String()))
+	c.Assert(string(hugoInfo.Generator()), qt.Contains, fmt.Sprintf("Gotham %s", StrawberryVersion.String()))
 	c.Assert(hugoInfo.IsProduction(), qt.Equals, true)
 
 	devHugoInfo := NewInfo("development")

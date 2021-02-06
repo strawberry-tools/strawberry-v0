@@ -17,12 +17,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/strawberryssg/strawberry-v0/common/hugo"
-	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	jww "github.com/spf13/jwalterweatherman"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 var _ cmder = (*genManCmd)(nil)
@@ -37,16 +37,16 @@ func newGenManCmd() *genManCmd {
 
 	cc.baseCmd = newBaseCmd(&cobra.Command{
 		Use:   "man",
-		Short: "Generate MAN pages for the Gotham CLI",
-		Long: `This command automatically generates up-to-date man pages of Gotham's
+		Short: "Generate MAN pages for the Strawberry CLI",
+		Long: `This command automatically generates up-to-date man pages of Strawberry's
 command-line interface.  By default, it creates the man page files
 in the "man" directory under the current directory.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			header := &doc.GenManHeader{
 				Section: "1",
-				Manual:  "Gotham Manual",
-				Source:  fmt.Sprintf("Gotham %s", hugo.GothamVersion),
+				Manual:  "Strawberry Manual",
+				Source:  fmt.Sprintf("Strawberry %s", hugo.StrawberryVersion),
 			}
 			if !strings.HasSuffix(cc.genmandir, helpers.FilePathSeparator) {
 				cc.genmandir += helpers.FilePathSeparator
@@ -59,7 +59,7 @@ in the "man" directory under the current directory.`,
 			}
 			cmd.Root().DisableAutoGenTag = true
 
-			jww.FEEDBACK.Println("Generating Gotham man pages in", cc.genmandir, "...")
+			jww.FEEDBACK.Println("Generating Strawberry man pages in", cc.genmandir, "...")
 			doc.GenManTree(cmd.Root(), header, cc.genmandir)
 
 			jww.FEEDBACK.Println("Done.")
