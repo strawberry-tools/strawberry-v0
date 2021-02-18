@@ -131,7 +131,7 @@ jobs:
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.155.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.157.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
@@ -158,11 +158,11 @@ jobs:
     steps:
       - checkout
       - go/install:
-          version: "1.15.8"
+          version: "1.16"
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.155.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v0.157.0/goreleaser_Darwin_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
