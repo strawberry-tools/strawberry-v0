@@ -22,6 +22,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/gobuffalo/flect"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
@@ -30,19 +31,18 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/related"
 
-	"github.com/strawberryssg/strawberry-v0/source"
-	"github.com/markbates/inflect"
 	"github.com/pkg/errors"
+	"github.com/strawberryssg/strawberry-v0/source"
 
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 
+	"github.com/spf13/cast"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
-	"github.com/spf13/cast"
 )
 
 var cjkRe = regexp.MustCompile(`\p{Han}|\p{Hangul}|\p{Hiragana}|\p{Katakana}`)
@@ -717,7 +717,7 @@ func (p *pageMeta) applyDefaultValues(n *contentNode) error {
 
 			sectionName = helpers.FirstUpper(sectionName)
 			if p.s.Cfg.GetBool("pluralizeListTitles") {
-				p.title = inflect.Pluralize(sectionName)
+				p.title = flect.Pluralize(sectionName)
 			} else {
 				p.title = sectionName
 			}
