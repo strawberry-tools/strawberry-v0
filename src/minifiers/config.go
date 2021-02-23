@@ -14,6 +14,7 @@
 package minifiers
 
 import (
+	"github.com/spf13/cast"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/docshelper"
@@ -35,18 +36,15 @@ var defaultTdewolffConfig = tdewolffConfig{
 		KeepEndTags:             true,
 		KeepDefaultAttrVals:     true,
 		KeepWhitespace:          false,
-		// KeepQuotes:              false, >= v2.6.2
 	},
 	CSS: css.Minifier{
-		Decimals: -1, // will be deprecated
-		// Precision: 0,  // use Precision with >= v2.7.0
-		KeepCSS2: true,
+		Precision: 0,
+		KeepCSS2:  true,
 	},
 	JS:   js.Minifier{},
 	JSON: json.Minifier{},
 	SVG: svg.Minifier{
-		Decimals: -1, // will be deprecated
-		// Precision: 0,  // use Precision with >= v2.7.0
+		Precision: 0,
 	},
 	XML: xml.Minifier{
 		KeepWhitespace: false,
@@ -98,6 +96,22 @@ func decodeConfig(cfg config.Provider) (conf minifyConfig, err error) {
 	}
 
 	m := maps.ToStringMap(v)
+
+	// Handle upstream renames.
+	if td, found := m["tdewolff"]; found {
+		tdm := cast.ToStringMap(td)
+		for _, key := range []string{"css", "svg"} {
+			if v, found := tdm[key]; found {
+				vm := cast.ToStringMap(v)
+				if vv, found := vm["decimal"]; found {
+					vvi := cast.ToInt(vv)
+					if vvi > 0 {
+						vm["precision"] = vvi
+					}
+				}
+			}
+		}
+	}
 
 	err = mapstructure.WeakDecode(m, &conf)
 
