@@ -30,8 +30,8 @@ func newLimitCmd() *limitCmd {
 	ccmd := &cobra.Command{
 		Use:   "ulimit",
 		Short: "Check system ulimit settings",
-		Long: `Gotham will inspect the current ulimit settings on the system.
-This is primarily to ensure that Gotham can watch enough files on some OSs`,
+		Long: `Strawberry will inspect the current ulimit settings on the system.
+This is primarily to ensure that Strawberry can watch enough files on some OSs`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			var rLimit syscall.Rlimit
 			err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit)
