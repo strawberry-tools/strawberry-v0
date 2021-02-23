@@ -7,7 +7,7 @@ package hugo
 // There's an include base version of Hugo in a different file.
 var StrawberryVersion = SemVerVersion{
 	Major:  0,
-	Minor:  14,
+	Minor:  15,
 	Patch:  0,
-	Suffix: "",
+	Suffix: "dev",
 }
