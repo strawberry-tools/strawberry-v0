@@ -37,13 +37,13 @@ func newGenautocompleteCmd() *genautocompleteCmd {
 
 	cc.baseCmd = newBaseCmd(&cobra.Command{
 		Use:   "autocomplete",
-		Short: "Generate shell autocompletion script for Gotham",
-		Long: `Generates a shell autocompletion script for Gotham.
+		Short: "Generate shell autocompletion script for Strawberry",
+		Long: `Generates a shell autocompletion script for Strawberry.
 
 By default, the file is written directly to /etc/bash_completion.d
 for convenience, and the command may need superuser rights, e.g.:
 
-	$ sudo gotham gen autocomplete
+	$ sudo strawberry gen autocomplete
 
 Add ` + "`--completionfile=/path/to/file`" + ` flag to set alternative
 file-path and name.

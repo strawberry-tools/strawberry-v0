@@ -20,11 +20,11 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
 
+	"github.com/spf13/cobra"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/spf13/cobra"
 )
 
 type commandsBuilder struct {
@@ -145,13 +145,13 @@ func (b *commandsBuilder) newHugoCmd() *hugoCmd {
 	cc := &hugoCmd{}
 
 	cc.baseBuilderCmd = b.newBuilderCmd(&cobra.Command{
-		Use:   "gotham",
-		Short: "gotham builds your site",
-		Long: `gotham is the main command, used to build your Gotham site.
+		Use:   "strawberry",
+		Short: "strawberry builds your site",
+		Long: `strawberry is the main command, used to build your Strawberry site.
 
-Gotham is becoming Strawberry. Migration guide here: https://docs.strawberryssg.com/migration/
+Gotham became Strawberry. Migration guide here: https://docs.strawberryssg.com/migration/
 
-Gotham is a Fast and Flexible Static Site Generator.`,
+Strawberry is a Fast and Flexible Static Site Generator.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			defer cc.timeTrack(time.Now(), "Total")

@@ -37,11 +37,11 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/livereload"
 
-	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 type serverCmd struct {
@@ -76,17 +76,17 @@ func (b *commandsBuilder) newServerCmdSignaled(stop <-chan bool) *serverCmd {
 		Use:     "server",
 		Aliases: []string{"serve"},
 		Short:   "A high performance webserver",
-		Long: `Gotham provides its own webserver which builds and serves the site.
-While 'gotham server' is high performance, it is a webserver with limited options.
+		Long: `Strawberry provides its own webserver which builds and serves the site.
+While 'strawberry server' is high performance, it is a webserver with limited options.
 Many run it in production, but the standard behavior is for people to use it
 in development and use a more full featured server such as Nginx or Caddy.
 
-'gotham server' will avoid writing the rendered and served content to disk,
+'strawberry server' will avoid writing the rendered and served content to disk,
 preferring to store it in memory.
 
-By default Gotham will also watch your files for any changes you make and
+By default Strawberry will also watch your files for any changes you make and
 automatically rebuild the site. It will then live reload any open browser pages
-and push the latest content to them. As most Gotham sites are built in a fraction
+and push the latest content to them. As most Strawberry sites are built in a fraction
 of a second, you will be able to save and see your changes nearly instantly.`,
 		RunE: cc.server,
 	})
@@ -331,7 +331,7 @@ func (f *fileServer) createEndpoint(i int) (*http.ServeMux, string, string, erro
 	fs := filesOnlyFs{httpFs.Dir(absPublishDir)}
 
 	if i == 0 && f.c.fastRenderMode {
-		jww.FEEDBACK.Println("Running in Fast Render Mode. For full rebuilds on change: gotham server --disableFastRender")
+		jww.FEEDBACK.Println("Running in Fast Render Mode. For full rebuilds on change: strawberry server --disableFastRender")
 	}
 
 	// We're only interested in the path

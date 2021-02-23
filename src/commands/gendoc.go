@@ -20,11 +20,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	jww "github.com/spf13/jwalterweatherman"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 var _ cmder = (*genDocCmd)(nil)
@@ -47,11 +47,11 @@ url: %s
 
 	cc.baseCmd = newBaseCmd(&cobra.Command{
 		Use:   "doc",
-		Short: "Generate Markdown documentation for the Gotham CLI.",
-		Long: `Generate Markdown documentation for the Gotham CLI.
+		Short: "Generate Markdown documentation for the Strawberry CLI.",
+		Long: `Generate Markdown documentation for the Strawberry CLI.
 
 This command is, mostly, used to create up-to-date documentation
-of Gotham's command-line interface for http://gohugo.io/.
+of Strawberry's command-line interface for http://gohugo.io/.
 
 It creates one Markdown file per command with front matter suitable
 for rendering in Gotham.`,

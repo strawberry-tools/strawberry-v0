@@ -24,13 +24,13 @@ import (
 
 	_errors "github.com/pkg/errors"
 
+	"github.com/spf13/cobra"
+	jww "github.com/spf13/jwalterweatherman"
+	"github.com/spf13/viper"
 	"github.com/strawberryssg/strawberry-v0/create"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/parser"
-	"github.com/spf13/cobra"
-	jww "github.com/spf13/jwalterweatherman"
-	"github.com/spf13/viper"
 )
 
 var _ cmder = (*newSiteCmd)(nil)
@@ -49,7 +49,7 @@ func (b *commandsBuilder) newNewSiteCmd() *newSiteCmd {
 		Short: "Create a new site (skeleton)",
 		Long: `Create a new site in the provided directory.
 The new site will have the correct structure, but no content or theme yet.
-Use ` + "`gotham new [contentPath]`" + ` to create new content.`,
+Use ` + "`strawberry new [contentPath]`" + ` to create new content.`,
 		RunE: cc.newSite,
 	}
 
@@ -105,13 +105,13 @@ func (n *newSiteCmd) doNewSite(fs *hugofs.Fs, basepath string, force bool) error
 	helpers.SafeWriteToDisk(filepath.Join(archeTypePath, "default.md"),
 		strings.NewReader(create.ArchetypeTemplateTemplate), fs.Source)
 
-	jww.FEEDBACK.Printf("Congratulations! Your new Gotham site is created in %s.\n\n", basepath)
+	jww.FEEDBACK.Printf("Congratulations! Your new Strawberry site is created in %s.\n\n", basepath)
 	jww.FEEDBACK.Println(nextStepsText())
 
 	return nil
 }
 
-// newSite creates a new Gotham site and initializes a structured Gotham directory.
+// newSite creates a new Strawberry site and initializes a structured Strawberry directory.
 func (n *newSiteCmd) newSite(cmd *cobra.Command, args []string) error {
 	if len(args) < 1 {
 		return newUserError("path needs to be provided")
@@ -130,7 +130,7 @@ func (n *newSiteCmd) newSite(cmd *cobra.Command, args []string) error {
 func createConfig(fs *hugofs.Fs, inpath string, kind string) (err error) {
 	in := map[string]string{
 		"baseURL":      "http://example.org/",
-		"title":        "My New Gotham Site",
+		"title":        "My New Strawberry Site",
 		"languageCode": "en-us",
 	}
 
@@ -143,7 +143,7 @@ func createConfig(fs *hugofs.Fs, inpath string, kind string) (err error) {
 	return helpers.WriteToDisk(filepath.Join(inpath, "config."+kind), &buf, fs.Source)
 }
 
-//Todo: Update https://themes.gohugo.io/ to Gotham theme site when available
+//Todo: Update https://themes.gohugo.io/ to Strawberry theme site when available
 func nextStepsText() string {
 	var nextStepsText bytes.Buffer
 
@@ -151,14 +151,14 @@ func nextStepsText() string {
 
 1. Download a theme into the same-named folder.
    Choose a theme from https://themes.gohugo.io/ or 
-   create your own with the "gotham new theme <THEMENAME>" command.
+   create your own with the "strawberry new theme <THEMENAME>" command.
 2. Perhaps you want to add some content. You can add single files
-   with "gotham new `)
+   with "strawberry new `)
 
 	nextStepsText.WriteString(filepath.Join("<SECTIONNAME>", "<FILENAME>.<FORMAT>"))
 
 	nextStepsText.WriteString(`".
-3. Start the built-in live server via "gotham serve".
+3. Start the built-in live server via "strawberry serve".
 
 Visit https://gohugo.io/ for quickstart guide and full documentation.`)
 
