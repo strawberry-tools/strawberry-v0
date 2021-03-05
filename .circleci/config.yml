@@ -60,7 +60,7 @@ orbs:
 executors:
   go:
     docker:
-      - image: cimg/go-node:1.16
+      - image: cimg/go:1.16-node
 
 jobs:
   generic-tests:
