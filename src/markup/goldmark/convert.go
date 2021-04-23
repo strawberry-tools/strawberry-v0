@@ -21,6 +21,8 @@ import (
 	"path/filepath"
 	"runtime/debug"
 
+	"github.com/yuin/goldmark/ast"
+
 	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/markup/goldmark/internal/extensions/attributes"
 
@@ -320,7 +322,28 @@ func newHighlighting(cfg highlight.Config) goldmark.Extender {
 					highlight.WriteCodeTag(w, language)
 					return
 				}
-				w.WriteString(`<div class="highlight">`)
+
+				w.WriteString(`<div class="highlight`)
+
+				var attributes []ast.Attribute
+				if ctx.Attributes() != nil {
+					attributes = ctx.Attributes().All()
+				}
+
+				if attributes != nil {
+					class, found := ctx.Attributes().GetString("class")
+					if found {
+						w.WriteString(" ")
+						w.Write(util.EscapeHTML(class.([]byte)))
+
+					}
+					_, _ = w.WriteString("\"")
+					renderAttributes(w, true, attributes...)
+				} else {
+					_, _ = w.WriteString("\"")
+				}
+
+				w.WriteString(">")
 				return
 			}
 
