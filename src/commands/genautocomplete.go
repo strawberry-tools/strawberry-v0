@@ -40,13 +40,11 @@ func newGenautocompleteCmd() *genautocompleteCmd {
 		Short: "Generate shell autocompletion script for Strawberry",
 		Long: `Generates a shell autocompletion script for Strawberry.
 
-By default, the file is written directly to /etc/bash_completion.d
-for convenience, and the command may need superuser rights, e.g.:
+The script is written to the console (stdout).
 
 	$ sudo strawberry gen autocomplete
 
-Add ` + "`--completionfile=/path/to/file`" + ` flag to set alternative
-file-path and name.
+To write to file, add the ` + "`--completionfile=/path/to/file`" + ` flag.
 
 Add ` + "`--type={bash, zsh, fish or powershell}`" + ` flag to set alternative
 shell type.

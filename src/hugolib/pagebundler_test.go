@@ -34,10 +34,8 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/htesting"
 
-	"github.com/strawberryssg/strawberry-v0/media"
-
-	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/spf13/viper"
+	"github.com/strawberryssg/strawberry-v0/deps"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -76,7 +74,7 @@ func TestPageBundlerSiteRegular(t *testing.T) {
 
 						cfg.Set("outputFormats", map[string]interface{}{
 							"CUSTOMO": map[string]interface{}{
-								"mediaType":     media.HTMLType,
+								"mediaType":     "text/html",
 								"baseName":      "cindex",
 								"path":          "cpath",
 								"permalinkable": true,

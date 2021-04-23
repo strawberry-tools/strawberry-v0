@@ -20,6 +20,8 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/common/types"
 
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+
 	"github.com/gobwas/glob"
 	hglob "github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
@@ -27,23 +29,21 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
 
-	"github.com/strawberryssg/strawberry-v0/common/maps"
-
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
+	"github.com/pkg/errors"
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/modules"
-	"github.com/pkg/errors"
 
+	"github.com/spf13/afero"
+	"github.com/spf13/viper"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/config/privacy"
 	"github.com/strawberryssg/strawberry-v0/config/services"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/spf13/afero"
-	"github.com/spf13/viper"
 )
 
 // SiteConfig represents the config in .Site.Config.
@@ -167,10 +167,15 @@ func LoadConfig(d ConfigSourceDescriptor, doWithConfig ...func(cfg config.Provid
 		}
 	}
 
-	const delim = "__env__delim"
+	// This is invoked both after we load the main config and at the end
+	// to support OS env override of config options used in the module collector.
+	applyOsEnvOverrides := func() error {
+		if d.Environ == nil {
+			return nil
+		}
 
-	// Apply environment overrides
-	if len(d.Environ) > 0 {
+		const delim = "__env__delim"
+
 		// Extract all that start with the HUGO prefix.
 		// The delimiter is the following rune, usually "_".
 		const hugoEnvPrefix = "HUGO"
@@ -199,7 +204,7 @@ func LoadConfig(d ConfigSourceDescriptor, doWithConfig ...func(cfg config.Provid
 		for _, env := range hugoEnv {
 			existing, nestedKey, owner, err := maps.GetNestedParamFn(env.Key, delim, v.Get)
 			if err != nil {
-				return v, configFiles, err
+				return err
 			}
 
 			if existing != nil {
@@ -220,6 +225,12 @@ func LoadConfig(d ConfigSourceDescriptor, doWithConfig ...func(cfg config.Provid
 			}
 		}
 
+		return nil
+
+	}
+
+	if err := applyOsEnvOverrides(); err != nil {
+		return v, configFiles, err
 	}
 
 	// We made this a Glob pattern in Hugo 0.75, we don't need both.
@@ -254,6 +265,10 @@ func LoadConfig(d ConfigSourceDescriptor, doWithConfig ...func(cfg config.Provid
 
 	if err == nil && len(modulesConfigFiles) > 0 {
 		configFiles = append(configFiles, modulesConfigFiles...)
+	}
+
+	if err := applyOsEnvOverrides(); err != nil {
+		return v, configFiles, err
 	}
 
 	return v, configFiles, err
