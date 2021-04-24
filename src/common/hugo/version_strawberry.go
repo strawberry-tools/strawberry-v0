@@ -9,5 +9,5 @@ var StrawberryVersion = SemVerVersion{
 	Major:  0,
 	Minor:  15,
 	Patch:  0,
-	Suffix: "dev",
+	Suffix: "",
 }
