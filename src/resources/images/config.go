@@ -19,15 +19,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gohugoio/hugo/helpers"
-
-	"github.com/pkg/errors"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/bep/gowebp/libwebp/webpoptions"
-
 	"github.com/disintegration/gift"
-
 	"github.com/mitchellh/mapstructure"
+	"github.com/pkg/errors"
 )
 
 var (
