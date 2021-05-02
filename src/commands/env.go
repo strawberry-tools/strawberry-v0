@@ -17,8 +17,9 @@ package commands
 import (
 	"runtime"
 
-	"github.com/spf13/cobra"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
+
+	"github.com/spf13/cobra"
 
 	jww "github.com/spf13/jwalterweatherman"
 )
@@ -41,8 +42,18 @@ func newEnvCmd() *envCmd {
 				jww.FEEDBACK.Printf("GOARCH=%q\n", runtime.GOARCH)
 				jww.FEEDBACK.Printf("GOVERSION=%q\n", runtime.Version())
 
+				isVerbose, _ := cmd.Flags().GetBool("verbose")
+
+				if isVerbose {
+					deps := hugo.GetDependencyList()
+					for _, dep := range deps {
+						jww.FEEDBACK.Printf("%s\n", dep)
+					}
+				}
+
 				return nil
 			},
 		}),
 	}
+
 }

@@ -1,4 +1,4 @@
-// Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2021 The Hugo Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,12 +11,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package hugo
+// +build extended
 
-// CurrentVersion represents the current build version.
-// This should be the only one.
-var CurrentVersion = Version{
-	Number:     0.83,
-	PatchLevel: 1,
-	Suffix:     "",
+package webp
+
+import (
+	"image"
+	"io"
+
+	"github.com/bep/gowebp/libwebp"
+	"github.com/bep/gowebp/libwebp/webpoptions"
+)
+
+// Encode writes the Image m to w in Webp format with the given
+// options.
+func Encode(w io.Writer, m image.Image, o webpoptions.EncodingOptions) error {
+	return libwebp.Encode(w, m, o)
 }

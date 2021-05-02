@@ -17,14 +17,15 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"golang.org/x/text/language"
 
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/source"
-	"github.com/nicksnyder/go-i18n/v2/i18n"
+
+	"github.com/gohugoio/go-i18n/v2/i18n"
 
 	toml "github.com/pelletier/go-toml"
 	_errors "github.com/pkg/errors"
