@@ -35,6 +35,7 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
@@ -519,13 +520,9 @@ But this also means that your site configuration may not do what you expect. If 
 	timeout := 30 * time.Second
 	if cfg.Language.IsSet("timeout") {
 		v := cfg.Language.Get("timeout")
-		if n := cast.ToInt(v); n > 0 {
-			timeout = time.Duration(n) * time.Millisecond
-		} else {
-			d, err := time.ParseDuration(cast.ToString(v))
-			if err == nil {
-				timeout = d
-			}
+		d, err := types.ToDurationE(v)
+		if err == nil {
+			timeout = d
 		}
 	}
 
