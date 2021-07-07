@@ -21,16 +21,16 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/pkg/errors"
-
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/strawberryssg/strawberry-v0/hugolib"
+
+	"github.com/pkg/errors"
 	"github.com/spf13/afero"
+
 	jww "github.com/spf13/jwalterweatherman"
 )
 
@@ -39,7 +39,7 @@ import (
 func NewContent(
 	sites *hugolib.HugoSites, kind, targetPath string) error {
 	targetPath = filepath.Clean(targetPath)
-	ext := helpers.Ext(targetPath)
+	ext := paths.Ext(targetPath)
 	ps := sites.PathSpec
 	archetypeFs := ps.BaseFs.SourceFilesystems.Archetypes.Fs
 	sourceFs := ps.Fs.Source

@@ -154,25 +154,25 @@ func newMediaTypeWithMimeSuffix(main, sub, mimeSuffix string, suffixes []string)
 // Definitions from https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types etc.
 // Note that from Hugo 0.44 we only set Suffix if it is part of the MIME type.
 var (
-	CalendarType   = newMediaType("text", "calendar", []string{"ics"})
-	CSSType        = newMediaType("text", "css", []string{"css"})
-	SCSSType       = newMediaType("text", "x-scss", []string{"scss"})
-	SASSType       = newMediaType("text", "x-sass", []string{"sass"})
-	CSVType        = newMediaType("text", "csv", []string{"csv"})
-	HTMLType       = newMediaType("text", "html", []string{"html"})
-	JavascriptType = newMediaType("application", "javascript", []string{"js"})
-	TypeScriptType = newMediaType("application", "typescript", []string{"ts"})
-	TSXType        = newMediaType("text", "tsx", []string{"tsx"})
-	JSXType        = newMediaType("text", "jsx", []string{"jsx"})
-
-	JSONType     = newMediaType("application", "json", []string{"json"})
-	RSSType      = newMediaTypeWithMimeSuffix("application", "rss", "xml", []string{"xml"})
-	JSONFeedType = newMediaTypeWithMimeSuffix("application", "feed", "json", []string{"feed.json"})
-	XMLType      = newMediaType("application", "xml", []string{"xml"})
-	SVGType      = newMediaTypeWithMimeSuffix("image", "svg", "xml", []string{"svg"})
-	TextType     = newMediaType("text", "plain", []string{"txt"})
-	TOMLType     = newMediaType("application", "toml", []string{"toml"})
-	YAMLType     = newMediaType("application", "yaml", []string{"yaml", "yml"})
+	CalendarType       = newMediaType("text", "calendar", []string{"ics"})
+	CSSType            = newMediaType("text", "css", []string{"css"})
+	SCSSType           = newMediaType("text", "x-scss", []string{"scss"})
+	SASSType           = newMediaType("text", "x-sass", []string{"sass"})
+	CSVType            = newMediaType("text", "csv", []string{"csv"})
+	HTMLType           = newMediaType("text", "html", []string{"html"})
+	JavascriptType     = newMediaType("application", "javascript", []string{"js"})
+	TypeScriptType     = newMediaType("application", "typescript", []string{"ts"})
+	TSXType            = newMediaType("text", "tsx", []string{"tsx"})
+	JSXType            = newMediaType("text", "jsx", []string{"jsx"})
+	JSONType           = newMediaType("application", "json", []string{"json"})
+	RSSType            = newMediaTypeWithMimeSuffix("application", "rss", "xml", []string{"xml"})
+	JSONFeedType       = newMediaTypeWithMimeSuffix("application", "feed", "json", []string{"feed.json"})
+	XMLType            = newMediaType("application", "xml", []string{"xml"})
+	SVGType            = newMediaTypeWithMimeSuffix("image", "svg", "xml", []string{"svg"})
+	TextType           = newMediaType("text", "plain", []string{"txt"})
+	TOMLType           = newMediaType("application", "toml", []string{"toml"})
+	WebAppManifestType = newMediaTypeWithMimeSuffix("application", "manifest", "json", []string{"webmanifest"})
+	YAMLType           = newMediaType("application", "yaml", []string{"yaml", "yml"})
 
 	// Common image types
 	PNGType  = newMediaType("image", "png", []string{"png"})
@@ -206,6 +206,7 @@ var DefaultTypes = Types{
 	TSXType,
 	JSXType,
 	JSONType,
+	WebAppManifestType,
 	RSSType,
 	JSONFeedType,
 	XMLType,
@@ -386,8 +387,8 @@ func DecodeTypes(mms ...map[string]interface{}) (Types, error) {
 				return m, err
 			}
 
-			vm := v.(map[string]interface{})
-			maps.ToLower(vm)
+			vm := maps.ToStringMap(v)
+			maps.PrepareParams(vm)
 			_, delimiterSet := vm["delimiter"]
 			_, suffixSet := vm["suffix"]
 

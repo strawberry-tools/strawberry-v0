@@ -17,12 +17,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
-var ns = New(&deps.Deps{Cfg: viper.New()})
+var ns = New(&deps.Deps{Cfg: config.New()})
 
 type tstNoStringer struct{}
 

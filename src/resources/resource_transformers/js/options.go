@@ -20,17 +20,15 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/spf13/afero"
-
-	"github.com/pkg/errors"
-
-	"github.com/evanw/esbuild/pkg/api"
-
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/media"
+
+	"github.com/evanw/esbuild/pkg/api"
 	"github.com/mitchellh/mapstructure"
-	"github.com/spf13/cast"
+	"github.com/pkg/errors"
+	"github.com/spf13/afero"
 )
 
 const (
@@ -348,7 +346,7 @@ func toBuildOptions(opts Options) (buildOptions api.BuildOptions, err error) {
 
 	var defines map[string]string
 	if opts.Defines != nil {
-		defines = cast.ToStringMapString(opts.Defines)
+		defines = maps.ToStringMapString(opts.Defines)
 	}
 
 	// By default we only need to specify outDir and no outFile

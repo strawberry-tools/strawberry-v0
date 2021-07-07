@@ -18,8 +18,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
-	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -72,7 +72,7 @@ func newTestFd() *FrontMatterDescriptor {
 func TestFrontMatterNewConfig(t *testing.T) {
 	c := qt.New(t)
 
-	cfg := viper.New()
+	cfg := config.New()
 
 	cfg.Set("frontmatter", map[string]interface{}{
 		"date":        []string{"publishDate", "LastMod"},
@@ -89,7 +89,7 @@ func TestFrontMatterNewConfig(t *testing.T) {
 	c.Assert(fc.publishDate, qt.DeepEquals, []string{"date"})
 
 	// Default
-	cfg = viper.New()
+	cfg = config.New()
 	fc, err = newFrontmatterConfig(cfg)
 	c.Assert(err, qt.IsNil)
 	c.Assert(fc.date, qt.DeepEquals, []string{"date", "publishdate", "pubdate", "published", "lastmod", "modified"})
@@ -117,7 +117,7 @@ func TestFrontMatterDatesHandlers(t *testing.T) {
 
 	for _, handlerID := range []string{":filename", ":fileModTime", ":git"} {
 
-		cfg := viper.New()
+		cfg := config.New()
 
 		cfg.Set("frontmatter", map[string]interface{}{
 			"date": []string{handlerID, "date"},
@@ -157,7 +157,7 @@ func TestFrontMatterDatesCustomConfig(t *testing.T) {
 
 	c := qt.New(t)
 
-	cfg := viper.New()
+	cfg := config.New()
 	cfg.Set("frontmatter", map[string]interface{}{
 		"date":        []string{"mydate"},
 		"lastmod":     []string{"publishdate"},
@@ -204,7 +204,7 @@ func TestFrontMatterDatesDefaultKeyword(t *testing.T) {
 
 	c := qt.New(t)
 
-	cfg := viper.New()
+	cfg := config.New()
 
 	cfg.Set("frontmatter", map[string]interface{}{
 		"date":        []string{"mydate", ":default"},

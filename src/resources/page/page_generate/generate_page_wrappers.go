@@ -20,13 +20,12 @@ import (
 	"path/filepath"
 	"reflect"
 
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/common/maps"
-
 	"github.com/strawberryssg/strawberry-v0/codegen"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/source"
+
+	"github.com/pkg/errors"
 )
 
 const header = `// Copyright 2019 The Hugo Authors. All rights reserved.
@@ -235,7 +234,7 @@ func generateFileIsZeroWrappers(c *codegen.Inspector) error {
 
 	}
 
-	pkgImports := append(methods.Imports(), "github.com/strawberryssg/strawberry-v0/helpers", "github.com/strawberryssg/strawberry-v0/source")
+	pkgImports := append(methods.Imports(), "github.com/strawberryssg/strawberry-v0/common/loggers", "github.com/strawberryssg/strawberry-v0/source")
 
 	fmt.Fprintf(f, `%s
 
@@ -245,10 +244,10 @@ package page
 
 // ZeroFile represents a zero value of source.File with warnings if invoked.
 type zeroFile struct {
-	log *helpers.DistinctLogger
+	log loggers.Logger
 }
 
-func NewZeroFile(log *helpers.DistinctLogger) source.File {
+func NewZeroFile(log loggers.Logger) source.File {
 	return zeroFile{log: log}
 }
 

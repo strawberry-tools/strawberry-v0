@@ -20,10 +20,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
@@ -187,7 +186,7 @@ func (c *PageCollections) getSectionOrPage(ref string) (*contentNode, string) {
 	langSuffix := "." + m.s.Lang()
 
 	// Trim both extension and any language code.
-	name := helpers.PathNoExt(filename)
+	name := paths.PathNoExt(filename)
 	name = strings.TrimSuffix(name, langSuffix)
 
 	// These are reserved bundle names and will always be stored by their owning

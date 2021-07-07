@@ -21,16 +21,12 @@ import (
 	"testing"
 
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
-
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/htesting"
-
-	"github.com/spf13/viper"
-
-	qt "github.com/frankban/quicktest"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	qt "github.com/frankban/quicktest"
 )
 
 func TestJSBuildWithNPM(t *testing.T) {
@@ -88,7 +84,7 @@ document.body.textContent = greeter(user);`
 	c.Assert(err, qt.IsNil)
 	defer clean()
 
-	v := viper.New()
+	v := config.New()
 	v.Set("workingDir", workDir)
 	v.Set("disableKinds", []string{"taxonomy", "term", "page"})
 	b := newTestSitesBuilder(t).WithLogger(loggers.NewWarningLogger())
@@ -162,7 +158,7 @@ func TestJSBuild(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	defer clean()
 
-	config := fmt.Sprintf(`
+	tomlConfig := fmt.Sprintf(`
 baseURL = "https://example.org"
 workingDir = %q
 
@@ -177,8 +173,8 @@ path="github.com/gohugoio/hugoTestProjectJSModImports"
 `, workDir)
 
 	b := newTestSitesBuilder(t)
-	b.Fs = hugofs.NewDefault(viper.New())
-	b.WithWorkingDir(workDir).WithConfigFile("toml", config).WithLogger(loggers.NewInfoLogger())
+	b.Fs = hugofs.NewDefault(config.New())
+	b.WithWorkingDir(workDir).WithConfigFile("toml", tomlConfig).WithLogger(loggers.NewInfoLogger())
 	b.WithSourceFile("go.mod", `module github.com/gohugoio/tests/testHugoModules
         
 go 1.15

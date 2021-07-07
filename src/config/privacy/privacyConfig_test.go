@@ -16,9 +16,9 @@ package privacy
 import (
 	"testing"
 
-	qt "github.com/frankban/quicktest"
 	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestDecodeConfigFromTOML(t *testing.T) {
@@ -94,7 +94,7 @@ PrivacyENhanced = true
 func TestDecodeConfigDefault(t *testing.T) {
 	c := qt.New(t)
 
-	pc, err := DecodeConfig(viper.New())
+	pc, err := DecodeConfig(config.New())
 	c.Assert(err, qt.IsNil)
 	c.Assert(pc, qt.Not(qt.IsNil))
 	c.Assert(pc.YouTube.PrivacyEnhanced, qt.Equals, false)

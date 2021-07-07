@@ -20,16 +20,14 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/markup/asciidocext"
 	"github.com/strawberryssg/strawberry-v0/markup/rst"
-
-	"github.com/spf13/viper"
-
 	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
-
-	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/tpl"
+
 	"github.com/spf13/cast"
 
 	qt "github.com/frankban/quicktest"
@@ -65,8 +63,9 @@ title: "Title"
 		t.Fatalf("Shortcode rendered error %s.", err)
 	}
 
-	if err == nil && expectError {
-		t.Fatalf("No error from shortcode")
+	if expectError {
+		c.Assert(err, qt.ErrorMatches, expected)
+		return
 	}
 
 	h := b.H
@@ -339,6 +338,12 @@ func TestShortcodeWrappedInPIssue(t *testing.T) {
 
 {{< bug >}}
 `, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", wt)
+}
+
+// #6866
+func TestShortcodeIncomplete(t *testing.T) {
+	t.Parallel()
+	CheckShortCodeMatchAndError(t, `{{<          >}}`, ".*shortcode has no name.*", nil, true)
 }
 
 func TestExtractShortcodes(t *testing.T) {
@@ -1207,7 +1212,7 @@ title: "Hugo Rocks!"
 func TestShortcodeEmoji(t *testing.T) {
 	t.Parallel()
 
-	v := viper.New()
+	v := config.New()
 	v.Set("enableEmoji", true)
 
 	builder := newTestSitesBuilder(t).WithViper(v)
@@ -1272,7 +1277,7 @@ func TestShortcodeRef(t *testing.T) {
 		t.Run(fmt.Sprintf("plainIDAnchors=%t", plainIDAnchors), func(t *testing.T) {
 			t.Parallel()
 
-			v := viper.New()
+			v := config.New()
 			v.Set("baseURL", "https://example.org")
 			v.Set("blackfriday", map[string]interface{}{
 				"plainIDAnchors": plainIDAnchors,

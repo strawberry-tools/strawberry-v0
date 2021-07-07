@@ -15,18 +15,18 @@ package cast
 
 import (
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/docshelper"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/tpl/internal"
-	"github.com/spf13/viper"
 )
 
 // This file provides documentation support and is randomly put into this package.
 func init() {
 	docsProvider := func() docshelper.DocProvider {
 		d := &deps.Deps{
-			Cfg:                 viper.New(),
+			Cfg:                 config.New(),
 			Log:                 loggers.NewErrorLogger(),
 			BuildStartListeners: &deps.Listeners{},
 			Site:                page.NewDummyHugoSite(newTestConfig()),
@@ -46,8 +46,8 @@ func init() {
 	docshelper.AddDocProviderFunc(docsProvider)
 }
 
-func newTestConfig() *viper.Viper {
-	v := viper.New()
+func newTestConfig() config.Provider {
+	v := config.New()
 	v.Set("contentDir", "content")
 	return v
 }

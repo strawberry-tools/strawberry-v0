@@ -10,19 +10,20 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/langs"
-	"github.com/strawberryssg/strawberry-v0/modules"
-
-	qt "github.com/frankban/quicktest"
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/modules"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
+
 	"github.com/spf13/afero"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 type specDescriptor struct {
@@ -31,8 +32,8 @@ type specDescriptor struct {
 	fs      afero.Fs
 }
 
-func createTestCfg() *viper.Viper {
-	cfg := viper.New()
+func createTestCfg() config.Provider {
+	cfg := config.New()
 	cfg.Set("resourceDir", "resources")
 	cfg.Set("contentDir", "content")
 	cfg.Set("dataDir", "data")

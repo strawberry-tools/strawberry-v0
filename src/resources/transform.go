@@ -22,21 +22,20 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
-	"github.com/spf13/afero"
-
-	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
-
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
 	"github.com/strawberryssg/strawberry-v0/resources/internal"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/pkg/errors"
+	"github.com/spf13/afero"
+
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 )
 
 var (
@@ -136,13 +135,13 @@ func (ctx *ResourceTransformationCtx) PublishSourceMap(content string) error {
 // extension, e.g. ".scss"
 func (ctx *ResourceTransformationCtx) ReplaceOutPathExtension(newExt string) {
 	dir, file := path.Split(ctx.InPath)
-	base, _ := helpers.PathAndExt(file)
+	base, _ := paths.PathAndExt(file)
 	ctx.OutPath = path.Join(dir, (base + newExt))
 }
 
 func (ctx *ResourceTransformationCtx) addPathIdentifier(inPath, identifier string) string {
 	dir, file := path.Split(inPath)
-	base, ext := helpers.PathAndExt(file)
+	base, ext := paths.PathAndExt(file)
 	return path.Join(dir, (base + identifier + ext))
 }
 

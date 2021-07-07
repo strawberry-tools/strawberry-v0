@@ -16,14 +16,14 @@ package mmark
 import (
 	"testing"
 
-	"github.com/spf13/viper"
-
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
-
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/markup/blackfriday/blackfriday_config"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
+
 	"github.com/miekg/mmark"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestGetMmarkExtensions(t *testing.T) {
@@ -62,7 +62,7 @@ func TestGetMmarkExtensions(t *testing.T) {
 
 func TestConvert(t *testing.T) {
 	c := qt.New(t)
-	p, err := Provider.New(converter.ProviderConfig{Cfg: viper.New(), Logger: loggers.NewErrorLogger()})
+	p, err := Provider.New(converter.ProviderConfig{Cfg: config.New(), Logger: loggers.NewErrorLogger()})
 	c.Assert(err, qt.IsNil)
 	conv, err := p.New(converter.DocumentContext{})
 	c.Assert(err, qt.IsNil)

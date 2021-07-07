@@ -16,12 +16,13 @@ package site
 import (
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/tpl/internal"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestInit(t *testing.T) {
@@ -29,7 +30,7 @@ func TestInit(t *testing.T) {
 
 	var found bool
 	var ns *internal.TemplateFuncsNamespace
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 	s := page.NewDummyHugoSite(v)
 

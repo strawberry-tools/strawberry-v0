@@ -17,14 +17,14 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/deps"
-	"github.com/spf13/viper"
 )
 
-var ns = New(&deps.Deps{Cfg: viper.New()})
+var ns = New(&deps.Deps{Cfg: config.New()})
 
 type tstNoStringer struct{}
 

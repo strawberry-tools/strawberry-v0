@@ -20,18 +20,13 @@ import (
 	"testing"
 
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
-
-	jww "github.com/spf13/jwalterweatherman"
-
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/htesting"
-
-	"github.com/spf13/viper"
-
-	qt "github.com/frankban/quicktest"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	qt "github.com/frankban/quicktest"
+	jww "github.com/spf13/jwalterweatherman"
 )
 
 func TestResourceChainBabel(t *testing.T) {
@@ -91,7 +86,7 @@ class Car2 {
 	var logBuf bytes.Buffer
 	logger := loggers.NewBasicLoggerForWriter(jww.LevelInfo, &logBuf)
 
-	v := viper.New()
+	v := config.New()
 	v.Set("workingDir", workDir)
 	v.Set("disableKinds", []string{"taxonomy", "term", "page"})
 	b := newTestSitesBuilder(t).WithLogger(logger)

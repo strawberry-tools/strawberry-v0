@@ -14,8 +14,6 @@
 package markup_config
 
 import (
-	"github.com/mitchellh/mapstructure"
-	"github.com/spf13/cast"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/docshelper"
@@ -25,6 +23,8 @@ import (
 	"github.com/strawberryssg/strawberry-v0/markup/highlight"
 	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
 	"github.com/strawberryssg/strawberry-v0/parser"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type Config struct {
@@ -73,7 +73,7 @@ func normalizeConfig(m map[string]interface{}) {
 	if err != nil {
 		return
 	}
-	vm := cast.ToStringMap(v)
+	vm := maps.ToStringMap(v)
 	// Changed from a bool in 0.81.0
 	if vv, found := vm["attribute"]; found {
 		if vvb, ok := vv.(bool); ok {

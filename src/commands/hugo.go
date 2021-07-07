@@ -30,33 +30,29 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
-	"github.com/strawberryssg/strawberry-v0/resources/page"
-
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/common/herrors"
-	"github.com/strawberryssg/strawberry-v0/common/loggers"
-	"github.com/strawberryssg/strawberry-v0/common/terminal"
-
-	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
-
 	"golang.org/x/sync/errgroup"
 
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/hugo"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/terminal"
 	"github.com/strawberryssg/strawberry-v0/config"
-
-	flag "github.com/spf13/pflag"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
+	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
+	"github.com/strawberryssg/strawberry-v0/livereload"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/watcher"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/hugolib"
-	"github.com/strawberryssg/strawberry-v0/livereload"
-	"github.com/strawberryssg/strawberry-v0/watcher"
+	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/fsync"
+
 	jww "github.com/spf13/jwalterweatherman"
+	flag "github.com/spf13/pflag"
 )
 
 // The Response value from Execute.
@@ -283,6 +279,7 @@ func (c *commandeer) fullBuild() error {
 
 	if !c.h.quiet {
 		fmt.Println("Start building sites … ")
+		fmt.Println(hugo.BuildVersionString())
 		if isTerminal() {
 			defer func() {
 				fmt.Print(showCursor + clearLine)

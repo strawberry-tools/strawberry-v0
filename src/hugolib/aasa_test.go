@@ -79,7 +79,7 @@ func TestAASAOutput(t *testing.T) {
 				return
 			}
 
-			realVersion := cfg.Get("aasaVersion")
+			realVersion := cfg.GetInt("aasaVersion")
 
 			if realVersion == 2 {
 				th.assertFileContent(outputAASA, "\"components\":")

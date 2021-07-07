@@ -22,34 +22,29 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/strawberryssg/strawberry-v0/htesting"
-
-	"github.com/strawberryssg/strawberry-v0/output"
-
-	"github.com/google/go-cmp/cmp"
-	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
-
-	"github.com/strawberryssg/strawberry-v0/parser"
-	"github.com/pkg/errors"
-
-	"github.com/fsnotify/fsnotify"
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+
+	"github.com/fsnotify/fsnotify"
+	"github.com/google/go-cmp/cmp"
+	"github.com/pkg/errors"
 	"github.com/sanity-io/litter"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 
-	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/tpl"
-	"github.com/spf13/viper"
-
-	"github.com/strawberryssg/strawberry-v0/resources/resource"
-
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/common/loggers"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 var (
@@ -87,7 +82,7 @@ type sitesBuilder struct {
 	// Default toml
 	configFormat  string
 	configFileSet bool
-	viperSet      bool
+	configSet     bool
 
 	// Default is empty.
 	// TODO(bep) revisit this and consider always setting it to something.
@@ -115,7 +110,7 @@ type filenameContent struct {
 }
 
 func newTestSitesBuilder(t testing.TB) *sitesBuilder {
-	v := viper.New()
+	v := config.New()
 	fs := hugofs.NewMem(v)
 
 	litterOptions := litter.Options{
@@ -144,7 +139,7 @@ func newTestSitesBuilderFromDepsCfg(t testing.TB, d deps.DepsCfg) *sitesBuilder 
 
 	b.WithWorkingDir(workingDir)
 
-	return b.WithViper(d.Cfg.(*viper.Viper))
+	return b.WithViper(d.Cfg.(config.Provider))
 }
 
 func (s *sitesBuilder) Running() *sitesBuilder {
@@ -190,26 +185,26 @@ func (s *sitesBuilder) WithConfigTemplate(data interface{}, format, configTempla
 	return s.WithConfigFile(format, b.String())
 }
 
-func (s *sitesBuilder) WithViper(v *viper.Viper) *sitesBuilder {
+func (s *sitesBuilder) WithViper(v config.Provider) *sitesBuilder {
 	s.T.Helper()
 	if s.configFileSet {
 		s.T.Fatal("WithViper: use Viper or config.toml, not both")
 	}
 	defer func() {
-		s.viperSet = true
+		s.configSet = true
 	}()
 
 	// Write to a config file to make sure the tests follow the same code path.
 	var buff bytes.Buffer
-	m := v.AllSettings()
+	m := v.Get("").(maps.Params)
 	s.Assert(parser.InterfaceToConfig(m, metadecoders.TOML, &buff), qt.IsNil)
 	return s.WithConfigFile("toml", buff.String())
 }
 
 func (s *sitesBuilder) WithConfigFile(format, conf string) *sitesBuilder {
 	s.T.Helper()
-	if s.viperSet {
-		s.T.Fatal("WithConfigFile: use Viper or config.toml, not both")
+	if s.configSet {
+		s.T.Fatal("WithConfigFile: use config.Config or config.toml, not both")
 	}
 	s.configFileSet = true
 	filename := s.absFilename("config." + format)
@@ -887,14 +882,14 @@ func (th testHelper) replaceDefaultContentLanguageValue(value string) string {
 	return value
 }
 
-func loadTestConfig(fs afero.Fs, withConfig ...func(cfg config.Provider) error) (*viper.Viper, error) {
+func loadTestConfig(fs afero.Fs, withConfig ...func(cfg config.Provider) error) (config.Provider, error) {
 	v, _, err := LoadConfig(ConfigSourceDescriptor{Fs: fs}, withConfig...)
 	return v, err
 }
 
-func newTestCfgBasic() (*viper.Viper, *hugofs.Fs) {
+func newTestCfgBasic() (config.Provider, *hugofs.Fs) {
 	mm := afero.NewMemMapFs()
-	v := viper.New()
+	v := config.New()
 	v.Set("defaultContentLanguageInSubdir", true)
 
 	fs := hugofs.NewFrom(hugofs.NewBaseFileDecorator(mm), v)
@@ -902,7 +897,7 @@ func newTestCfgBasic() (*viper.Viper, *hugofs.Fs) {
 	return v, fs
 }
 
-func newTestCfg(withConfig ...func(cfg config.Provider) error) (*viper.Viper, *hugofs.Fs) {
+func newTestCfg(withConfig ...func(cfg config.Provider) error) (config.Provider, *hugofs.Fs) {
 	mm := afero.NewMemMapFs()
 
 	v, err := loadTestConfig(mm, func(cfg config.Provider) error {

@@ -22,14 +22,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gobuffalo/flect"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/publisher"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
-	"github.com/spf13/viper"
+	"github.com/gobuffalo/flect"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/deps"
-	"github.com/strawberryssg/strawberry-v0/resources/page"
 )
 
 const (
@@ -363,7 +363,7 @@ func TestMainSections(t *testing.T) {
 	c := qt.New(t)
 	for _, paramSet := range []bool{false, true} {
 		c.Run(fmt.Sprintf("param-%t", paramSet), func(c *qt.C) {
-			v := viper.New()
+			v := config.New()
 			if paramSet {
 				v.Set("params", map[string]interface{}{
 					"mainSections": []string{"a1", "a2"},

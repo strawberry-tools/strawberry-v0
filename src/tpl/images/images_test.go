@@ -21,12 +21,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 type tstNoStringer struct{}
@@ -82,7 +84,7 @@ func TestNSConfig(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	v.Set("workingDir", "/a/b")
 
 	ns := New(&deps.Deps{Fs: hugofs.NewMem(v)})

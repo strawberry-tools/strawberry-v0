@@ -20,16 +20,17 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/spf13/viper"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+
+	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/htesting"
-	"github.com/spf13/afero"
 )
 
 func TestLanguageRootMapping(t *testing.T) {
 	c := qt.New(t)
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 
 	fs := NewBaseFileDecorator(afero.NewMemMapFs())
