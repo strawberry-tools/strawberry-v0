@@ -30,53 +30,39 @@ import (
 	"time"
 
 	"github.com/strawberryssg/strawberry-v0/common/constants"
-	"github.com/strawberryssg/strawberry-v0/resources"
-
-	"github.com/strawberryssg/strawberry-v0/common/loggers"
-
-	"github.com/strawberryssg/strawberry-v0/identity"
-
-	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
-
-	"github.com/strawberryssg/strawberry-v0/resources/resource"
-
-	"github.com/strawberryssg/strawberry-v0/markup/converter"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
-	"github.com/strawberryssg/strawberry-v0/common/maps"
-
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/common/text"
-
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
-	"github.com/strawberryssg/strawberry-v0/publisher"
-	_errors "github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/langs"
-
-	"github.com/strawberryssg/strawberry-v0/resources/page"
-
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/strawberryssg/strawberry-v0/lazy"
-
-	"github.com/strawberryssg/strawberry-v0/media"
-
-	"github.com/fsnotify/fsnotify"
-	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/identity"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/lazy"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
+	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/navigation"
 	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/publisher"
 	"github.com/strawberryssg/strawberry-v0/related"
+	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/strawberryssg/strawberry-v0/tpl"
 
+	"github.com/fsnotify/fsnotify"
+	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
-	"github.com/spf13/viper"
+
+	_errors "github.com/pkg/errors"
+	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 )
 
 // Site contains all the information relevant for constructing a static
@@ -512,9 +498,9 @@ But this also means that your site configuration may not do what you expect. If 
 	var relatedContentConfig related.Config
 
 	if cfg.Language.IsSet("related") {
-		relatedContentConfig, err = related.DecodeConfig(cfg.Language.Get("related"))
+		relatedContentConfig, err = related.DecodeConfig(cfg.Language.GetParams("related"))
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "failed to decode related config")
 		}
 	} else {
 		relatedContentConfig = related.DefaultConfig
@@ -585,7 +571,8 @@ func NewSite(cfg deps.DepsCfg) (*Site, error) {
 		return nil, err
 	}
 
-	if err = applyDeps(cfg, s); err != nil {
+	var l configLoader
+	if err = l.applyDeps(cfg, s); err != nil {
 		return nil, err
 	}
 
@@ -597,11 +584,11 @@ func NewSite(cfg deps.DepsCfg) (*Site, error) {
 // Note: This is mainly used in single site tests.
 // TODO(bep) test refactor -- remove
 func NewSiteDefaultLang(withTemplate ...func(templ tpl.TemplateManager) error) (*Site, error) {
-	v := viper.New()
-	if err := loadDefaultSettingsFor(v); err != nil {
+	l := configLoader{cfg: config.New()}
+	if err := l.applyConfigDefaults(); err != nil {
 		return nil, err
 	}
-	return newSiteForLang(langs.NewDefaultLanguage(v), withTemplate...)
+	return newSiteForLang(langs.NewDefaultLanguage(l.cfg), withTemplate...)
 }
 
 // NewEnglishSite creates a new site in English language.
@@ -609,11 +596,11 @@ func NewSiteDefaultLang(withTemplate ...func(templ tpl.TemplateManager) error) (
 // Note: This is mainly used in single site tests.
 // TODO(bep) test refactor -- remove
 func NewEnglishSite(withTemplate ...func(templ tpl.TemplateManager) error) (*Site, error) {
-	v := viper.New()
-	if err := loadDefaultSettingsFor(v); err != nil {
+	l := configLoader{cfg: config.New()}
+	if err := l.applyConfigDefaults(); err != nil {
 		return nil, err
 	}
-	return newSiteForLang(langs.NewLanguage("en", v), withTemplate...)
+	return newSiteForLang(langs.NewLanguage("en", l.cfg), withTemplate...)
 }
 
 // newSiteForLang creates a new site in the given language.
@@ -1018,7 +1005,7 @@ func (s *Site) processPartial(config *BuildCfg, init func(config *BuildCfg) erro
 
 	changeIdentities := make(identity.Identities)
 
-	s.Log.Debug().Printf("Rebuild for events %q", events)
+	s.Log.Debugf("Rebuild for events %q", events)
 
 	h := s.h
 
@@ -1037,7 +1024,7 @@ func (s *Site) processPartial(config *BuildCfg, init func(config *BuildCfg) erro
 		sourceFilesChanged = make(map[string]bool)
 
 		// prevent spamming the log on changes
-		logger = helpers.NewDistinctFeedbackLogger()
+		logger = helpers.NewDistinctErrorLogger()
 	)
 
 	var cachePartitions []string
@@ -1333,7 +1320,7 @@ func (s *Site) initializeSiteInfo() error {
 				return vvv
 			}
 		default:
-			m := cast.ToStringMapBool(v)
+			m := maps.ToStringMapBool(v)
 			uglyURLs = func(p page.Page) bool {
 				return m[p.Section()]
 			}
@@ -1404,7 +1391,7 @@ func (s *Site) getMenusFromConfig() navigation.Menus {
 				s.Log.Errorln(err)
 			} else {
 				for _, entry := range m {
-					s.Log.Debug().Printf("found menu: %q, in site config\n", name)
+					s.Log.Debugf("found menu: %q, in site config\n", name)
 
 					menuEntry := navigation.MenuEntry{Menu: name}
 					ime, err := maps.ToStringMapE(entry)
@@ -1437,7 +1424,7 @@ func (s *SiteInfo) createNodeMenuEntryURL(in string) string {
 	menuEntryURL := in
 	menuEntryURL = helpers.SanitizeURLKeepTrailingSlash(s.s.PathSpec.URLize(menuEntryURL))
 	if !s.canonifyURLs {
-		menuEntryURL = helpers.AddContextRoot(s.s.PathSpec.BaseURL.String(), menuEntryURL)
+		menuEntryURL = paths.AddContextRoot(s.s.PathSpec.BaseURL.String(), menuEntryURL)
 	}
 	return menuEntryURL
 }
@@ -1665,7 +1652,7 @@ func (s *Site) lookupLayouts(layouts ...string) tpl.Template {
 }
 
 func (s *Site) renderAndWriteXML(statCounter *uint64, name string, targetPath string, d interface{}, templ tpl.Template) error {
-	s.Log.Debug().Printf("Render XML for %q to %q", name, targetPath)
+	s.Log.Debugf("Render XML for %q to %q", name, targetPath)
 	renderBuffer := bp.GetBuffer()
 	defer bp.PutBuffer(renderBuffer)
 
@@ -1687,7 +1674,7 @@ func (s *Site) renderAndWriteXML(statCounter *uint64, name string, targetPath st
 }
 
 func (s *Site) renderAndWritePage(statCounter *uint64, name string, targetPath string, p *pageState, templ tpl.Template) error {
-	s.Log.Debug().Printf("Render %s to %q", name, targetPath)
+	s.Log.Debugf("Render %s to %q", name, targetPath)
 	renderBuffer := bp.GetBuffer()
 	defer bp.PutBuffer(renderBuffer)
 

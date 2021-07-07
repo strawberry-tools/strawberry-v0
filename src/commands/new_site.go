@@ -20,17 +20,17 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
-
-	_errors "github.com/pkg/errors"
-
-	"github.com/spf13/cobra"
-	jww "github.com/spf13/jwalterweatherman"
-	"github.com/spf13/viper"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/create"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
+
+	"github.com/spf13/cobra"
+
+	_errors "github.com/pkg/errors"
+	jww "github.com/spf13/jwalterweatherman"
 )
 
 var _ cmder = (*newSiteCmd)(nil)
@@ -124,7 +124,7 @@ func (n *newSiteCmd) newSite(cmd *cobra.Command, args []string) error {
 
 	forceNew, _ := cmd.Flags().GetBool("force")
 
-	return n.doNewSite(hugofs.NewDefault(viper.New()), createpath, forceNew)
+	return n.doNewSite(hugofs.NewDefault(config.New()), createpath, forceNew)
 }
 
 func createConfig(fs *hugofs.Fs, inpath string, kind string) (err error) {

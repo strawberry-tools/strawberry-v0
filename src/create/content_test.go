@@ -20,15 +20,16 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/create"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugolib"
 
-	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/create"
-	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/spf13/afero"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestNewContent(t *testing.T) {
@@ -243,7 +244,7 @@ func readFileFromFs(t *testing.T, fs afero.Fs, filename string) string {
 	return string(b)
 }
 
-func newTestCfg(c *qt.C, mm afero.Fs) (*viper.Viper, *hugofs.Fs) {
+func newTestCfg(c *qt.C, mm afero.Fs) (config.Provider, *hugofs.Fs) {
 	cfg := `
 
 theme = "mytheme"

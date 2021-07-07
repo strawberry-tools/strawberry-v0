@@ -29,19 +29,17 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/disintegration/gift"
-
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
-	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
-
-	"github.com/strawberryssg/strawberry-v0/resources/resource"
-
-	"github.com/pkg/errors"
-	_errors "github.com/pkg/errors"
-
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/resources/images"
+	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
+	"github.com/disintegration/gift"
+	"github.com/pkg/errors"
+
+	_errors "github.com/pkg/errors"
 	// Blind import for image.Decode
 	_ "golang.org/x/image/webp"
 )
@@ -201,9 +199,26 @@ func (i *imageResource) Fill(spec string) (resource.Image, error) {
 		return nil, err
 	}
 
-	return i.doWithImageConfig(conf, func(src image.Image) (image.Image, error) {
+	img, err := i.doWithImageConfig(conf, func(src image.Image) (image.Image, error) {
 		return i.Proc.ApplyFiltersFromConfig(src, conf)
 	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if conf.Anchor == 0 && img.Width() == 0 || img.Height() == 0 {
+		// See https://github.com/gohugoio/hugo/issues/7955
+		// Smartcrop fails silently in some rare cases.
+		// Fall back to a center fill.
+		conf.Anchor = gift.CenterAnchor
+		conf.AnchorStr = "center"
+		return i.doWithImageConfig(conf, func(src image.Image) (image.Image, error) {
+			return i.Proc.ApplyFiltersFromConfig(src, conf)
+		})
+	}
+
+	return img, err
 }
 
 func (i *imageResource) Filter(filters ...interface{}) (resource.Image, error) {
@@ -348,7 +363,7 @@ func (i *imageResource) getImageMetaCacheTargetPath() string {
 	if fi := i.getFileInfo(); fi != nil {
 		df.dir = filepath.Dir(fi.Meta().Path())
 	}
-	p1, _ := helpers.FileAndExt(df.file)
+	p1, _ := paths.FileAndExt(df.file)
 	h, _ := i.hash()
 	idStr := helpers.HashString(h, i.size(), imageMetaVersionNumber, cfgHash)
 	p := path.Join(df.dir, fmt.Sprintf("%s_%s.json", p1, idStr))
@@ -356,7 +371,7 @@ func (i *imageResource) getImageMetaCacheTargetPath() string {
 }
 
 func (i *imageResource) relTargetPathFromConfig(conf images.ImageConfig) dirFile {
-	p1, p2 := helpers.FileAndExt(i.getResourcePaths().relTargetDirFile.file)
+	p1, p2 := paths.FileAndExt(i.getResourcePaths().relTargetDirFile.file)
 	if conf.TargetFormat != i.Format {
 		p2 = conf.TargetFormat.DefaultExtension()
 	}

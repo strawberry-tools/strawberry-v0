@@ -18,15 +18,13 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/common/hugio"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
-	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 // fileInfo implements the File interface.
@@ -263,7 +261,7 @@ func (sp *SourceSpec) NewFileInfo(fi hugofs.FileMetaInfo) (*FileInfo, error) {
 	}
 
 	ext := strings.ToLower(strings.TrimPrefix(filepath.Ext(name), "."))
-	baseName := helpers.Filename(name)
+	baseName := paths.Filename(name)
 
 	if translationBaseName == "" {
 		// This is usually provided by the filesystem. But this FileInfo is also

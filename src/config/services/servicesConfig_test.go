@@ -16,9 +16,9 @@ package services
 import (
 	"testing"
 
-	qt "github.com/frankban/quicktest"
 	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestDecodeConfigFromTOML(t *testing.T) {
@@ -55,7 +55,7 @@ disableInlineCSS = true
 func TestUseSettingsFromRootIfSet(t *testing.T) {
 	c := qt.New(t)
 
-	cfg := viper.New()
+	cfg := config.New()
 	cfg.Set("disqusShortname", "root_short")
 	cfg.Set("googleAnalytics", "ga_root")
 

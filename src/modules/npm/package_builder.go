@@ -14,22 +14,20 @@
 package npm
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
-
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/afero"
-
-	"github.com/spf13/cast"
-
-	"github.com/strawberryssg/strawberry-v0/helpers"
 )
 
 const (
@@ -120,7 +118,7 @@ func Pack(fs afero.Fs, fis []hugofs.FileMetaInfo) error {
 	var commentsm map[string]interface{}
 	comments, found := b.originalPackageJSON["comments"]
 	if found {
-		commentsm = cast.ToStringMap(comments)
+		commentsm = maps.ToStringMap(comments)
 	} else {
 		commentsm = make(map[string]interface{})
 	}
@@ -129,12 +127,15 @@ func Pack(fs afero.Fs, fis []hugofs.FileMetaInfo) error {
 	b.originalPackageJSON["comments"] = commentsm
 
 	// Write it out to the project package.json
-	packageJSONData, err := json.MarshalIndent(b.originalPackageJSON, "", " ")
-	if err != nil {
+	packageJSONData := new(bytes.Buffer)
+	encoder := json.NewEncoder(packageJSONData)
+	encoder.SetEscapeHTML(false)
+	encoder.SetIndent("", strings.Repeat(" ", 2))
+	if err := encoder.Encode(b.originalPackageJSON); err != nil {
 		return errors.Wrap(err, "npm pack: failed to marshal JSON")
 	}
 
-	if err := afero.WriteFile(fs, packageJSONName, packageJSONData, 0666); err != nil {
+	if err := afero.WriteFile(fs, packageJSONName, packageJSONData.Bytes(), 0666); err != nil {
 		return errors.Wrap(err, "npm pack: failed to write package.json")
 	}
 
@@ -200,7 +201,7 @@ func (b *packageBuilder) addm(source string, m map[string]interface{}) {
 	// These packages will be added by order of import (project, module1, module2...),
 	// so that should at least give the project control over the situation.
 	if devDeps, found := m[devDependenciesKey]; found {
-		mm := cast.ToStringMapString(devDeps)
+		mm := maps.ToStringMapString(devDeps)
 		for k, v := range mm {
 			if _, added := b.devDependencies[k]; !added {
 				b.devDependencies[k] = v
@@ -210,7 +211,7 @@ func (b *packageBuilder) addm(source string, m map[string]interface{}) {
 	}
 
 	if deps, found := m[dependenciesKey]; found {
-		mm := cast.ToStringMapString(deps)
+		mm := maps.ToStringMapString(deps)
 		for k, v := range mm {
 			if _, added := b.dependencies[k]; !added {
 				b.dependencies[k] = v

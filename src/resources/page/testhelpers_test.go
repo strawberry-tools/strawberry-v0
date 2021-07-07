@@ -20,28 +20,23 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-	"github.com/strawberryssg/strawberry-v0/identity"
-	"github.com/strawberryssg/strawberry-v0/tpl"
-
-	"github.com/strawberryssg/strawberry-v0/modules"
-
-	"github.com/bep/gitmap"
-	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/resources/resource"
-	"github.com/spf13/viper"
-
-	"github.com/strawberryssg/strawberry-v0/navigation"
-
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/modules"
+	"github.com/strawberryssg/strawberry-v0/navigation"
 	"github.com/strawberryssg/strawberry-v0/related"
-
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/strawberryssg/strawberry-v0/source"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+
+	"github.com/bep/gitmap"
 )
 
 var (
@@ -69,7 +64,7 @@ func newTestPageWithFile(filename string) *testPage {
 }
 
 func newTestPathSpec() *helpers.PathSpec {
-	return newTestPathSpecFor(viper.New())
+	return newTestPathSpecFor(config.New())
 }
 
 func newTestPathSpecFor(cfg config.Provider) *helpers.PathSpec {

@@ -16,8 +16,7 @@ package markup
 import (
 	"testing"
 
-	"github.com/spf13/viper"
-
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	qt "github.com/frankban/quicktest"
@@ -26,7 +25,7 @@ import (
 func TestConverterRegistry(t *testing.T) {
 	c := qt.New(t)
 
-	r, err := NewConverterProvider(converter.ProviderConfig{Cfg: viper.New()})
+	r, err := NewConverterProvider(converter.ProviderConfig{Cfg: config.New()})
 
 	c.Assert(err, qt.IsNil)
 	c.Assert("goldmark", qt.Equals, r.GetMarkupConfig().DefaultMarkdownHandler)

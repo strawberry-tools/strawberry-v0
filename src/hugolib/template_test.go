@@ -20,20 +20,19 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/identity"
-
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/tpl"
 
-	"github.com/spf13/viper"
+	qt "github.com/frankban/quicktest"
 )
 
 func TestTemplateLookupOrder(t *testing.T) {
 	var (
 		fs  *hugofs.Fs
-		cfg *viper.Viper
+		cfg config.Provider
 		th  testHelper
 	)
 

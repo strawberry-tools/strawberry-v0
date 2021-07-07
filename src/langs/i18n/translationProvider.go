@@ -20,6 +20,7 @@ import (
 	"golang.org/x/text/language"
 
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
@@ -89,7 +90,7 @@ func addTranslationFile(bundle *i18n.Bundle, r source.File) error {
 	f.Close()
 
 	name := r.LogicalName()
-	lang := helpers.Filename(name)
+	lang := paths.Filename(name)
 	tag := language.Make(lang)
 	if tag == language.Und {
 		name = artificialLangTagPrefix + name

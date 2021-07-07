@@ -19,13 +19,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/helpers"
-
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
-
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
@@ -112,7 +110,7 @@ func TestContentMap(t *testing.T) {
 				meta["lang"] = lang
 				meta["path"] = meta.Filename()
 				meta["classifier"] = files.ClassifyContentFile(fi.Name(), meta.GetOpener())
-				meta["translationBaseName"] = helpers.Filename(fi.Name())
+				meta["translationBaseName"] = paths.Filename(fi.Name())
 			})
 	}
 

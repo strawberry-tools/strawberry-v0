@@ -29,7 +29,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/tpl/tplimpl"
 
 	"github.com/spf13/afero"
-	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -497,9 +496,9 @@ func newDepsConfig(tp *TranslationProvider, cfg config.Provider, fs *hugofs.Fs) 
 	}
 }
 
-func getConfig() *viper.Viper {
-	v := viper.New()
-	v.SetDefault("defaultContentLanguage", "en")
+func getConfig() config.Provider {
+	v := config.New()
+	v.Set("defaultContentLanguage", "en")
 	v.Set("contentDir", "content")
 	v.Set("dataDir", "data")
 	v.Set("i18nDir", "i18n")

@@ -20,16 +20,13 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/common/types"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/htesting"
-
-	"github.com/spf13/afero"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/strawberryssg/strawberry-v0/common/types"
-
+	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -166,7 +163,7 @@ func TestFlags(t *testing.T) {
 			name: "ignoreVendor as bool",
 			args: []string{"server", "--ignoreVendor"},
 			check: func(c *qt.C, cmd *serverCmd) {
-				cfg := viper.New()
+				cfg := config.New()
 				cmd.flagsToConfig(cfg)
 				c.Assert(cfg.Get("ignoreVendor"), qt.Equals, true)
 			},
@@ -176,7 +173,7 @@ func TestFlags(t *testing.T) {
 			name: "ignoreVendorPaths",
 			args: []string{"server", "--ignoreVendorPaths=github.com/**"},
 			check: func(c *qt.C, cmd *serverCmd) {
-				cfg := viper.New()
+				cfg := config.New()
 				cmd.flagsToConfig(cfg)
 				c.Assert(cfg.Get("ignoreVendorPaths"), qt.Equals, "github.com/**")
 			},
@@ -216,7 +213,7 @@ func TestFlags(t *testing.T) {
 				c.Assert(sc.serverPort, qt.Equals, 1366)
 				c.Assert(sc.environment, qt.Equals, "testing")
 
-				cfg := viper.New()
+				cfg := config.New()
 				sc.flagsToConfig(cfg)
 				c.Assert(cfg.GetString("publishDir"), qt.Equals, "/tmp/mydestination")
 				c.Assert(cfg.GetString("contentDir"), qt.Equals, "mycontent")

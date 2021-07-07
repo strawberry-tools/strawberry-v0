@@ -19,17 +19,15 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/modules"
-
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/modules"
 
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
-	"github.com/spf13/viper"
 )
 
 func TestEmptySourceFilesystem(t *testing.T) {
@@ -76,8 +74,8 @@ func TestUnicodeNorm(t *testing.T) {
 	}
 }
 
-func newTestConfig() *viper.Viper {
-	v := viper.New()
+func newTestConfig() config.Provider {
+	v := config.New()
 	v.Set("contentDir", "content")
 	v.Set("dataDir", "data")
 	v.Set("i18nDir", "i18n")

@@ -19,9 +19,9 @@ import (
 	"fmt"
 	"testing"
 
-	qt "github.com/frankban/quicktest"
 	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestDecodeConfigFromTOML(t *testing.T) {
@@ -164,7 +164,7 @@ Pattern = "["  # invalid regular expression
 func TestDecodeConfigDefault(t *testing.T) {
 	c := qt.New(t)
 
-	dcfg, err := decodeConfig(viper.New())
+	dcfg, err := decodeConfig(config.New())
 	c.Assert(err, qt.IsNil)
 	c.Assert(len(dcfg.Targets), qt.Equals, 0)
 	c.Assert(len(dcfg.Matchers), qt.Equals, 0)

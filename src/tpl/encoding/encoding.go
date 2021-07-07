@@ -20,6 +20,8 @@ import (
 	"errors"
 	"html/template"
 
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+
 	"github.com/spf13/cast"
 )
 
@@ -71,7 +73,7 @@ func (ns *Namespace) Jsonify(args ...interface{}) (template.HTML, error) {
 	case 2:
 		var opts map[string]string
 
-		opts, err = cast.ToStringMapStringE(args[0])
+		opts, err = maps.ToStringMapStringE(args[0])
 		if err != nil {
 			break
 		}

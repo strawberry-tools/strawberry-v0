@@ -16,17 +16,17 @@
 package page
 
 import (
-	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 // ZeroFile represents a zero value of source.File with warnings if invoked.
 type zeroFile struct {
-	log *helpers.DistinctLogger
+	log loggers.Logger
 }
 
-func NewZeroFile(log *helpers.DistinctLogger) source.File {
+func NewZeroFile(log loggers.Logger) source.File {
 	return zeroFile{log: log}
 }
 

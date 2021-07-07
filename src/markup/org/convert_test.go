@@ -16,9 +16,8 @@ package org
 import (
 	"testing"
 
-	"github.com/spf13/viper"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
-
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	qt "github.com/frankban/quicktest"
@@ -28,7 +27,7 @@ func TestConvert(t *testing.T) {
 	c := qt.New(t)
 	p, err := Provider.New(converter.ProviderConfig{
 		Logger: loggers.NewErrorLogger(),
-		Cfg:    viper.New(),
+		Cfg:    config.New(),
 	})
 	c.Assert(err, qt.IsNil)
 	conv, err := p.New(converter.DocumentContext{})

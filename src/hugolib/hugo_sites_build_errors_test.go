@@ -5,13 +5,11 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-	"time"
 
-	"github.com/fortytw2/leaktest"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/htesting"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/common/herrors"
 )
 
 type testSiteBuildErrorAsserter struct {
@@ -318,7 +316,7 @@ Some content.
 // https://github.com/gothamhq/gotham/issues/5375
 func TestSiteBuildTimeout(t *testing.T) {
 	if !htesting.IsCI() {
-		defer leaktest.CheckTimeout(t, 10*time.Second)()
+		//defer leaktest.CheckTimeout(t, 10*time.Second)()
 	}
 
 	b := newTestSitesBuilder(t)

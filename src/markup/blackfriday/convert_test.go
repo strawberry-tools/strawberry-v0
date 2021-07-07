@@ -16,13 +16,13 @@ package blackfriday
 import (
 	"testing"
 
-	"github.com/spf13/viper"
-
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/markup/blackfriday/blackfriday_config"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
-	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/markup/blackfriday/blackfriday_config"
 	"github.com/russross/blackfriday"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestGetMarkdownExtensionsMasksAreRemovedFromExtensions(t *testing.T) {
@@ -140,7 +140,7 @@ func TestGetAllFlags(t *testing.T) {
 func TestConvert(t *testing.T) {
 	c := qt.New(t)
 	p, err := Provider.New(converter.ProviderConfig{
-		Cfg: viper.New(),
+		Cfg: config.New(),
 	})
 	c.Assert(err, qt.IsNil)
 	conv, err := p.New(converter.DocumentContext{})
@@ -153,7 +153,7 @@ func TestConvert(t *testing.T) {
 func TestGetHTMLRendererAnchors(t *testing.T) {
 	c := qt.New(t)
 	p, err := Provider.New(converter.ProviderConfig{
-		Cfg: viper.New(),
+		Cfg: config.New(),
 	})
 	c.Assert(err, qt.IsNil)
 	conv, err := p.New(converter.DocumentContext{

@@ -33,15 +33,16 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/livereload"
-
-	"github.com/spf13/afero"
-	"github.com/spf13/cobra"
-	jww "github.com/spf13/jwalterweatherman"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/livereload"
+
+	"github.com/pkg/errors"
+	"github.com/spf13/afero"
+	"github.com/spf13/cobra"
+
+	jww "github.com/spf13/jwalterweatherman"
 )
 
 type serverCmd struct {
@@ -279,7 +280,7 @@ func (sc *serverCmd) server(cmd *cobra.Command, args []string) error {
 func getRootWatchDirsStr(baseDir string, watchDirs []string) string {
 	relWatchDirs := make([]string, len(watchDirs))
 	for i, dir := range watchDirs {
-		relWatchDirs[i], _ = helpers.GetRelativePath(dir, baseDir)
+		relWatchDirs[i], _ = paths.GetRelativePath(dir, baseDir)
 	}
 
 	return strings.Join(helpers.UniqueStringsSorted(helpers.ExtractRootPaths(relWatchDirs)), ",")

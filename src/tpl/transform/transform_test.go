@@ -18,15 +18,15 @@ import (
 	"testing"
 
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
-	"github.com/spf13/afero"
-
-	qt "github.com/frankban/quicktest"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/langs"
-	"github.com/spf13/viper"
+
+	"github.com/spf13/afero"
+
+	qt "github.com/frankban/quicktest"
 )
 
 type tstNoStringer struct{}
@@ -35,7 +35,7 @@ func TestEmojify(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	ns := New(newDeps(v))
 
 	for _, test := range []struct {
@@ -64,7 +64,7 @@ func TestHighlight(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 	ns := New(newDeps(v))
 
@@ -96,7 +96,7 @@ func TestHTMLEscape(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 	ns := New(newDeps(v))
 
@@ -126,7 +126,7 @@ func TestHTMLUnescape(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 	ns := New(newDeps(v))
 
@@ -156,7 +156,7 @@ func TestMarkdownify(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 	ns := New(newDeps(v))
 
@@ -185,7 +185,7 @@ func TestMarkdownify(t *testing.T) {
 func TestMarkdownifyBlocksOfText(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
-	v := viper.New()
+	v := config.New()
 	v.Set("contentDir", "content")
 	ns := New(newDeps(v))
 
@@ -211,7 +211,7 @@ func TestPlainify(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	v := viper.New()
+	v := config.New()
 	ns := New(newDeps(v))
 
 	for _, test := range []struct {

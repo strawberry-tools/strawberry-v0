@@ -19,17 +19,17 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/spf13/viper"
-
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+
+	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/spf13/afero"
 )
 
 func TestResolveMarkup(t *testing.T) {
 	c := qt.New(t)
-	cfg := viper.New()
+	cfg := config.New()
 	spec, err := NewContentSpec(cfg, loggers.NewErrorLogger(), afero.NewMemMapFs())
 	c.Assert(err, qt.IsNil)
 

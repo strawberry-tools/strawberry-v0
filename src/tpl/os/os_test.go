@@ -17,11 +17,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+
 	"github.com/spf13/afero"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestReadFile(t *testing.T) {
@@ -30,7 +32,7 @@ func TestReadFile(t *testing.T) {
 
 	workingDir := "/home/hugo"
 
-	v := viper.New()
+	v := config.New()
 	v.Set("workingDir", workingDir)
 
 	// f := newTestFuncsterWithViper(v)
@@ -68,7 +70,7 @@ func TestFileExists(t *testing.T) {
 
 	workingDir := "/home/hugo"
 
-	v := viper.New()
+	v := config.New()
 	v.Set("workingDir", workingDir)
 
 	ns := New(&deps.Deps{Fs: hugofs.NewMem(v)})
@@ -103,7 +105,7 @@ func TestStat(t *testing.T) {
 	c := qt.New(t)
 	workingDir := "/home/hugo"
 
-	v := viper.New()
+	v := config.New()
 	v.Set("workingDir", workingDir)
 
 	ns := New(&deps.Deps{Fs: hugofs.NewMem(v)})

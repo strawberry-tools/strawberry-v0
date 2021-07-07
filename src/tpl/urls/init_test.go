@@ -16,11 +16,12 @@ package urls
 import (
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
 	"github.com/strawberryssg/strawberry-v0/tpl/internal"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestInit(t *testing.T) {
@@ -29,7 +30,7 @@ func TestInit(t *testing.T) {
 	var ns *internal.TemplateFuncsNamespace
 
 	for _, nsf := range internal.TemplateFuncsNamespaceRegistry {
-		ns = nsf(&deps.Deps{Cfg: viper.New()})
+		ns = nsf(&deps.Deps{Cfg: config.New()})
 		if ns.Name == name {
 			found = true
 			break

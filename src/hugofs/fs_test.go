@@ -16,15 +16,17 @@ package hugofs
 import (
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
+
 	"github.com/spf13/afero"
-	"github.com/spf13/viper"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestNewDefault(t *testing.T) {
 	c := qt.New(t)
-	v := viper.New()
+	v := config.New()
 	f := NewDefault(v)
 
 	c.Assert(f.Source, qt.Not(qt.IsNil))
@@ -35,7 +37,7 @@ func TestNewDefault(t *testing.T) {
 
 func TestNewMem(t *testing.T) {
 	c := qt.New(t)
-	v := viper.New()
+	v := config.New()
 	f := NewMem(v)
 
 	c.Assert(f.Source, qt.Not(qt.IsNil))
@@ -48,7 +50,7 @@ func TestNewMem(t *testing.T) {
 
 func TestWorkingDir(t *testing.T) {
 	c := qt.New(t)
-	v := viper.New()
+	v := config.New()
 
 	v.Set("workingDir", "/a/b/")
 

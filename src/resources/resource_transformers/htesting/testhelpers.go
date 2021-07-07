@@ -17,17 +17,18 @@ import (
 	"path/filepath"
 
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/resources"
+
 	"github.com/spf13/afero"
-	"github.com/spf13/viper"
 )
 
 func NewTestResourceSpec() (*resources.Spec, error) {
-	cfg := viper.New()
+	cfg := config.New()
 	cfg.Set("baseURL", "https://example.org")
 	cfg.Set("publishDir", "public")
 

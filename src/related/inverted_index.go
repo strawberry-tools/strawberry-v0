@@ -22,7 +22,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/common/types"
+
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -404,14 +406,9 @@ func norm(num, min, max int) int {
 }
 
 // DecodeConfig decodes a slice of map into Config.
-func DecodeConfig(in interface{}) (Config, error) {
-	if in == nil {
+func DecodeConfig(m maps.Params) (Config, error) {
+	if m == nil {
 		return Config{}, errors.New("no related config provided")
-	}
-
-	m, ok := in.(map[string]interface{})
-	if !ok {
-		return Config{}, fmt.Errorf("expected map[string]interface {} got %T", in)
 	}
 
 	if len(m) == 0 {

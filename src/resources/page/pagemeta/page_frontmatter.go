@@ -18,10 +18,11 @@ import (
 	"time"
 
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/spf13/cast"
 )
 
@@ -118,7 +119,7 @@ func (f FrontMatterHandler) IsDateKey(key string) bool {
 // This follows the format as outlined in Jekyll, https://jekyllrb.com/docs/posts/:
 // "Where YEAR is a four-digit number, MONTH and DAY are both two-digit numbers"
 func dateAndSlugFromBaseFilename(name string) (time.Time, string) {
-	withoutExt, _ := helpers.FileAndExt(name)
+	withoutExt, _ := paths.FileAndExt(name)
 
 	if len(withoutExt) < 10 {
 		// This can not be a date.
