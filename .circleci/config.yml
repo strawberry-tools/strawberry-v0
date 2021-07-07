@@ -61,6 +61,7 @@ executors:
   go:
     docker:
       - image: cimg/go:1.16-node
+    resource_class: large
 
 jobs:
   generic-tests:
