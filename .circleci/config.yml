@@ -140,7 +140,7 @@ jobs:
           name: "Build Snapshot or Release"
           command: |
             if [[ $CIRCLE_TAG == "" ]]; then
-              goreleaser build --config=.goreleaser.yml --skip-validate --rm-dist
+              goreleaser build --config=.goreleaser.yml --snapshot --skip-publish --skip-validate --rm-dist
             else
               goreleaser release --config=.goreleaser.yml
             fi
@@ -171,7 +171,7 @@ jobs:
           name: "Build Snapshot or Release"
           command: |
             if [[ $CIRCLE_TAG == "" ]]; then
-              goreleaser build --config=.goreleaser.macos.yml --skip-validate --rm-dist
+              goreleaser build --config=.goreleaser.macos.yml --snapshot --skip-publish --skip-validate --rm-dist
             else
               goreleaser release --config=.goreleaser.macos.yml
             fi
