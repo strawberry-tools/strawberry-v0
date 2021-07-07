@@ -12,6 +12,12 @@ Cloning is pretty much straight forward however if you want to be able to pull i
 1. We want to tell git fetch to not pull tags from this upstream. In the git config for this repo, set "remote.<name>.tagopt" where <name> is the Hugo upstream namae you used: `remote.upsteam.tagopt=--no-tags`
 1. Then we can run git fetch: `git fetch upstream`
 
-Notes:
+
+## Dependencies
+
+- g++ is needed. On Ubuntu, this can be installed via the "build-essential" package.
+
+
+## Notes
 
 - **RAM usage** - Running the full test suite (included RACE tests) can consume more than 4GB of RAM.
