@@ -8,7 +8,10 @@ builds:
     goarch:
       - amd64
     ldflags:
-      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }}
+      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }} -X github.com/strawberryssg/strawberry-v0/common/hugo.vendorInfo=gohugoio
+    flags:
+      - -buildmode
+      - exe
   - id: strawberry-windows
     dir: src
     env:
@@ -18,13 +21,12 @@ builds:
     flags:
       - -buildmode
       - exe
-      - -tags
     goos:
       - windows
     goarch:
       - amd64
     ldflags:
-      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }}
+      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }} -X github.com/strawberryssg/strawberry-v0/common/hugo.vendorInfo=gohugoio
 
 archives:
   - format: tar.gz
