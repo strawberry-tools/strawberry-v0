@@ -8,7 +8,7 @@ builds:
     goarch:
       - amd64
     ldflags:
-      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }} -extldflags "-static"
+      - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }}
   - id: strawberry-windows
     dir: src
     env:
