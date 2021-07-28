@@ -21,3 +21,9 @@ Cloning is pretty much straight forward however if you want to be able to pull i
 ## Notes
 
 - **RAM usage** - Running the full test suite (included RACE tests) can consume more than 4GB of RAM.
+- Generating image files for Golden is not automatic. It needs to be done manually.
+  - In `src/resources/image_test.go`, the devMode variable needs to manually be set to `true` in the `TestImageOperationsGolden` function.
+  - Clean test cache: `go clean -testcache`
+  - go test ./...
+  - In the output, you'll see a directory in `/tmp` where the files were generated. Find the image subdirectory, and copy those files to `src/resources/testdata/golden/`.
+  - revert the devMode change in the test file.
