@@ -42,7 +42,8 @@ var (
 	// Add or increment if changes to an image format's processing requires
 	// re-generation.
 	imageFormatsVersions = map[Format]int{
-		PNG: 2, // Floyd Steinberg dithering
+		PNG:  4, // Fix transparency issue with 32 bit images.
+		WEBP: 3, // Fix transparency issue with 32 bit images.
 	}
 
 	// Increment to mark all processed images as stale. Only use when absolutely needed.

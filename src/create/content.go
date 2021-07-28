@@ -121,7 +121,7 @@ func NewContent(
 
 func targetSite(sites *hugolib.HugoSites, fi hugofs.FileMetaInfo) *hugolib.Site {
 	for _, s := range sites.Sites {
-		if fi.Meta().Lang() == s.Language().Lang {
+		if fi.Meta().Lang == s.Language().Lang {
 			return s
 		}
 	}
@@ -135,7 +135,7 @@ func newContentFromDir(
 	cm archetypeMap, name, targetPath string) error {
 	for _, f := range cm.otherFiles {
 		meta := f.Meta()
-		filename := meta.Path()
+		filename := meta.Path
 		// Just copy the file to destination.
 		in, err := meta.Open()
 		if err != nil {
@@ -164,7 +164,7 @@ func newContentFromDir(
 	}
 
 	for _, f := range cm.contentFiles {
-		filename := f.Meta().Path()
+		filename := f.Meta().Path
 		s := targetSite(sites, f)
 		targetFilename := filepath.Join(targetPath, strings.TrimPrefix(filename, archetypeDir))
 
@@ -272,7 +272,7 @@ func resolveContentPath(sites *hugolib.HugoSites, fs afero.Fs, targetPath string
 
 	for _, dir := range sites.BaseFs.Content.Dirs {
 		meta := dir.Meta()
-		contentDir := meta.Filename()
+		contentDir := meta.Filename
 
 		if !strings.HasSuffix(contentDir, helpers.FilePathSeparator) {
 			contentDir += helpers.FilePathSeparator
@@ -280,7 +280,7 @@ func resolveContentPath(sites *hugolib.HugoSites, fs afero.Fs, targetPath string
 
 		if strings.HasPrefix(targetPath, contentDir) {
 			siteContentDir = contentDir
-			dirLang = meta.Lang()
+			dirLang = meta.Lang
 			break
 		}
 	}
@@ -315,8 +315,8 @@ func resolveContentPath(sites *hugolib.HugoSites, fs afero.Fs, targetPath string
 	} else {
 		var contentDir string
 		for _, dir := range sites.BaseFs.Content.Dirs {
-			contentDir = dir.Meta().Filename()
-			if dir.Meta().Lang() == s.Lang() {
+			contentDir = dir.Meta().Filename
+			if dir.Meta().Lang == s.Lang() {
 				break
 			}
 		}

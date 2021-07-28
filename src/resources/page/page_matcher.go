@@ -17,10 +17,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/pkg/errors"
-
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
+
 	"github.com/mitchellh/mapstructure"
+	"github.com/pkg/errors"
 )
 
 // A PageMatcher can be used to match a Page with Glob patterns.
@@ -68,6 +69,42 @@ func (m PageMatcher) Matches(p Page) bool {
 	}
 
 	return true
+}
+
+// DecodeCascade decodes in which could be eiter a map or a slice of maps.
+func DecodeCascade(in interface{}) (map[PageMatcher]maps.Params, error) {
+	m, err := maps.ToSliceStringMap(in)
+	if err != nil {
+		return map[PageMatcher]maps.Params{
+			{}: maps.ToStringMap(in),
+		}, nil
+	}
+
+	cascade := make(map[PageMatcher]maps.Params)
+
+	for _, vv := range m {
+		var m PageMatcher
+		if mv, found := vv["_target"]; found {
+			err := DecodePageMatcher(mv, &m)
+			if err != nil {
+				return nil, err
+			}
+		}
+		c, found := cascade[m]
+		if found {
+			// Merge
+			for k, v := range vv {
+				if _, found := c[k]; !found {
+					c[k] = v
+				}
+			}
+		} else {
+			cascade[m] = vv
+		}
+	}
+
+	return cascade, nil
+
 }
 
 // DecodePageMatcher decodes m into v.
