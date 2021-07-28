@@ -390,9 +390,9 @@ func InitLoggers() {
 // plenty of time to fix their templates.
 func Deprecated(item, alternative string, err bool) {
 	if err {
-		DistinctErrorLog.Printf("%s is deprecated and will be removed in Hugo %s. %s", item, hugo.CurrentVersion.Next().ReleaseVersion(), alternative)
+		DistinctErrorLog.Errorf("%s is deprecated and will be removed in Hugo %s. %s", item, hugo.CurrentVersion.Next().ReleaseVersion(), alternative)
 	} else {
-		DistinctWarnLog.Printf("%s is deprecated and will be removed in a future release. %s", item, alternative)
+		DistinctWarnLog.Warnf("%s is deprecated and will be removed in a future release. %s", item, alternative)
 	}
 }
 
@@ -493,7 +493,7 @@ func PrintFs(fs afero.Fs, path string, w io.Writer) {
 		var filename string
 		var meta interface{}
 		if fim, ok := info.(hugofs.FileMetaInfo); ok {
-			filename = fim.Meta().Filename()
+			filename = fim.Meta().Filename
 			meta = fim.Meta()
 		}
 		fmt.Fprintf(w, "    %q %q\t\t%v\n", path, filename, meta)
