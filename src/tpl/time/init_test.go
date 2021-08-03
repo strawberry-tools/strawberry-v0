@@ -16,11 +16,13 @@ package time
 import (
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/htesting/hqt"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/strawberryssg/strawberry-v0/deps"
-	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 )
 
 func TestInit(t *testing.T) {
@@ -29,7 +31,9 @@ func TestInit(t *testing.T) {
 	var ns *internal.TemplateFuncsNamespace
 
 	for _, nsf := range internal.TemplateFuncsNamespaceRegistry {
-		ns = nsf(&deps.Deps{})
+		ns = nsf(&deps.Deps{
+			Language: langs.NewDefaultLanguage(config.New()),
+		})
 		if ns.Name == name {
 			found = true
 			break
@@ -37,5 +41,7 @@ func TestInit(t *testing.T) {
 	}
 
 	c.Assert(found, qt.Equals, true)
-	c.Assert(ns.Context(), hqt.IsSameType, &Namespace{})
+	ctx, err := ns.Context()
+	c.Assert(err, qt.IsNil)
+	c.Assert(ctx, hqt.IsSameType, &Namespace{})
 }

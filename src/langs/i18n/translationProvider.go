@@ -28,7 +28,7 @@ import (
 
 	"github.com/gohugoio/go-i18n/v2/i18n"
 
-	toml "github.com/pelletier/go-toml"
+	toml "github.com/pelletier/go-toml/v2"
 	_errors "github.com/pkg/errors"
 	yaml "gopkg.in/yaml.v2"
 )
