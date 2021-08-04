@@ -22,27 +22,23 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gobuffalo/flect"
-	"github.com/strawberryssg/strawberry-v0/markup/converter"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
-
-	"github.com/strawberryssg/strawberry-v0/related"
-
-	"github.com/pkg/errors"
-	"github.com/strawberryssg/strawberry-v0/source"
-
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-
-	"github.com/spf13/cast"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/related"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/source"
+
+	"github.com/gobuffalo/flect"
+	"github.com/pkg/errors"
+	"github.com/spf13/cast"
 )
 
 var cjkRe = regexp.MustCompile(`\p{Han}|\p{Hangul}|\p{Hiragana}|\p{Katakana}`)
@@ -396,6 +392,7 @@ func (pm *pageMeta) setMetadata(parentBucket *pagesMapBucket, p *pageState, fron
 		BaseFilename:  contentBaseName,
 		ModTime:       mtime,
 		GitAuthorDate: gitAuthorDate,
+		Location:      langs.GetLocation(pm.s.Language()),
 	}
 
 	// Handle the date separately

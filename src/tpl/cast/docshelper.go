@@ -18,6 +18,7 @@ import (
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/docshelper"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 )
@@ -25,10 +26,12 @@ import (
 // This file provides documentation support and is randomly put into this package.
 func init() {
 	docsProvider := func() docshelper.DocProvider {
+		cfg := config.New()
 		d := &deps.Deps{
-			Cfg:                 config.New(),
+			Cfg:                 cfg,
 			Log:                 loggers.NewErrorLogger(),
 			BuildStartListeners: &deps.Listeners{},
+			Language:            langs.NewDefaultLanguage(cfg),
 			Site:                page.NewDummyHugoSite(newTestConfig()),
 		}
 
