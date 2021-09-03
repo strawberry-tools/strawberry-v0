@@ -110,11 +110,11 @@ func Execute(args []string) Response {
 }
 
 // InitializeConfig initializes a config file with sensible default configuration flags.
-func initializeConfig(mustHaveConfigFile, running bool,
+func initializeConfig(mustHaveConfigFile, failOnInitErr, running bool,
 	h *hugoBuilderCommon,
 	f flagsToConfigHandler,
 	cfgInit func(c *commandeer) error) (*commandeer, error) {
-	c, err := newCommandeer(mustHaveConfigFile, running, h, f, cfgInit)
+	c, err := newCommandeer(mustHaveConfigFile, failOnInitErr, running, h, f, cfgInit)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func initializeConfig(mustHaveConfigFile, running bool,
 	return c, nil
 }
 
-func (c *commandeer) createLogger(cfg config.Provider, running bool) (loggers.Logger, error) {
+func (c *commandeer) createLogger(cfg config.Provider) (loggers.Logger, error) {
 	var (
 		logHandle       = ioutil.Discard
 		logThreshold    = jww.LevelWarn
@@ -166,7 +166,7 @@ func (c *commandeer) createLogger(cfg config.Provider, running bool) (loggers.Lo
 	loggers.InitGlobalLogger(stdoutThreshold, logThreshold, outHandle, logHandle)
 	helpers.InitLoggers()
 
-	return loggers.NewLogger(stdoutThreshold, logThreshold, outHandle, logHandle, running), nil
+	return loggers.NewLogger(stdoutThreshold, logThreshold, outHandle, logHandle, c.running), nil
 }
 
 func initializeFlags(cmd *cobra.Command, cfg config.Provider) {
@@ -786,7 +786,7 @@ func (c *commandeer) fullRebuild(changeType string) {
 		defer c.timeTrack(time.Now(), "Rebuilt")
 
 		c.commandeerHugoState = newCommandeerHugoState()
-		err := c.loadConfig(true, true)
+		err := c.loadConfig()
 		if err != nil {
 			// Set the processing on pause until the state is recovered.
 			c.paused = true
