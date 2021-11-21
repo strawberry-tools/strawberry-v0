@@ -23,12 +23,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
-	"golang.org/x/text/unicode/norm"
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
+	"golang.org/x/text/unicode/norm"
 )
 
 func NewFileMeta() *FileMeta {
@@ -74,6 +75,9 @@ type FileMeta struct {
 	Fs           afero.Fs
 	OpenFunc     func() (afero.File, error)
 	JoinStatFunc func(name string) (FileMetaInfo, error)
+
+	// Include only files or directories that match.
+	InclusionFilter *glob.FilenameFilter
 }
 
 func (m *FileMeta) Copy() *FileMeta {
@@ -93,9 +97,16 @@ func (m *FileMeta) Merge(from *FileMeta) {
 
 	for i := 0; i < dstv.NumField(); i++ {
 		v := dstv.Field(i)
+		if !v.CanSet() {
+			continue
+		}
 		if !hreflect.IsTruthfulValue(v) {
 			v.Set(srcv.Field(i))
 		}
+	}
+
+	if m.InclusionFilter == nil {
+		m.InclusionFilter = from.InclusionFilter
 	}
 }
 

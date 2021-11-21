@@ -7,10 +7,6 @@ workflows:
       - unit-tests
       - release
       - release-on-macos
-      - release-on-snap:
-          requires:
-            - release
-          context: main-context
   release:
     jobs:
       - generic-tests:
@@ -35,15 +31,6 @@ workflows:
               only: /^v\d+\.\d+\.\d+$/
           context: main-context
       - release-on-macos:
-          requires:
-            - release
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-          context: main-context
-      - release-on-snap:
           requires:
             - release
           filters:

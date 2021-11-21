@@ -28,10 +28,6 @@ import (
 	"strings"
 	"time"
 
-	hglob "github.com/strawberryssg/strawberry-v0/hugofs/glob"
-
-	"github.com/gobwas/glob"
-
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
@@ -39,10 +35,12 @@ import (
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/rogpeppe/go-internal/module"
-
+	"github.com/gobwas/glob"
 	"github.com/pkg/errors"
+	"github.com/rogpeppe/go-internal/module"
 	"github.com/spf13/afero"
+
+	hglob "github.com/strawberryssg/strawberry-v0/hugofs/glob"
 )
 
 var fileSeparator = string(os.PathSeparator)
@@ -622,7 +620,14 @@ func (c *Client) runGo(
 
 		if strings.Contains(stderr.String(), "invalid version: unknown revision") {
 			// See https://github.com/gohugoio/hugo/issues/6825
-			c.logger.Println(`strawberry: you need to manually edit go.mod to resolve the unknown revision.`)
+			c.logger.Println(`An unknown resivion most likely means that someone has deleted the remote ref (e.g. with a force push to GitHub).
+To resolve this, you need to manually edit your go.mod file and replace the version for the module in question with a valid ref.
+
+The easiest is to just enter a valid branch name ther, e.g. master, which would be the what you put in place of 'v0.5.1' in the example below.
+
+require github.com/gohugoio/hugo-mod-jslibs/instantpage v0.5.1
+
+If you then run 'strawberry mod graph' it should resolve itself to the most recent version (or commit if no semver versions).`)
 		}
 
 		_, ok := err.(*exec.ExitError)

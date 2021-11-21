@@ -254,7 +254,7 @@ func New(cfg DepsCfg) (*Deps, error) {
 		return nil, err
 	}
 
-	sp := source.NewSourceSpec(ps, fs.Source)
+	sp := source.NewSourceSpec(ps, nil, fs.Source)
 
 	timeoutms := cfg.Language.GetInt("timeout")
 	if timeoutms <= 0 {

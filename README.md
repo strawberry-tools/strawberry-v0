@@ -110,6 +110,8 @@ If you are unfamiliar with the contribution process, the Strawberry team will he
 
 For a complete guide to contributing code to Strawberry, see the [Contribution Guide](CONTRIBUTING.md).
 
+[Go]: https://golang.org/
+[Hugo Documentation]: https://gohugo.io/overview/introduction/
 
 ## Dependencies
 

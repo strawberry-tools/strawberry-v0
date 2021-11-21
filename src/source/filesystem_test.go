@@ -104,5 +104,5 @@ func newTestSourceSpec() *SourceSpec {
 	if err != nil {
 		panic(err)
 	}
-	return NewSourceSpec(ps, fs.Source)
+	return NewSourceSpec(ps, nil, fs.Source)
 }
