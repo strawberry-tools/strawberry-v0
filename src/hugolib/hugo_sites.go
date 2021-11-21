@@ -22,38 +22,32 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/fsnotify/fsnotify"
-
-	"github.com/strawberryssg/strawberry-v0/identity"
-
-	radix "github.com/armon/go-radix"
-
-	"github.com/strawberryssg/strawberry-v0/output"
-	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
-
-	"github.com/strawberryssg/strawberry-v0/common/para"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/source"
-
-	"github.com/bep/gitmap"
-	"github.com/strawberryssg/strawberry-v0/config"
-
-	"github.com/strawberryssg/strawberry-v0/publisher"
-
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/para"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
+	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/langs"
-	"github.com/strawberryssg/strawberry-v0/lazy"
-
 	"github.com/strawberryssg/strawberry-v0/langs/i18n"
+	"github.com/strawberryssg/strawberry-v0/lazy"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/publisher"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/strawberryssg/strawberry-v0/tpl"
 	"github.com/strawberryssg/strawberry-v0/tpl/tplimpl"
+
+	"github.com/bep/gitmap"
+	"github.com/fsnotify/fsnotify"
+	"github.com/pkg/errors"
+
+	radix "github.com/armon/go-radix"
 )
 
 // HugoSites represents the sites to build. Each site represents a language.
@@ -67,9 +61,6 @@ type HugoSites struct {
 
 	// If this is running in the dev server.
 	running bool
-
-	// Serializes rebuilds when server is running.
-	runningMu sync.Mutex
 
 	// Render output formats for all sites.
 	renderFormats output.Formats
@@ -677,6 +668,12 @@ type BuildCfg struct {
 	// Recently visited URLs. This is used for partial re-rendering.
 	RecentlyVisited map[string]bool
 
+	// Can be set to build only with a sub set of the content source.
+	ContentInclusionFilter *glob.FilenameFilter
+
+	// Set when the buildlock is already acquired (e.g. the archetype content builder).
+	NoBuildLock bool
+
 	testCounters *testCounters
 }
 
@@ -819,7 +816,7 @@ func (h *HugoSites) Pages() page.Pages {
 }
 
 func (h *HugoSites) loadData(fis []hugofs.FileMetaInfo) (err error) {
-	spec := source.NewSourceSpec(h.PathSpec, nil)
+	spec := source.NewSourceSpec(h.PathSpec, nil, nil)
 
 	h.data = make(map[string]interface{})
 	for _, fi := range fis {

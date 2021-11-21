@@ -1,7 +1,6 @@
 name: strawberryssg
 title: Strawberry
 summary: "Gotham has been superseded by Strawberry"
-version: "0.82.1"
 description: |
   Gotham has been superseded by Strawberry. v0.13.0 is the last version called 
   Gotham. Please install Strawberry to continue receiving updates. Follow the 
@@ -12,6 +11,13 @@ grade: stable
 confinement: strict
 icon: "img/logo-icon-x1000.png"
 adopt-info: strawberry
+
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [focal]
+    key-id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
+    url: https://deb.nodesource.com/node_16.x
 
 apps:
   strawberry:
