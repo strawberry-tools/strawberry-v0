@@ -117,74 +117,101 @@ For a complete guide to contributing code to Strawberry, see the [Contribution G
 
 Strawberry stands on the shoulder of many great open source libraries, especially [Hugo][hugo-site]:
 
- | Dependency  | License |
- | :------------- | :------------- |
- | [github.com/gohugoio/hugo](https://github.com/gohugoio/hugo) | Apache License 2.0 |
- | [github.com/alecthomas/chroma](https://github.com/alecthomas/chroma) | MIT License |
- | [github.com/armon/go-radix](https://github.com/armon/go-radix) | MIT License |
- | [github.com/aws/aws-sdk-go](https://github.com/aws/aws-sdk-go) | Apache License 2.0 |
- | [github.com/bep/debounce](https://github.com/bep/debounce) | MIT License |
- | [github.com/bep/gitmap](https://github.com/bep/gitmap) | MIT License |
- | [github.com/bep/golibsass](https://github.com/bep/golibsass) | MIT License |
- | [github.com/bep/tmc](https://github.com/bep/tmc) | MIT License |
- | [github.com/BurntSushi/locker](https://github.com/BurntSushi/locker) | The Unlicense |
- | [github.com/BurntSushi/toml](https://github.com/BurntSushi/toml) | MIT License |
- | [github.com/cpuguy83/go-md2man](https://github.com/cpuguy83/go-md2man) | MIT License |
- | [github.com/danwakefield/fnmatch](https://github.com/danwakefield/fnmatch) | BSD 2-Clause "Simplified" License |
- | [github.com/disintegration/gift](https://github.com/disintegration/gift) | MIT License |
- | [github.com/dustin/go-humanize](https://github.com/dustin/go-humanize) | MIT License |
- | [github.com/fsnotify/fsnotify](https://github.com/fsnotify/fsnotify) | BSD 3-Clause "New" or "Revised" License |
- | [github.com/gobwas/glob](https://github.com/gobwas/glob) | MIT License |
- | [github.com/gorilla/websocket](https://github.com/gorilla/websocket) | BSD 2-Clause "Simplified" License |
- | [github.com/hashicorp/golang-lru](https://github.com/hashicorp/golang-lru) | Mozilla Public License 2.0 |
- | [github.com/hashicorp/hcl](https://github.com/hashicorp/hcl) | Mozilla Public License 2.0 |
- | [github.com/jdkato/prose](https://github.com/jdkato/prose) | MIT License |
- | [github.com/kr/pretty](https://github.com/kr/pretty) | MIT License |
- | [github.com/kyokomi/emoji](https://github.com/kyokomi/emoji) | MIT License |
- | [github.com/magiconair/properties](https://github.com/magiconair/properties) | BSD 2-Clause "Simplified" License |
- | [github.com/markbates/inflect](https://github.com/markbates/inflect) | MIT License |
- | [github.com/mattn/go-isatty](https://github.com/mattn/go-isatty) | MIT License |
- | [github.com/mattn/go-runewidth](https://github.com/mattn/go-runewidth) | MIT License |
- | [github.com/miekg/mmark](https://github.com/miekg/mmark) | Simplified BSD License |
- | [github.com/mitchellh/hashstructure](https://github.com/mitchellh/hashstructure) | MIT License |
- | [github.com/mitchellh/mapstructure](https://github.com/mitchellh/mapstructure) | MIT License |
- | [github.com/muesli/smartcrop](https://github.com/muesli/smartcrop) | MIT License |
- | [github.com/nicksnyder/go-i18n](https://github.com/nicksnyder/go-i18n) | MIT License |
- | [github.com/niklasfasching/go-org](https://github.com/niklasfasching/go-org) | MIT License |
- | [github.com/olekukonko/tablewriter](https://github.com/olekukonko/tablewriter) | MIT License |
- | [github.com/pelletier/go-toml](https://github.com/pelletier/go-toml) | MIT License |
- | [github.com/pkg/errors](https://github.com/pkg/errors) | BSD 2-Clause "Simplified" License |
- | [github.com/PuerkitoBio/purell](https://github.com/PuerkitoBio/purell) | BSD 3-Clause "New" or "Revised" License |
- | [github.com/PuerkitoBio/urlesc](https://github.com/PuerkitoBio/urlesc) | BSD 3-Clause "New" or "Revised" License |
- | [github.com/rogpeppe/go-internal](https://github.com/rogpeppe/go-internal) | BSD 3-Clause "New" or "Revised" License |
- | [github.com/russross/blackfriday](https://github.com/russross/blackfriday)  | Simplified BSD License |
- | [github.com/rwcarlsen/goexif](https://github.com/rwcarlsen/goexif) | BSD 2-Clause "Simplified" License |
- | [github.com/spf13/afero](https://github.com/spf13/afero) | Apache License 2.0 |
- | [github.com/spf13/cast](https://github.com/spf13/cast) | MIT License |
- | [github.com/spf13/cobra](https://github.com/spf13/cobra) | Apache License 2.0 |
- | [github.com/spf13/fsync](https://github.com/spf13/fsync) | MIT License |
- | [github.com/spf13/jwalterweatherman](https://github.com/spf13/jwalterweatherman) | MIT License |
- | [github.com/spf13/pflag](https://github.com/spf13/pflag) | BSD 3-Clause "New" or "Revised" License |
- | [github.com/spf13/viper](https://github.com/spf13/viper) | MIT License |
- | [github.com/tdewolff/minify](https://github.com/tdewolff/minify) | MIT License |
- | [github.com/tdewolff/parse](https://github.com/tdewolff/parse) | MIT License |
- | [github.com/yuin/goldmark](https://github.com/yuin/goldmark) | MIT License |
- | [github.com/yuin/goldmark-highlighting](https://github.com/yuin/goldmark-highlighting) | MIT License |
- | [go.opencensus.io](https://go.opencensus.io) | Apache License 2.0 |
- | [go.uber.org/atomic](https://go.uber.org/atomic) | MIT License |
- | [gocloud.dev](https://gocloud.dev) | Apache License 2.0 |
- | [golang.org/x/image](https://golang.org/x/image) | BSD 3-Clause "New" or "Revised" License |
- | [golang.org/x/net](https://golang.org/x/net) | BSD 3-Clause "New" or "Revised" License |
- | [golang.org/x/oauth2](https://golang.org/x/oauth2) | BSD 3-Clause "New" or "Revised" License |
- | [golang.org/x/sync](https://golang.org/x/sync) | BSD 3-Clause "New" or "Revised" License |
- | [golang.org/x/sys](https://golang.org/x/sys) | BSD 3-Clause "New" or "Revised" License |
- | [golang.org/x/text](https://golang.org/x/text) | BSD 3-Clause "New" or "Revised" License |
- | [golang.org/x/xerrors](https://golang.org/x/xerrors) | BSD 3-Clause "New" or "Revised" License |
- | [google.golang.org/api](https://google.golang.org/api) | BSD 3-Clause "New" or "Revised" License |
- | [google.golang.org/genproto](https://google.golang.org/genproto) | Apache License 2.0 |
- | [gopkg.in/ini.v1](https://gopkg.in/ini.v1) | Apache License 2.0 |
- | [gopkg.in/yaml.v2](https://gopkg.in/yaml.v2) | Apache License 2.0 |
+If you run `strawberry env -v` you will get a complete and up to date list.
 
+In Strawberry v0.20.0 that list is, in lexical order:
+
+```
+cloud.google.com/go/storage="v1.10.0"
+cloud.google.com/go="v0.87.0"
+github.com/Azure/azure-pipeline-go="v0.2.2"
+github.com/Azure/azure-storage-blob-go="v0.9.0"
+github.com/BurntSushi/locker="v0.0.0-20171006230638-a6e239ea1c69"
+github.com/BurntSushi/toml="v0.3.1"
+github.com/PuerkitoBio/purell="v1.1.1"
+github.com/PuerkitoBio/urlesc="v0.0.0-20170810143723-de5bf2ad4578"
+github.com/alecthomas/chroma="v0.9.4"
+github.com/armon/go-radix="v1.0.0"
+github.com/aws/aws-sdk-go="v1.41.14"
+github.com/bep/debounce="v1.2.0"
+github.com/bep/gitmap="v1.1.2"
+github.com/bep/godartsass="v0.12.0"
+github.com/bep/golibsass="v1.0.0"
+github.com/bep/gowebp="v0.1.0"
+github.com/bep/tmc="v0.5.1"
+github.com/cli/safeexec="v1.0.0"
+github.com/cpuguy83/go-md2man/v2="v2.0.0"
+github.com/disintegration/gift="v1.2.1"
+github.com/dlclark/regexp2="v1.4.0"
+github.com/dustin/go-humanize="v1.0.0"
+github.com/evanw/esbuild="v0.13.12"
+github.com/fsnotify/fsnotify="v1.5.1"
+github.com/getkin/kin-openapi="v0.80.0"
+github.com/ghodss/yaml="v1.0.0"
+github.com/go-openapi/jsonpointer="v0.19.5"
+github.com/go-openapi/swag="v0.19.5"
+github.com/gobuffalo/flect="v0.2.3"
+github.com/gobwas/glob="v0.2.3"
+github.com/gohugoio/go-i18n/v2="v2.1.3-0.20210430103248-4c28c89f8013"
+github.com/gohugoio/locales="v0.14.0"
+github.com/gohugoio/localescompressed="v0.14.0"
+github.com/golang/groupcache="v0.0.0-20200121045136-8c9f03a8e57e"
+github.com/golang/protobuf="v1.5.2"
+github.com/google/go-cmp="v0.5.6"
+github.com/google/uuid="v1.1.2"
+github.com/google/wire="v0.4.0"
+github.com/googleapis/gax-go/v2="v2.0.5"
+github.com/googleapis/gax-go="v2.0.2+incompatible"
+github.com/gorilla/websocket="v1.4.2"
+github.com/inconshreveable/mousetrap="v1.0.0"
+github.com/jdkato/prose="v1.2.1"
+github.com/jmespath/go-jmespath="v0.4.0"
+github.com/kyokomi/emoji/v2="v2.2.8"
+github.com/mailru/easyjson="v0.0.0-20190626092158-b2ccc519800e"
+github.com/mattn/go-ieproxy="v0.0.1"
+github.com/mattn/go-isatty="v0.0.14"
+github.com/mattn/go-runewidth="v0.0.9"
+github.com/miekg/mmark="v1.3.6"
+github.com/mitchellh/hashstructure="v1.1.0"
+github.com/mitchellh/mapstructure="v1.4.2"
+github.com/muesli/smartcrop="v0.3.0"
+github.com/niklasfasching/go-org="v1.5.0"
+github.com/olekukonko/tablewriter="v0.0.5"
+github.com/pelletier/go-toml/v2="v2.0.0-beta.3.0.20210727221244-fa0796069526"
+github.com/pkg/errors="v0.9.1"
+github.com/rogpeppe/go-internal="v1.8.0"
+github.com/russross/blackfriday/v2="v2.0.1"
+github.com/russross/blackfriday="v1.5.3-0.20200218234912-41c5fccfd6f6"
+github.com/rwcarlsen/goexif="v0.0.0-20190401172101-9e8deecbddbd"
+github.com/sanity-io/litter="v1.5.1"
+github.com/sass/libsass="3.6.5"
+github.com/shurcooL/sanitized_anchor_name="v1.0.0"
+github.com/spf13/afero="v1.6.0"
+github.com/spf13/cast="v1.4.1"
+github.com/spf13/cobra="v1.2.1"
+github.com/spf13/fsync="v0.9.0"
+github.com/spf13/jwalterweatherman="v1.1.0"
+github.com/spf13/pflag="v1.0.5"
+github.com/tdewolff/minify/v2="v2.9.22"
+github.com/tdewolff/parse/v2="v2.5.21"
+github.com/webmproject/libwebp="v1.2.0"
+github.com/yuin/goldmark-highlighting="v0.0.0-20200307114337-60d527fdb691"
+github.com/yuin/goldmark="v1.4.2"
+go.opencensus.io="v0.23.0"
+gocloud.dev="v0.20.0"
+golang.org/x/image="v0.0.0-20210220032944-ac19c3e999fb"
+golang.org/x/net="v0.0.0-20210614182718-04defd469f4e"
+golang.org/x/oauth2="v0.0.0-20210628180205-a41e5a781914"
+golang.org/x/sync="v0.0.0-20210220032951-036812b2e83c"
+golang.org/x/sys="v0.0.0-20210908233432-aa78b53d3365"
+golang.org/x/text="v0.3.7"
+golang.org/x/xerrors="v0.0.0-20200804184101-5ec99f83aff1"
+google.golang.org/api="v0.51.0"
+google.golang.org/genproto="v0.0.0-20210716133855-ce7ef5c701ea"
+google.golang.org/grpc="v1.39.0"
+google.golang.org/protobuf="v1.27.1"
+gopkg.in/yaml.v2="v2.4.0"
+```
 
 
 [go-site]: https://go.dev/
