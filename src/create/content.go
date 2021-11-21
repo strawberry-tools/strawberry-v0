@@ -56,7 +56,11 @@ func NewContent(h *hugolib.HugoSites, kind, targetPath string) error {
 	cf := hugolib.NewContentFactory(h)
 
 	if kind == "" {
-		kind = cf.SectionFromFilename(targetPath)
+		var err error
+		kind, err = cf.SectionFromFilename(targetPath)
+		if err != nil {
+			return err
+		}
 	}
 
 	b := &contentBuilder{
@@ -203,6 +207,9 @@ func (b *contentBuilder) buildDir() error {
 		in.Close()
 		out.Close()
 	}
+
+	b.h.Log.Printf("Content dir %q created", filepath.Join(baseDir, b.targetPath))
+
 	return nil
 }
 
@@ -234,7 +241,7 @@ func (b *contentBuilder) buildFile() (string, error) {
 		return "", err
 	}
 
-	b.h.Log.Infof("Content %q created", contentPlaceholderAbsFilename)
+	b.h.Log.Printf("Content %q created", contentPlaceholderAbsFilename)
 
 	return contentPlaceholderAbsFilename, nil
 }
@@ -245,7 +252,8 @@ func (b *contentBuilder) setArcheTypeFilenameToUse(ext string) {
 	if b.kind != "" {
 		pathsToCheck = append(pathsToCheck, b.kind+ext)
 	}
-	pathsToCheck = append(pathsToCheck, "default"+ext, "default")
+
+	pathsToCheck = append(pathsToCheck, "default"+ext)
 
 	for _, p := range pathsToCheck {
 		fi, err := b.archeTypeFs.Stat(p)
@@ -331,7 +339,7 @@ func (b *contentBuilder) openInEditorIfConfigured(filename string) error {
 		return nil
 	}
 
-	b.h.Log.Infof("Editing %q with %q ...\n", filename, editor)
+	b.h.Log.Printf("Editing %q with %q ...\n", filename, editor)
 
 	cmd, err := hexec.SafeCommand(editor, filename)
 	if err != nil {

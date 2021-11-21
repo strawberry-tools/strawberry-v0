@@ -61,6 +61,7 @@ type FileMeta struct {
 	IsOrdered  bool
 	IsSymlink  bool
 	IsRootFile bool
+	IsProject  bool
 	Watch      bool
 
 	Classifier files.ContentClass
