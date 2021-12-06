@@ -281,7 +281,7 @@ func (c *commandeer) fullBuild(noBuildLock bool) error {
 
 	if !c.h.quiet {
 		fmt.Println("Start building sites … ")
-		fmt.Println(hugo.BuildVersionString())
+		fmt.Println(hugo.PrintStrawberryVersion(hugo.VersionDetailed))
 		if isTerminal() {
 			defer func() {
 				fmt.Print(showCursor + clearLine)
