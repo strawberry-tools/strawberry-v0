@@ -248,6 +248,18 @@ func (sc *serverCmd) server(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	// Check if site is intended to be a subdirectory. Not all features, such
+	// digital asset links, work when in subdirectories.
+	baseURL, err := url.Parse(c.Cfg.GetString("baseURL"))
+	if err == nil {
+
+		if baseURL.Path != "/" {
+			jww.WARN.Println(`'baseURL' is a sub-directory. Some features such as
+digital asset links, favicon.ico, etc won't work unless the website is at the root
+of a hostname. For example, https://example.com instead of https://example.com/dir .`)
+		}
+	}
+
 	err = func() error {
 		defer c.timeTrack(time.Now(), "Built")
 		err := c.serverBuild()
