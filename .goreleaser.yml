@@ -7,6 +7,10 @@ builds:
       - linux
     goarch:
       - amd64
+      - arm
+      - arm64
+    goarm:
+      - 7
     ldflags:
       - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }} -X github.com/strawberryssg/strawberry-v0/common/hugo.vendorInfo=gohugoio
     flags:
