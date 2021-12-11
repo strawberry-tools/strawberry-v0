@@ -19,15 +19,13 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/strawberryssg/strawberry-v0/tpl"
-
 	"github.com/strawberryssg/strawberry-v0/config"
-
 	"github.com/strawberryssg/strawberry-v0/output"
-	"github.com/pkg/errors"
-
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+
+	"github.com/pkg/errors"
 )
 
 type siteRenderContext struct {
@@ -392,6 +390,37 @@ func (s *Site) renderRobotsTXT() error {
 	templ := s.lookupLayouts("robots.txt", "_default/robots.txt", "_internal/_default/robots.txt")
 
 	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Robots Txt", p.targetPaths().TargetFilename, p, templ)
+}
+
+// Render the self-descriptive Strawberry File (/strawberry.json)
+func (s *Site) renderStrawberryFile() error {
+
+	p, err := newPageStandalone(&pageMeta{
+		s:    s,
+		kind: kindStrawberry,
+		urlPaths: pagemeta.URLPath{
+			URL: "strawberry.json",
+		}},
+		output.JSONFormat,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	if !p.render {
+		return nil
+	}
+
+	targetPath := p.targetPaths().TargetFilename
+
+	if targetPath == "" {
+		return errors.New("failed to create targetPath for Strawberry File")
+	}
+
+	templ := s.lookupLayouts("_internal/_default/strawberry.json")
+
+	return s.renderAndWritePage(&s.PathSpec.ProcessingStats.Pages, "Strawberry File", targetPath, p, templ)
 }
 
 // renderAliases renders shell pages that simply have a redirect in the header.

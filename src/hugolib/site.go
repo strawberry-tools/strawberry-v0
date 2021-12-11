@@ -732,12 +732,17 @@ func (s *SiteInfo) Config() SiteConfig {
 }
 
 func (s *SiteInfo) Hugo() hugo.Info {
-	return s.hugoInfo
+	return s.Strawberry()
 }
 
 // Sites is a convenience method to get all the Hugo sites/languages configured.
 func (s *SiteInfo) Sites() page.Sites {
 	return s.s.h.siteInfos()
+}
+
+// Will eventually replace Hugo() in v1
+func (s *SiteInfo) Strawberry() hugo.Info {
+	return s.hugoInfo
 }
 
 func (s *SiteInfo) String() string {
@@ -1253,6 +1258,10 @@ func (s *Site) render(ctx *siteRenderContext) (err error) {
 		}
 
 		if err = s.renderAASA(); err != nil {
+			return
+		}
+
+		if err = s.renderStrawberryFile(); err != nil {
 			return
 		}
 	}

@@ -1,5 +1,5 @@
+// Copyright 2020 The Strawberry Authors. All rights reserved.
 // Copyright 2018 The Hugo Authors. All rights reserved.
-// Copyright 2020 The Gotham Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ func TestHugoInfo(t *testing.T) {
 
 	hugoInfo := NewInfo("")
 
-	c.Assert(hugoInfo.Version(), qt.Equals, CurrentVersion.Version())
-	c.Assert(fmt.Sprintf("%T", VersionString("")), qt.Equals, fmt.Sprintf("%T", hugoInfo.Version()))
+	c.Assert(hugoInfo.Version(), qt.Equals, StrawberryVersion.String())
+	c.Assert(fmt.Sprintf("%T", ""), qt.Equals, fmt.Sprintf("%T", hugoInfo.Version()))
 	c.Assert(hugoInfo.CommitHash, qt.Equals, commitHash)
 	c.Assert(hugoInfo.BuildDate, qt.Equals, buildDate)
 	c.Assert(hugoInfo.Environment, qt.Equals, "production")

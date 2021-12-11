@@ -1,4 +1,4 @@
-// Copyright 2020 Gotham Authors. All rights reserved.
+// Copyright 2020 Strawberry Authors. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package hugo
