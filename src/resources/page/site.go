@@ -37,6 +37,7 @@ type Site interface {
 	Title() string
 	Sites() Sites
 	Hugo() hugo.Info
+	Strawberry() hugo.Info
 	BaseURL() template.URL
 	Taxonomies() interface{}
 	LastChange() time.Time
@@ -62,6 +63,11 @@ type testSite struct {
 }
 
 func (t testSite) Hugo() hugo.Info {
+	return t.Strawberry()
+}
+
+// Will completely replace Hugo() in v1
+func (t testSite) Strawberry() hugo.Info {
 	return t.h
 }
 

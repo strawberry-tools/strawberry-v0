@@ -94,5 +94,5 @@ aliases: [/Ali%d]
 
 	helpers.ProcessingStatsTable(&buff, stats...)
 
-	c.Assert(buff.String(), qt.Contains, "Pages            | 27 |  9")
+	c.Assert(buff.String(), qt.Contains, "Pages            | 28 | 10")
 }

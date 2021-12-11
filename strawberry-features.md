@@ -1,14 +1,14 @@
-# Gotham Features
+# Strawberry Features
 
-Gotham is built upon the strong foundation of [Hugo](https://gohugo.io).
+Strawberry is built upon the strong foundation of [Hugo](https://gohugo.io).
 99% of our features (and code for that matter) come from Hugo.
 You can learn about all of Hugo's features (if you're unfamiliar) [here](https://gohugo.io/about/features/).
 
-The current list of Gotham unique features can be found on [the website](https://www.gothamhq.com/features/).
+The current list of Strawberry unique features can be found on [the website](https://www.gothamhq.com/features/).
 Below are features tracked for the next or some future release.
 
 
-## Features Unique to Gotham
+## Features Unique to Strawberry
 
 ### Apple App Site Association
 
@@ -64,3 +64,16 @@ Here's an example:
 ```yaml
 jsonFeedFull: false
 ```
+
+### Strawberry File
+
+There's a file at the root of your website called `strawberry.json`.
+This file contains metadata about your website which includes:
+
+- Strawberry version
+- Hugo base version
+- build date
+- number of RegularPages
+
+
+The file is in JSON so it can be easily parsed by outside sources.

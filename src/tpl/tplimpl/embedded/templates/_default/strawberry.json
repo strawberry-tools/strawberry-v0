@@ -1,0 +1,6 @@
+{
+	"strawberry_version": "{{ strawberry.Version }}",
+	"hugo_version": "{{ strawberry.HugoVersion }}",
+	"build_date": "{{ strawberry.BuildDate }}",
+	"pages": "{{ len .Site.RegularPages }}"
+}

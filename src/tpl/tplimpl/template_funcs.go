@@ -54,6 +54,7 @@ import (
 	_ "github.com/strawberryssg/strawberry-v0/tpl/resources"
 	_ "github.com/strawberryssg/strawberry-v0/tpl/safe"
 	_ "github.com/strawberryssg/strawberry-v0/tpl/site"
+	_ "github.com/strawberryssg/strawberry-v0/tpl/strawberry"
 	_ "github.com/strawberryssg/strawberry-v0/tpl/strings"
 	_ "github.com/strawberryssg/strawberry-v0/tpl/templates"
 	_ "github.com/strawberryssg/strawberry-v0/tpl/time"

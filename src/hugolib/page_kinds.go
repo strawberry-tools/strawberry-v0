@@ -36,6 +36,7 @@ const (
 	kind404        = "404"
 	kindAssetLinks = "assetLinks"
 	kindAASA       = "AASA"
+	kindStrawberry = "StrawberryFile"
 
 	pageResourceType = "page"
 )
@@ -48,6 +49,7 @@ var kindMap = map[string]string{
 	strings.ToLower(kind404):        kind404,
 	strings.ToLower(kindAssetLinks): kindAssetLinks,
 	strings.ToLower(kindAASA):       kindAASA,
+	strings.ToLower(kindStrawberry): kindStrawberry,
 }
 
 func getKind(s string) string {

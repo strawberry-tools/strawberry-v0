@@ -23,12 +23,11 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
 	"github.com/spf13/afero"
-
-	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 )
 
 const (
@@ -60,12 +59,18 @@ type Info struct {
 	Environment string
 }
 
-// Version returns the current version as a comparable version string.
-func (i Info) Version() VersionString {
-	return CurrentVersion.Version()
+// HugoVersion returns the version number of the Hugo release Strawberry is
+// based on.
+func (i Info) HugoVersion() string {
+	return CurrentVersion.String()
 }
 
-// Generator a Gotham meta generator HTML tag.
+// Version returns the current version as a comparable version string.
+func (i Info) Version() string {
+	return StrawberryVersion.String()
+}
+
+// Generator a Strawberry meta generator HTML tag.
 func (i Info) Generator() template.HTML {
 	return template.HTML(fmt.Sprintf(`<meta name="generator" content="Strawberry %s" />`, StrawberryVersion.String()))
 }
