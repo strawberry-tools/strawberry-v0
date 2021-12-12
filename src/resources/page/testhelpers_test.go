@@ -116,6 +116,10 @@ type testPage struct {
 	sectionEntries []string
 }
 
+func (p *testPage) Err() error {
+	return nil
+}
+
 func (p *testPage) Aliases() []string {
 	panic("not implemented")
 }

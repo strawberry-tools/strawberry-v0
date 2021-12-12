@@ -405,11 +405,18 @@ CSS integrity Data first: {{ $cssFingerprinted1.Data.Integrity }} {{ $cssFingerp
 CSS integrity Data last:  {{ $cssFingerprinted2.RelPermalink }} {{ $cssFingerprinted2.Data.Integrity }}
 
 {{ $rimg := resources.Get "%[1]s/sunset.jpg" }}
+{{ $remotenotfound := resources.Get "%[1]s/notfound.jpg" }}
+{{ $localnotfound := resources.Get "images/notfound.jpg" }}
+{{ $gopherprotocol := resources.Get "gopher://example.org" }}
 {{ $rfit := $rimg.Fit "200x200" }}
 {{ $rfit2 := $rfit.Fit "100x200" }}
 {{ $rimg = $rimg | fingerprint }}
 SUNSET REMOTE: {{ $rimg.Name }}|{{ $rimg.RelPermalink }}|{{ $rimg.Width }}|{{ len $rimg.Content }}
 FIT REMOTE: {{ $rfit.Name }}|{{ $rfit.RelPermalink }}|{{ $rfit.Width }}
+REMOTE NOT FOUND: {{ if $remotenotfound }}FAILED{{ else}}OK{{ end }}
+LOCAL NOT FOUND: {{ if $localnotfound }}FAILED{{ else}}OK{{ end }}
+PRINT PROTOCOL ERROR1: {{ with $gopherprotocol }}{{ . | safeHTML }}{{ end }}
+PRINT PROTOCOL ERROR2: {{ with $gopherprotocol }}{{ .Err | safeHTML }}{{ end }}
 
 `, ts.URL))
 
@@ -440,6 +447,11 @@ CSS integrity Data last:  /styles2.min.1cfc52986836405d37f9998a63fd6dd8608e8c410
 
 SUNSET REMOTE: sunset_%[1]s.jpg|/sunset_%[1]s.a9bf1d944e19c0f382e0d8f51de690f7d0bc8fa97390c4242a86c3e5c0737e71.jpg|900|90587
 FIT REMOTE: sunset_%[1]s.jpg|/sunset_%[1]s_hu59e56ffff1bc1d8d122b1403d34e039f_0_200x200_fit_q75_box.jpg|200
+REMOTE NOT FOUND: OK
+LOCAL NOT FOUND: OK
+PRINT PROTOCOL ERROR1: error calling resources.Get: Get "gopher://example.org": unsupported protocol scheme "gopher"
+PRINT PROTOCOL ERROR2: error calling resources.Get: Get "gopher://example.org": unsupported protocol scheme "gopher"
+
 
 `, helpers.HashString(ts.URL+"/sunset.jpg", map[string]interface{}{})))
 
