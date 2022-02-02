@@ -72,6 +72,6 @@ Whichever has the highest priority between patch, minor, and major, that's what 
 1. Make sure that `mage -v test` and `mage -v check` are passing.
 1. Confirm that `src/common/hugo/version_current.go` contains the Hugo version you expect.
 1. Make sure to run `go mod tidy` from within the `src` directory.
-1. With all conflicts resolved, run `git commit`. In the text editor, use the commit message "Upstream: Pull in changes from Hugo vx.y.z" with the appropriate version number in place.
+1. With all conflicts resolved, run `git commit -m "Upstream: pull in changes from Hugo vx.y.z"` with the appropriate version number in place.
 1. Push it up and open a PR with the title being the same of the commit message. If this PR is likely to be included in the next scheduled Strawberry minor release, include it in the milestone. If a patch release is expected, there's no need.
 1. When the PR is ready to be merged, temporarily turn on "merge commits" for the repo, and use a merge commit to merge the PR. Then turn off the setting again.

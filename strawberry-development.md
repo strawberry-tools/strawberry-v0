@@ -16,6 +16,9 @@ Cloning is pretty much straight forward however if you want to be able to pull i
 ## Dependencies
 
 - g++ is needed. On Ubuntu, this can be installed via the "build-essential" package.
+- rst2html is needed. On macOS that be can install via `brew install docutils`.
+- asciidoctor is optional. Having it will allow additional tests to run. `brew install asciidoctor`
+- pandoc is optional. Having it will allow additional tests to run. `brew install pandoc`
 
 
 ## Notes
@@ -27,3 +30,5 @@ Cloning is pretty much straight forward however if you want to be able to pull i
   - go test ./...
   - In the output, you'll see a directory in `/tmp` where the files were generated. Find the image subdirectory, and copy those files to `src/resources/testdata/golden/`.
   - revert the devMode change in the test file.
+  - on macOS the temp dir would be in `$TMPDIR`.
+  - https://discourse.gohugo.io/t/how-to-regenerate-files-in-testdata-golden/33944/2?u=felicianotech
