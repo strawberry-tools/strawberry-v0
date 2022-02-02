@@ -16,18 +16,13 @@ package markup
 import (
 	"strings"
 
-	"github.com/strawberryssg/strawberry-v0/markup/highlight"
-
-	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
-
-	"github.com/strawberryssg/strawberry-v0/markup/goldmark"
-
-	"github.com/strawberryssg/strawberry-v0/markup/org"
-
 	"github.com/strawberryssg/strawberry-v0/markup/asciidocext"
 	"github.com/strawberryssg/strawberry-v0/markup/blackfriday"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
-	"github.com/strawberryssg/strawberry-v0/markup/mmark"
+	"github.com/strawberryssg/strawberry-v0/markup/goldmark"
+	"github.com/strawberryssg/strawberry-v0/markup/highlight"
+	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
+	"github.com/strawberryssg/strawberry-v0/markup/org"
 	"github.com/strawberryssg/strawberry-v0/markup/pandoc"
 	"github.com/strawberryssg/strawberry-v0/markup/rst"
 )
@@ -71,9 +66,6 @@ func NewConverterProvider(cfg converter.ProviderConfig) (ConverterProvider, erro
 		return nil, err
 	}
 	if err := add(blackfriday.Provider); err != nil {
-		return nil, err
-	}
-	if err := add(mmark.Provider); err != nil {
 		return nil, err
 	}
 	if err := add(asciidocext.Provider, "ad", "adoc"); err != nil {

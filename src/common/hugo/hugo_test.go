@@ -24,7 +24,7 @@ import (
 func TestHugoInfo(t *testing.T) {
 	c := qt.New(t)
 
-	hugoInfo := NewInfo("")
+	hugoInfo := NewInfo("", nil)
 
 	c.Assert(hugoInfo.Version(), qt.Equals, StrawberryVersion.String())
 	c.Assert(fmt.Sprintf("%T", ""), qt.Equals, fmt.Sprintf("%T", hugoInfo.Version()))
@@ -35,6 +35,6 @@ func TestHugoInfo(t *testing.T) {
 	c.Assert(hugoInfo.IsProduction(), qt.Equals, true)
 	c.Assert(hugoInfo.IsExtended(), qt.Equals, IsExtended)
 
-	devHugoInfo := NewInfo("development")
+	devHugoInfo := NewInfo("development", nil)
 	c.Assert(devHugoInfo.IsProduction(), qt.Equals, false)
 }

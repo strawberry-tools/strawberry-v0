@@ -53,7 +53,7 @@ Use ` + "`strawberry new [contentPath]`" + ` to create new content.`,
 		RunE: cc.newSite,
 	}
 
-	cmd.Flags().StringVarP(&cc.configFormat, "format", "f", "yml", "config & frontmatter format")
+	cmd.Flags().StringVarP(&cc.configFormat, "format", "f", "yml", "config file format")
 	cmd.Flags().Bool("force", false, "init inside non-empty directory")
 
 	cc.baseBuilderCmd = b.newBuilderBasicCmd(cmd)

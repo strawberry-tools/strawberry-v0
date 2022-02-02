@@ -32,7 +32,10 @@ import (
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
+	"github.com/strawberryssg/strawberry-v0/markup/rst"
+
 	"github.com/spf13/afero"
+	"github.com/spf13/jwalterweatherman"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -370,9 +373,8 @@ func testAllMarkdownEnginesForPages(t *testing.T,
 		shouldExecute func() bool
 	}{
 		{"md", func() bool { return true }},
-		{"mmark", func() bool { return true }},
 		{"ad", func() bool { return asciidocext.Supports() }},
-		{"rst", func() bool { return true }},
+		{"rst", func() bool { return rst.Supports() }},
 	}
 
 	for _, e := range engines {
@@ -381,7 +383,6 @@ func testAllMarkdownEnginesForPages(t *testing.T,
 		}
 
 		t.Run(e.ext, func(t *testing.T) {
-
 			cfg, fs := newTestCfg(func(cfg config.Provider) error {
 				for k, v := range settings {
 					cfg.Set(k, v)
@@ -429,7 +430,6 @@ func testAllMarkdownEnginesForPages(t *testing.T,
 			b.Assert(home, qt.Not(qt.IsNil))
 			b.Assert(home.File().Path(), qt.Equals, homePath)
 			b.Assert(content(home), qt.Contains, "Home Page Content")
-
 		})
 
 	}
@@ -763,6 +763,246 @@ Here is the last report for commits in the year 2016. It covers hrev50718-hrev50
 <h3>User interface</h3>
 
 `)
+}
+
+// Issue 9383
+func TestRenderStringForRegularPageTranslations(t *testing.T) {
+	c := qt.New(t)
+	b := newTestSitesBuilder(t)
+	b.WithLogger(loggers.NewBasicLoggerForWriter(jwalterweatherman.LevelError, os.Stderr))
+
+	b.WithConfigFile("toml",
+		`baseurl = "https://example.org/"
+title = "My Site"
+
+defaultContentLanguage = "ru"
+defaultContentLanguageInSubdir = true
+
+[languages.ru]
+contentDir = 'content/ru'
+weight = 1
+
+[languages.en]
+weight = 2
+contentDir = 'content/en'
+
+[outputs]
+home = ["HTML", "JSON"]`)
+
+	b.WithTemplates("index.html", `
+{{- range .Site.Home.Translations -}}
+	<p>{{- .RenderString "foo" -}}</p>
+{{- end -}}
+{{- range .Site.Home.AllTranslations -}}
+	<p>{{- .RenderString "bar" -}}</p>
+{{- end -}}
+`, "_default/single.html",
+		`{{ .Content }}`,
+		"index.json",
+		`{"Title": "My Site"}`,
+	)
+
+	b.WithContent(
+		"ru/a.md",
+		"",
+		"en/a.md",
+		"",
+	)
+
+	err := b.BuildE(BuildCfg{})
+	c.Assert(err, qt.Equals, nil)
+
+	b.AssertFileContent("public/ru/index.html", `
+<p>foo</p>
+<p>foo</p>
+<p>bar</p>
+<p>bar</p>
+`)
+
+	b.AssertFileContent("public/en/index.html", `
+<p>foo</p>
+<p>foo</p>
+<p>bar</p>
+<p>bar</p>
+`)
+}
+
+// Issue 8919
+func TestContentProviderWithCustomOutputFormat(t *testing.T) {
+	b := newTestSitesBuilder(t)
+	b.WithLogger(loggers.NewBasicLoggerForWriter(jwalterweatherman.LevelDebug, os.Stderr))
+	b.WithConfigFile("toml", `baseURL = 'http://example.org/'
+title = 'My New Hugo Site'
+
+timeout = 600000 # ten minutes in case we want to pause and debug
+
+defaultContentLanguage = "en"
+
+[languages]
+	[languages.en]
+	title = "Repro"
+	languageName = "English"
+	contentDir = "content/en"
+
+	[languages.zh_CN]
+	title = "Repro"
+	languageName = "简体中文"
+	contentDir = "content/zh_CN"
+
+[outputFormats]
+	[outputFormats.metadata]
+	baseName = "metadata"
+	mediaType = "text/html"
+	isPlainText = true
+	notAlternative = true
+
+[outputs]
+	home = ["HTML", "metadata"]`)
+
+	b.WithTemplates("home.metadata.html", `<h2>Translations metadata</h2>
+<ul>
+{{ $p := .Page }}
+{{ range $p.Translations}}
+<li>Title: {{ .Title }}, {{ .Summary }}</li>
+<li>Content: {{ .Content }}</li>
+<li>Plain: {{ .Plain }}</li>
+<li>PlainWords: {{ .PlainWords }}</li>
+<li>Summary: {{ .Summary }}</li>
+<li>Truncated: {{ .Truncated }}</li>
+<li>FuzzyWordCount: {{ .FuzzyWordCount }}</li>
+<li>ReadingTime: {{ .ReadingTime }}</li>
+<li>Len: {{ .Len }}</li>
+{{ end }}
+</ul>`)
+
+	b.WithTemplates("_default/baseof.html", `<html>
+
+<body>
+	{{ block "main" . }}{{ end }}
+</body>
+
+</html>`)
+
+	b.WithTemplates("_default/home.html", `{{ define "main" }}
+<h2>Translations</h2>
+<ul>
+{{ $p := .Page }}
+{{ range $p.Translations}}
+<li>Title: {{ .Title }}, {{ .Summary }}</li>
+<li>Content: {{ .Content }}</li>
+<li>Plain: {{ .Plain }}</li>
+<li>PlainWords: {{ .PlainWords }}</li>
+<li>Summary: {{ .Summary }}</li>
+<li>Truncated: {{ .Truncated }}</li>
+<li>FuzzyWordCount: {{ .FuzzyWordCount }}</li>
+<li>ReadingTime: {{ .ReadingTime }}</li>
+<li>Len: {{ .Len }}</li>
+{{ end }}
+</ul>
+{{ end }}`)
+
+	b.WithContent("en/_index.md", `---
+title: Title (en)
+summary: Summary (en)
+---
+
+Here is some content.
+`)
+
+	b.WithContent("zh_CN/_index.md", `---
+title: Title (zh)
+summary: Summary (zh)
+---
+
+这是一些内容
+`)
+
+	b.Build(BuildCfg{})
+
+	b.AssertFileContent("public/index.html", `<html>
+	
+<body>
+	
+<h2>Translations</h2>
+<ul>
+
+	
+<li>Title: Title (zh), Summary (zh)</li>
+<li>Content: <p>这是一些内容</p>
+</li>
+<li>Plain: 这是一些内容
+</li>
+<li>PlainWords: [这是一些内容]</li>
+<li>Summary: Summary (zh)</li>
+<li>Truncated: false</li>
+<li>FuzzyWordCount: 100</li>
+<li>ReadingTime: 1</li>
+<li>Len: 26</li>	
+
+</ul>
+
+</body>
+
+</html>`)
+	b.AssertFileContent("public/metadata.html", `<h2>Translations metadata</h2>
+<ul>
+
+	
+<li>Title: Title (zh), Summary (zh)</li>
+<li>Content: <p>这是一些内容</p>
+</li>
+<li>Plain: 这是一些内容
+</li>
+<li>PlainWords: [这是一些内容]</li>
+<li>Summary: Summary (zh)</li>
+<li>Truncated: false</li>
+<li>FuzzyWordCount: 100</li>
+<li>ReadingTime: 1</li>
+<li>Len: 26</li>	
+
+</ul>`)
+	b.AssertFileContent("public/zh_cn/index.html", `<html>
+
+<body>
+	
+<h2>Translations</h2>
+<ul>
+
+
+<li>Title: Title (en), Summary (en)</li>
+<li>Content: <p>Here is some content.</p>
+</li>
+<li>Plain: Here is some content.
+</li>
+<li>PlainWords: [Here is some content.]</li>
+<li>Summary: Summary (en)</li>
+<li>Truncated: false</li>
+<li>FuzzyWordCount: 100</li>
+<li>ReadingTime: 1</li>
+<li>Len: 29</li>	
+
+</ul>
+
+</body>
+
+</html>`)
+	b.AssertFileContent("public/zh_cn/metadata.html", `<h2>Translations metadata</h2>
+<ul>
+
+	
+<li>Title: Title (en), Summary (en)</li>
+<li>Content: <p>Here is some content.</p>
+</li>
+<li>Plain: Here is some content.
+</li>
+<li>PlainWords: [Here is some content.]</li>
+<li>Summary: Summary (en)</li>
+<li>Truncated: false</li>
+<li>FuzzyWordCount: 100</li>
+<li>ReadingTime: 1</li>
+<li>Len: 29</li>	
+
+</ul>`)
 }
 
 func TestPageWithDate(t *testing.T) {
