@@ -35,9 +35,6 @@ import (
 	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 )
 
-// SummaryDivider denotes where content summarization should end. The default is "<!--more-->".
-var SummaryDivider = []byte("<!--more-->")
-
 var (
 	openingPTag        = []byte("<p>")
 	closingPTag        = []byte("</p>")
@@ -213,9 +210,6 @@ func (c *ContentSpec) ResolveMarkup(in string) string {
 	case "html", "htm":
 		return "html"
 	default:
-		if in == "mmark" {
-			Deprecated("Markup type mmark", "See https://gohugo.io//content-management/formats/#list-of-content-formats", true)
-		}
 		if conv := c.Converters.Get(in); conv != nil {
 			return conv.Name()
 		}

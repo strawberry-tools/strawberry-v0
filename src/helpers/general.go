@@ -254,12 +254,6 @@ func compareStringSlices(a, b []string) bool {
 	return true
 }
 
-// LogPrinter is the common interface of the JWWs loggers.
-type LogPrinter interface {
-	// Println is the only common method that works in all of JWWs loggers.
-	Println(a ...interface{})
-}
-
 // DistinctLogger ignores duplicate log statements.
 type DistinctLogger struct {
 	loggers.Logger
@@ -327,12 +321,14 @@ func (l *DistinctLogger) Warnf(format string, v ...interface{}) {
 		l.Logger.Warnf(format, v...)
 	})
 }
+
 func (l *DistinctLogger) Warnln(v ...interface{}) {
 	logStatement := fmt.Sprint(v...)
 	l.printIfNotPrinted("warnln", logStatement, func() {
 		l.Logger.Warnln(v...)
 	})
 }
+
 func (l *DistinctLogger) Errorf(format string, v ...interface{}) {
 	logStatement := fmt.Sprint(v...)
 	l.printIfNotPrinted("errorf", logStatement, func() {
@@ -360,9 +356,10 @@ func (l *DistinctLogger) printIfNotPrinted(level, logStatement string, print fun
 		return
 	}
 	l.Lock()
+	defer l.Unlock()
+	l.m[key] = true // Placing this after print() can cause duplicate warning entries to be logged when --panicOnWarning is true.
 	print()
-	l.m[key] = true
-	l.Unlock()
+
 }
 
 // NewDistinctErrorLogger creates a new DistinctLogger that logs ERRORs
@@ -392,7 +389,6 @@ var (
 func InitLoggers() {
 	DistinctErrorLog.Reset()
 	DistinctWarnLog.Reset()
-
 }
 
 // Deprecated informs about a deprecation, but only once for a given set of arguments' values.
@@ -404,7 +400,11 @@ func Deprecated(item, alternative string, err bool) {
 	if err {
 		DistinctErrorLog.Errorf("%s is deprecated and will be removed in Hugo %s. %s", item, hugo.CurrentVersion.Next().ReleaseVersion(), alternative)
 	} else {
-		DistinctWarnLog.Warnf("%s is deprecated and will be removed in a future release. %s", item, alternative)
+		var warnPanicMessage string
+		if !loggers.PanicOnWarning {
+			warnPanicMessage = "\n\nRe-run Hugo with the flag --panicOnWarning to get a better error message."
+		}
+		DistinctWarnLog.Warnf("%s is deprecated and will be removed in a future release. %s%s", item, alternative, warnPanicMessage)
 	}
 }
 

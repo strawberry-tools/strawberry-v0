@@ -16,45 +16,32 @@ package hugolib
 import (
 	"bytes"
 	"fmt"
-	"html/template"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
 	"strings"
 
-	"github.com/mitchellh/mapstructure"
-
-	"github.com/strawberryssg/strawberry-v0/identity"
-
-	"github.com/strawberryssg/strawberry-v0/markup/converter"
-
-	"github.com/strawberryssg/strawberry-v0/tpl"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
-	"github.com/bep/gitmap"
-
-	"github.com/strawberryssg/strawberry-v0/helpers"
-
-	"github.com/strawberryssg/strawberry-v0/common/herrors"
-	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
-
-	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/output"
-
-	"github.com/strawberryssg/strawberry-v0/media"
-	"github.com/strawberryssg/strawberry-v0/source"
-	"github.com/spf13/cast"
-
 	"github.com/strawberryssg/strawberry-v0/common/collections"
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/common/text"
+	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/identity"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/output"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
 	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
+	"github.com/strawberryssg/strawberry-v0/source"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+
+	"github.com/bep/gitmap"
+	"github.com/pkg/errors"
 )
 
 var (
@@ -145,7 +132,7 @@ func (p *pageState) Eq(other interface{}) bool {
 }
 
 func (p *pageState) GetIdentity() identity.Identity {
-	return identity.NewPathIdentity(files.ComponentFolderContent, filepath.FromSlash(p.Path()))
+	return identity.NewPathIdentity(files.ComponentFolderContent, filepath.FromSlash(p.Pathc()))
 }
 
 func (p *pageState) GitInfo() *gitmap.GitInfo {
@@ -593,92 +580,11 @@ var defaultRenderStringOpts = renderStringOpts{
 	Markup:  "", // Will inherit the page's value when not set.
 }
 
-func (p *pageState) RenderString(args ...interface{}) (template.HTML, error) {
-	if len(args) < 1 || len(args) > 2 {
-		return "", errors.New("want 1 or 2 arguments")
-	}
-
-	var s string
-	opts := defaultRenderStringOpts
-	sidx := 1
-
-	if len(args) == 1 {
-		sidx = 0
-	} else {
-		m, ok := args[0].(map[string]interface{})
-		if !ok {
-			return "", errors.New("first argument must be a map")
-		}
-
-		if err := mapstructure.WeakDecode(m, &opts); err != nil {
-			return "", errors.WithMessage(err, "failed to decode options")
-		}
-	}
-
-	var err error
-	s, err = cast.ToStringE(args[sidx])
-	if err != nil {
-		return "", err
-	}
-
-	if err = p.pageOutput.initRenderHooks(); err != nil {
-		return "", err
-	}
-
-	conv := p.getContentConverter()
-	if opts.Markup != "" && opts.Markup != p.m.markup {
-		var err error
-		// TODO(bep) consider cache
-		conv, err = p.m.newContentConverter(p, opts.Markup, nil)
-		if err != nil {
-			return "", p.wrapError(err)
-		}
-	}
-
-	c, err := p.pageOutput.cp.renderContentWithConverter(conv, []byte(s), false)
-	if err != nil {
-		return "", p.wrapError(err)
-	}
-
-	b := c.Bytes()
-
-	if opts.Display == "inline" {
-		// We may have to rethink this in the future when we get other
-		// renderers.
-		b = p.s.ContentSpec.TrimShortHTML(b)
-	}
-
-	return template.HTML(string(b)), nil
-}
-
 func (p *pageState) addDependency(dep identity.Provider) {
 	if !p.s.running() || p.pageOutput.cp == nil {
 		return
 	}
 	p.pageOutput.cp.dependencyTracker.Add(dep)
-}
-
-func (p *pageState) RenderWithTemplateInfo(info tpl.Info, layout ...string) (template.HTML, error) {
-	p.addDependency(info)
-	return p.Render(layout...)
-}
-
-func (p *pageState) Render(layout ...string) (template.HTML, error) {
-	templ, found, err := p.resolveTemplate(layout...)
-	if err != nil {
-		return "", p.wrapError(err)
-	}
-
-	if !found {
-		return "", nil
-	}
-
-	p.addDependency(templ.(tpl.Info))
-	res, err := executeToString(p.s.Tmpl(), templ, p)
-	if err != nil {
-		return "", p.wrapError(errors.Wrapf(err, "failed to execute template %q v", layout))
-	}
-	return template.HTML(res), nil
 }
 
 // wrapError adds some more context to the given error if possible/needed
@@ -895,8 +801,8 @@ func (p *pageState) pathOrTitle() string {
 		return p.File().Filename()
 	}
 
-	if p.Path() != "" {
-		return p.Path()
+	if p.Pathc() != "" {
+		return p.Pathc()
 	}
 
 	return p.Title()
@@ -971,7 +877,27 @@ func (p *pageState) shiftToOutputFormat(isRenderingSite bool, idx int) error {
 			}
 		}
 		p.pageOutput.initContentProvider(cp)
-		p.pageOutput.cp = cp
+	} else {
+		// We attempt to assign pageContentOutputs while preparing each site
+		// for rendering and before rendering each site. This lets us share
+		// content between page outputs to conserve resources. But if a template
+		// unexpectedly calls a method of a ContentProvider that is not yet
+		// initialized, we assign a LazyContentProvider that performs the
+		// initialization just in time.
+		if lcp, ok := (p.pageOutput.ContentProvider.(*page.LazyContentProvider)); ok {
+			lcp.Reset()
+		} else {
+			lcp = page.NewLazyContentProvider(func() (page.OutputFormatContentProvider, error) {
+				cp, err := newPageContentOutput(p, p.pageOutput)
+				if err != nil {
+					return nil, err
+				}
+				return cp, nil
+			})
+			p.pageOutput.ContentProvider = lcp
+			p.pageOutput.TableOfContentsProvider = lcp
+			p.pageOutput.PageRenderProvider = lcp
+		}
 	}
 
 	return nil

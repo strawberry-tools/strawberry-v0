@@ -22,6 +22,7 @@ import (
 	"runtime/debug"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
@@ -57,6 +58,8 @@ type Info struct {
 	// This can also be set by the user.
 	// It can be any string, but it will be all lower case.
 	Environment string
+
+	deps []*Dependency
 }
 
 // HugoVersion returns the version number of the Hugo release Strawberry is
@@ -83,8 +86,13 @@ func (i Info) IsExtended() bool {
 	return IsExtended
 }
 
+// Deps gets a list of dependencies for this Hugo build.
+func (i Info) Deps() []*Dependency {
+	return i.deps
+}
+
 // NewInfo creates a new Hugo Info object.
-func NewInfo(environment string) Info {
+func NewInfo(environment string, deps []*Dependency) Info {
 	if environment == "" {
 		environment = EnvironmentProduction
 	}
@@ -92,6 +100,7 @@ func NewInfo(environment string) Info {
 		CommitHash:  commitHash,
 		BuildDate:   buildDate,
 		Environment: environment,
+		deps:        deps,
 	}
 }
 
@@ -161,4 +170,28 @@ func IsRunningAsTest() bool {
 		}
 	}
 	return false
+}
+
+// Dependency is a single dependency, which can be either a Hugo Module or a local theme.
+type Dependency struct {
+	// Returns the path to this module.
+	// This will either be the module path, e.g. "github.com/gohugoio/myshortcodes",
+	// or the path below your /theme folder, e.g. "mytheme".
+	Path string
+
+	// The module version.
+	Version string
+
+	// Whether this dependency is vendored.
+	Vendor bool
+
+	// Time version was created.
+	Time time.Time
+
+	// In the dependency tree, this is the first module that defines this module
+	// as a dependency.
+	Owner *Dependency
+
+	// Replaced by this dependency.
+	Replace *Dependency
 }
