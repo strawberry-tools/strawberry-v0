@@ -25,15 +25,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/strawberryssg/strawberry-v0/common/hreflect"
-	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
-
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-
 	"github.com/strawberryssg/strawberry-v0/tpl"
 
 	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
-	"github.com/strawberryssg/strawberry-v0/deps"
+	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
 )
 
 // TestTemplateProvider is global deps.ResourceProvider.
@@ -121,10 +118,6 @@ func (ns *Namespace) Include(name string, contextList ...interface{}) (interface
 	var w io.Writer
 
 	if info.HasReturn {
-		if !hreflect.IsTruthful(context) {
-			// TODO(bep) we need to fix this, but it is non-trivial.
-			return nil, errors.New("partial that returns a value needs a non-zero argument.")
-		}
 		// Wrap the context sent to the template to capture the return value.
 		// Note that the template is rewritten to make sure that the dot (".")
 		// and the $ variable points to Arg.

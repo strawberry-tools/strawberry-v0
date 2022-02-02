@@ -20,6 +20,7 @@ import (
 	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/media"
 
 	"github.com/bep/gowebp/libwebp/webpoptions"
 	"github.com/disintegration/gift"
@@ -31,12 +32,24 @@ var (
 	imageFormats = map[string]Format{
 		".jpg":  JPEG,
 		".jpeg": JPEG,
+		".jpe":  JPEG,
+		".jif":  JPEG,
+		".jfif": JPEG,
 		".png":  PNG,
 		".tif":  TIFF,
 		".tiff": TIFF,
 		".bmp":  BMP,
 		".gif":  GIF,
 		".webp": WEBP,
+	}
+
+	imageFormatsBySubType = map[string]Format{
+		media.JPEGType.SubType: JPEG,
+		media.PNGType.SubType:  PNG,
+		media.TIFFType.SubType: TIFF,
+		media.BMPType.SubType:  BMP,
+		media.GIFType.SubType:  GIF,
+		media.WEBPType.SubType: WEBP,
 	}
 
 	// Add or increment if changes to an image format's processing requires
@@ -93,6 +106,11 @@ var imageFilters = map[string]gift.Resampling{
 
 func ImageFormatFromExt(ext string) (Format, bool) {
 	f, found := imageFormats[ext]
+	return f, found
+}
+
+func ImageFormatFromMediaSubType(sub string) (Format, bool) {
+	f, found := imageFormatsBySubType[sub]
 	return f, found
 }
 

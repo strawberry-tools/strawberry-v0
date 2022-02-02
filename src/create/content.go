@@ -23,10 +23,10 @@ import (
 	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
-	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 	"github.com/strawberryssg/strawberry-v0/hugolib"
 
@@ -340,15 +340,17 @@ func (b *contentBuilder) openInEditorIfConfigured(filename string) error {
 	}
 
 	b.h.Log.Printf("Editing %q with %q ...\n", filename, editor)
+	cmd, err := b.h.Deps.ExecHelper.New(
+		editor,
+		filename,
+		hexec.WithStdin(os.Stdin),
+		hexec.WithStderr(os.Stderr),
+		hexec.WithStdout(os.Stdout),
+	)
 
-	cmd, err := hexec.SafeCommand(editor, filename)
 	if err != nil {
 		return err
 	}
-
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
 
 	return cmd.Run()
 }

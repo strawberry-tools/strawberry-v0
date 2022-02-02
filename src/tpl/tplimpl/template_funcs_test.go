@@ -37,7 +37,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 	"github.com/strawberryssg/strawberry-v0/tpl/partials"
 	"github.com/spf13/afero"
-	
 )
 
 var logger = loggers.NewErrorLogger()

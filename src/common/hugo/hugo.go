@@ -95,8 +95,10 @@ func NewInfo(environment string) Info {
 	}
 }
 
+// GetExecEnviron creates and gets the common os/exec environment used in the
+// external programs we interact with via os/exec, e.g. postcss.
 func GetExecEnviron(workDir string, cfg config.Provider, fs afero.Fs) []string {
-	env := os.Environ()
+	var env []string
 	nodepath := filepath.Join(workDir, "node_modules")
 	if np := os.Getenv("NODE_PATH"); np != "" {
 		nodepath = workDir + string(os.PathListSeparator) + np
@@ -104,12 +106,15 @@ func GetExecEnviron(workDir string, cfg config.Provider, fs afero.Fs) []string {
 	config.SetEnvVars(&env, "NODE_PATH", nodepath)
 	config.SetEnvVars(&env, "PWD", workDir)
 	config.SetEnvVars(&env, "HUGO_ENVIRONMENT", cfg.GetString("environment"))
-	fis, err := afero.ReadDir(fs, files.FolderJSConfig)
-	if err == nil {
-		for _, fi := range fis {
-			key := fmt.Sprintf("HUGO_FILE_%s", strings.ReplaceAll(strings.ToUpper(fi.Name()), ".", "_"))
-			value := fi.(hugofs.FileMetaInfo).Meta().Filename
-			config.SetEnvVars(&env, key, value)
+
+	if fs != nil {
+		fis, err := afero.ReadDir(fs, files.FolderJSConfig)
+		if err == nil {
+			for _, fi := range fis {
+				key := fmt.Sprintf("HUGO_FILE_%s", strings.ReplaceAll(strings.ToUpper(fi.Name()), ".", "_"))
+				value := fi.(hugofs.FileMetaInfo).Meta().Filename
+				config.SetEnvVars(&env, key, value)
+			}
 		}
 	}
 

@@ -21,11 +21,11 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
-
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/htesting"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -53,7 +53,9 @@ github.com/gohugoio/hugoTestModules1_darwin/modh2_2@v1.4.0 github.com/gohugoio/h
 		ccfg := ClientConfig{
 			Fs:         hugofs.Os,
 			WorkingDir: workingDir,
+			CacheDir:   filepath.Join(workingDir, "modcache"),
 			ThemesDir:  themesDir,
+			Exec:       hexec.New(security.DefaultConfig),
 		}
 
 		withConfig(&ccfg)

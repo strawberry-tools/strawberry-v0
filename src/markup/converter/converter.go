@@ -16,12 +16,14 @@ package converter
 import (
 	"bytes"
 
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
 	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
+
 	"github.com/spf13/afero"
 )
 
@@ -32,6 +34,7 @@ type ProviderConfig struct {
 	Cfg       config.Provider // Site config
 	ContentFs afero.Fs
 	Logger    loggers.Logger
+	Exec      *hexec.Exec
 	Highlight func(code, lang, optsStr string) (string, error)
 }
 

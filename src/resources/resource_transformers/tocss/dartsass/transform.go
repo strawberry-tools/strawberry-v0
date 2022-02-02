@@ -21,33 +21,30 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/cli/safeexec"
-
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/media"
-
 	"github.com/strawberryssg/strawberry-v0/resources"
-
 	"github.com/strawberryssg/strawberry-v0/resources/internal"
 
-	"github.com/spf13/afero"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
 	"github.com/bep/godartsass"
+	"github.com/spf13/afero"
 )
 
-// See https://github.com/sass/dart-sass-embedded/issues/24
-const stdinPlaceholder = "HUGOSTDIN"
+const (
+	// See https://github.com/sass/dart-sass-embedded/issues/24
+	stdinPlaceholder           = "HUGOSTDIN"
+	dartSassEmbeddedBinaryName = "dart-sass-embedded"
+)
 
 // Supports returns whether dart-sass-embedded is found in $PATH.
 func Supports() bool {
 	if htesting.SupportsAll() {
 		return true
 	}
-	p, err := safeexec.LookPath("dart-sass-embedded")
-	return err == nil && p != ""
+	return hexec.InPath(dartSassEmbeddedBinaryName)
 }
 
 type transform struct {

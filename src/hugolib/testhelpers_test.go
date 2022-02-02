@@ -23,9 +23,11 @@ import (
 	"unicode/utf8"
 
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/htesting"
@@ -812,6 +814,16 @@ func (s *sitesBuilder) GetPageRel(p page.Page, ref string) page.Page {
 	p, err := s.H.Sites[0].getPageNew(p, ref)
 	s.Assert(err, qt.IsNil)
 	return p
+}
+
+func (s *sitesBuilder) NpmInstall() hexec.Runner {
+	sc := security.DefaultConfig
+	sc.Exec.Allow = security.NewWhitelist("npm")
+	ex := hexec.New(sc)
+	command, err := ex.New("npm", "install")
+	s.Assert(err, qt.IsNil)
+	return command
+
 }
 
 func newTestHelper(cfg config.Provider, fs *hugofs.Fs, t testing.TB) testHelper {

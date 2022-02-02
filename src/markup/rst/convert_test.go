@@ -16,8 +16,9 @@ package rst
 import (
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
-
+	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	qt "github.com/frankban/quicktest"
@@ -28,7 +29,14 @@ func TestConvert(t *testing.T) {
 		t.Skip("rst not installed")
 	}
 	c := qt.New(t)
-	p, err := Provider.New(converter.ProviderConfig{Logger: loggers.NewErrorLogger()})
+	sc := security.DefaultConfig
+	sc.Exec.Allow = security.NewWhitelist("rst", "python")
+
+	p, err := Provider.New(
+		converter.ProviderConfig{
+			Logger: loggers.NewErrorLogger(),
+			Exec:   hexec.New(sc),
+		})
 	c.Assert(err, qt.IsNil)
 	conv, err := p.New(converter.DocumentContext{})
 	c.Assert(err, qt.IsNil)
