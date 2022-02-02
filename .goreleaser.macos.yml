@@ -6,6 +6,7 @@ builds:
       - darwin
     goarch:
       - amd64
+      - arm64
     ldflags:
       #  -extldflags "-static" is purposely left out on macOS due to compiling libSASS
       - -s -w -X github.com/strawberryssg/strawberry-v0/common/hugo.buildDate={{.Date}} -X github.com/strawberryssg/strawberry-v0/common/hugo.commitHash={{ .ShortCommit }}
