@@ -255,7 +255,7 @@ func newShortcodeHandler(p *pageState, s *Site, placeholderFunc func() string) *
 	sh := &shortcodeHandler{
 		p:                      p,
 		s:                      s,
-		enableInlineShortcodes: s.enableInlineShortcodes,
+		enableInlineShortcodes: s.ExecHelper.Sec().EnableInlineShortcodes,
 		shortcodes:             make([]*shortcode, 0, 4),
 		nameSet:                make(map[string]bool),
 	}
@@ -285,7 +285,7 @@ func renderShortcode(
 	var hasVariants bool
 
 	if sc.isInline {
-		if !p.s.enableInlineShortcodes {
+		if !p.s.ExecHelper.Sec().EnableInlineShortcodes {
 			return "", false, nil
 		}
 		templName := path.Join("_inline_shortcode", p.File().Path(), sc.name)

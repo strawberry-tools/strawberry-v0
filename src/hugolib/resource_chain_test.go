@@ -28,7 +28,6 @@ import (
 	"time"
 
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
-	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
@@ -51,7 +50,6 @@ func TestSCSSWithIncludePaths(t *testing.T) {
 		{"libsass", func() bool { return scss.Supports() }},
 		{"dartsass", func() bool { return dartsass.Supports() }},
 	} {
-
 		c.Run(test.name, func(c *qt.C) {
 			if !test.supports() {
 				c.Skip(fmt.Sprintf("Skip %s", test.name))
@@ -101,9 +99,7 @@ T1: {{ $r.Content }}
 
 			b.AssertFileContent(filepath.Join(workDir, "public/index.html"), `T1: moo{color:#fff}`)
 		})
-
 	}
-
 }
 
 func TestSCSSWithRegularCSSImport(t *testing.T) {
@@ -116,7 +112,6 @@ func TestSCSSWithRegularCSSImport(t *testing.T) {
 		{"libsass", func() bool { return scss.Supports() }},
 		{"dartsass", func() bool { return dartsass.Supports() }},
 	} {
-
 		c.Run(test.name, func(c *qt.C) {
 			if !test.supports() {
 				c.Skip(fmt.Sprintf("Skip %s", test.name))
@@ -196,11 +191,9 @@ moo {
 }
 
 /* foo */`)
-
 			}
 		})
 	}
-
 }
 
 func TestSCSSWithThemeOverrides(t *testing.T) {
@@ -213,7 +206,6 @@ func TestSCSSWithThemeOverrides(t *testing.T) {
 		{"libsass", func() bool { return scss.Supports() }},
 		{"dartsass", func() bool { return dartsass.Supports() }},
 	} {
-
 		c.Run(test.name, func(c *qt.C) {
 			if !test.supports() {
 				c.Skip(fmt.Sprintf("Skip %s", test.name))
@@ -313,7 +305,6 @@ T1: {{ $r.Content }}
 			)
 		})
 	}
-
 }
 
 // https://github.com/gothamhq/gotham/issues/6274
@@ -327,7 +318,6 @@ func TestSCSSWithIncludePathsSass(t *testing.T) {
 		{"libsass", func() bool { return scss.Supports() }},
 		{"dartsass", func() bool { return dartsass.Supports() }},
 	} {
-
 		c.Run(test.name, func(c *qt.C) {
 			if !test.supports() {
 				c.Skip(fmt.Sprintf("Skip %s", test.name))
@@ -379,8 +369,6 @@ T1: {{ $r.Content }}
 }
 
 func TestResourceChainBasic(t *testing.T) {
-	t.Parallel()
-
 	ts := httptest.NewServer(http.FileServer(http.Dir("testdata/")))
 	t.Cleanup(func() {
 		ts.Close()
@@ -404,10 +392,10 @@ FIT: {{ $fit.Name }}|{{ $fit.RelPermalink }}|{{ $fit.Width }}
 CSS integrity Data first: {{ $cssFingerprinted1.Data.Integrity }} {{ $cssFingerprinted1.RelPermalink }}
 CSS integrity Data last:  {{ $cssFingerprinted2.RelPermalink }} {{ $cssFingerprinted2.Data.Integrity }}
 
-{{ $rimg := resources.Get "%[1]s/sunset.jpg" }}
-{{ $remotenotfound := resources.Get "%[1]s/notfound.jpg" }}
+{{ $rimg := resources.GetRemote "%[1]s/sunset.jpg" }}
+{{ $remotenotfound := resources.GetRemote "%[1]s/notfound.jpg" }}
 {{ $localnotfound := resources.Get "images/notfound.jpg" }}
-{{ $gopherprotocol := resources.Get "gopher://example.org" }}
+{{ $gopherprotocol := resources.GetRemote "gopher://example.org" }}
 {{ $rfit := $rimg.Fit "200x200" }}
 {{ $rfit2 := $rfit.Fit "100x200" }}
 {{ $rimg = $rimg | fingerprint }}
@@ -449,8 +437,8 @@ SUNSET REMOTE: sunset_%[1]s.jpg|/sunset_%[1]s.a9bf1d944e19c0f382e0d8f51de690f7d0
 FIT REMOTE: sunset_%[1]s.jpg|/sunset_%[1]s_hu59e56ffff1bc1d8d122b1403d34e039f_0_200x200_fit_q75_box.jpg|200
 REMOTE NOT FOUND: OK
 LOCAL NOT FOUND: OK
-PRINT PROTOCOL ERROR1: error calling resources.Get: Get "gopher://example.org": unsupported protocol scheme "gopher"
-PRINT PROTOCOL ERROR2: error calling resources.Get: Get "gopher://example.org": unsupported protocol scheme "gopher"
+PRINT PROTOCOL ERROR1: error calling resources.GetRemote: Get "gopher://example.org": unsupported protocol scheme "gopher"
+PRINT PROTOCOL ERROR2: error calling resources.GetRemote: Get "gopher://example.org": unsupported protocol scheme "gopher"
 
 
 `, helpers.HashString(ts.URL+"/sunset.jpg", map[string]interface{}{})))
@@ -616,6 +604,7 @@ func TestResourceChains(t *testing.T) {
 			return
 
 		case "/authenticated/":
+			w.Header().Set("Content-Type", "text/plain")
 			if r.Header.Get("Authorization") == "Bearer abcd" {
 				w.Write([]byte(`Welcome`))
 				return
@@ -624,6 +613,7 @@ func TestResourceChains(t *testing.T) {
 			return
 
 		case "/post":
+			w.Header().Set("Content-Type", "text/plain")
 			if r.Method == http.MethodPost {
 				body, err := ioutil.ReadAll(r.Body)
 				if err != nil {
@@ -687,18 +677,18 @@ T6: {{ $bundle1.Permalink }}
 `)
 			b.WithTemplates("home.html", fmt.Sprintf(`
 Min CSS: {{ ( resources.Get "css/styles1.css" | minify ).Content }}
-Min CSS Remote: {{ ( resources.Get "%[1]s/css/styles1.css" | minify ).Content }}
+Min CSS Remote: {{ ( resources.GetRemote "%[1]s/css/styles1.css" | minify ).Content }}
 Min JS: {{ ( resources.Get "js/script1.js" | resources.Minify ).Content | safeJS }}
-Min JS Remote: {{ ( resources.Get "%[1]s/js/script1.js" | minify ).Content }}
+Min JS Remote: {{ ( resources.GetRemote "%[1]s/js/script1.js" | minify ).Content }}
 Min JSON: {{ ( resources.Get "mydata/json1.json" | resources.Minify ).Content | safeHTML }}
-Min JSON Remote: {{ ( resources.Get "%[1]s/mydata/json1.json" | resources.Minify ).Content | safeHTML }}
+Min JSON Remote: {{ ( resources.GetRemote "%[1]s/mydata/json1.json" | resources.Minify ).Content | safeHTML }}
 Min XML: {{ ( resources.Get "mydata/xml1.xml" | resources.Minify ).Content | safeHTML }}
-Min XML Remote: {{ ( resources.Get "%[1]s/mydata/xml1.xml" | resources.Minify ).Content | safeHTML }}
+Min XML Remote: {{ ( resources.GetRemote "%[1]s/mydata/xml1.xml" | resources.Minify ).Content | safeHTML }}
 Min SVG: {{ ( resources.Get "mydata/svg1.svg" | resources.Minify ).Content | safeHTML }}
-Min SVG Remote: {{ ( resources.Get "%[1]s/mydata/svg1.svg" | resources.Minify ).Content | safeHTML }}
+Min SVG Remote: {{ ( resources.GetRemote "%[1]s/mydata/svg1.svg" | resources.Minify ).Content | safeHTML }}
 Min SVG again: {{ ( resources.Get "mydata/svg1.svg" | resources.Minify ).Content | safeHTML }}
 Min HTML: {{ ( resources.Get "mydata/html1.html" | resources.Minify ).Content | safeHTML }}
-Min HTML Remote: {{ ( resources.Get "%[1]s/mydata/html1.html" | resources.Minify ).Content | safeHTML }}
+Min HTML Remote: {{ ( resources.GetRemote "%[1]s/mydata/html1.html" | resources.Minify ).Content | safeHTML }}
 `, ts.URL))
 		}, func(b *sitesBuilder) {
 			b.AssertFileContent("public/index.html", `Min CSS: h1{font-style:bold}`)
@@ -718,13 +708,13 @@ Min HTML Remote: {{ ( resources.Get "%[1]s/mydata/html1.html" | resources.Minify
 
 		{"remote", func() bool { return true }, func(b *sitesBuilder) {
 			b.WithTemplates("home.html", fmt.Sprintf(`
-{{$js := resources.Get "%[1]s/js/script1.js" }}
+{{$js := resources.GetRemote "%[1]s/js/script1.js" }}
 Remote Filename: {{ $js.RelPermalink }}
-{{$svg := resources.Get "%[1]s/mydata/svg1.svg" }}
+{{$svg := resources.GetRemote "%[1]s/mydata/svg1.svg" }}
 Remote Content-Disposition: {{ $svg.RelPermalink }}
-{{$auth := resources.Get "%[1]s/authenticated/" (dict "headers" (dict "Authorization" "Bearer abcd")) }}
+{{$auth := resources.GetRemote "%[1]s/authenticated/" (dict "headers" (dict "Authorization" "Bearer abcd")) }}
 Remote Authorization: {{ $auth.Content }}
-{{$post := resources.Get "%[1]s/post" (dict "method" "post" "body" "Request body") }}
+{{$post := resources.GetRemote "%[1]s/post" (dict "method" "post" "body" "Request body") }}
 Remote POST: {{ $post.Content }}
 `, ts.URL))
 		}, func(b *sitesBuilder) {
@@ -1176,8 +1166,8 @@ class-in-b {
 	b.WithSourceFile("postcss.config.js", postcssConfig)
 
 	b.Assert(os.Chdir(workDir), qt.IsNil)
-	cmd, err := hexec.SafeCommand("npm", "install")
-	_, err = cmd.CombinedOutput()
+	cmd := b.NpmInstall()
+	err = cmd.Run()
 	b.Assert(err, qt.IsNil)
 	b.Build(BuildCfg{})
 
@@ -1243,8 +1233,8 @@ class-in-b {
 	// TODO(bep) for some reason, we have starting to get
 	// execute of template failed: template: index.html:5:25
 	// on CI (GitHub action).
-	//b.Assert(fe.Position().LineNumber, qt.Equals, 5)
-	//b.Assert(fe.Error(), qt.Contains, filepath.Join(workDir, "assets/css/components/b.css:4:1"))
+	// b.Assert(fe.Position().LineNumber, qt.Equals, 5)
+	// b.Assert(fe.Error(), qt.Contains, filepath.Join(workDir, "assets/css/components/b.css:4:1"))
 
 	// Remove PostCSS
 	b.Assert(os.RemoveAll(filepath.Join(workDir, "node_modules")), qt.IsNil)

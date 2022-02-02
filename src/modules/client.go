@@ -28,6 +28,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/strawberryssg/strawberry-v0/common/collections"
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
@@ -72,7 +73,7 @@ func NewClient(cfg ClientConfig) *Client {
 		goModFilename = n
 	}
 
-	env := os.Environ()
+	var env []string
 	mcfg := cfg.ModuleConfig
 
 	config.SetEnvVars(&env,
@@ -80,12 +81,11 @@ func NewClient(cfg ClientConfig) *Client {
 		"GO111MODULE", "on",
 		"GOPROXY", mcfg.Proxy,
 		"GOPRIVATE", mcfg.Private,
-		"GONOPROXY", mcfg.NoProxy)
-
-	if cfg.CacheDir != "" {
-		// Module cache stored below $GOPATH/pkg
-		config.SetEnvVars(&env, "GOPATH", cfg.CacheDir)
-	}
+		"GONOPROXY", mcfg.NoProxy,
+		"GOPATH", cfg.CacheDir,
+		// GOCACHE was introduced in Go 1.15. This matches the location derived from GOPATH above.
+		"GOCACHE", filepath.Join(cfg.CacheDir, "pkg", "mod"),
+	)
 
 	logger := cfg.Logger
 	if logger == nil {
@@ -602,15 +602,18 @@ func (c *Client) runGo(
 	}
 
 	stderr := new(bytes.Buffer)
-	cmd, err := hexec.SafeCommandContext(ctx, "go", args...)
+
+	argsv := collections.StringSliceToInterfaceSlice(args)
+	argsv = append(argsv, hexec.WithEnviron(c.environ))
+	argsv = append(argsv, hexec.WithStderr(io.MultiWriter(stderr, os.Stderr)))
+	argsv = append(argsv, hexec.WithStdout(stdout))
+	argsv = append(argsv, hexec.WithDir(c.ccfg.WorkingDir))
+	argsv = append(argsv, hexec.WithContext(ctx))
+
+	cmd, err := c.ccfg.Exec.New("go", argsv...)
 	if err != nil {
 		return err
 	}
-
-	cmd.Env = c.environ
-	cmd.Dir = c.ccfg.WorkingDir
-	cmd.Stdout = stdout
-	cmd.Stderr = io.MultiWriter(stderr, os.Stderr)
 
 	if err := cmd.Run(); err != nil {
 		if ee, ok := err.(*exec.Error); ok && ee.Err == exec.ErrNotFound {
@@ -719,6 +722,8 @@ type ClientConfig struct {
 
 	// Eg. "production"
 	Environment string
+
+	Exec *hexec.Exec
 
 	CacheDir     string // Module cache
 	ModuleConfig Config

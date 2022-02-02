@@ -5,8 +5,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/pkg/errors"
-
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
@@ -15,14 +13,17 @@ import (
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
-
 	"github.com/strawberryssg/strawberry-v0/metrics"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/strawberryssg/strawberry-v0/tpl"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
+	"github.com/strawberryssg/strawberry-v0/config/security"
 
+	"github.com/pkg/errors"
 	"github.com/spf13/cast"
+
 	jww "github.com/spf13/jwalterweatherman"
 )
 
@@ -36,6 +37,8 @@ type Deps struct {
 
 	// Used to log errors that may repeat itself many times.
 	LogDistinct loggers.Logger
+
+	ExecHelper *hexec.Exec
 
 	// The templates to use. This will usually implement the full tpl.TemplateManager.
 	tmpl tpl.TemplateHandler
@@ -231,6 +234,12 @@ func New(cfg DepsCfg) (*Deps, error) {
 		cfg.OutputFormats = output.DefaultFormats
 	}
 
+	securityConfig, err := security.DecodeConfig(cfg.Cfg)
+	if err != nil {
+		return nil, errors.WithMessage(err, "failed to create security config from configuration")
+	}
+	execHelper := hexec.New(securityConfig)
+
 	ps, err := helpers.NewPathSpec(fs, cfg.Language, logger)
 	if err != nil {
 		return nil, errors.Wrap(err, "create PathSpec")
@@ -244,12 +253,12 @@ func New(cfg DepsCfg) (*Deps, error) {
 	errorHandler := &globalErrHandler{}
 	buildState := &BuildState{}
 
-	resourceSpec, err := resources.NewSpec(ps, fileCaches, buildState, logger, errorHandler, cfg.OutputFormats, cfg.MediaTypes)
+	resourceSpec, err := resources.NewSpec(ps, fileCaches, buildState, logger, errorHandler, execHelper, cfg.OutputFormats, cfg.MediaTypes)
 	if err != nil {
 		return nil, err
 	}
 
-	contentSpec, err := helpers.NewContentSpec(cfg.Language, logger, ps.BaseFs.Content.Fs)
+	contentSpec, err := helpers.NewContentSpec(cfg.Language, logger, ps.BaseFs.Content.Fs, execHelper)
 	if err != nil {
 		return nil, err
 	}
@@ -270,6 +279,7 @@ func New(cfg DepsCfg) (*Deps, error) {
 		Fs:                      fs,
 		Log:                     ignorableLogger,
 		LogDistinct:             logDistinct,
+		ExecHelper:              execHelper,
 		templateProvider:        cfg.TemplateProvider,
 		translationProvider:     cfg.TranslationProvider,
 		WithTemplate:            cfg.WithTemplate,
@@ -312,7 +322,7 @@ func (d Deps) ForLanguage(cfg DepsCfg, onCreated func(d *Deps) error) (*Deps, er
 		return nil, err
 	}
 
-	d.ContentSpec, err = helpers.NewContentSpec(l, d.Log, d.BaseFs.Content.Fs)
+	d.ContentSpec, err = helpers.NewContentSpec(l, d.Log, d.BaseFs.Content.Fs, d.ExecHelper)
 	if err != nil {
 		return nil, err
 	}
@@ -323,7 +333,7 @@ func (d Deps) ForLanguage(cfg DepsCfg, onCreated func(d *Deps) error) (*Deps, er
 	// TODO(bep) clean up these inits.
 	resourceCache := d.ResourceSpec.ResourceCache
 	postBuildAssets := d.ResourceSpec.PostBuildAssets
-	d.ResourceSpec, err = resources.NewSpec(d.PathSpec, d.ResourceSpec.FileCaches, d.BuildState, d.Log, d.globalErrHandler, cfg.OutputFormats, cfg.MediaTypes)
+	d.ResourceSpec, err = resources.NewSpec(d.PathSpec, d.ResourceSpec.FileCaches, d.BuildState, d.Log, d.globalErrHandler, d.ExecHelper, cfg.OutputFormats, cfg.MediaTypes)
 	if err != nil {
 		return nil, err
 	}

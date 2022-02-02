@@ -22,18 +22,20 @@ import (
 	"testing"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/modules"
-
-	"github.com/strawberryssg/strawberry-v0/helpers"
-
-	qt "github.com/frankban/quicktest"
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/langs"
+	"github.com/strawberryssg/strawberry-v0/modules"
+
 	"github.com/spf13/afero"
+
+	qt "github.com/frankban/quicktest"
 )
 
 func TestScpGetLocal(t *testing.T) {
@@ -193,8 +195,10 @@ func newDeps(cfg config.Provider) *deps.Deps {
 	}
 	cfg.Set("allModules", modules.Modules{mod})
 
+	ex := hexec.New(security.DefaultConfig)
+
 	logger := loggers.NewIgnorableLogger(loggers.NewErrorLogger(), "none")
-	cs, err := helpers.NewContentSpec(cfg, logger, afero.NewMemMapFs())
+	cs, err := helpers.NewContentSpec(cfg, logger, afero.NewMemMapFs(), ex)
 	if err != nil {
 		panic(err)
 	}
@@ -215,6 +219,7 @@ func newDeps(cfg config.Provider) *deps.Deps {
 		Cfg:         cfg,
 		Fs:          fs,
 		FileCaches:  fileCaches,
+		ExecHelper:  ex,
 		ContentSpec: cs,
 		Log:         logger,
 		LogDistinct: helpers.NewDistinctLogger(logger),

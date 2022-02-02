@@ -20,12 +20,14 @@ import (
 
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/common/types"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/config/privacy"
+	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/config/services"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
@@ -105,7 +107,7 @@ func LoadConfig(d ConfigSourceDescriptor, doWithConfig ...func(cfg config.Provid
 	// Config deprecations.
 	// We made this a Glob pattern in Hugo 0.75, we don't need both.
 	if l.cfg.GetBool("ignoreVendor") {
-		helpers.Deprecated("--ignoreVendor", "--ignoreVendorPaths **", true)
+		helpers.Deprecated("--ignoreVendor", "Use --ignoreVendorPaths \"**\"", true)
 		l.cfg.Set("ignoreVendorPaths", "**")
 	}
 
@@ -375,6 +377,12 @@ func (l configLoader) collectModules(modConfig modules.Config, v1 config.Provide
 		return nil, nil, err
 	}
 
+	secConfig, err := security.DecodeConfig(v1)
+	if err != nil {
+		return nil, nil, err
+	}
+	ex := hexec.New(secConfig)
+
 	v1.Set("filecacheConfigs", filecacheConfigs)
 
 	var configFilenames []string
@@ -403,6 +411,7 @@ func (l configLoader) collectModules(modConfig modules.Config, v1 config.Provide
 	modulesClient := modules.NewClient(modules.ClientConfig{
 		Fs:                 l.Fs,
 		Logger:             l.Logger,
+		Exec:               ex,
 		HookBeforeFinalize: hook,
 		WorkingDir:         workingDir,
 		ThemesDir:          themesDir,

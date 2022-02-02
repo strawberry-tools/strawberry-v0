@@ -24,16 +24,15 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/markup"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
 
 	"github.com/spf13/afero"
 
-	"github.com/strawberryssg/strawberry-v0/markup/converter"
-
-	"github.com/strawberryssg/strawberry-v0/markup"
-
 	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
-	"github.com/strawberryssg/strawberry-v0/config"
 )
 
 // SummaryDivider denotes where content summarization should end. The default is "<!--more-->".
@@ -64,7 +63,7 @@ type ContentSpec struct {
 
 // NewContentSpec returns a ContentSpec initialized
 // with the appropriate fields from the given config.Provider.
-func NewContentSpec(cfg config.Provider, logger loggers.Logger, contentFs afero.Fs) (*ContentSpec, error) {
+func NewContentSpec(cfg config.Provider, logger loggers.Logger, contentFs afero.Fs, ex *hexec.Exec) (*ContentSpec, error) {
 	spec := &ContentSpec{
 		summaryLength: cfg.GetInt("summaryLength"),
 		BuildFuture:   cfg.GetBool("buildFuture"),
@@ -78,6 +77,7 @@ func NewContentSpec(cfg config.Provider, logger loggers.Logger, contentFs afero.
 		Cfg:       cfg,
 		ContentFs: contentFs,
 		Logger:    logger,
+		Exec:      ex,
 	})
 	if err != nil {
 		return nil, err
