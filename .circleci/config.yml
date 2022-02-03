@@ -143,7 +143,7 @@ jobs:
             - "dist"
   release-on-macos:
     macos:
-      xcode: 12.3.0
+      xcode: 13.3.0
     working_directory: "~/strawberry"
     steps:
       - checkout
