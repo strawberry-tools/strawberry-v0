@@ -47,7 +47,7 @@ orbs:
 executors:
   go:
     docker:
-      - image: cimg/go:1.17.6-node
+      - image: cimg/go:1.17.7-node
     resource_class: large
 
 jobs:
@@ -122,7 +122,7 @@ jobs:
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v1.4.1/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v1.5.0/goreleaser_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
             cd src && go mod tidy
       - run:
@@ -145,16 +145,16 @@ jobs:
             - "dist"
   release-on-macos:
     macos:
-      xcode: 12.3.0
+      xcode: 13.2.1
     working_directory: "~/strawberry"
     steps:
       - checkout
       - go/install:
-          version: "1.17.6"
+          version: "1.17.7"
       - run:
           name: "Install GoReleaser"
           command: |
-            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v1.4.1/goreleaser_Darwin_all.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
+            curl -sSL "https://github.com/goreleaser/goreleaser/releases/download/v1.5.0/goreleaser_Darwin_all.tar.gz" | sudo tar -xz -C /usr/local/bin goreleaser
             goreleaser --version
       - run:
           name: "Build Snapshot or Release"
