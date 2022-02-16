@@ -13,14 +13,28 @@ if [[ -d "./docs" ]];then
 fi
 
 # Make sure that we pulled an actual release and not a dev version
-if grep -q "DEV" ./common/hugo/version_current.go;then
+if grep -q "DEV" ./src/common/hugo/version_current.go;then
 	echo "Error: It looks like a dev version of Hugo was pulled."
 	failed="true"
 fi
 
 # Make sure we're not using packages from github.com/gohugoio/hugo
-if grep -q "github.com\/gohugoio\/hugo" ./go.mod;then
+if grep -q "github.com\/gohugoio\/hugo" ./src/go.mod;then
 	echo "Error: It looks like a package from github.com/gohugoio/hugo is being used."
+	failed="true"
+fi
+
+# Catch any files with the "extended" build tag.
+# We remove it in Strawberry as we only do the "extended" release.
+if grep -rq "+build extended" ./src;then
+	echo "Error: the extended build tag is in use."
+	failed="true"
+fi
+
+# Catch any files with the "!extended" build tag.
+# We remove it in Strawberry as we only do the "extended" release.
+if grep -rq "+build !extended" ./src;then
+	echo "Error: the !extended build tag is in use."
 	failed="true"
 fi
 

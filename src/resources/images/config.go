@@ -56,7 +56,7 @@ var (
 	// re-generation.
 	imageFormatsVersions = map[Format]int{
 		PNG:  4, // Fix transparency issue with 32 bit images.
-		WEBP: 3, // Fix transparency issue with 32 bit images.
+		WEBP: 4, // Fix transparency issue with 32 bit images.
 	}
 
 	// Increment to mark all processed images as stale. Only use when absolutely needed.

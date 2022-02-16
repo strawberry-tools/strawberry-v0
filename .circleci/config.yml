@@ -54,13 +54,11 @@ jobs:
   generic-tests:
     docker:
       - image: cimg/base:2022.01
-    working_directory: "~/strawberry-v0/src"
     steps:
-      - checkout:
-          path: ".."
+      - checkout
       - run:
           name: "Fork Tests"
-          command: ../scripts/fork-tests.sh
+          command: ./scripts/fork-tests.sh
   unit-tests:
     executor: go
     working_directory: "~/strawberry-v0/src"
