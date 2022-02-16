@@ -24,6 +24,7 @@ hugolib/hugo_stats.json
 resources/sunset.jpg
 
 vendor
+.hugo_build.lock
 
 # Binaries / Packages
 /src/strawberry
