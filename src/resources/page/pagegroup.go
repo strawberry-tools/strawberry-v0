@@ -22,10 +22,11 @@ import (
 	"time"
 
 	"github.com/strawberryssg/strawberry-v0/common/collections"
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
 	"github.com/strawberryssg/strawberry-v0/compare"
-	"github.com/spf13/cast"
-
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
+
+	"github.com/spf13/cast"
 )
 
 var (
@@ -111,8 +112,9 @@ func (p Pages) GroupBy(key string, order ...string) (PagesGroup, error) {
 	}
 
 	var ft interface{}
-	m, ok := pagePtrType.MethodByName(key)
-	if ok {
+	index := hreflect.GetMethodIndexByName(pagePtrType, key)
+	if index != -1 {
+		m := pagePtrType.Method(index)
 		if m.Type.NumOut() == 0 || m.Type.NumOut() > 2 {
 			return nil, errors.New(key + " is a Page method but you can't use it with GroupBy")
 		}
@@ -124,6 +126,7 @@ func (p Pages) GroupBy(key string, order ...string) (PagesGroup, error) {
 		}
 		ft = m
 	} else {
+		var ok bool
 		ft, ok = pagePtrType.Elem().FieldByName(key)
 		if !ok {
 			return nil, errors.New(key + " is neither a field nor a method of Page")
@@ -145,7 +148,7 @@ func (p Pages) GroupBy(key string, order ...string) (PagesGroup, error) {
 		case reflect.StructField:
 			fv = ppv.Elem().FieldByName(key)
 		case reflect.Method:
-			fv = ppv.MethodByName(key).Call([]reflect.Value{})[0]
+			fv = hreflect.GetMethodByName(ppv, key).Call([]reflect.Value{})[0]
 		}
 		if !fv.IsValid() {
 			continue

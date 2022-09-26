@@ -24,6 +24,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/strawberryssg/strawberry-v0/common/text"
+	"github.com/strawberryssg/strawberry-v0/common/types/hstring"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/lazy"
@@ -348,8 +349,16 @@ func (p *pageContentOutput) RenderString(args ...interface{}) (template.HTML, er
 		}
 	}
 
+	contentToRender := args[sidx]
+
+	if _, ok := contentToRender.(hstring.RenderedString); ok {
+		// This content is already rendered, this is potentially
+		// a infinite recursion.
+		return "", errors.New("text is already rendered, repeating it may cause infinite recursion")
+	}
+
 	var err error
-	s, err = cast.ToStringE(args[sidx])
+	s, err = cast.ToStringE(contentToRender)
 	if err != nil {
 		return "", err
 	}
@@ -512,7 +521,6 @@ func (p *pageContentOutput) initRenderHooks() error {
 					}
 				}
 			}
-
 			if !found1 {
 				if tp == hooks.CodeBlockRendererType {
 					// No user provided tempplate for code blocks, so we use the native Go code version -- which is also faster.

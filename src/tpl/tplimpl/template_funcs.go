@@ -20,16 +20,14 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/strawberryssg/strawberry-v0/tpl"
-
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 
 	template "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
 	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
-
-	"github.com/strawberryssg/strawberry-v0/deps"
-
-	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 
 	// Init the namespaces
 	_ "github.com/strawberryssg/strawberry-v0/tpl/cast"
@@ -113,9 +111,6 @@ func (t *templateExecHelper) GetMapValue(ctx context.Context, tmpl texttemplate.
 
 func (t *templateExecHelper) GetMethod(ctx context.Context, tmpl texttemplate.Preparer, receiver reflect.Value, name string) (method reflect.Value, firstArg reflect.Value) {
 	if t.running {
-		// This is a hot path and receiver.MethodByName really shows up in the benchmarks,
-		// so we maintain a list of method names with that signature.
-		// TODO(bep) I have a branch that makes this construct superflous.
 		switch name {
 		case "GetPage", "Render":
 			if info, ok := tmpl.(tpl.Info); ok {
@@ -126,7 +121,7 @@ func (t *templateExecHelper) GetMethod(ctx context.Context, tmpl texttemplate.Pr
 		}
 	}
 
-	fn := receiver.MethodByName(name)
+	fn := hreflect.GetMethodByName(receiver, name)
 	if !fn.IsValid() {
 		return zero, zero
 	}
