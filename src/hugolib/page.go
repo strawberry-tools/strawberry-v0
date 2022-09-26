@@ -29,7 +29,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
-	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
@@ -42,6 +41,7 @@ import (
 
 	"github.com/bep/gitmap"
 	"github.com/pkg/errors"
+	"go.uber.org/atomic"
 )
 
 var (
@@ -109,11 +109,18 @@ type pageState struct {
 	// formats (for all sites).
 	pageOutputs []*pageOutput
 
+	// Used to determine if we can reuse content across output formats.
+	pageOutputTemplateVariationsState *atomic.Uint32
+
 	// This will be shifted out when we start to render a new output format.
 	*pageOutput
 
 	// Common for all output formats.
 	*pageCommon
+}
+
+func (p *pageState) reusePageOutputContent() bool {
+	return p.pageOutputTemplateVariationsState.Load() == 1
 }
 
 func (p *pageState) Err() error {
@@ -137,6 +144,10 @@ func (p *pageState) GetIdentity() identity.Identity {
 
 func (p *pageState) GitInfo() *gitmap.GitInfo {
 	return p.gitInfo
+}
+
+func (p *pageState) CodeOwners() []string {
+	return p.codeowners
 }
 
 // GetTerms gets the terms defined on this page in the given taxonomy.
@@ -379,56 +390,6 @@ func (ps *pageState) initCommonProviders(pp pagePaths) error {
 	ps.SitesProvider = ps.s.Info
 
 	return nil
-}
-
-func (p *pageState) createRenderHooks(f output.Format) (hooks.Renderers, error) {
-	layoutDescriptor := p.getLayoutDescriptor()
-	layoutDescriptor.RenderingHook = true
-	layoutDescriptor.LayoutOverride = false
-	layoutDescriptor.Layout = ""
-
-	var renderers hooks.Renderers
-
-	layoutDescriptor.Kind = "render-link"
-	templ, templFound, err := p.s.Tmpl().LookupLayout(layoutDescriptor, f)
-	if err != nil {
-		return renderers, err
-	}
-	if templFound {
-		renderers.LinkRenderer = hookRenderer{
-			templateHandler: p.s.Tmpl(),
-			SearchProvider:  templ.(identity.SearchProvider),
-			templ:           templ,
-		}
-	}
-
-	layoutDescriptor.Kind = "render-image"
-	templ, templFound, err = p.s.Tmpl().LookupLayout(layoutDescriptor, f)
-	if err != nil {
-		return renderers, err
-	}
-	if templFound {
-		renderers.ImageRenderer = hookRenderer{
-			templateHandler: p.s.Tmpl(),
-			SearchProvider:  templ.(identity.SearchProvider),
-			templ:           templ,
-		}
-	}
-
-	layoutDescriptor.Kind = "render-heading"
-	templ, templFound, err = p.s.Tmpl().LookupLayout(layoutDescriptor, f)
-	if err != nil {
-		return renderers, err
-	}
-	if templFound {
-		renderers.HeadingRenderer = hookRenderer{
-			templateHandler: p.s.Tmpl(),
-			SearchProvider:  templ.(identity.SearchProvider),
-			templ:           templ,
-		}
-	}
-
-	return renderers, nil
 }
 
 func (p *pageState) getLayoutDescriptor() output.LayoutDescriptor {
@@ -854,7 +815,7 @@ func (p *pageState) shiftToOutputFormat(isRenderingSite bool, idx int) error {
 
 	if isRenderingSite {
 		cp := p.pageOutput.cp
-		if cp == nil {
+		if cp == nil && p.reusePageOutputContent() {
 			// Look for content to reuse.
 			for i := 0; i < len(p.pageOutputs); i++ {
 				if i == idx {
@@ -862,7 +823,7 @@ func (p *pageState) shiftToOutputFormat(isRenderingSite bool, idx int) error {
 				}
 				po := p.pageOutputs[i]
 
-				if po.cp != nil && po.cp.reuse {
+				if po.cp != nil {
 					cp = po.cp
 					break
 				}
