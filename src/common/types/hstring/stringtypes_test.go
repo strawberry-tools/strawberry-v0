@@ -1,4 +1,4 @@
-// Copyright 2018 The Hugo Authors. All rights reserved.
+// Copyright 2022 The Hugo Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,12 +11,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package hugo
+package hstring
 
-// CurrentVersion represents the current build version.
-// This should be the only one.
-var CurrentVersion = Version{
-	Number:     0.94,
-	PatchLevel: 2,
-	Suffix:     "",
+import (
+	"html/template"
+	"testing"
+
+	qt "github.com/frankban/quicktest"
+	"github.com/spf13/cast"
+)
+
+func TestStringTypes(t *testing.T) {
+	c := qt.New(t)
+
+	// Validate that it will behave like a string in Hugo settings.
+	c.Assert(cast.ToString(RenderedString("Hugo")), qt.Equals, "Hugo")
+	c.Assert(template.HTML(RenderedString("Hugo")), qt.Equals, template.HTML("Hugo"))
 }

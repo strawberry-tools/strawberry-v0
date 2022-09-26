@@ -20,6 +20,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+
 	qt "github.com/frankban/quicktest"
 )
 
@@ -59,7 +61,7 @@ func (e *execHelper) GetMethod(ctx context.Context, tmpl Preparer, receiver refl
 	if name != "Hello1" {
 		return zero, zero
 	}
-	m := receiver.MethodByName("Hello2")
+	m := hreflect.GetMethodByName(receiver, "Hello2")
 	return m, reflect.ValueOf("v2")
 }
 

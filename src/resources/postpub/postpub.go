@@ -19,11 +19,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/spf13/cast"
-
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
+
+	"github.com/spf13/cast"
 )
 
 type PostPublishedResource interface {
@@ -125,7 +126,7 @@ func (r *PostPublishResource) fieldToString(receiver interface{}, path string) s
 	default:
 		v := receiverv.FieldByName(fieldname)
 		if !v.IsValid() {
-			method := receiverv.MethodByName(fieldname)
+			method := hreflect.GetMethodByName(receiverv, fieldname)
 			if method.IsValid() {
 				vals := method.Call(nil)
 				if len(vals) > 0 {

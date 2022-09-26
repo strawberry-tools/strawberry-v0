@@ -91,7 +91,7 @@ func newMarkdown(pcfg converter.ProviderConfig) goldmark.Markdown {
 
 	var (
 		extensions = []goldmark.Extender{
-			newLinks(),
+			newLinks(cfg),
 			newTocExtension(rendererOptions),
 		}
 		parserOptions []parser.Option
