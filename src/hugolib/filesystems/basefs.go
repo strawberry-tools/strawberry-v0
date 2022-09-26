@@ -62,6 +62,9 @@ type BaseFs struct {
 	// This usually maps to /my-project/public.
 	PublishFs afero.Fs
 
+	// A read-only filesystem starting from the project workDir.
+	WorkDir afero.Fs
+
 	theBigFs *filesystemsCollector
 
 	// Locks.
@@ -196,7 +199,7 @@ type SourceFilesystems struct {
 	// with any sub module's resource fs layered below.
 	ResourcesCache afero.Fs
 
-	// The project folder.
+	// The work folder (may be a composite of project and theme components).
 	Work afero.Fs
 
 	// When in multihost we have one static filesystem per language. The sync
@@ -430,8 +433,12 @@ func NewBase(p *paths.Paths, logger loggers.Logger, options ...func(*BaseFs) err
 	publishFs := hugofs.NewBaseFileDecorator(afero.NewBasePathFs(fs.Destination, p.AbsPublishDir))
 	sourceFs := hugofs.NewBaseFileDecorator(afero.NewBasePathFs(fs.Source, p.WorkingDir))
 
+	// Same as sourceFs, but no decoration. This is what's used by os.ReadDir etc.
+	workDir := afero.NewBasePathFs(afero.NewReadOnlyFs(fs.Source), p.WorkingDir)
+
 	b := &BaseFs{
 		SourceFs:  sourceFs,
+		WorkDir:   workDir,
 		PublishFs: publishFs,
 		buildMu:   lockedfile.MutexAt(filepath.Join(p.WorkingDir, lockFileBuild)),
 	}
