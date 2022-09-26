@@ -18,16 +18,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/spf13/cast"
+	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 	"github.com/strawberryssg/strawberry-v0/markup/goldmark/goldmark_config"
-
 	"github.com/strawberryssg/strawberry-v0/markup/highlight"
-
 	"github.com/strawberryssg/strawberry-v0/markup/markup_config"
 
-	"github.com/strawberryssg/strawberry-v0/common/loggers"
-
-	"github.com/strawberryssg/strawberry-v0/markup/converter"
+	"github.com/spf13/cast"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -40,9 +38,18 @@ func convert(c *qt.C, mconf markup_config.Config, content string) converter.Resu
 		},
 	)
 	c.Assert(err, qt.IsNil)
+	h := highlight.New(mconf.Highlight)
+
+	getRenderer := func(t hooks.RendererType, id interface{}) interface{} {
+		if t == hooks.CodeBlockRendererType {
+			return h
+		}
+		return nil
+	}
+
 	conv, err := p.New(converter.DocumentContext{DocumentID: "thedoc"})
 	c.Assert(err, qt.IsNil)
-	b, err := conv.Convert(converter.RenderContext{RenderTOC: true, Src: []byte(content)})
+	b, err := conv.Convert(converter.RenderContext{RenderTOC: true, Src: []byte(content), GetRenderer: getRenderer})
 	c.Assert(err, qt.IsNil)
 
 	return b
@@ -153,7 +160,7 @@ description
 	c.Assert(got, qt.Contains, `<h2 id="神真美好-2">神真美好</h2>`, qt.Commentf(got))
 
 	// Code fences
-	c.Assert(got, qt.Contains, "<div class=\"highlight\"><pre tabindex=\"0\" class=\"chroma\"><code class=\"language-bash\" data-lang=\"bash\">LINE1\n</code></pre></div>")
+	c.Assert(got, qt.Contains, "<div class=\"highlight\"><pre tabindex=\"0\" class=\"chroma\"><code class=\"language-bash\" data-lang=\"bash\"><span class=\"line\"><span class=\"cl\">LINE1\n</span></span></code></pre></div>")
 	c.Assert(got, qt.Contains, "Code Fences No Lexer</h2>\n<pre tabindex=\"0\"><code class=\"language-moo\" data-lang=\"moo\">LINE1\n</code></pre>")
 
 	// Extensions
@@ -262,8 +269,34 @@ func TestConvertAttributes(t *testing.T) {
 				conf.Highlight.CodeFences = true
 			},
 			"```bash {linenos=table .myclass id=\"myid\"}\necho 'foo';\n````\n{ .adfadf }",
-			[]string{"div class=\"highlight myclass\" id=\"myid\"><div s",
-				"table style"},
+			[]string{
+				"div class=\"highlight myclass\" id=\"myid\"><div s",
+				"table style",
+			},
+		},
+		{
+			"Code block, CodeFences=true,lineanchors",
+			func(conf *markup_config.Config) {
+				withBlockAttributes(conf)
+				conf.Highlight.CodeFences = true
+				conf.Highlight.NoClasses = false
+			},
+			"```bash {linenos=table, anchorlinenos=true, lineanchors=org-coderef--xyz}\necho 'foo';\n```",
+			"<div class=\"highlight\"><div class=\"chroma\">\n<table class=\"lntable\"><tr><td class=\"lntd\">\n<pre tabindex=\"0\" class=\"chroma\"><code><span class=\"lnt\" id=\"org-coderef--xyz-1\"><a style=\"outline: none; text-decoration:none; color:inherit\" href=\"#org-coderef--xyz-1\">1</a>\n</span></code></pre></td>\n<td class=\"lntd\">\n<pre tabindex=\"0\" class=\"chroma\"><code class=\"language-bash\" data-lang=\"bash\"><span class=\"line\"><span class=\"cl\"><span class=\"nb\">echo</span> <span class=\"s1\">&#39;foo&#39;</span><span class=\"p\">;</span>\n</span></span></code></pre></td></tr></table>\n</div>\n</div>",
+		},
+		{
+			"Code block, CodeFences=true,lineanchors, default ordinal",
+			func(conf *markup_config.Config) {
+				withBlockAttributes(conf)
+				conf.Highlight.CodeFences = true
+				conf.Highlight.NoClasses = false
+			},
+			"```bash {linenos=inline, anchorlinenos=true}\necho 'foo';\nnecho 'bar';\n```\n\n```bash {linenos=inline, anchorlinenos=true}\necho 'baz';\nnecho 'qux';\n```",
+			[]string{
+				"<span class=\"ln\" id=\"hl-0-1\"><a style=\"outline: none; text-decoration:none; color:inherit\" href=\"#hl-0-1\">1</a></span><span class=\"cl\"><span class=\"nb\">echo</span> <span class=\"s1\">&#39;foo&#39;</span>",
+				"<span class=\"ln\" id=\"hl-0-2\"><a style=\"outline: none; text-decoration:none; color:inherit\" href=\"#hl-0-2\">2</a></span><span class=\"cl\">necho <span class=\"s1\">&#39;bar&#39;</span>",
+				"<span class=\"ln\" id=\"hl-1-2\"><a style=\"outline: none; text-decoration:none; color:inherit\" href=\"#hl-1-2\">2</a></span><span class=\"cl\">necho <span class=\"s1\">&#39;qux&#39;</span>",
+			},
 		},
 		{
 			"Paragraph",
@@ -325,10 +358,8 @@ func TestConvertAttributes(t *testing.T) {
 			for _, s := range cast.ToStringSlice(test.expect) {
 				c.Assert(got, qt.Contains, s)
 			}
-
 		})
 	}
-
 }
 
 func TestConvertIssues(t *testing.T) {
@@ -371,12 +402,21 @@ LINE5
 			},
 		)
 
+		h := highlight.New(conf)
+
+		getRenderer := func(t hooks.RendererType, id interface{}) interface{} {
+			if t == hooks.CodeBlockRendererType {
+				return h
+			}
+			return nil
+		}
+
 		content := "```" + language + "\n" + code + "\n```"
 
 		c.Assert(err, qt.IsNil)
 		conv, err := p.New(converter.DocumentContext{})
 		c.Assert(err, qt.IsNil)
-		b, err := conv.Convert(converter.RenderContext{Src: []byte(content)})
+		b, err := conv.Convert(converter.RenderContext{Src: []byte(content), GetRenderer: getRenderer})
 		c.Assert(err, qt.IsNil)
 
 		return string(b.Bytes())
@@ -388,10 +428,9 @@ LINE5
 
 		result := convertForConfig(c, cfg, `echo "Hugo Rocks!"`, "bash")
 		// TODO(bep) there is a whitespace mismatch (\n) between this and the highlight template func.
-		c.Assert(result, qt.Equals, `<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;Hugo Rocks!&#34;</span>
-</code></pre></div>`)
+		c.Assert(result, qt.Equals, "<div class=\"highlight\"><pre tabindex=\"0\" class=\"chroma\"><code class=\"language-bash\" data-lang=\"bash\"><span class=\"line\"><span class=\"cl\"><span class=\"nb\">echo</span> <span class=\"s2\">&#34;Hugo Rocks!&#34;</span>\n</span></span></code></pre></div>")
 		result = convertForConfig(c, cfg, `echo "Hugo Rocks!"`, "unknown")
-		c.Assert(result, qt.Equals, "<pre tabindex=\"0\"><code class=\"language-unknown\" data-lang=\"unknown\">echo &quot;Hugo Rocks!&quot;\n</code></pre>")
+		c.Assert(result, qt.Equals, "<pre tabindex=\"0\"><code class=\"language-unknown\" data-lang=\"unknown\">echo &#34;Hugo Rocks!&#34;\n</code></pre>")
 	})
 
 	c.Run("Highlight lines, default config", func(c *qt.C) {
@@ -403,7 +442,7 @@ LINE5
 		c.Assert(result, qt.Contains, "<span class=\"hl\"><span class=\"lnt\">4")
 
 		result = convertForConfig(c, cfg, lines, "bash {linenos=inline,hl_lines=[2]}")
-		c.Assert(result, qt.Contains, "<span class=\"ln\">2</span>LINE2\n</span>")
+		c.Assert(result, qt.Contains, "<span class=\"ln\">2</span><span class=\"cl\">LINE2\n</span></span>")
 		c.Assert(result, qt.Not(qt.Contains), "<table")
 
 		result = convertForConfig(c, cfg, lines, "bash {linenos=true,hl_lines=[2]}")
@@ -430,7 +469,7 @@ LINE5
 		cfg.LineNumbersInTable = false
 
 		result := convertForConfig(c, cfg, lines, "bash")
-		c.Assert(result, qt.Contains, "<span class=\"ln\">2</span>LINE2\n<")
+		c.Assert(result, qt.Contains, "<span class=\"ln\">2</span><span class=\"cl\">LINE2\n</span>")
 		result = convertForConfig(c, cfg, lines, "bash {linenos=table}")
 		c.Assert(result, qt.Contains, "<span class=\"lnt\">1\n</span>")
 	})
@@ -453,6 +492,6 @@ LINE5
 		cfg.LineNumbersInTable = false
 
 		result := convertForConfig(c, cfg, lines, "")
-		c.Assert(result, qt.Contains, "<span class=\"ln\">2</span>LINE2\n<")
+		c.Assert(result, qt.Contains, "<span class=\"ln\">2</span><span class=\"cl\">LINE2\n</span></span>")
 	})
 }

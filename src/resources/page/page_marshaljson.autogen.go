@@ -17,7 +17,9 @@ package page
 
 import (
 	"encoding/json"
-	"github.com/bep/gitmap"
+	"html/template"
+	"time"
+
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
@@ -26,8 +28,8 @@ import (
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/navigation"
 	"github.com/strawberryssg/strawberry-v0/source"
-	"html/template"
-	"time"
+
+	"github.com/bep/gitmap"
 )
 
 func MarshalPageToJSON(p Page) ([]byte, error) {

@@ -21,11 +21,13 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"github.com/strawberryssg/strawberry-v0/common/text"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 
-	_errors "github.com/pkg/errors"
 	"github.com/spf13/cast"
+
+	_errors "github.com/pkg/errors"
 )
 
 // New returns a new instance of the strings-namespaced template functions.
@@ -119,7 +121,7 @@ func (ns *Namespace) Chomp(s interface{}) (interface{}, error) {
 		return "", err
 	}
 
-	res := strings.TrimRight(ss, "\r\n")
+	res := text.Chomp(ss)
 	switch s.(type) {
 	case template.HTML:
 		return template.HTML(res), nil

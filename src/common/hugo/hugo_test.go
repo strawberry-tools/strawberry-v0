@@ -26,8 +26,8 @@ func TestHugoInfo(t *testing.T) {
 
 	hugoInfo := NewInfo("", nil)
 
-	c.Assert(hugoInfo.Version(), qt.Equals, StrawberryVersion.String())
-	c.Assert(fmt.Sprintf("%T", ""), qt.Equals, fmt.Sprintf("%T", hugoInfo.Version()))
+	c.Assert(hugoInfo.Version(), qt.Equals, CurrentVersion.Version())
+	c.Assert(fmt.Sprintf("%T", VersionString("")), qt.Equals, fmt.Sprintf("%T", hugoInfo.Version()))
 	c.Assert(hugoInfo.CommitHash, qt.Equals, commitHash)
 	c.Assert(hugoInfo.BuildDate, qt.Equals, buildDate)
 	c.Assert(hugoInfo.Environment, qt.Equals, "production")

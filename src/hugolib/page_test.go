@@ -29,10 +29,9 @@ import (
 	"github.com/strawberryssg/strawberry-v0/htesting"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/markup/asciidocext"
+	"github.com/strawberryssg/strawberry-v0/markup/rst"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
-
-	"github.com/strawberryssg/strawberry-v0/markup/rst"
 
 	"github.com/spf13/afero"
 	"github.com/spf13/jwalterweatherman"
@@ -425,8 +424,7 @@ func testAllMarkdownEnginesForPages(t *testing.T,
 
 			assertFunc(t, e.ext, s.RegularPages())
 
-			home, err := s.Info.Home()
-			b.Assert(err, qt.IsNil)
+			home := s.Info.Home()
 			b.Assert(home, qt.Not(qt.IsNil))
 			b.Assert(home.File().Path(), qt.Equals, homePath)
 			b.Assert(content(home), qt.Contains, "Home Page Content")
@@ -1072,12 +1070,14 @@ func TestPageWithLastmodFromGitInfo(t *testing.T) {
 
 	// This should be the date that testsite/content/first-post.md was modified via Git
 	c.Assert(enSite.RegularPages()[0].Lastmod().Format("2006-01-02"), qt.Equals, "2020-08-19")
+	c.Assert(enSite.RegularPages()[0].CodeOwners()[0], qt.Equals, "@bep")
 
 	nnSite := h.Sites[1]
 	c.Assert(len(nnSite.RegularPages()), qt.Equals, 1)
 
 	// This should be the date that testsite/content_nn/first-post.md was modified via Git
 	c.Assert(nnSite.RegularPages()[0].Lastmod().Format("2006-01-02"), qt.Equals, "2020-08-19")
+	c.Assert(enSite.RegularPages()[0].CodeOwners()[0], qt.Equals, "@bep")
 }
 
 func TestPageWithFrontMatterConfig(t *testing.T) {
@@ -1281,7 +1281,7 @@ func TestTranslationKey(t *testing.T) {
 
 	c.Assert(len(s.RegularPages()), qt.Equals, 2)
 
-	home, _ := s.Info.Home()
+	home := s.Info.Home()
 	c.Assert(home, qt.Not(qt.IsNil))
 	c.Assert(home.TranslationKey(), qt.Equals, "home")
 	c.Assert(s.RegularPages()[0].TranslationKey(), qt.Equals, "page/k1")
@@ -1766,7 +1766,7 @@ Summary: In Chinese, 好 means good.
 	b.AssertFileContent("public/p6/index.html", "WordCount: 7\nFuzzyWordCount: 100\nReadingTime: 1\nLen Plain: 638\nLen PlainWords: 7\nTruncated: false\nLen Summary: 637\nLen Content: 652")
 }
 
-func TestScratchSite(t *testing.T) {
+func TestScratch(t *testing.T) {
 	t.Parallel()
 
 	b := newTestSitesBuilder(t)
@@ -1791,6 +1791,50 @@ title: Scratch Me!
 
 	b.AssertFileContent("public/index.html", "B: bv")
 	b.AssertFileContent("public/scratchme/index.html", "C: cv")
+}
+
+func TestScratchRebuild(t *testing.T) {
+	t.Parallel()
+
+	files := `
+-- config.toml --
+-- content/p1.md --
+---
+title: "p1"
+---
+{{< scratchme >}}
+-- layouts/shortcodes/foo.html --
+notused
+-- layouts/shortcodes/scratchme.html --
+{{ .Page.Scratch.Set "scratch" "foo" }}
+{{ .Page.Store.Set "scratch" "bar" }}
+-- layouts/_default/single.html --
+{{ .Content }}
+Scratch: {{ .Scratch.Get "scratch" }}|
+Store: {{ .Store.Get "scratch" }}|
+`
+
+	b := NewIntegrationTestBuilder(
+		IntegrationTestConfig{
+			T:           t,
+			TxtarString: files,
+			Running:     true,
+		},
+	).Build()
+
+	b.AssertFileContent("public/p1/index.html", `
+Scratch: foo|
+Store: bar|
+	`)
+
+	b.EditFiles("layouts/shortcodes/foo.html", "edit")
+
+	b.Build()
+
+	b.AssertFileContent("public/p1/index.html", `
+Scratch: |
+Store: bar|
+	`)
 }
 
 func TestPageParam(t *testing.T) {
@@ -1911,8 +1955,8 @@ Link with URL as text
 	b.AssertFileContent("public/page/index.html",
 		`<nav id="TableOfContents">
 <li><a href="#shortcode-t-short-in-header">Shortcode T-SHORT in header</a></li>
-<code class="language-bash" data-lang="bash"><span class="hl">SHORT
-<code class="language-bash" data-lang="bash"><span class="hl">MARKDOWN
+<code class="language-bash" data-lang="bash"><span class="line hl"><span class="cl">SHORT
+<code class="language-bash" data-lang="bash"><span class="line hl"><span class="cl">MARKDOWN
 <p><a href="https://google.com">https://google.com</a></p>
 `)
 }

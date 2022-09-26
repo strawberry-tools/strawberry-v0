@@ -69,8 +69,8 @@ func (i Info) HugoVersion() string {
 }
 
 // Version returns the current version as a comparable version string.
-func (i Info) Version() string {
-	return StrawberryVersion.String()
+func (i Info) Version() VersionString {
+	return CurrentVersion.Version()
 }
 
 // Generator a Strawberry meta generator HTML tag.

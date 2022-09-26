@@ -18,15 +18,12 @@ import (
 	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
-
 	"github.com/strawberryssg/strawberry-v0/common/maps"
-	"github.com/strawberryssg/strawberry-v0/source"
-
-	"github.com/strawberryssg/strawberry-v0/output"
-
 	"github.com/strawberryssg/strawberry-v0/lazy"
-
+	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
+
+	"go.uber.org/atomic"
 )
 
 func newPageBase(metaProvider *pageMeta) (*pageState, error) {
@@ -37,11 +34,13 @@ func newPageBase(metaProvider *pageMeta) (*pageState, error) {
 	s := metaProvider.s
 
 	ps := &pageState{
-		pageOutput: nopPageOutput,
+		pageOutput:                        nopPageOutput,
+		pageOutputTemplateVariationsState: atomic.NewUint32(0),
 		pageCommon: &pageCommon{
 			FileProvider:            metaProvider,
 			AuthorProvider:          metaProvider,
 			Scratcher:               maps.NewScratcher(),
+			store:                   maps.NewScratch(),
 			Positioner:              page.NopPage,
 			InSectionPositioner:     page.NopPage,
 			ResourceMetaProvider:    metaProvider,
@@ -65,15 +64,6 @@ func newPageBase(metaProvider *pageMeta) (*pageState, error) {
 
 	siteAdapter := pageSiteAdapter{s: s, p: ps}
 
-	deprecatedWarningPage := struct {
-		source.FileWithoutOverlap
-		page.DeprecatedWarningPageMethods1
-	}{
-		FileWithoutOverlap:            metaProvider.File(),
-		DeprecatedWarningPageMethods1: &pageDeprecatedWarning{p: ps},
-	}
-
-	ps.DeprecatedWarningPageMethods = page.NewDeprecatedWarningPage(deprecatedWarningPage)
 	ps.pageMenus = &pageMenus{p: ps}
 	ps.PageMenusProvider = ps.pageMenus
 	ps.GetPageProvider = siteAdapter

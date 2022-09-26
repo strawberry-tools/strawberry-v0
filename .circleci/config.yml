@@ -47,7 +47,7 @@ orbs:
 executors:
   go:
     docker:
-      - image: cimg/go:1.17.7-node
+      - image: cimg/go:1.18-node
     resource_class: large
 
 jobs:
@@ -72,7 +72,7 @@ jobs:
           command: |
             curl -sSL "https://github.com/magefile/mage/releases/download/v1.12.1/mage_1.12.1_Linux-64bit.tar.gz" | sudo tar -xz --no-same-owner -C /usr/local/bin mage
             mage --version
-            mkdir ~/bin
+            mkdir -p ~/bin
             curl -sSL "https://github.com/sass/dart-sass-embedded/releases/download/1.0.0-beta.6/sass_embedded-1.0.0-beta.6-linux-x64.tar.gz" | tar -xz
             mv sass_embedded/* ~/bin/
             rm -r sass_embedded

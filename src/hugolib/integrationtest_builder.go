@@ -30,6 +30,9 @@ import (
 )
 
 func NewIntegrationTestBuilder(conf IntegrationTestConfig) *IntegrationTestBuilder {
+	// Code fences.
+	conf.TxtarString = strings.ReplaceAll(conf.TxtarString, "§§§", "```")
+
 	data := txtar.Parse([]byte(conf.TxtarString))
 
 	c, ok := conf.T.(*qt.C)
@@ -127,7 +130,7 @@ func (s *IntegrationTestBuilder) AssertFileContent(filename string, matches ...s
 			if match == "" || strings.HasPrefix(match, "#") {
 				continue
 			}
-			s.Assert(content, qt.Contains, match, qt.Commentf(content))
+			s.Assert(content, qt.Contains, match, qt.Commentf(m))
 		}
 	}
 }
@@ -166,7 +169,7 @@ func (s *IntegrationTestBuilder) AssertRenderCountPage(count int) {
 func (s *IntegrationTestBuilder) Build() *IntegrationTestBuilder {
 	s.Helper()
 	_, err := s.BuildE()
-	if s.Cfg.Verbose {
+	if s.Cfg.Verbose || err != nil {
 		fmt.Println(s.logBuff.String())
 	}
 	s.Assert(err, qt.IsNil)

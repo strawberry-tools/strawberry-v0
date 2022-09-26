@@ -18,21 +18,18 @@ package page
 import (
 	"html/template"
 
-	"github.com/strawberryssg/strawberry-v0/identity"
-
-	"github.com/bep/gitmap"
-	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/strawberryssg/strawberry-v0/tpl"
-
-	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/compare"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
+	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/navigation"
 	"github.com/strawberryssg/strawberry-v0/related"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/strawberryssg/strawberry-v0/source"
+	"github.com/strawberryssg/strawberry-v0/tpl"
+
+	"github.com/bep/gitmap"
 )
 
 // Clear clears any global package state.
@@ -108,6 +105,7 @@ type GetPageProvider interface {
 // GitInfoProvider provides Git info.
 type GitInfoProvider interface {
 	GitInfo() *gitmap.GitInfo
+	CodeOwners() []string
 }
 
 // InSectionPositioner provides section navigation.
@@ -262,7 +260,15 @@ type PageWithoutContent interface {
 	// Helper methods
 	ShortcodeInfoProvider
 	compare.Eqer
+
+	// Scratch returns a Scratch that can be used to store temporary state.
+	// Note that this Scratch gets reset on server rebuilds. See Store() for a variant that survives.
 	maps.Scratcher
+
+	// Store returns a Scratch that can be used to store temporary state.
+	// In contrast to Scratch(), this Scratch is not reset on server rebuilds.
+	Store() *maps.Scratch
+
 	RelatedKeywordsProvider
 
 	// GetTerms gets the terms of a given taxonomy,
@@ -379,18 +385,7 @@ type TreeProvider interface {
 // DeprecatedWarningPageMethods lists deprecated Page methods that will trigger
 // a WARNING if invoked.
 // This was added in Hugo 0.55.
-type DeprecatedWarningPageMethods interface {
-	source.FileWithoutOverlap
-	DeprecatedWarningPageMethods1
-}
-
-type DeprecatedWarningPageMethods1 interface {
-	IsDraft() bool
-	Hugo() hugo.Info
-	LanguagePrefix() string
-	GetParam(key string) interface{}
-	RSSLink() template.URL
-	URL() string
+type DeprecatedWarningPageMethods interface { // This was emptied in Hugo 0.93.0.
 }
 
 // Move here to trigger ERROR instead of WARNING.
