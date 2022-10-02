@@ -33,7 +33,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/spf13/afero"
 	"github.com/spf13/jwalterweatherman"
 
 	qt "github.com/frankban/quicktest"
@@ -1027,13 +1026,13 @@ func TestPageWithLastmodFromGitInfo(t *testing.T) {
 	}
 	c := qt.New(t)
 
-	// We need to use the OS fs for this.
-	cfg := config.New()
-	fs := hugofs.NewFrom(hugofs.Os, cfg)
-	fs.Destination = &afero.MemMapFs{}
-
 	wd, err := os.Getwd()
 	c.Assert(err, qt.IsNil)
+
+	// We need to use the OS fs for this.
+	cfg := config.NewWithTestDefaults()
+	cfg.Set("workingDir", filepath.Join(wd, "testsite"))
+	fs := hugofs.NewFrom(hugofs.Os, cfg)
 
 	cfg.Set("frontmatter", map[string]any{
 		"lastmod": []string{":git", "lastmod"},
@@ -1055,8 +1054,6 @@ func TestPageWithLastmodFromGitInfo(t *testing.T) {
 
 	cfg.Set("languages", langConfig)
 	cfg.Set("enableGitInfo", true)
-
-	cfg.Set("workingDir", filepath.Join(wd, "testsite"))
 
 	b := newTestSitesBuilderFromDepsCfg(t, deps.DepsCfg{Fs: fs, Cfg: cfg}).WithNothingAdded()
 
@@ -1310,7 +1307,7 @@ func TestChompBOM(t *testing.T) {
 
 func TestPageWithEmoji(t *testing.T) {
 	for _, enableEmoji := range []bool{true, false} {
-		v := config.New()
+		v := config.NewWithTestDefaults()
 		v.Set("enableEmoji", enableEmoji)
 
 		b := newTestSitesBuilder(t).WithViper(v)

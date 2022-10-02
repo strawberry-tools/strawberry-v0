@@ -14,22 +14,23 @@ require (
 	github.com/bep/godartsass v0.14.0
 	github.com/bep/golibsass v1.1.0
 	github.com/bep/gowebp v0.1.0
+	github.com/bep/overlayfs v0.6.0
 	github.com/bep/tmc v0.5.1
 	github.com/clbanning/mxj/v2 v2.5.5
 	github.com/cli/safeexec v1.0.0
 	github.com/disintegration/gift v1.2.1
 	github.com/dustin/go-humanize v1.0.0
-	github.com/evanw/esbuild v0.14.25
+	github.com/evanw/esbuild v0.14.36
 	github.com/fortytw2/leaktest v1.3.0
 	github.com/frankban/quicktest v1.14.3
-	github.com/fsnotify/fsnotify v1.5.2
-	github.com/getkin/kin-openapi v0.93.0
+	github.com/fsnotify/fsnotify v1.5.1
+	github.com/getkin/kin-openapi v0.94.0
 	github.com/ghodss/yaml v1.0.0
-	github.com/gobuffalo/flect v0.2.4
+	github.com/gobuffalo/flect v0.2.5
 	github.com/gobwas/glob v0.2.3
 	github.com/gohugoio/go-i18n/v2 v2.1.3-0.20210430103248-4c28c89f8013
 	github.com/gohugoio/locales v0.14.0
-	github.com/gohugoio/localescompressed v0.15.0
+	github.com/gohugoio/localescompressed v1.0.1
 	github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95
 	github.com/google/go-cmp v0.5.7
 	github.com/gopherlibs/jsonfeed v0.1.0
@@ -45,20 +46,20 @@ require (
 	github.com/muesli/smartcrop v0.3.0
 	github.com/niklasfasching/go-org v1.6.5
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/pelletier/go-toml/v2 v2.0.0-beta.6
+	github.com/pelletier/go-toml/v2 v2.0.0-beta.7.0.20220408132554-2377ac4bc04c
 	github.com/pkg/errors v0.9.1
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/russross/blackfriday v1.6.0
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
-	github.com/sanity-io/litter v1.5.2
+	github.com/sanity-io/litter v1.5.4
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
-	github.com/spf13/afero v1.8.1
-	github.com/spf13/cast v1.5.0
+	github.com/spf13/afero v1.8.2
+	github.com/spf13/cast v1.4.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/fsync v0.9.0
 	github.com/spf13/jwalterweatherman v1.1.0
 	github.com/spf13/pflag v1.0.5
-	github.com/tdewolff/minify/v2 v2.10.0
+	github.com/tdewolff/minify/v2 v2.11.1
 	github.com/yuin/goldmark v1.4.11
 	go.uber.org/atomic v1.10.0
 	gocloud.dev v0.20.0
@@ -66,7 +67,7 @@ require (
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	golang.org/x/tools v0.1.9
+	golang.org/x/tools v0.1.10
 	google.golang.org/api v0.70.0
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -100,7 +101,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/tdewolff/parse/v2 v2.5.27 // indirect
+	github.com/tdewolff/parse/v2 v2.5.28 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
 	golang.org/x/sys v0.0.0-20220209214540-3681064d5158 // indirect

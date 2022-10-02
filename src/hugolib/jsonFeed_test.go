@@ -45,7 +45,7 @@ func TestJSONFeedOutput(t *testing.T) {
 	th.assertFileContent(filepath.Join("public", "categories", "hugo", jsonFeedURI), "https://jsonfeed.org/version/1.1", "hugo on JSON Feed Test", "http://auth/bub/")
 
 	// JSON Feed Item Limit
-	content := readDestination(t, fs, filepath.Join("public", jsonFeedURI))
+	content := readWorkingDir(t, fs, filepath.Join("public", jsonFeedURI))
 	c := strings.Count(content, "content_html")
 	if c != jsonFeedLimit {
 		t.Errorf("incorrect JSON Feed item count: expected %d, got %d", jsonFeedLimit, c)
@@ -55,7 +55,7 @@ func TestJSONFeedOutput(t *testing.T) {
 	th.assertFileContent(filepath.Join("public", jsonFeedURI), "https://jsonfeed.org/version/1.1", "description", `A \u003cem\u003ecustom\u003c/em\u003e summary`)
 
 	// Validate JSON Feed with external library
-	homeFeed := readDestination(th, th.Fs, filepath.Join("public", jsonFeedURI))
+	homeFeed := readWorkingDir(th, th.Fs, filepath.Join("public", jsonFeedURI))
 	jFeed, err := jsonfeed.Parse(strings.NewReader(homeFeed))
 	if err != nil {
 		t.Error("home JSON Feed cannot be parsed by JSONfeed library")

@@ -18,13 +18,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
-
-	"github.com/spf13/cobra"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
+
+	"github.com/spf13/cobra"
+
+	hpaths "github.com/strawberryssg/strawberry-v0/common/paths"
 )
 
 type commandsBuilder struct {
@@ -243,14 +244,14 @@ func (cc *hugoBuilderCommon) timeTrack(start time.Time, name string) {
 
 func (cc *hugoBuilderCommon) getConfigDir(baseDir string) string {
 	if cc.cfgDir != "" {
-		return paths.AbsPathify(baseDir, cc.cfgDir)
+		return hpaths.AbsPathify(baseDir, cc.cfgDir)
 	}
 
 	if v, found := os.LookupEnv("HUGO_CONFIGDIR"); found {
-		return paths.AbsPathify(baseDir, v)
+		return hpaths.AbsPathify(baseDir, v)
 	}
 
-	return paths.AbsPathify(baseDir, "config")
+	return hpaths.AbsPathify(baseDir, "config")
 }
 
 func (cc *hugoBuilderCommon) getEnvironment(isServer bool) string {

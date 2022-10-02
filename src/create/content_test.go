@@ -80,7 +80,6 @@ func TestNewContentFromFile(t *testing.T) {
 			cfg, fs := newTestCfg(c, mm)
 			h, err := hugolib.NewHugoSites(deps.DepsCfg{Cfg: cfg, Fs: fs})
 			c.Assert(err, qt.IsNil)
-
 			err = create.NewContent(h, cas.kind, cas.path)
 
 			if b, ok := cas.expected.(bool); ok && !b {
@@ -96,6 +95,7 @@ func TestNewContentFromFile(t *testing.T) {
 			if !strings.HasPrefix(fname, "content") {
 				fname = filepath.Join("content", fname)
 			}
+
 			content := readFileFromFs(c, fs.Source, fname)
 
 			for _, v := range cas.expected.([]string) {

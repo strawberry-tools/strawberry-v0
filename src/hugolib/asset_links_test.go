@@ -68,7 +68,7 @@ func TestAssetLinksOutput(t *testing.T) {
 			tc.fingerprint,
 		)
 
-		content := readDestination(th, th.Fs, outputAssetLinks)
+		content := readWorkingDir(th, th.Fs, outputAssetLinks)
 		c.Assert(content, qt.Contains, tc.pkgName)
 		c.Assert(content, qt.Contains, tc.fingerprint)
 	}

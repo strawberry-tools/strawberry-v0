@@ -17,9 +17,10 @@ import (
 	"sort"
 
 	"github.com/strawberryssg/strawberry-v0/common/collections"
+	"github.com/strawberryssg/strawberry-v0/compare"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/strawberryssg/strawberry-v0/compare"
 	"github.com/spf13/cast"
 )
 
@@ -71,7 +72,7 @@ var (
 		}
 		if p1.Weight() == p2.Weight() {
 			if p1.Date().Unix() == p2.Date().Unix() {
-				c := compare.Strings(p1.LinkTitle(), p2.LinkTitle())
+				c := collatorStringCompare(func(p Page) string { return p.LinkTitle() }, p1, p2)
 				if c == 0 {
 					if p1.File().IsZero() || p2.File().IsZero() {
 						return p1.File().IsZero()
@@ -120,11 +121,11 @@ var (
 	}
 
 	lessPageTitle = func(p1, p2 Page) bool {
-		return compare.LessStrings(p1.Title(), p2.Title())
+		return collatorStringCompare(func(p Page) string { return p.Title() }, p1, p2) < 0
 	}
 
 	lessPageLinkTitle = func(p1, p2 Page) bool {
-		return compare.LessStrings(p1.LinkTitle(), p2.LinkTitle())
+		return collatorStringCompare(func(p Page) string { return p.LinkTitle() }, p1, p2) < 0
 	}
 
 	lessPageDate = func(p1, p2 Page) bool {
@@ -148,6 +149,46 @@ func (p Pages) Limit(n int) Pages {
 		return p[0:n]
 	}
 	return p
+}
+
+var collatorStringSort = func(getString func(Page) string) func(p Pages) {
+	return func(p Pages) {
+		if len(p) == 0 {
+			return
+		}
+		// Pages may be a mix of multiple languages, so we need to use the language
+		// for the currently rendered Site.
+		currentSite := p[0].Site().Current()
+		coll := langs.GetCollator(currentSite.Language())
+		coll.Lock()
+		defer coll.Unlock()
+
+		sort.SliceStable(p, func(i, j int) bool {
+			return coll.CompareStrings(getString(p[i]), getString(p[j])) < 0
+		})
+	}
+}
+
+var collatorStringCompare = func(getString func(Page) string, p1, p2 Page) int {
+	currentSite := p1.Site().Current()
+	coll := langs.GetCollator(currentSite.Language())
+	coll.Lock()
+	c := coll.CompareStrings(getString(p1), getString(p2))
+	coll.Unlock()
+	return c
+}
+
+var collatorStringLess = func(p Page) (less func(s1, s2 string) bool, close func()) {
+	currentSite := p.Site().Current()
+	coll := langs.GetCollator(currentSite.Language())
+	coll.Lock()
+	return func(s1, s2 string) bool {
+			return coll.CompareStrings(s1, s2) < 1
+		},
+		func() {
+			coll.Unlock()
+		}
+
 }
 
 // ByWeight sorts the Pages by weight and returns a copy.
@@ -174,7 +215,8 @@ func SortByDefault(pages Pages) {
 func (p Pages) ByTitle() Pages {
 	const key = "pageSort.ByTitle"
 
-	pages, _ := spc.get(key, pageBy(lessPageTitle).Sort, p)
+	pages, _ := spc.get(key, collatorStringSort(func(p Page) string { return p.Title() }), p)
+
 	return pages
 }
 
@@ -186,7 +228,7 @@ func (p Pages) ByTitle() Pages {
 func (p Pages) ByLinkTitle() Pages {
 	const key = "pageSort.ByLinkTitle"
 
-	pages, _ := spc.get(key, pageBy(lessPageLinkTitle).Sort, p)
+	pages, _ := spc.get(key, collatorStringSort(func(p Page) string { return p.LinkTitle() }), p)
 
 	return pages
 }
@@ -322,8 +364,14 @@ func (p Pages) Reverse() Pages {
 //
 // This may safely be executed  in parallel.
 func (p Pages) ByParam(paramsKey any) Pages {
+	if len(p) < 2 {
+		return p
+	}
 	paramsKeyStr := cast.ToString(paramsKey)
 	key := "pageSort.ByParam." + paramsKeyStr
+
+	stringLess, close := collatorStringLess(p[0])
+	defer close()
 
 	paramsKeyComparator := func(p1, p2 Page) bool {
 		v1, _ := p1.Param(paramsKeyStr)
@@ -353,7 +401,8 @@ func (p Pages) ByParam(paramsKey any) Pages {
 		s1 := cast.ToString(v1)
 		s2 := cast.ToString(v2)
 
-		return compare.LessStrings(s1, s2)
+		return stringLess(s1, s2)
+
 	}
 
 	pages, _ := spc.get(key, pageBy(paramsKeyComparator).Sort, p)

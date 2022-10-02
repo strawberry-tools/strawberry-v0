@@ -32,16 +32,6 @@ import (
 	qt "github.com/frankban/quicktest"
 )
 
-func TestServer(t *testing.T) {
-	c := qt.New(t)
-
-	r := runServerTest(c, true, "")
-
-	c.Assert(r.err, qt.IsNil)
-	c.Assert(r.homeContent, qt.Contains, "List: Hugo Commands")
-	c.Assert(r.homeContent, qt.Contains, "Environment: development")
-}
-
 // Issue 9518
 func TestServerPanicOnConfigError(t *testing.T) {
 	c := qt.New(t)
@@ -78,6 +68,9 @@ func TestServerFlags(t *testing.T) {
 		{"--renderToDisk", func(c *qt.C, r serverTestResult) {
 			assertPublic(c, r, true)
 		}},
+		{"--renderStaticToDisk", func(c *qt.C, r serverTestResult) {
+			assertPublic(c, r, true)
+		}},
 	} {
 		c.Run(test.flag, func(c *qt.C) {
 			config := `
@@ -99,6 +92,42 @@ baseURL: "https://example.org"
 
 }
 
+func TestServerBugs(t *testing.T) {
+	c := qt.New(t)
+
+	for _, test := range []struct {
+		name   string
+		flag   string
+		assert func(c *qt.C, r serverTestResult)
+	}{
+		// Issue 9788
+		{"PostProcess, memory", "", func(c *qt.C, r serverTestResult) {
+			c.Assert(r.err, qt.IsNil)
+			c.Assert(r.homeContent, qt.Contains, "PostProcess: /foo.min.css")
+		}},
+		{"PostProcess, disk", "--renderToDisk", func(c *qt.C, r serverTestResult) {
+			c.Assert(r.err, qt.IsNil)
+			c.Assert(r.homeContent, qt.Contains, "PostProcess: /foo.min.css")
+		}},
+	} {
+		c.Run(test.name, func(c *qt.C) {
+			config := `
+baseURL: "https://example.org"
+`
+
+			var args []string
+			if test.flag != "" {
+				args = strings.Split(test.flag, "=")
+			}
+			r := runServerTest(c, true, config, args...)
+			test.assert(c, r)
+
+		})
+
+	}
+
+}
+
 type serverTestResult struct {
 	err            error
 	homeContent    string
@@ -106,9 +135,7 @@ type serverTestResult struct {
 }
 
 func runServerTest(c *qt.C, getHome bool, config string, args ...string) (result serverTestResult) {
-	dir, clean, err := createSimpleTestSite(c, testSiteConfig{configFile: config})
-	defer clean()
-	c.Assert(err, qt.IsNil)
+	dir := createSimpleTestSite(c, testSiteConfig{configFile: config})
 
 	sp, err := helpers.FindAvailablePort()
 	c.Assert(err, qt.IsNil)
@@ -142,11 +169,14 @@ func runServerTest(c *qt.C, getHome bool, config string, args ...string) (result
 		time.Sleep(567 * time.Millisecond)
 		resp, err := http.Get(fmt.Sprintf("http://localhost:%d/", port))
 		c.Check(err, qt.IsNil)
+		c.Check(resp.StatusCode, qt.Equals, http.StatusOK)
 		if err == nil {
 			defer resp.Body.Close()
 			result.homeContent = helpers.ReaderToString(resp.Body)
 		}
 	}
+
+	time.Sleep(1 * time.Second)
 
 	select {
 	case <-stop:
@@ -192,7 +222,7 @@ func TestFixURL(t *testing.T) {
 		t.Run(test.TestName, func(t *testing.T) {
 			b := newCommandsBuilder()
 			s := b.newServerCmd()
-			v := config.New()
+			v := config.NewWithTestDefaults()
 			baseURL := test.CLIBaseURL
 			v.Set("baseURL", test.CfgBaseURL)
 			s.serverAppend = test.AppendPort

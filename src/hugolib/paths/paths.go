@@ -19,11 +19,13 @@ import (
 	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/modules"
+
 	"github.com/pkg/errors"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs"
+	hpaths "github.com/strawberryssg/strawberry-v0/common/paths"
 )
 
 var FilePathSeparator = string(filepath.Separator)
@@ -50,8 +52,6 @@ type Paths struct {
 
 	// pagination path handling
 	PaginatePath string
-
-	PublishDir string
 
 	// When in multihost mode, this returns a list of base paths below PublishDir
 	// for each language.
@@ -123,7 +123,7 @@ func New(fs *hugofs.Fs, cfg config.Provider) (*Paths, error) {
 		languages = langs.Languages{&langs.Language{Lang: "en", Cfg: cfg, ContentDir: contentDir}}
 	}
 
-	absPublishDir := AbsPathify(workingDir, publishDir)
+	absPublishDir := hpaths.AbsPathify(workingDir, publishDir)
 	if !strings.HasSuffix(absPublishDir, FilePathSeparator) {
 		absPublishDir += FilePathSeparator
 	}
@@ -131,7 +131,7 @@ func New(fs *hugofs.Fs, cfg config.Provider) (*Paths, error) {
 	if absPublishDir == "//" {
 		absPublishDir = FilePathSeparator
 	}
-	absResourcesDir := AbsPathify(workingDir, resourceDir)
+	absResourcesDir := hpaths.AbsPathify(workingDir, resourceDir)
 	if !strings.HasSuffix(absResourcesDir, FilePathSeparator) {
 		absResourcesDir += FilePathSeparator
 	}
@@ -181,9 +181,6 @@ func New(fs *hugofs.Fs, cfg config.Provider) (*Paths, error) {
 	if cfg.IsSet("modulesClient") {
 		p.ModulesClient = cfg.Get("modulesClient").(*modules.Client)
 	}
-
-	// TODO(bep) remove this, eventually
-	p.PublishDir = absPublishDir
 
 	return p, nil
 }
@@ -254,7 +251,7 @@ func (p *Paths) GetLangSubDir(lang string) string {
 // AbsPathify creates an absolute path if given a relative path. If already
 // absolute, the path is just cleaned.
 func (p *Paths) AbsPathify(inPath string) string {
-	return AbsPathify(p.WorkingDir, inPath)
+	return hpaths.AbsPathify(p.WorkingDir, inPath)
 }
 
 // RelPathify trims any WorkingDir prefix from the given filename. If
@@ -266,13 +263,4 @@ func (p *Paths) RelPathify(filename string) string {
 	}
 
 	return strings.TrimPrefix(strings.TrimPrefix(filename, p.WorkingDir), FilePathSeparator)
-}
-
-// AbsPathify creates an absolute path if given a working dir and a relative path.
-// If already absolute, the path is just cleaned.
-func AbsPathify(workingDir, inPath string) string {
-	if filepath.IsAbs(inPath) {
-		return filepath.Clean(inPath)
-	}
-	return filepath.Join(workingDir, inPath)
 }

@@ -22,6 +22,8 @@ import (
 	"path/filepath"
 
 	"github.com/strawberryssg/strawberry-v0/deps"
+
+	"github.com/bep/overlayfs"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 )
@@ -32,7 +34,12 @@ func New(d *deps.Deps) *Namespace {
 
 	// The docshelper script does not have or need all the dependencies set up.
 	if d.PathSpec != nil {
-		readFileFs = afero.NewReadOnlyFs(afero.NewCopyOnWriteFs(d.PathSpec.BaseFs.Content.Fs, d.PathSpec.BaseFs.Work))
+		readFileFs = overlayfs.New(overlayfs.Options{
+			Fss: []afero.Fs{
+				d.PathSpec.BaseFs.Work,
+				d.PathSpec.BaseFs.Content.Fs,
+			},
+		})
 		// See #9599
 		workFs = d.PathSpec.BaseFs.WorkDir
 	}
