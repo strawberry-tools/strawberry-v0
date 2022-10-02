@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/pkg/errors"
+	"errors"
 
 	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"

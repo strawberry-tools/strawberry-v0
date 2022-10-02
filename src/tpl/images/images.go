@@ -18,10 +18,12 @@ import (
 	"image"
 	"sync"
 
-	"github.com/pkg/errors"
+	"errors"
 
+	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/resources/images"
-	"github.com/strawberryssg/strawberry-v0/resources/resource"
+
+	"github.com/spf13/cast"
 
 	// Importing image codecs for image.DecodeConfig
 	_ "image/gif"
@@ -30,9 +32,6 @@ import (
 
 	// Import webp codec
 	_ "golang.org/x/image/webp"
-
-	"github.com/strawberryssg/strawberry-v0/deps"
-	"github.com/spf13/cast"
 )
 
 // New returns a new instance of the images-namespaced template functions.
@@ -92,12 +91,12 @@ func (ns *Namespace) Config(path any) (image.Config, error) {
 	return config, nil
 }
 
-func (ns *Namespace) Filter(args ...any) (resource.Image, error) {
+func (ns *Namespace) Filter(args ...any) (images.ImageResource, error) {
 	if len(args) < 2 {
 		return nil, errors.New("must provide an image and one or more filters")
 	}
 
-	img := args[len(args)-1].(resource.Image)
+	img := args[len(args)-1].(images.ImageResource)
 	filtersv := args[:len(args)-1]
 
 	return img.Filter(filtersv...)

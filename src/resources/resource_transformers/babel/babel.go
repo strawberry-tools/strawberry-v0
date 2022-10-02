@@ -15,6 +15,7 @@ package babel
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -32,7 +33,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 )
 
 // Options from https://babeljs.io/docs/en/options
@@ -139,7 +139,7 @@ func (t *babelTransformation) Transform(ctx *resources.ResourceTransformationCtx
 		configFile = t.rs.BaseFs.ResolveJSConfigFile(configFile)
 		if configFile == "" && t.options.Config != "" {
 			// Only fail if the user specified config file is not found.
-			return errors.Errorf("babel config %q not found:", configFile)
+			return fmt.Errorf("babel config %q not found:", configFile)
 		}
 	}
 
@@ -201,7 +201,7 @@ func (t *babelTransformation) Transform(ctx *resources.ResourceTransformationCtx
 		if hexec.IsNotFound(err) {
 			return herrors.ErrFeatureNotAvailable
 		}
-		return errors.Wrap(err, errBuf.String())
+		return fmt.Errorf(errBuf.String()+": %w", err)
 	}
 
 	content, err := ioutil.ReadAll(compileOutput)

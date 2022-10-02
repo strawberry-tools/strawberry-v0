@@ -26,7 +26,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 )
 
@@ -53,7 +52,7 @@ func Pack(fs afero.Fs, fis []hugofs.FileMetaInfo) error {
 		if err == nil {
 			// Preserve the original in package.hugo.json.
 			if err = hugio.CopyFile(fs, packageJSONName, files.FilenamePackageHugoJSON); err != nil {
-				return errors.Wrap(err, "npm pack: failed to copy package file")
+				return fmt.Errorf("npm pack: failed to copy package file: %w", err)
 			}
 		} else {
 			// Create one.
@@ -79,7 +78,7 @@ func Pack(fs afero.Fs, fis []hugofs.FileMetaInfo) error {
 	masterFilename := meta.Filename
 	f, err := meta.Open()
 	if err != nil {
-		return errors.Wrap(err, "npm pack: failed to open package file")
+		return fmt.Errorf("npm pack: failed to open package file: %w", err)
 	}
 	b = newPackageBuilder(meta.Module, f)
 	f.Close()
@@ -102,14 +101,14 @@ func Pack(fs afero.Fs, fis []hugofs.FileMetaInfo) error {
 
 		f, err := meta.Open()
 		if err != nil {
-			return errors.Wrap(err, "npm pack: failed to open package file")
+			return fmt.Errorf("npm pack: failed to open package file: %w", err)
 		}
 		b.Add(meta.Module, f)
 		f.Close()
 	}
 
 	if b.Err() != nil {
-		return errors.Wrap(b.Err(), "npm pack: failed to build")
+		return fmt.Errorf("npm pack: failed to build: %w", b.Err())
 	}
 
 	// Replace the dependencies in the original template with the merged set.
@@ -132,11 +131,11 @@ func Pack(fs afero.Fs, fis []hugofs.FileMetaInfo) error {
 	encoder.SetEscapeHTML(false)
 	encoder.SetIndent("", strings.Repeat(" ", 2))
 	if err := encoder.Encode(b.originalPackageJSON); err != nil {
-		return errors.Wrap(err, "npm pack: failed to marshal JSON")
+		return fmt.Errorf("npm pack: failed to marshal JSON: %w", err)
 	}
 
 	if err := afero.WriteFile(fs, packageJSONName, packageJSONData.Bytes(), 0666); err != nil {
-		return errors.Wrap(err, "npm pack: failed to write package.json")
+		return fmt.Errorf("npm pack: failed to write package.json: %w", err)
 	}
 
 	return nil

@@ -16,6 +16,7 @@ package strings
 
 import (
 	"errors"
+	"fmt"
 	"html/template"
 	"regexp"
 	"strings"
@@ -26,8 +27,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/helpers"
 
 	"github.com/spf13/cast"
-
-	_errors "github.com/pkg/errors"
 )
 
 // New returns a new instance of the strings-namespaced template functions.
@@ -49,7 +48,7 @@ type Namespace struct {
 func (ns *Namespace) CountRunes(s any) (int, error) {
 	ss, err := cast.ToStringE(s)
 	if err != nil {
-		return 0, _errors.Wrap(err, "Failed to convert content to string")
+		return 0, fmt.Errorf("Failed to convert content to string: %w", err)
 	}
 
 	counter := 0
@@ -66,7 +65,7 @@ func (ns *Namespace) CountRunes(s any) (int, error) {
 func (ns *Namespace) RuneCount(s any) (int, error) {
 	ss, err := cast.ToStringE(s)
 	if err != nil {
-		return 0, _errors.Wrap(err, "Failed to convert content to string")
+		return 0, fmt.Errorf("Failed to convert content to string: %w", err)
 	}
 	return utf8.RuneCountInString(ss), nil
 }
@@ -75,12 +74,12 @@ func (ns *Namespace) RuneCount(s any) (int, error) {
 func (ns *Namespace) CountWords(s any) (int, error) {
 	ss, err := cast.ToStringE(s)
 	if err != nil {
-		return 0, _errors.Wrap(err, "Failed to convert content to string")
+		return 0, fmt.Errorf("Failed to convert content to string: %w", err)
 	}
 
 	isCJKLanguage, err := regexp.MatchString(`\p{Han}|\p{Hangul}|\p{Hiragana}|\p{Katakana}`, ss)
 	if err != nil {
-		return 0, _errors.Wrap(err, "Failed to match regex pattern against string")
+		return 0, fmt.Errorf("Failed to match regex pattern against string: %w", err)
 	}
 
 	if !isCJKLanguage {
@@ -105,11 +104,11 @@ func (ns *Namespace) CountWords(s any) (int, error) {
 func (ns *Namespace) Count(substr, s any) (int, error) {
 	substrs, err := cast.ToStringE(substr)
 	if err != nil {
-		return 0, _errors.Wrap(err, "Failed to convert substr to string")
+		return 0, fmt.Errorf("Failed to convert substr to string: %w", err)
 	}
 	ss, err := cast.ToStringE(s)
 	if err != nil {
-		return 0, _errors.Wrap(err, "Failed to convert s to string")
+		return 0, fmt.Errorf("Failed to convert s to string: %w", err)
 	}
 	return strings.Count(ss, substrs), nil
 }
@@ -373,7 +372,7 @@ func (ns *Namespace) Title(s any) (string, error) {
 	return ns.titleFunc(ss), nil
 }
 
-// FirstUpper returns a string with the first character as upper case.
+// FirstUpper converts s making  the first character upper case.
 func (ns *Namespace) FirstUpper(s any) (string, error) {
 	ss, err := cast.ToStringE(s)
 	if err != nil {
@@ -405,8 +404,8 @@ func (ns *Namespace) ToUpper(s any) (string, error) {
 	return strings.ToUpper(ss), nil
 }
 
-// Trim returns a string with all leading and trailing characters defined
-// contained in cutset removed.
+// Trim returns converts the strings s removing all leading and trailing characters defined
+// contained.
 func (ns *Namespace) Trim(s, cutset any) (string, error) {
 	ss, err := cast.ToStringE(s)
 	if err != nil {
@@ -485,7 +484,7 @@ func (ns *Namespace) TrimSuffix(suffix, s any) (string, error) {
 	return strings.TrimSuffix(ss, sx), nil
 }
 
-// Repeat returns a new string consisting of count copies of the string s.
+// Repeat returns a new string consisting of n copies of the string s.
 func (ns *Namespace) Repeat(n, s any) (string, error) {
 	ss, err := cast.ToStringE(s)
 	if err != nil {

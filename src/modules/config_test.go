@@ -17,7 +17,6 @@ import (
 	"testing"
 
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
-
 	"github.com/strawberryssg/strawberry-v0/config"
 
 	qt "github.com/frankban/quicktest"
@@ -33,9 +32,9 @@ func TestConfigHugoVersionIsValid(t *testing.T) {
 		{HugoVersion{Min: "0.33.0"}, true},
 		{HugoVersion{Min: "0.56.0-DEV"}, true},
 		{HugoVersion{Min: "0.33.0", Max: "0.55.0"}, false},
-		{HugoVersion{Min: "0.33.0", Max: "0.99.0"}, true},
+		{HugoVersion{Min: "0.33.0", Max: "0.199.0"}, true},
 	} {
-		c.Assert(test.in.IsValid(), qt.Equals, test.expect)
+		c.Assert(test.in.IsValid(), qt.Equals, test.expect, qt.Commentf("%#v", test.in))
 	}
 }
 
@@ -48,7 +47,7 @@ func TestDecodeConfig(t *testing.T) {
 
 [module.hugoVersion]
 min = "0.54.2"
-max = "0.99.0"
+max = "0.199.0"
 extended = true
 
 [[module.mounts]]
@@ -80,6 +79,7 @@ lang="en"
 		c.Assert(hv.Extended, qt.Equals, true)
 
 		if hugo.IsExtended {
+			println("hvMin is " + hv.Max) //DEBUG
 			c.Assert(hv.IsValid(), qt.Equals, true)
 		}
 

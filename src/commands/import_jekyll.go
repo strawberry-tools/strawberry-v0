@@ -26,20 +26,20 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
-
+	"github.com/strawberryssg/strawberry-v0/common/htime"
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
-
-	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
-
-	"github.com/spf13/afero"
-	"github.com/spf13/cobra"
-	jww "github.com/spf13/jwalterweatherman"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugolib"
 	"github.com/strawberryssg/strawberry-v0/parser"
+	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
+
+	"github.com/spf13/afero"
+	"github.com/spf13/cobra"
+
+	jww "github.com/spf13/jwalterweatherman"
 )
 
 var _ cmder = (*importCmd)(nil)
@@ -362,12 +362,12 @@ func parseJekyllFilename(filename string) (time.Time, string, error) {
 	re := regexp.MustCompile(`(\d+-\d+-\d+)-(.+)\..*`)
 	r := re.FindAllStringSubmatch(filename, -1)
 	if len(r) == 0 {
-		return time.Now(), "", errors.New("filename not match")
+		return htime.Now(), "", errors.New("filename not match")
 	}
 
 	postDate, err := time.Parse("2006-1-2", r[0][1])
 	if err != nil {
-		return time.Now(), "", err
+		return htime.Now(), "", err
 	}
 
 	postName := r[0][2]

@@ -18,15 +18,13 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/strawberryssg/strawberry-v0/config"
-	"github.com/strawberryssg/strawberry-v0/source"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 func newPagesProcessor(h *HugoSites, sp *source.SourceSpec) *pagesProcessor {
@@ -156,7 +154,7 @@ func (p *sitePagesProcessor) copyFile(fim hugofs.FileMetaInfo) error {
 	meta := fim.Meta()
 	f, err := meta.Open()
 	if err != nil {
-		return errors.Wrap(err, "copyFile: failed to open")
+		return fmt.Errorf("copyFile: failed to open: %w", err)
 	}
 
 	s := p.m.s

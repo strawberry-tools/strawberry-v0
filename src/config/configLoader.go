@@ -14,6 +14,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -23,7 +24,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 )
 
@@ -58,7 +58,14 @@ func FromConfigString(config, configType string) (Provider, error) {
 func FromFile(fs afero.Fs, filename string) (Provider, error) {
 	m, err := loadConfigFromFile(fs, filename)
 	if err != nil {
-		return nil, herrors.WithFileContextForFileDefault(err, filename, fs)
+		fe := herrors.UnwrapFileError(err)
+		if fe != nil {
+			pos := fe.Position()
+			pos.Filename = filename
+			fe.UpdatePosition(pos)
+			return nil, err
+		}
+		return nil, herrors.NewFileErrorFromFile(err, filename, fs, nil)
 	}
 	return NewFrom(m), nil
 }
@@ -130,7 +137,7 @@ func LoadConfigFromDir(sourceFs afero.Fs, configDir, environment string) (Provid
 			if err != nil {
 				// This will be used in error reporting, use the most specific value.
 				dirnames = []string{path}
-				return errors.Wrapf(err, "failed to unmarshl config for path %q", path)
+				return fmt.Errorf("failed to unmarshl config for path %q: %w", path, err)
 			}
 
 			var keyPath []string

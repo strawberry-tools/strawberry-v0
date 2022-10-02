@@ -14,6 +14,7 @@
 package source
 
 import (
+	"fmt"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -23,8 +24,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
-	"github.com/pkg/errors"
 )
 
 // fileInfo implements the File interface.
@@ -240,11 +239,11 @@ func (sp *SourceSpec) NewFileInfo(fi hugofs.FileMetaInfo) (*FileInfo, error) {
 	relPath := m.Path
 
 	if relPath == "" {
-		return nil, errors.Errorf("no Path provided by %v (%T)", m, m.Fs)
+		return nil, fmt.Errorf("no Path provided by %v (%T)", m, m.Fs)
 	}
 
 	if filename == "" {
-		return nil, errors.Errorf("no Filename provided by %v (%T)", m, m.Fs)
+		return nil, fmt.Errorf("no Filename provided by %v (%T)", m, m.Fs)
 	}
 
 	relDir := filepath.Dir(relPath)

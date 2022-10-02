@@ -14,6 +14,7 @@
 package images
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -34,7 +35,6 @@ import (
 
 	"github.com/bep/gowebp/libwebp/webpoptions"
 	"github.com/disintegration/gift"
-	"github.com/pkg/errors"
 )
 
 func NewImage(f Format, proc *ImageProcessor, img image.Image, s Spec) *Image {
@@ -162,7 +162,7 @@ func (i *Image) initConfig() error {
 	})
 
 	if err != nil {
-		return errors.Wrap(err, "failed to load image config")
+		return fmt.Errorf("failed to load image config: %w", err)
 	}
 
 	return nil
@@ -191,7 +191,7 @@ type ImageProcessor struct {
 	exifDecoder *exif.Decoder
 }
 
-func (p *ImageProcessor) DecodeExif(r io.Reader) (*exif.Exif, error) {
+func (p *ImageProcessor) DecodeExif(r io.Reader) (*exif.ExifInfo, error) {
 	return p.exifDecoder.Decode(r)
 }
 
@@ -238,7 +238,7 @@ func (p *ImageProcessor) ApplyFiltersFromConfig(src image.Image, conf ImageConfi
 	case "fit":
 		filters = append(filters, gift.ResizeToFit(conf.Width, conf.Height, conf.Filter))
 	default:
-		return nil, errors.Errorf("unsupported action: %q", conf.Action)
+		return nil, fmt.Errorf("unsupported action: %q", conf.Action)
 	}
 
 	img, err := p.Filter(src, filters...)

@@ -20,8 +20,6 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/pkg/errors"
-
 	"github.com/mitchellh/mapstructure"
 
 	"github.com/strawberryssg/strawberry-v0/media"
@@ -373,7 +371,7 @@ func decode(mediaTypes media.Types, input any, output *Format) error {
 							}
 							dataVal.SetMapIndex(key, reflect.ValueOf(mediaType))
 						default:
-							return nil, errors.Errorf("invalid output format configuration; wrong type for media type, expected string (e.g. text/html), got %T", vvi)
+							return nil, fmt.Errorf("invalid output format configuration; wrong type for media type, expected string (e.g. text/html), got %T", vvi)
 						}
 					}
 				}
@@ -388,7 +386,7 @@ func decode(mediaTypes media.Types, input any, output *Format) error {
 	}
 
 	if err = decoder.Decode(input); err != nil {
-		return errors.Wrap(err, "failed to decode output format configuration")
+		return fmt.Errorf("failed to decode output format configuration: %w", err)
 	}
 
 	return nil

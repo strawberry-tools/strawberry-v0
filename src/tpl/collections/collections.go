@@ -16,6 +16,7 @@
 package collections
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"math/rand"
@@ -29,11 +30,12 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/types"
 	"github.com/strawberryssg/strawberry-v0/deps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/pkg/errors"
+
 	"github.com/spf13/cast"
 )
 
 func init() {
+	// htime.Now cannot be used here
 	rand.Seed(time.Now().UTC().UnixNano())
 }
 
@@ -736,7 +738,7 @@ func (ns *Namespace) Uniq(seq any) (any, error) {
 	case reflect.Array:
 		slice = reflect.MakeSlice(reflect.SliceOf(v.Type().Elem()), 0, 0)
 	default:
-		return nil, errors.Errorf("type %T not supported", seq)
+		return nil, fmt.Errorf("type %T not supported", seq)
 	}
 
 	seen := make(map[any]bool)

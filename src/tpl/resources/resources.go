@@ -15,6 +15,7 @@
 package resources
 
 import (
+	"errors"
 	"fmt"
 	"sync"
 
@@ -36,7 +37,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/resources/resource_transformers/tocss/scss"
 	"github.com/strawberryssg/strawberry-v0/tpl/internal/resourcehelpers"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 )
 
@@ -157,7 +157,7 @@ func (ns *Namespace) GetRemote(args ...any) resource.Resource {
 		case *create.HTTPError:
 			return resources.NewErrorResource(resource.NewResourceError(v, v.Data))
 		default:
-			return resources.NewErrorResource(resource.NewResourceError(errors.Wrap(err, "error calling resources.GetRemote"), make(map[string]any)))
+			return resources.NewErrorResource(resource.NewResourceError(fmt.Errorf("error calling resources.GetRemote: %w", err), make(map[string]any)))
 		}
 
 	}
@@ -349,7 +349,7 @@ func (ns *Namespace) ToCSS(args ...any) (resource.Resource, error) {
 			case transpilerDart, transpilerLibSass:
 				transpiler = cast.ToString(t)
 			default:
-				return nil, errors.Errorf("unsupported transpiler %q; valid values are %q or %q", t, transpilerLibSass, transpilerDart)
+				return nil, fmt.Errorf("unsupported transpiler %q; valid values are %q or %q", t, transpilerLibSass, transpilerDart)
 			}
 		}
 	}

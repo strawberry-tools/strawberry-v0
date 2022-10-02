@@ -1,27 +1,27 @@
 package deps
 
 import (
+	"fmt"
 	"sync"
 	"sync/atomic"
 	"time"
 
 	"github.com/strawberryssg/strawberry-v0/cache/filecache"
+	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/config"
+	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/media"
-	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/metrics"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/source"
 	"github.com/strawberryssg/strawberry-v0/tpl"
-	"github.com/strawberryssg/strawberry-v0/common/hexec"
-	"github.com/strawberryssg/strawberry-v0/config/security"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 
 	jww "github.com/spf13/jwalterweatherman"
@@ -186,11 +186,11 @@ func (d *Deps) SetTextTmpl(tmpl tpl.TemplateParseFinder) {
 func (d *Deps) LoadResources() error {
 	// Note that the translations need to be loaded before the templates.
 	if err := d.translationProvider.Update(d); err != nil {
-		return errors.Wrap(err, "loading translations")
+		return fmt.Errorf("loading translations: %w", err)
 	}
 
 	if err := d.templateProvider.Update(d); err != nil {
-		return errors.Wrap(err, "loading templates")
+		return fmt.Errorf("loading templates: %w", err)
 	}
 
 	return nil
@@ -236,18 +236,18 @@ func New(cfg DepsCfg) (*Deps, error) {
 
 	securityConfig, err := security.DecodeConfig(cfg.Cfg)
 	if err != nil {
-		return nil, errors.WithMessage(err, "failed to create security config from configuration")
+		return nil, fmt.Errorf("failed to create security config from configuration: %w", err)
 	}
 	execHelper := hexec.New(securityConfig)
 
 	ps, err := helpers.NewPathSpec(fs, cfg.Language, logger)
 	if err != nil {
-		return nil, errors.Wrap(err, "create PathSpec")
+		return nil, fmt.Errorf("create PathSpec: %w", err)
 	}
 
 	fileCaches, err := filecache.NewCaches(ps)
 	if err != nil {
-		return nil, errors.WithMessage(err, "failed to create file caches from configuration")
+		return nil, fmt.Errorf("failed to create file caches from configuration: %w", err)
 	}
 
 	errorHandler := &globalErrHandler{}

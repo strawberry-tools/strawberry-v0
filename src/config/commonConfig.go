@@ -14,18 +14,18 @@
 package config
 
 import (
+	"fmt"
 	"sort"
 	"strings"
 	"sync"
 
-	"github.com/pkg/errors"
-
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/common/types"
 
 	"github.com/gobwas/glob"
-	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cast"
+
 	jww "github.com/spf13/jwalterweatherman"
 )
 
@@ -210,7 +210,7 @@ func DecodeServer(cfg Provider) (*Server, error) {
 			// There are some tricky infinite loop situations when dealing
 			// when the target does not have a trailing slash.
 			// This can certainly be handled better, but not time for that now.
-			return nil, errors.Errorf("unsupported redirect to value %q in server config; currently this must be either a remote destination or a local folder, e.g. \"/blog/\" or \"/blog/index.html\"", redir.To)
+			return nil, fmt.Errorf("unsupported redirect to value %q in server config; currently this must be either a remote destination or a local folder, e.g. \"/blog/\" or \"/blog/index.html\"", redir.To)
 		}
 		s.Redirects[i] = redir
 	}

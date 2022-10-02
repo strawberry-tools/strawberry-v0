@@ -23,18 +23,16 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/htesting"
-
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
-	"github.com/strawberryssg/strawberry-v0/media"
-	"github.com/strawberryssg/strawberry-v0/resources/internal"
-
 	"github.com/strawberryssg/strawberry-v0/helpers"
+	"github.com/strawberryssg/strawberry-v0/htesting"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
+	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	"github.com/spf13/afero"
-	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -361,7 +359,7 @@ func TestTransform(t *testing.T) {
 		c.Assert(err, qt.IsNil)
 		c.Assert(tr.MediaType(), eq, media.PNGType)
 
-		img, ok := tr.(resource.Image)
+		img, ok := tr.(images.ImageResource)
 		c.Assert(ok, qt.Equals, true)
 
 		c.Assert(img.Width(), qt.Equals, 75)

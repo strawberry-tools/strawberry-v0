@@ -14,8 +14,10 @@
 package tplimpl
 
 import (
+	"fmt"
+
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
-	"github.com/pkg/errors"
+
 	"github.com/spf13/afero"
 )
 
@@ -51,14 +53,13 @@ func (t templateInfo) resolveType() templateType {
 }
 
 func (info templateInfo) errWithFileContext(what string, err error) error {
-	err = errors.Wrapf(err, what)
+	err = fmt.Errorf(what+": %w", err)
+	fe := herrors.NewFileErrorFromName(err, info.realFilename)
+	f, err := info.fs.Open(info.filename)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	return fe.UpdateContent(f, nil)
 
-	err, _ = herrors.WithFileContextForFile(
-		err,
-		info.realFilename,
-		info.filename,
-		info.fs,
-		herrors.SimpleLineMatcher)
-
-	return err
 }

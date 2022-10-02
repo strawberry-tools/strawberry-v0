@@ -31,7 +31,7 @@ import (
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/source"
 
-	"github.com/pkg/errors"
+	"errors"
 
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
 	"github.com/strawberryssg/strawberry-v0/common/maps"
@@ -161,7 +161,7 @@ type baseResource interface {
 type commonResource struct {
 }
 
-// Slice is not meant to be used externally. It's a bridge function
+// Slice is for internal use.
 // for the template functions. See collections.Slice.
 func (commonResource) Slice(in any) (any, error) {
 	switch items := in.(type) {
@@ -633,7 +633,7 @@ func (fi *resourceFileInfo) hash() (string, error) {
 		var f hugio.ReadSeekCloser
 		f, err = fi.ReadSeekCloser()
 		if err != nil {
-			err = errors.Wrap(err, "failed to open source file")
+			err = fmt.Errorf("failed to open source file: %w", err)
 			return
 		}
 		defer f.Close()

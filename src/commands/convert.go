@@ -20,20 +20,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
-
-	"github.com/strawberryssg/strawberry-v0/resources/page"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs"
-
 	"github.com/strawberryssg/strawberry-v0/helpers"
-
+	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugolib"
 	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
-
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/hugolib"
+	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	"github.com/spf13/cobra"
 )
@@ -193,7 +186,7 @@ func (cc *convertCmd) convertAndSavePage(p page.Page, site *hugolib.Site, target
 
 	fs := hugofs.Os
 	if err := helpers.WriteToDisk(newFilename, &newContent, fs); err != nil {
-		return errors.Wrapf(err, "Failed to save file %q:", newFilename)
+		return fmt.Errorf("Failed to save file %q:: %w", newFilename, err)
 	}
 
 	return nil

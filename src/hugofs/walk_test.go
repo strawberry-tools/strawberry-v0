@@ -15,6 +15,7 @@ package hugofs
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -22,10 +23,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/strawberryssg/strawberry-v0/htesting"
 	"github.com/strawberryssg/strawberry-v0/common/para"
+	"github.com/strawberryssg/strawberry-v0/htesting"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 
 	qt "github.com/frankban/quicktest"

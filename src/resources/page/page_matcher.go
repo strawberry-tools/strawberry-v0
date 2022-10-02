@@ -14,6 +14,7 @@
 package page
 
 import (
+	"fmt"
 	"path/filepath"
 	"strings"
 
@@ -21,7 +22,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 )
 
 // A PageMatcher can be used to match a Page with Glob patterns.
@@ -133,7 +133,7 @@ func DecodePageMatcher(m any, v *PageMatcher) error {
 			}
 		}
 		if !found {
-			return errors.Errorf("%q did not match a valid Page Kind", v.Kind)
+			return fmt.Errorf("%q did not match a valid Page Kind", v.Kind)
 		}
 	}
 

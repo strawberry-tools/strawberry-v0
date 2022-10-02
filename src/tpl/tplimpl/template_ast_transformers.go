@@ -14,18 +14,19 @@
 package tplimpl
 
 import (
+	"errors"
+	"fmt"
 	"regexp"
 	"strings"
 
-	htmltemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
-	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
-
-	"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate/parse"
-
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/tpl"
+	"github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate/parse"
+
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
+
+	htmltemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/htmltemplate"
+	texttemplate "github.com/strawberryssg/strawberry-v0/tpl/internal/go_templates/texttemplate"
 )
 
 type templateType int
@@ -239,14 +240,14 @@ func (c *templateContext) collectConfig(n *parse.PipeNode) {
 	}
 
 	if s, ok := cmd.Args[0].(*parse.StringNode); ok {
-		errMsg := "failed to decode $_hugo_config in template"
+		errMsg := "failed to decode $_hugo_config in template: %w"
 		m, err := maps.ToStringMapE(s.Text)
 		if err != nil {
-			c.err = errors.Wrap(err, errMsg)
+			c.err = fmt.Errorf(errMsg, err)
 			return
 		}
 		if err := mapstructure.WeakDecode(m, &c.t.parseInfo.Config); err != nil {
-			c.err = errors.Wrap(err, errMsg)
+			c.err = fmt.Errorf(errMsg, err)
 		}
 	}
 }

@@ -18,17 +18,18 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
 	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 	"github.com/strawberryssg/strawberry-v0/markup/goldmark/internal/render"
 	"github.com/strawberryssg/strawberry-v0/markup/internal/attributes"
 
+	"github.com/alecthomas/chroma/lexers"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
-	"github.com/alecthomas/chroma/lexers"
 
 	htext "github.com/strawberryssg/strawberry-v0/common/text"
 )
@@ -116,8 +117,8 @@ func (r *htmlRenderer) renderCodeBlock(w util.BufWriter, src []byte, node ast.No
 		}
 		return htext.Position{
 			Filename:     ctx.DocumentContext().Filename,
-			LineNumber:   0,
-			ColumnNumber: 0,
+			LineNumber:   1,
+			ColumnNumber: 1,
 		}
 	}
 
@@ -130,7 +131,11 @@ func (r *htmlRenderer) renderCodeBlock(w util.BufWriter, src []byte, node ast.No
 
 	ctx.AddIdentity(cr)
 
-	return ast.WalkContinue, err
+	if err != nil {
+		return ast.WalkContinue, herrors.NewFileErrorFromPos(err, cbctx.createPos())
+	}
+
+	return ast.WalkContinue, nil
 }
 
 type codeBlockContext struct {

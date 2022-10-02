@@ -14,6 +14,7 @@
 package langs
 
 import (
+	"fmt"
 	"sort"
 	"strings"
 	"sync"
@@ -27,7 +28,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/config"
 
 	"github.com/gohugoio/locales"
-	"github.com/pkg/errors"
 
 	translators "github.com/gohugoio/localescompressed"
 )
@@ -56,21 +56,26 @@ type Language struct {
 	Title             string
 	Weight            int
 
+	// For internal use.
 	Disabled bool
 
 	// If set per language, this tells Hugo that all content files without any
 	// language indicator (e.g. my-page.en.md) is in this language.
 	// This is usually a path relative to the working dir, but it can be an
 	// absolute directory reference. It is what we get.
+	// For internal use.
 	ContentDir string
 
 	// Global config.
+	// For internal use.
 	Cfg config.Provider
 
 	// Language specific config.
+	// For internal use.
 	LocalCfg config.Provider
 
 	// Composite config.
+	// For internal use.
 	config.Provider
 
 	// These are params declared in the [params] section of the language merged with the
@@ -92,6 +97,7 @@ type Language struct {
 	initErr error
 }
 
+// For internal use.
 func (l *Language) String() string {
 	return l.Lang
 }
@@ -234,6 +240,7 @@ func (l Languages) IsMultihost() bool {
 
 // SetParam sets a param with the given key and value.
 // SetParam is case-insensitive.
+// For internal use.
 func (l *Language) SetParam(k string, v any) {
 	l.paramsMu.Lock()
 	defer l.paramsMu.Unlock()
@@ -246,6 +253,7 @@ func (l *Language) SetParam(k string, v any) {
 // GetLocal gets a configuration value set on language level. It will
 // not fall back to any global value.
 // It will return nil if a value with the given key cannot be found.
+// For internal use.
 func (l *Language) GetLocal(key string) any {
 	if l == nil {
 		panic("language not set")
@@ -257,6 +265,7 @@ func (l *Language) GetLocal(key string) any {
 	return nil
 }
 
+// For internal use.
 func (l *Language) Set(k string, v any) {
 	k = strings.ToLower(k)
 	if globalOnlySettings[k] {
@@ -266,11 +275,13 @@ func (l *Language) Set(k string, v any) {
 }
 
 // Merge is currently not supported for Language.
+// For internal use.
 func (l *Language) Merge(key string, value any) {
 	panic("Not supported")
 }
 
 // IsSet checks whether the key is set in the language or the related config store.
+// For internal use.
 func (l *Language) IsSet(key string) bool {
 	key = strings.ToLower(key)
 	if !globalOnlySettings[key] {
@@ -301,7 +312,7 @@ func GetCollator(l *Language) *Collator {
 func (l *Language) loadLocation(tzStr string) error {
 	location, err := time.LoadLocation(tzStr)
 	if err != nil {
-		return errors.Wrapf(err, "invalid timeZone for language %q", l.Lang)
+		return fmt.Errorf("invalid timeZone for language %q: %w", l.Lang, err)
 	}
 	l.location = location
 
