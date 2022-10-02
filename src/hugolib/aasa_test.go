@@ -94,7 +94,7 @@ func TestAASAOutput(t *testing.T) {
 				tc.bundle,
 			)
 
-			content := readDestination(th, th.Fs, outputAASA)
+			content := readWorkingDir(th, th.Fs, outputAASA)
 			c.Assert(content, qt.Contains, tc.prefix)
 			c.Assert(content, qt.Contains, tc.bundle)
 		}

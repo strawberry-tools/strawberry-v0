@@ -30,7 +30,7 @@ import (
 
 func TestNew(t *testing.T) {
 	c := qt.New(t)
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	m, _ := New(media.DefaultTypes, output.DefaultFormats, v)
 
 	var rawJS string
@@ -78,7 +78,7 @@ func TestNew(t *testing.T) {
 
 func TestConfigureMinify(t *testing.T) {
 	c := qt.New(t)
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	v.Set("minify", map[string]any{
 		"disablexml": true,
 		"tdewolff": map[string]any{
@@ -112,7 +112,7 @@ func TestConfigureMinify(t *testing.T) {
 
 func TestJSONRoundTrip(t *testing.T) {
 	c := qt.New(t)
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	m, _ := New(media.DefaultTypes, output.DefaultFormats, v)
 
 	for _, test := range []string{`{
@@ -150,7 +150,7 @@ func TestJSONRoundTrip(t *testing.T) {
 
 func TestBugs(t *testing.T) {
 	c := qt.New(t)
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	m, _ := New(media.DefaultTypes, output.DefaultFormats, v)
 
 	for _, test := range []struct {
@@ -173,7 +173,7 @@ func TestBugs(t *testing.T) {
 // Renamed to Precision in v2.7.0. Check that we support both.
 func TestDecodeConfigDecimalIsNowPrecision(t *testing.T) {
 	c := qt.New(t)
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	v.Set("minify", map[string]any{
 		"disablexml": true,
 		"tdewolff": map[string]any{
@@ -196,7 +196,7 @@ func TestDecodeConfigDecimalIsNowPrecision(t *testing.T) {
 // Issue 9456
 func TestDecodeConfigKeepWhitespace(t *testing.T) {
 	c := qt.New(t)
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	v.Set("minify", map[string]any{
 		"tdewolff": map[string]any{
 			"html": map[string]any{

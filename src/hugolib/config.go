@@ -30,7 +30,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/config/security"
 	"github.com/strawberryssg/strawberry-v0/config/services"
 	"github.com/strawberryssg/strawberry-v0/helpers"
-	"github.com/strawberryssg/strawberry-v0/hugolib/paths"
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/modules"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
@@ -357,7 +356,7 @@ func (l configLoader) collectModules(modConfig modules.Config, v1 config.Provide
 		workingDir = v1.GetString("workingDir")
 	}
 
-	themesDir := paths.AbsPathify(l.WorkingDir, v1.GetString("themesDir"))
+	themesDir := cpaths.AbsPathify(l.WorkingDir, v1.GetString("themesDir"))
 
 	var ignoreVendor glob.Glob
 	if s := v1.GetString("ignoreVendorPaths"); s != "" {

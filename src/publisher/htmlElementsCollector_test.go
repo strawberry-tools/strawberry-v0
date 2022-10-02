@@ -138,7 +138,7 @@ func TestClassCollector(t *testing.T) {
 					if skipMinifyTest[test.name] {
 						c.Skip("skip minify test")
 					}
-					v := config.New()
+					v := config.NewWithTestDefaults()
 					m, _ := minifiers.New(media.DefaultTypes, output.DefaultFormats, v)
 					m.Minify(media.HTMLType, w, strings.NewReader(test.html))
 

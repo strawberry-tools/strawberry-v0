@@ -19,8 +19,9 @@ import (
 	"testing"
 
 	"github.com/strawberryssg/strawberry-v0/common/maps"
-
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
 )
 
 type stringsSlice []string
@@ -28,7 +29,9 @@ type stringsSlice []string
 func TestSort(t *testing.T) {
 	t.Parallel()
 
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{
+		Language: langs.NewDefaultLanguage(config.New()),
+	})
 
 	type ts struct {
 		MyInt    int

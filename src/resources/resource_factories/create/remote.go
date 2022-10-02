@@ -27,6 +27,7 @@ import (
 	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/common/types"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/media"
@@ -80,7 +81,7 @@ func (c *Client) FromRemote(uri string, optionsm map[string]any) (resource.Resou
 		return nil, errors.Wrapf(err, "failed to parse URL for resource %s", uri)
 	}
 
-	resourceID := helpers.HashString(uri, optionsm)
+	resourceID := calculateResourceID(uri, optionsm)
 
 	_, httpResponse, err := c.cacheGetResource.GetOrCreate(resourceID, func() (io.ReadCloser, error) {
 		options, err := decodeRemoteOptions(optionsm)
@@ -198,6 +199,13 @@ func (c *Client) validateFromRemoteArgs(uri string, options fromRemoteOptions) e
 	}
 
 	return nil
+}
+
+func calculateResourceID(uri string, optionsm map[string]any) string {
+	if key, found := maps.LookupEqualFold(optionsm, "key"); found {
+		return helpers.HashString(key)
+	}
+	return helpers.HashString(uri, optionsm)
 }
 
 func addDefaultHeaders(req *http.Request, accepts ...string) {

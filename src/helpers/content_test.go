@@ -102,7 +102,7 @@ func TestBytesToHTML(t *testing.T) {
 }
 
 func TestNewContentSpec(t *testing.T) {
-	cfg := config.New()
+	cfg := config.NewWithTestDefaults()
 	c := qt.New(t)
 
 	cfg.Set("summaryLength", 32)

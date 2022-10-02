@@ -2,6 +2,7 @@ package hugolib
 
 import (
 	"bytes"
+	"encoding/base64"
 	"fmt"
 	"io"
 	"os"
@@ -42,13 +43,16 @@ func NewIntegrationTestBuilder(conf IntegrationTestConfig) *IntegrationTestBuild
 	}
 
 	if conf.NeedsOsFS {
-		doClean := true
 		tempDir, clean, err := htesting.CreateTempDir(hugofs.Os, "hugo-integration-test")
 		c.Assert(err, qt.IsNil)
 		conf.WorkingDir = filepath.Join(tempDir, conf.WorkingDir)
-		if doClean {
+		if !conf.PrintAndKeepTempDir {
 			c.Cleanup(clean)
+		} else {
+			fmt.Println("\nUsing WorkingDir dir:", conf.WorkingDir)
 		}
+	} else if conf.WorkingDir == "" {
+		conf.WorkingDir = helpers.FilePathSeparator
 	}
 
 	return &IntegrationTestBuilder{
@@ -159,7 +163,7 @@ func (s *IntegrationTestBuilder) AssertDestinationExists(filename string, b bool
 }
 
 func (s *IntegrationTestBuilder) destinationExists(filename string) bool {
-	b, err := helpers.Exists(filename, s.fs.Destination)
+	b, err := helpers.Exists(filename, s.fs.PublishDir)
 	if err != nil {
 		panic(err)
 	}
@@ -260,11 +264,7 @@ func (s *IntegrationTestBuilder) RenameFile(old, new string) *IntegrationTestBui
 
 func (s *IntegrationTestBuilder) FileContent(filename string) string {
 	s.Helper()
-	filename = filepath.FromSlash(filename)
-	if !strings.HasPrefix(filename, s.Cfg.WorkingDir) {
-		filename = filepath.Join(s.Cfg.WorkingDir, filename)
-	}
-	return s.readDestination(s, s.fs, filename)
+	return s.readWorkingDir(s, s.fs, filepath.FromSlash(filename))
 }
 
 func (s *IntegrationTestBuilder) initBuilder() {
@@ -282,12 +282,19 @@ func (s *IntegrationTestBuilder) initBuilder() {
 
 		logger := loggers.NewBasicLoggerForWriter(s.Cfg.LogLevel, &s.logBuff)
 
-		fs := hugofs.NewFrom(afs, config.New())
+		isBinaryRe := regexp.MustCompile(`^(.*)(\.png|\.jpg)$`)
 
 		for _, f := range s.data.Files {
 			filename := filepath.Join(s.Cfg.WorkingDir, f.Name)
+			data := bytes.TrimSuffix(f.Data, []byte("\n"))
+			if isBinaryRe.MatchString(filename) {
+				var err error
+				data, err = base64.StdEncoding.DecodeString(string(data))
+				s.Assert(err, qt.IsNil)
+
+			}
 			s.Assert(afs.MkdirAll(filepath.Dir(filename), 0777), qt.IsNil)
-			s.Assert(afero.WriteFile(afs, filename, bytes.TrimSuffix(f.Data, []byte("\n")), 0666), qt.IsNil)
+			s.Assert(afero.WriteFile(afs, filename, data, 0666), qt.IsNil)
 		}
 
 		cfg, _, err := LoadConfig(
@@ -306,6 +313,10 @@ func (s *IntegrationTestBuilder) initBuilder() {
 		s.Assert(err, qt.IsNil)
 
 		cfg.Set("workingDir", s.Cfg.WorkingDir)
+
+		fs := hugofs.NewFrom(afs, cfg)
+
+		s.Assert(err, qt.IsNil)
 
 		depsCfg := deps.DepsCfg{Cfg: cfg, Fs: fs, Running: s.Cfg.Running, Logger: logger}
 		sites, err := NewHugoSites(depsCfg)
@@ -402,9 +413,9 @@ func (s *IntegrationTestBuilder) changeEvents() []fsnotify.Event {
 	return events
 }
 
-func (s *IntegrationTestBuilder) readDestination(t testing.TB, fs *hugofs.Fs, filename string) string {
+func (s *IntegrationTestBuilder) readWorkingDir(t testing.TB, fs *hugofs.Fs, filename string) string {
 	t.Helper()
-	return s.readFileFromFs(t, fs.Destination, filename)
+	return s.readFileFromFs(t, fs.WorkingDirReadOnly, filename)
 }
 
 func (s *IntegrationTestBuilder) readFileFromFs(t testing.TB, fs afero.Fs, filename string) string {
@@ -460,6 +471,9 @@ type IntegrationTestConfig struct {
 
 	// Whether it needs the real file system (e.g. for js.Build tests).
 	NeedsOsFS bool
+
+	// Do not remove the temp dir after the test.
+	PrintAndKeepTempDir bool
 
 	// Whether to run npm install before Build.
 	NeedsNpmInstall bool

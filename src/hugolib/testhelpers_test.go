@@ -113,7 +113,7 @@ type filenameContent struct {
 }
 
 func newTestSitesBuilder(t testing.TB) *sitesBuilder {
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	fs := hugofs.NewMem(v)
 
 	litterOptions := litter.Options{
@@ -474,6 +474,9 @@ func (s *sitesBuilder) CreateSites() *sitesBuilder {
 		s.Fatalf("Failed to create sites: %s", err)
 	}
 
+	s.Assert(s.Fs.PublishDir, qt.IsNotNil)
+	s.Assert(s.Fs.WorkingDirReadOnly, qt.IsNotNil)
+
 	return s
 }
 
@@ -535,7 +538,7 @@ func (s *sitesBuilder) CreateSitesE() error {
 		return errors.Wrap(err, "failed to load config")
 	}
 
-	s.Fs.Destination = hugofs.NewCreateCountingFs(s.Fs.Destination)
+	s.Fs.PublishDir = hugofs.NewCreateCountingFs(s.Fs.PublishDir)
 
 	depsCfg := s.depsCfg
 	depsCfg.Fs = s.Fs
@@ -782,8 +785,7 @@ func (s *sitesBuilder) AssertFileDoesNotExist(filename string) {
 }
 
 func (s *sitesBuilder) AssertImage(width, height int, filename string) {
-	filename = filepath.Join(s.workingDir, filename)
-	f, err := s.Fs.Destination.Open(filename)
+	f, err := s.Fs.WorkingDirReadOnly.Open(filename)
 	s.Assert(err, qt.IsNil)
 	defer f.Close()
 	cfg, err := jpeg.DecodeConfig(f)
@@ -794,17 +796,14 @@ func (s *sitesBuilder) AssertImage(width, height int, filename string) {
 
 func (s *sitesBuilder) AssertNoDuplicateWrites() {
 	s.Helper()
-	d := s.Fs.Destination.(hugofs.DuplicatesReporter)
+	d := s.Fs.PublishDir.(hugofs.DuplicatesReporter)
 	s.Assert(d.ReportDuplicates(), qt.Equals, "")
 }
 
 func (s *sitesBuilder) FileContent(filename string) string {
-	s.T.Helper()
+	s.Helper()
 	filename = filepath.FromSlash(filename)
-	if !strings.HasPrefix(filename, s.workingDir) {
-		filename = filepath.Join(s.workingDir, filename)
-	}
-	return readDestination(s.T, s.Fs, filename)
+	return readWorkingDir(s.T, s.Fs, filename)
 }
 
 func (s *sitesBuilder) AssertObject(expected string, object any) {
@@ -820,7 +819,7 @@ func (s *sitesBuilder) AssertObject(expected string, object any) {
 }
 
 func (s *sitesBuilder) AssertFileContentRe(filename string, matches ...string) {
-	content := readDestination(s.T, s.Fs, filename)
+	content := readWorkingDir(s.T, s.Fs, filename)
 	for _, match := range matches {
 		r := regexp.MustCompile("(?s)" + match)
 		if !r.MatchString(content) {
@@ -830,7 +829,7 @@ func (s *sitesBuilder) AssertFileContentRe(filename string, matches ...string) {
 }
 
 func (s *sitesBuilder) CheckExists(filename string) bool {
-	return destinationExists(s.Fs, filepath.Clean(filename))
+	return workingDirExists(s.Fs, filepath.Clean(filename))
 }
 
 func (s *sitesBuilder) GetPage(ref string) page.Page {
@@ -871,7 +870,7 @@ type testHelper struct {
 func (th testHelper) assertFileContent(filename string, matches ...string) {
 	th.Helper()
 	filename = th.replaceDefaultContentLanguageValue(filename)
-	content := readDestination(th, th.Fs, filename)
+	content := readWorkingDir(th, th.Fs, filename)
 	for _, match := range matches {
 		match = th.replaceDefaultContentLanguageValue(match)
 		th.Assert(strings.Contains(content, match), qt.Equals, true, qt.Commentf(match+" not in: \n"+content))
@@ -883,7 +882,7 @@ func (th testHelper) assertFileContentInvert(filename string, matches ...string)
 
 	th.Helper()
 	filename = th.replaceDefaultContentLanguageValue(filename)
-	content := readDestination(th, th.Fs, filename)
+	content := readWorkingDir(th, th.Fs, filename)
 
 	for _, match := range matches {
 
@@ -894,7 +893,7 @@ func (th testHelper) assertFileContentInvert(filename string, matches ...string)
 
 func (th testHelper) assertFileContentRegexp(filename string, matches ...string) {
 	filename = th.replaceDefaultContentLanguageValue(filename)
-	content := readDestination(th, th.Fs, filename)
+	content := readWorkingDir(th, th.Fs, filename)
 	for _, match := range matches {
 		match = th.replaceDefaultContentLanguageValue(match)
 		r := regexp.MustCompile(match)
@@ -907,7 +906,7 @@ func (th testHelper) assertFileContentRegexp(filename string, matches ...string)
 }
 
 func (th testHelper) assertFileNotExist(filename string) {
-	exists, err := helpers.Exists(filename, th.Fs.Destination)
+	exists, err := helpers.Exists(filename, th.Fs.PublishDir)
 	th.Assert(err, qt.IsNil)
 	th.Assert(exists, qt.Equals, false)
 }
@@ -929,7 +928,7 @@ func loadTestConfig(fs afero.Fs, withConfig ...func(cfg config.Provider) error) 
 
 func newTestCfgBasic() (config.Provider, *hugofs.Fs) {
 	mm := afero.NewMemMapFs()
-	v := config.New()
+	v := config.NewWithTestDefaults()
 	v.Set("defaultContentLanguageInSubdir", true)
 
 	fs := hugofs.NewFrom(hugofs.NewBaseFileDecorator(mm), v)
