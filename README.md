@@ -34,9 +34,8 @@ Strawberry is designed to work well for any kind of website including docs, blog
 
 #### Supported Architectures
 
-Currently, we provide pre-built Strawberry binaries for Windows, Linux, FreeBSD, NetBSD, DragonFly BSD, Open BSD, macOS (Darwin), and [Android](https://gist.github.com/bep/a0d8a26cf6b4f8bc992729b8e50b480b) for x64, i386 and ARM architectures.
-
-Strawberry may also be compiled from source wherever the Go compiler tool chain can run, e.g. for other operating systems including Plan 9 and Solaris.
+Strawberry is built for Linux, macOS, and Windows for amd64 (Intel and AMD) CPUs.
+Support for ARM is planned.
 
 **Complete documentation is available at [Strawberry Documentation](https://gohugo.io/getting-started/).**
 
