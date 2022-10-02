@@ -71,7 +71,7 @@ type Language struct {
 
 	// These are params declared in the [params] section of the language merged with the
 	// site's params, the most specific (language) wins on duplicate keys.
-	params    map[string]interface{}
+	params    map[string]any
 	paramsMu  sync.Mutex
 	paramsSet bool
 
@@ -94,7 +94,7 @@ func (l *Language) String() string {
 func NewLanguage(lang string, cfg config.Provider) *Language {
 	// Note that language specific params will be overridden later.
 	// We should improve that, but we need to make a copy:
-	params := make(map[string]interface{})
+	params := make(map[string]any)
 	for k, v := range cfg.GetStringMap("params") {
 		params[k] = v
 	}
@@ -213,7 +213,7 @@ func (l Languages) IsMultihost() bool {
 
 // SetParam sets a param with the given key and value.
 // SetParam is case-insensitive.
-func (l *Language) SetParam(k string, v interface{}) {
+func (l *Language) SetParam(k string, v any) {
 	l.paramsMu.Lock()
 	defer l.paramsMu.Unlock()
 	if l.paramsSet {
@@ -225,7 +225,7 @@ func (l *Language) SetParam(k string, v interface{}) {
 // GetLocal gets a configuration value set on language level. It will
 // not fall back to any global value.
 // It will return nil if a value with the given key cannot be found.
-func (l *Language) GetLocal(key string) interface{} {
+func (l *Language) GetLocal(key string) any {
 	if l == nil {
 		panic("language not set")
 	}
@@ -236,7 +236,7 @@ func (l *Language) GetLocal(key string) interface{} {
 	return nil
 }
 
-func (l *Language) Set(k string, v interface{}) {
+func (l *Language) Set(k string, v any) {
 	k = strings.ToLower(k)
 	if globalOnlySettings[k] {
 		return
@@ -245,7 +245,7 @@ func (l *Language) Set(k string, v interface{}) {
 }
 
 // Merge is currently not supported for Language.
-func (l *Language) Merge(key string, value interface{}) {
+func (l *Language) Merge(key string, value any) {
 	panic("Not supported")
 }
 

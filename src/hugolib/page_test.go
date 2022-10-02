@@ -294,7 +294,7 @@ func checkPageTitle(t *testing.T, page page.Page, title string) {
 	}
 }
 
-func checkPageContent(t *testing.T, page page.Page, expected string, msg ...interface{}) {
+func checkPageContent(t *testing.T, page page.Page, expected string, msg ...any) {
 	t.Helper()
 	a := normalizeContent(expected)
 	b := normalizeContent(content(page))
@@ -321,7 +321,7 @@ func checkPageTOC(t *testing.T, page page.Page, toc string) {
 	}
 }
 
-func checkPageSummary(t *testing.T, page page.Page, summary string, msg ...interface{}) {
+func checkPageSummary(t *testing.T, page page.Page, summary string, msg ...any) {
 	a := normalizeContent(string(page.Summary()))
 	b := normalizeContent(summary)
 	if a != b {
@@ -365,7 +365,7 @@ func normalizeExpected(ext, str string) string {
 }
 
 func testAllMarkdownEnginesForPages(t *testing.T,
-	assertFunc func(t *testing.T, ext string, pages page.Pages), settings map[string]interface{}, pageSources ...string) {
+	assertFunc func(t *testing.T, ext string, pages page.Pages), settings map[string]any, pageSources ...string) {
 
 	engines := []struct {
 		ext           string
@@ -395,8 +395,8 @@ func testAllMarkdownEnginesForPages(t *testing.T,
 				contentDir = s
 			}
 
-			cfg.Set("security", map[string]interface{}{
-				"exec": map[string]interface{}{
+			cfg.Set("security", map[string]any{
+				"exec": map[string]any{
 					"allow": []string{"^python$", "^rst2html.*", "^asciidoctor$"},
 				},
 			})
@@ -568,7 +568,7 @@ func TestCreateNewPage(t *testing.T) {
 		checkPageType(t, p, "page")
 	}
 
-	settings := map[string]interface{}{
+	settings := map[string]any{
 		"contentDir": "mycontent",
 	}
 
@@ -693,7 +693,7 @@ func TestPageWithShortCodeInSummary(t *testing.T) {
 func TestPageWithAdditionalExtension(t *testing.T) {
 	t.Parallel()
 	cfg, fs := newTestCfg()
-	cfg.Set("markup", map[string]interface{}{
+	cfg.Set("markup", map[string]any{
 		"defaultMarkdownHandler": "blackfriday", // TODO(bep)
 	})
 
@@ -1035,18 +1035,18 @@ func TestPageWithLastmodFromGitInfo(t *testing.T) {
 	wd, err := os.Getwd()
 	c.Assert(err, qt.IsNil)
 
-	cfg.Set("frontmatter", map[string]interface{}{
+	cfg.Set("frontmatter", map[string]any{
 		"lastmod": []string{":git", "lastmod"},
 	})
 	cfg.Set("defaultContentLanguage", "en")
 
-	langConfig := map[string]interface{}{
-		"en": map[string]interface{}{
+	langConfig := map[string]any{
+		"en": map[string]any{
 			"weight":       1,
 			"languageName": "English",
 			"contentDir":   "content",
 		},
-		"nn": map[string]interface{}{
+		"nn": map[string]any{
 			"weight":       2,
 			"languageName": "Nynorsk",
 			"contentDir":   "content_nn",
@@ -1098,7 +1098,7 @@ lastMod: 2018-02-28
 Content
 `
 
-			cfg.Set("frontmatter", map[string]interface{}{
+			cfg.Set("frontmatter", map[string]any{
 				"date": []string{dateHandler, "date"},
 			})
 
@@ -1159,7 +1159,7 @@ func TestWordCountWithAllCJKRunesWithoutHasCJKLanguage(t *testing.T) {
 
 func TestWordCountWithAllCJKRunesHasCJKLanguage(t *testing.T) {
 	t.Parallel()
-	settings := map[string]interface{}{"hasCJKLanguage": true}
+	settings := map[string]any{"hasCJKLanguage": true}
 
 	assertFunc := func(t *testing.T, ext string, pages page.Pages) {
 		p := pages[0]
@@ -1172,7 +1172,7 @@ func TestWordCountWithAllCJKRunesHasCJKLanguage(t *testing.T) {
 
 func TestWordCountWithMainEnglishWithCJKRunes(t *testing.T) {
 	t.Parallel()
-	settings := map[string]interface{}{"hasCJKLanguage": true}
+	settings := map[string]any{"hasCJKLanguage": true}
 
 	assertFunc := func(t *testing.T, ext string, pages page.Pages) {
 		p := pages[0]
@@ -1191,7 +1191,7 @@ func TestWordCountWithMainEnglishWithCJKRunes(t *testing.T) {
 
 func TestWordCountWithIsCJKLanguageFalse(t *testing.T) {
 	t.Parallel()
-	settings := map[string]interface{}{
+	settings := map[string]any{
 		"hasCJKLanguage": true,
 	}
 

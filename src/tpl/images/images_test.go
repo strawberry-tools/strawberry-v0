@@ -34,9 +34,9 @@ import (
 type tstNoStringer struct{}
 
 var configTests = []struct {
-	path   interface{}
+	path   any
 	input  []byte
-	expect interface{}
+	expect any
 }{
 	{
 		path:  "a.png",

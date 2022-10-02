@@ -42,7 +42,7 @@ func CheckShortCodeMatchAndError(t *testing.T, input, expected string, withTempl
 	t.Helper()
 	cfg, fs := newTestCfg()
 
-	cfg.Set("markup", map[string]interface{}{
+	cfg.Set("markup", map[string]any{
 		"defaultMarkdownHandler": "blackfriday", // TODO(bep)
 	})
 
@@ -457,7 +457,7 @@ func TestShortcodesInSite(t *testing.T) {
 		contentPath string
 		content     string
 		outFile     string
-		expected    interface{}
+		expected    any
 	}{
 		{
 			"sect/doc1.md", `a{{< b >}}c`,
@@ -611,15 +611,15 @@ title: "Foo"
 	cfg.Set("uglyURLs", false)
 	cfg.Set("verbose", true)
 
-	cfg.Set("security", map[string]interface{}{
-		"exec": map[string]interface{}{
+	cfg.Set("security", map[string]any{
+		"exec": map[string]any{
 			"allow": []string{"^python$", "^rst2html.*", "^asciidoctor$"},
 		},
 	})
 
 	cfg.Set("markup.highlight.noClasses", false)
 	cfg.Set("markup.highlight.codeFences", true)
-	cfg.Set("markup", map[string]interface{}{
+	cfg.Set("markup", map[string]any{
 		"defaultMarkdownHandler": "blackfriday", // TODO(bep)
 	})
 
@@ -820,7 +820,7 @@ func TestReplaceShortcodeTokens(t *testing.T) {
 		input        string
 		prefix       string
 		replacements map[string]string
-		expect       interface{}
+		expect       any
 	}{
 		{"Hello HAHAHUGOSHORTCODE-1HBHB.", "PREFIX", map[string]string{"HAHAHUGOSHORTCODE-1HBHB": "World"}, "Hello World."},
 		{"Hello HAHAHUGOSHORTCODE-1@}@.", "PREFIX", map[string]string{"HAHAHUGOSHORTCODE-1HBHB": "World"}, false},
@@ -1278,10 +1278,10 @@ func TestShortcodeRef(t *testing.T) {
 
 			v := config.New()
 			v.Set("baseURL", "https://example.org")
-			v.Set("blackfriday", map[string]interface{}{
+			v.Set("blackfriday", map[string]any{
 				"plainIDAnchors": plainIDAnchors,
 			})
-			v.Set("markup", map[string]interface{}{
+			v.Set("markup", map[string]any{
 				"defaultMarkdownHandler": "blackfriday", // TODO(bep)
 			})
 

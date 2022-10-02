@@ -1,4 +1,4 @@
-// Copyright 2020 Gotham Authors. All rights reserved.
+// Copyright 2020 Strawberry Authors. All rights reserved.
 // Copyright 2021 Ricardo N Feliciano. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -68,16 +68,12 @@ func TestPrintStrawberryVersion(t *testing.T) {
 		},
 	}
 
+	bi := getBuildInfo()
+
 	for i, tc := range testCases {
 
-		if tc.date == "" {
-			buildDate = "unknown"
-		} else {
-			buildDate = tc.date
-		}
-
-		commitHash = tc.commitHash
-
+		bi.Revision = tc.commitHash
+		bi.RevisionTime = tc.date
 		StrawberryVersion = tc.version
 		actual := PrintStrawberryVersion(tc.vType)
 

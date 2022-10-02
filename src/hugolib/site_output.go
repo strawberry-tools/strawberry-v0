@@ -68,7 +68,7 @@ func createDefaultOutputFormats(allFormats output.Formats) map[string]output.For
 	return m
 }
 
-func createSiteOutputFormats(allFormats output.Formats, outputs map[string]interface{}, rssDisabled, jsonFeedDisabled bool) (map[string]output.Formats, error) {
+func createSiteOutputFormats(allFormats output.Formats, outputs map[string]any, rssDisabled, jsonFeedDisabled bool) (map[string]output.Formats, error) {
 	defaultOutputFormats := createDefaultOutputFormats(allFormats)
 
 	if outputs == nil {

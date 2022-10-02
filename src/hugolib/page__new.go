@@ -88,7 +88,7 @@ func newPageBucket(p *pageState) *pagesMapBucket {
 func newPageFromMeta(
 	n *contentNode,
 	parentBucket *pagesMapBucket,
-	meta map[string]interface{},
+	meta map[string]any,
 	metaProvider *pageMeta) (*pageState, error) {
 	if metaProvider.f == nil {
 		metaProvider.f = page.NewZeroFile(metaProvider.s.LogDistinct)
@@ -115,7 +115,7 @@ func newPageFromMeta(
 		return nil, err
 	}
 
-	ps.init.Add(func() (interface{}, error) {
+	ps.init.Add(func() (any, error) {
 		pp, err := newPagePaths(metaProvider.s, ps, metaProvider)
 		if err != nil {
 			return nil, err
@@ -185,7 +185,7 @@ type pageDeprecatedWarning struct {
 func (p *pageDeprecatedWarning) IsDraft() bool          { return p.p.m.draft }
 func (p *pageDeprecatedWarning) Hugo() hugo.Info        { return p.p.s.Info.Hugo() }
 func (p *pageDeprecatedWarning) LanguagePrefix() string { return p.p.s.Info.LanguagePrefix }
-func (p *pageDeprecatedWarning) GetParam(key string) interface{} {
+func (p *pageDeprecatedWarning) GetParam(key string) any {
 	return p.p.m.params[strings.ToLower(key)]
 }
 

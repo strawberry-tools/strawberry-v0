@@ -14,10 +14,11 @@
 package scss
 
 import (
-	"github.com/bep/golibsass/libsass"
 	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/strawberryssg/strawberry-v0/resources/internal"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
+
+	"github.com/bep/golibsass/libsass"
 )
 
 type options struct {

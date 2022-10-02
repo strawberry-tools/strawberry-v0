@@ -47,8 +47,10 @@ func PrintStrawberryVersion(vType VersionType) string {
 
 	version := "Strawberry v" + StrawberryVersion.String()
 
+	bi := getBuildInfo()
+
 	if strings.Contains(version, "-dev") {
-		version += "-" + strings.ToUpper(commitHash)
+		version += "-" + strings.ToUpper(bi.Revision)
 	}
 
 	version += " (compatible with Hugo v" + CurrentVersion.String()
@@ -65,7 +67,7 @@ func PrintStrawberryVersion(vType VersionType) string {
 
 	version += "\n"
 
-	date := buildDate
+	date := bi.RevisionTime
 	if date == "" {
 		date = "unknown"
 	}

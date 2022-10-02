@@ -16,7 +16,9 @@
 package dartsass
 
 import (
+	"fmt"
 	"io"
+	"strings"
 
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugolib/filesystems"
@@ -40,7 +42,19 @@ func New(fs *filesystems.SourceFilesystem, rs *resources.Spec) (*Client, error) 
 		return nil, err
 	}
 
-	transpiler, err := godartsass.Start(godartsass.Options{})
+	transpiler, err := godartsass.Start(godartsass.Options{
+		LogEventHandler: func(event godartsass.LogEvent) {
+			message := strings.ReplaceAll(event.Message, stdinPrefix, "")
+			switch event.Type {
+			case godartsass.LogEventTypeDebug:
+				// Log as Info for now, we may adjust this if it gets too chatty.
+				rs.Logger.Infof("Dart Sass: %s", message)
+			default:
+				// The rest are either deprecations or @warn statements.
+				rs.Logger.Warnf("Dart Sass: %s", message)
+			}
+		},
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +69,7 @@ type Client struct {
 	transpiler           *godartsass.Transpiler
 }
 
-func (c *Client) ToCSS(res resources.ResourceTransformer, args map[string]interface{}) (resource.Resource, error) {
+func (c *Client) ToCSS(res resources.ResourceTransformer, args map[string]any) (resource.Resource, error) {
 	if c.dartSassNotAvailable {
 		return res.Transform(resources.NewFeatureNotAvailableTransformer(transformationName, args))
 	}
@@ -77,6 +91,9 @@ func (c *Client) toCSS(args godartsass.Args, src io.Reader) (godartsass.Result, 
 
 	res, err := c.transpiler.Execute(args)
 	if err != nil {
+		if err.Error() == "unexpected EOF" {
+			return res, fmt.Errorf("got unexpected EOF when executing %q. The user running hugo must have read and execute permissions on this program. With execute permissions only, this error is thrown.", dartSassEmbeddedBinaryName)
+		}
 		return res, err
 	}
 
@@ -106,7 +123,7 @@ type Options struct {
 	EnableSourceMap bool
 }
 
-func decodeOptions(m map[string]interface{}) (opts Options, err error) {
+func decodeOptions(m map[string]any) (opts Options, err error) {
 	if m == nil {
 		return
 	}

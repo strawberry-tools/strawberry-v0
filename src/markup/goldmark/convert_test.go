@@ -40,7 +40,7 @@ func convert(c *qt.C, mconf markup_config.Config, content string) converter.Resu
 	c.Assert(err, qt.IsNil)
 	h := highlight.New(mconf.Highlight)
 
-	getRenderer := func(t hooks.RendererType, id interface{}) interface{} {
+	getRenderer := func(t hooks.RendererType, id any) any {
 		if t == hooks.CodeBlockRendererType {
 			return h
 		}
@@ -229,7 +229,7 @@ func TestConvertAttributes(t *testing.T) {
 		name       string
 		withConfig func(conf *markup_config.Config)
 		input      string
-		expect     interface{}
+		expect     any
 	}{
 		{
 			"Title",
@@ -404,7 +404,7 @@ LINE5
 
 		h := highlight.New(conf)
 
-		getRenderer := func(t hooks.RendererType, id interface{}) interface{} {
+		getRenderer := func(t hooks.RendererType, id any) any {
 			if t == hooks.CodeBlockRendererType {
 				return h
 			}
