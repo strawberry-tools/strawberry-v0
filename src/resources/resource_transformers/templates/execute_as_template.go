@@ -15,12 +15,13 @@
 package templates
 
 import (
+	"fmt"
+
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/strawberryssg/strawberry-v0/resources/internal"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 	"github.com/strawberryssg/strawberry-v0/tpl"
-	"github.com/pkg/errors"
 )
 
 // Client contains methods to perform template processing of Resource objects.
@@ -55,7 +56,7 @@ func (t *executeAsTemplateTransform) Transform(ctx *resources.ResourceTransforma
 	tplStr := helpers.ReaderToString(ctx.From)
 	templ, err := t.t.TextTmpl().Parse(ctx.InPath, tplStr)
 	if err != nil {
-		return errors.Wrapf(err, "failed to parse Resource %q as Template:", ctx.InPath)
+		return fmt.Errorf("failed to parse Resource %q as Template:: %w", ctx.InPath, err)
 	}
 
 	ctx.OutPath = t.targetPath

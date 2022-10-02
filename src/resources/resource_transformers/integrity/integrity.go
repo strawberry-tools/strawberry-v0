@@ -19,15 +19,13 @@ import (
 	"crypto/sha512"
 	"encoding/base64"
 	"encoding/hex"
+	"fmt"
 	"hash"
 	"html/template"
 	"io"
 
-	"github.com/strawberryssg/strawberry-v0/resources/internal"
-
-	"github.com/pkg/errors"
-
 	"github.com/strawberryssg/strawberry-v0/resources"
+	"github.com/strawberryssg/strawberry-v0/resources/internal"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 )
 
@@ -92,7 +90,7 @@ func newHash(algo string) (hash.Hash, error) {
 	case "sha512":
 		return sha512.New(), nil
 	default:
-		return nil, errors.Errorf("unsupported crypto algo: %q, use either md5, sha256, sha384 or sha512", algo)
+		return nil, fmt.Errorf("unsupported crypto algo: %q, use either md5, sha256, sha384 or sha512", algo)
 	}
 }
 

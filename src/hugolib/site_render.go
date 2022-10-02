@@ -14,6 +14,7 @@
 package hugolib
 
 import (
+	"errors"
 	"fmt"
 	"path"
 	"strings"
@@ -24,8 +25,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/page/pagemeta"
 	"github.com/strawberryssg/strawberry-v0/tpl"
-
-	"github.com/pkg/errors"
 )
 
 type siteRenderContext struct {
@@ -93,7 +92,7 @@ func (s *Site) renderPages(ctx *siteRenderContext) error {
 
 	err := <-errs
 	if err != nil {
-		return errors.Wrap(err, "failed to render pages")
+		return fmt.Errorf("failed to render pages: %w", err)
 	}
 	return nil
 }

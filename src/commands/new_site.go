@@ -17,6 +17,7 @@ package commands
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"path/filepath"
 	"strings"
 
@@ -29,7 +30,6 @@ import (
 
 	"github.com/spf13/cobra"
 
-	_errors "github.com/pkg/errors"
 	jww "github.com/spf13/jwalterweatherman"
 )
 
@@ -95,7 +95,7 @@ func (n *newSiteCmd) doNewSite(fs *hugofs.Fs, basepath string, force bool) error
 
 	for _, dir := range dirs {
 		if err := fs.Source.MkdirAll(dir, 0777); err != nil {
-			return _errors.Wrap(err, "Failed to create dir")
+			return fmt.Errorf("Failed to create dir: %w", err)
 		}
 	}
 

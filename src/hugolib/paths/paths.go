@@ -23,8 +23,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/modules"
 
-	"github.com/pkg/errors"
-
 	hpaths "github.com/strawberryssg/strawberry-v0/common/paths"
 )
 
@@ -83,7 +81,7 @@ func New(fs *hugofs.Fs, cfg config.Provider) (*Paths, error) {
 	baseURLstr := cfg.GetString("baseURL")
 	baseURL, err := newBaseURLFromString(baseURLstr)
 	if err != nil {
-		return nil, errors.Wrapf(err, "Failed to create baseURL from %q:", baseURLstr)
+		return nil, fmt.Errorf("Failed to create baseURL from %q:: %w", baseURLstr, err)
 	}
 
 	contentDir := filepath.Clean(cfg.GetString("contentDir"))

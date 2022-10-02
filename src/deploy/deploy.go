@@ -22,6 +22,7 @@ import (
 	"context"
 	"crypto/md5"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -34,16 +35,16 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/dustin/go-humanize"
-	"github.com/gobwas/glob"
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/media"
-	"github.com/pkg/errors"
+
+	"github.com/dustin/go-humanize"
+	"github.com/gobwas/glob"
 	"github.com/spf13/afero"
-	jww "github.com/spf13/jwalterweatherman"
+	"gocloud.dev/blob"
 	"golang.org/x/text/unicode/norm"
 
-	"gocloud.dev/blob"
+	jww "github.com/spf13/jwalterweatherman"
 	_ "gocloud.dev/blob/fileblob" // import
 	_ "gocloud.dev/blob/gcsblob"  // import
 	_ "gocloud.dev/blob/s3blob"   // import

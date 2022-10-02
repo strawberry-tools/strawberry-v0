@@ -15,6 +15,8 @@ package hugolib
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"io"
 	"path/filepath"
 	"sort"
@@ -45,7 +47,6 @@ import (
 
 	"github.com/bep/gitmap"
 	"github.com/fsnotify/fsnotify"
-	"github.com/pkg/errors"
 
 	radix "github.com/armon/go-radix"
 )
@@ -186,7 +187,7 @@ func (h *hugoSitesInit) Reset() {
 
 func (h *HugoSites) Data() map[string]any {
 	if _, err := h.init.data.Do(); err != nil {
-		h.SendError(errors.Wrap(err, "failed to load data"))
+		h.SendError(fmt.Errorf("failed to load data: %w", err))
 		return nil
 	}
 	return h.data
@@ -234,7 +235,7 @@ func (h *HugoSites) pickOneAndLogTheRest(errors []error) error {
 	for j, err := range errors {
 		// If this is in server mode, we want to return an error to the client
 		// with a file context, if possible.
-		if herrors.UnwrapErrorWithFileContext(err) != nil {
+		if herrors.UnwrapFileError(err) != nil {
 			i = j
 			break
 		}
@@ -319,7 +320,7 @@ func newHugoSites(cfg deps.DepsCfg, sites ...*Site) (*HugoSites, error) {
 
 	langConfig, err := newMultiLingualFromSites(cfg.Cfg, sites...)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create language config")
+		return nil, fmt.Errorf("failed to create language config: %w", err)
 	}
 
 	var contentChangeTracker *contentChangeMap
@@ -357,7 +358,7 @@ func newHugoSites(cfg deps.DepsCfg, sites ...*Site) (*HugoSites, error) {
 	h.init.data.Add(func() (any, error) {
 		err := h.loadData(h.PathSpec.BaseFs.Data.Dirs)
 		if err != nil {
-			return nil, errors.Wrap(err, "failed to load data")
+			return nil, fmt.Errorf("failed to load data: %w", err)
 		}
 		return nil, nil
 	})
@@ -383,7 +384,7 @@ func newHugoSites(cfg deps.DepsCfg, sites ...*Site) (*HugoSites, error) {
 	h.init.gitInfo.Add(func() (any, error) {
 		err := h.loadGitInfo()
 		if err != nil {
-			return nil, errors.Wrap(err, "failed to load Git info")
+			return nil, fmt.Errorf("failed to load Git info: %w", err)
 		}
 		return nil, nil
 	})
@@ -394,7 +395,7 @@ func newHugoSites(cfg deps.DepsCfg, sites ...*Site) (*HugoSites, error) {
 
 	var l configLoader
 	if err := l.applyDeps(cfg, sites...); err != nil {
-		initErr = errors.Wrap(err, "add site dependencies")
+		initErr = fmt.Errorf("add site dependencies: %w", err)
 	}
 
 	h.Deps = sites[0].Deps
@@ -477,7 +478,7 @@ func (l configLoader) applyDeps(cfg deps.DepsCfg, sites ...*Site) error {
 
 			siteConfig, err := l.loadSiteConfig(s.language)
 			if err != nil {
-				return errors.Wrap(err, "load site config")
+				return fmt.Errorf("load site config: %w", err)
 			}
 			s.siteConfigConfig = siteConfig
 
@@ -508,17 +509,17 @@ func (l configLoader) applyDeps(cfg deps.DepsCfg, sites ...*Site) error {
 			var err error
 			d, err = deps.New(cfg)
 			if err != nil {
-				return errors.Wrap(err, "create deps")
+				return fmt.Errorf("create deps: %w", err)
 			}
 
 			d.OutputFormatsConfig = s.outputFormatsConfig
 
 			if err := onCreated(d); err != nil {
-				return errors.Wrap(err, "on created")
+				return fmt.Errorf("on created: %w", err)
 			}
 
 			if err = d.LoadResources(); err != nil {
-				return errors.Wrap(err, "load resources")
+				return fmt.Errorf("load resources: %w", err)
 			}
 
 		} else {
@@ -540,7 +541,7 @@ func NewHugoSites(cfg deps.DepsCfg) (*HugoSites, error) {
 	}
 	sites, err := createSitesFromConfig(cfg)
 	if err != nil {
-		return nil, errors.Wrap(err, "from config")
+		return nil, fmt.Errorf("from config: %w", err)
 	}
 	return newHugoSites(cfg, sites...)
 }
@@ -717,6 +718,10 @@ type BuildCfg struct {
 // For regular builds, this will allways return true.
 // TODO(bep) rename/work this.
 func (cfg *BuildCfg) shouldRender(p *pageState) bool {
+	if p == nil {
+		return false
+	}
+
 	if p.forceRender {
 		return true
 	}
@@ -874,7 +879,7 @@ func (h *HugoSites) handleDataFile(r source.File) error {
 
 	f, err := r.FileInfo().Meta().Open()
 	if err != nil {
-		return errors.Wrapf(err, "data: failed to open %q:", r.LogicalName())
+		return fmt.Errorf("data: failed to open %q: %w", r.LogicalName(), err)
 	}
 	defer f.Close()
 
@@ -952,23 +957,16 @@ func (h *HugoSites) errWithFileContext(err error, f source.File) error {
 	if !ok {
 		return err
 	}
-
 	realFilename := fim.Meta().Filename
 
-	err, _ = herrors.WithFileContextForFile(
-		err,
-		realFilename,
-		realFilename,
-		h.SourceSpec.Fs.Source,
-		herrors.SimpleLineMatcher)
+	return herrors.NewFileErrorFromFile(err, realFilename, h.SourceSpec.Fs.Source, nil)
 
-	return err
 }
 
 func (h *HugoSites) readData(f source.File) (any, error) {
 	file, err := f.FileInfo().Meta().Open()
 	if err != nil {
-		return nil, errors.Wrap(err, "readData: failed to open data file")
+		return nil, fmt.Errorf("readData: failed to open data file: %w", err)
 	}
 	defer file.Close()
 	content := helpers.ReaderToBytes(file)

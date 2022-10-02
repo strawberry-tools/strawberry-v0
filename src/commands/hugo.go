@@ -30,7 +30,10 @@ import (
 	"syscall"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/common/htime"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
 	"github.com/strawberryssg/strawberry-v0/common/terminal"
@@ -47,11 +50,9 @@ import (
 	"github.com/strawberryssg/strawberry-v0/watcher"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/fsync"
-	"golang.org/x/sync/errgroup"
 
 	jww "github.com/spf13/jwalterweatherman"
 	flag "github.com/spf13/pflag"
@@ -182,6 +183,7 @@ func initializeFlags(cmd *cobra.Command, cfg config.Provider) {
 		"buildDrafts",
 		"buildFuture",
 		"buildExpired",
+		"clock",
 		"uglyURLs",
 		"canonifyURLs",
 		"enableRobotsTXT",
@@ -292,14 +294,14 @@ func (c *commandeer) fullBuild(noBuildLock bool) error {
 	copyStaticFunc := func() error {
 		cnt, err := c.copyStatic()
 		if err != nil {
-			return errors.Wrap(err, "Error copying static files")
+			return fmt.Errorf("Error copying static files: %w", err)
 		}
 		langCount = cnt
 		return nil
 	}
 	buildSitesFunc := func() error {
 		if err := c.buildSites(noBuildLock); err != nil {
-			return errors.Wrap(err, "Error building site")
+			return fmt.Errorf("Error building site: %w", err)
 		}
 		return nil
 	}
@@ -346,10 +348,10 @@ func (c *commandeer) initCPUProfile() (func(), error) {
 
 	f, err := os.Create(c.h.cpuprofile)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create CPU profile")
+		return nil, fmt.Errorf("failed to create CPU profile: %w", err)
 	}
 	if err := pprof.StartCPUProfile(f); err != nil {
-		return nil, errors.Wrap(err, "failed to start CPU profile")
+		return nil, fmt.Errorf("failed to start CPU profile: %w", err)
 	}
 	return func() {
 		pprof.StopCPUProfile()
@@ -380,11 +382,11 @@ func (c *commandeer) initTraceProfile() (func(), error) {
 
 	f, err := os.Create(c.h.traceprofile)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create trace file")
+		return nil, fmt.Errorf("failed to create trace file: %w", err)
 	}
 
 	if err := trace.Start(f); err != nil {
-		return nil, errors.Wrap(err, "failed to start trace")
+		return nil, fmt.Errorf("failed to start trace: %w", err)
 	}
 
 	return func() {
@@ -674,6 +676,10 @@ func (c *commandeer) firstPathSpec() *helpers.PathSpec {
 }
 
 func (c *commandeer) timeTrack(start time.Time, name string) {
+	// Note the use of time.Since here and time.Now in the callers.
+	// We have a htime.Sinnce, but that may be adjusted to the future,
+	// and that does not make sense here, esp. when used before the
+	// global Clock is initialized.
 	elapsed := time.Since(start)
 	c.logger.Printf("%s in %v ms", name, int(1000*elapsed.Seconds()))
 }
@@ -724,15 +730,16 @@ func (c *commandeer) buildSites(noBuildLock bool) (err error) {
 
 func (c *commandeer) handleBuildErr(err error, msg string) {
 	c.buildErr = err
-
-	c.logger.Errorln(msg + ":\n")
-	c.logger.Errorln(helpers.FirstUpper(err.Error()))
-	if !c.h.quiet && c.h.verbose {
-		herrors.PrintStackTraceFromErr(err)
-	}
+	c.logger.Errorln(msg + ": " + cleanErrorLog(err.Error()))
 }
 
 func (c *commandeer) rebuildSites(events []fsnotify.Event) error {
+	if c.buildErr != nil {
+		ferrs := herrors.UnwrapFileErrorsWithErrorContext(c.buildErr)
+		for _, err := range ferrs {
+			events = append(events, fsnotify.Event{Name: err.Position().Filename, Op: fsnotify.Write})
+		}
+	}
 	c.buildErr = nil
 	visited := c.visitedURLs.PeekAllSet()
 	if c.fastRenderMode {
@@ -897,7 +904,7 @@ func (c *commandeer) printChangeDetected(typ string) {
 
 	c.logger.Println(msg)
 	const layout = "2006-01-02 15:04:05.000 -0700"
-	c.logger.Println(time.Now().Format(layout))
+	c.logger.Println(htime.Now().Format(layout))
 }
 
 const (

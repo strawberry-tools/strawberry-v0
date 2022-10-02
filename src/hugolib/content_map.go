@@ -21,13 +21,9 @@ import (
 	"sync"
 
 	"github.com/strawberryssg/strawberry-v0/helpers"
-
-	"github.com/strawberryssg/strawberry-v0/resources/page"
-	"github.com/pkg/errors"
-
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/resources/page"
 
 	radix "github.com/armon/go-radix"
 )
@@ -207,7 +203,7 @@ func (b *cmInsertKeyBuilder) WithFile(fi hugofs.FileMetaInfo) *cmInsertKeyBuilde
 
 	p, k := b.getBundle(p)
 	if k == "" {
-		b.err = errors.Errorf("no bundle header found for %q", bundlePath)
+		b.err = fmt.Errorf("no bundle header found for %q", bundlePath)
 		return b
 	}
 

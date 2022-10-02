@@ -14,17 +14,14 @@
 package hugolib
 
 import (
+	"fmt"
 	"strings"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs/files"
-
-	"github.com/pkg/errors"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
+	"github.com/strawberryssg/strawberry-v0/hugofs/files"
+	"github.com/strawberryssg/strawberry-v0/source"
 
 	"github.com/spf13/afero"
-
-	"github.com/strawberryssg/strawberry-v0/source"
 )
 
 // fileInfo implements the File and ReadableFile interface.
@@ -41,7 +38,7 @@ type fileInfo struct {
 func (fi *fileInfo) Open() (afero.File, error) {
 	f, err := fi.FileInfo().Meta().Open()
 	if err != nil {
-		err = errors.Wrap(err, "fileInfo")
+		err = fmt.Errorf("fileInfo: %w", err)
 	}
 
 	return f, err

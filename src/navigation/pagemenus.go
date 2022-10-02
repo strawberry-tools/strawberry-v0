@@ -14,10 +14,11 @@
 package navigation
 
 import (
+	"fmt"
+
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/common/types"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 )
 
@@ -76,7 +77,7 @@ func PageMenusFromPage(p Page) (PageMenus, error) {
 	}
 
 	var wrapErr = func(err error) error {
-		return errors.Wrapf(err, "unable to process menus for page %q", p.Path())
+		return fmt.Errorf("unable to process menus for page %q: %w", p.Path(), err)
 	}
 
 	// Could be a structured menu entry

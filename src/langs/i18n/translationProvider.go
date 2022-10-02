@@ -15,6 +15,7 @@ package i18n
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"golang.org/x/text/language"
@@ -29,7 +30,6 @@ import (
 	"github.com/gohugoio/go-i18n/v2/i18n"
 
 	toml "github.com/pelletier/go-toml/v2"
-	_errors "github.com/pkg/errors"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -83,7 +83,7 @@ const artificialLangTagPrefix = "art-x-"
 func addTranslationFile(bundle *i18n.Bundle, r source.File) error {
 	f, err := r.FileInfo().Meta().Open()
 	if err != nil {
-		return _errors.Wrapf(err, "failed to open translations file %q:", r.LogicalName())
+		return fmt.Errorf("failed to open translations file %q:: %w", r.LogicalName(), err)
 	}
 
 	b := helpers.ReaderToBytes(f)
@@ -96,7 +96,7 @@ func addTranslationFile(bundle *i18n.Bundle, r source.File) error {
 		try := artificialLangTagPrefix + lang
 		_, err = language.Parse(try)
 		if err != nil {
-			return _errors.Errorf("%q %s.", try, err)
+			return fmt.Errorf("%q: %s", try, err)
 		}
 		name = artificialLangTagPrefix + name
 	}
@@ -111,7 +111,7 @@ func addTranslationFile(bundle *i18n.Bundle, r source.File) error {
 				return nil
 			}
 		}
-		return errWithFileContext(_errors.Wrapf(err, "failed to load translations"), r)
+		return errWithFileContext(fmt.Errorf("failed to load translations: %w", err), r)
 	}
 
 	return nil
@@ -138,11 +138,6 @@ func errWithFileContext(inerr error, r source.File) error {
 	}
 	defer f.Close()
 
-	err, _ = herrors.WithFileContext(
-		inerr,
-		realFilename,
-		f,
-		herrors.SimpleLineMatcher)
+	return herrors.NewFileErrorFromName(inerr, realFilename).UpdateContent(f, nil)
 
-	return err
 }

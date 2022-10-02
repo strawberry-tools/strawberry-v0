@@ -21,21 +21,18 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/strawberryssg/strawberry-v0/common/maps"
-
-	"github.com/strawberryssg/strawberry-v0/common/types"
-	"github.com/strawberryssg/strawberry-v0/resources"
-
 	"github.com/strawberryssg/strawberry-v0/common/hugio"
+	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/common/para"
+	"github.com/strawberryssg/strawberry-v0/common/types"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
+	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/strawberryssg/strawberry-v0/resources/page"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
-	"github.com/spf13/cast"
 
-	"github.com/strawberryssg/strawberry-v0/common/para"
-	"github.com/pkg/errors"
+	"github.com/spf13/cast"
 )
 
 func newPageMaps(h *HugoSites) *pageMaps {
@@ -131,13 +128,13 @@ func (m *pageMap) newPageFromContentNode(n *contentNode, parentBucket *pagesMapB
 
 	gi, err := s.h.gitInfoForPage(ps)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to load Git data")
+		return nil, fmt.Errorf("failed to load Git data: %w", err)
 	}
 	ps.gitInfo = gi
 
 	owners, err := s.h.codeownersForPage(ps)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to load CODEOWNERS")
+		return nil, fmt.Errorf("failed to load CODEOWNERS: %w", err)
 	}
 	ps.codeowners = owners
 
@@ -282,7 +279,7 @@ func (m *pageMap) createSiteTaxonomies() error {
 		} else {
 			taxonomy := m.s.taxonomies[viewName.plural]
 			if taxonomy == nil {
-				walkErr = errors.Errorf("missing taxonomy: %s", viewName.plural)
+				walkErr = fmt.Errorf("missing taxonomy: %s", viewName.plural)
 				return true
 			}
 			m.taxonomyEntries.WalkPrefix(s, func(ss string, v any) bool {

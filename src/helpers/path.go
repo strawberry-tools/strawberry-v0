@@ -24,14 +24,11 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/strawberryssg/strawberry-v0/common/hugio"
 	"github.com/strawberryssg/strawberry-v0/common/text"
-
 	"github.com/strawberryssg/strawberry-v0/config"
-
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 
-	"github.com/strawberryssg/strawberry-v0/common/hugio"
-	_errors "github.com/pkg/errors"
 	"github.com/spf13/afero"
 )
 
@@ -403,7 +400,7 @@ func GetCacheDir(fs afero.Fs, cfg config.Provider) (string, error) {
 		if !exists {
 			err := fs.MkdirAll(cacheDir, 0777) // Before umask
 			if err != nil {
-				return "", _errors.Wrap(err, "failed to create cache dir")
+				return "", fmt.Errorf("failed to create cache dir: %w", err)
 			}
 		}
 		return cacheDir, nil

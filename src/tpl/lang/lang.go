@@ -15,17 +15,19 @@
 package lang
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"strconv"
 	"strings"
 
-	"github.com/gohugoio/locales"
-	translators "github.com/gohugoio/localescompressed"
-	"github.com/pkg/errors"
-
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
 	"github.com/strawberryssg/strawberry-v0/deps"
+
+	"github.com/gohugoio/locales"
 	"github.com/spf13/cast"
+
+	translators "github.com/gohugoio/localescompressed"
 )
 
 // New returns a new instance of the lang-namespaced template functions.
@@ -48,7 +50,7 @@ func (ns *Namespace) Translate(id any, args ...any) (string, error) {
 
 	if len(args) > 0 {
 		if len(args) > 1 {
-			return "", errors.Errorf("wrong number of arguments, expecting at most 2, got %d", len(args)+1)
+			return "", fmt.Errorf("wrong number of arguments, expecting at most 2, got %d", len(args)+1)
 		}
 		templateData = args[0]
 	}
@@ -250,6 +252,12 @@ type pagesLanguageMerger interface {
 
 // Merge creates a union of pages from two languages.
 func (ns *Namespace) Merge(p2, p1 any) (any, error) {
+	if !hreflect.IsTruthful(p1) {
+		return p2, nil
+	}
+	if !hreflect.IsTruthful(p2) {
+		return p1, nil
+	}
 	merger, ok := p1.(pagesLanguageMerger)
 	if !ok {
 		return nil, fmt.Errorf("language merge not supported for %T", p1)

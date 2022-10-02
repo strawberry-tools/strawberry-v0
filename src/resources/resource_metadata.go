@@ -22,7 +22,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 
 	"github.com/strawberryssg/strawberry-v0/common/maps"
@@ -85,7 +84,7 @@ func AssignMetadata(metadata []map[string]any, resources ...resource.Resource) e
 
 			glob, err := glob.GetGlob(srcKey)
 			if err != nil {
-				return errors.Wrap(err, "failed to match resource with metadata")
+				return fmt.Errorf("failed to match resource with metadata: %w", err)
 			}
 
 			match := glob.Match(resourceSrcKey)

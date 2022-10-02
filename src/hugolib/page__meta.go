@@ -37,7 +37,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/source"
 
 	"github.com/gobuffalo/flect"
-	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 )
 
@@ -125,6 +124,7 @@ func (p *pageMeta) Aliases() []string {
 }
 
 func (p *pageMeta) Author() page.Author {
+	helpers.Deprecated(".Author", "Use taxonomies.", false)
 	authors := p.Authors()
 
 	for _, author := range authors {
@@ -134,6 +134,7 @@ func (p *pageMeta) Author() page.Author {
 }
 
 func (p *pageMeta) Authors() page.AuthorList {
+	helpers.Deprecated(".Authors", "Use taxonomies.", false)
 	authorKeys, ok := p.params["authors"]
 	if !ok {
 		return page.AuthorList{}
@@ -757,7 +758,7 @@ func (p *pageMeta) newContentConverter(ps *pageState, markup string, renderingCo
 	}
 	cp := p.s.ContentSpec.Converters.Get(markup)
 	if cp == nil {
-		return converter.NopConverter, errors.Errorf("no content renderer found for markup %q", p.markup)
+		return converter.NopConverter, fmt.Errorf("no content renderer found for markup %q", p.markup)
 	}
 
 	var id string

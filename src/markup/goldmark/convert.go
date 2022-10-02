@@ -16,11 +16,7 @@ package goldmark
 
 import (
 	"bytes"
-	"fmt"
-	"path/filepath"
-	"runtime/debug"
 
-	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/identity"
 	"github.com/strawberryssg/strawberry-v0/markup/converter"
 	"github.com/strawberryssg/strawberry-v0/markup/goldmark/codeblocks"
@@ -28,8 +24,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/markup/goldmark/internal/render"
 	"github.com/strawberryssg/strawberry-v0/markup/tableofcontents"
 
-	"github.com/pkg/errors"
-	"github.com/spf13/afero"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
@@ -175,16 +169,6 @@ func (c converterResult) GetIdentities() identity.Identities {
 var converterIdentity = identity.KeyValueIdentity{Key: "goldmark", Value: "converter"}
 
 func (c *goldmarkConverter) Convert(ctx converter.RenderContext) (result converter.Result, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			dir := afero.GetTempDir(hugofs.Os, "hugo_bugs")
-			name := fmt.Sprintf("goldmark_%s.txt", c.ctx.DocumentID)
-			filename := filepath.Join(dir, name)
-			afero.WriteFile(hugofs.Os, filename, ctx.Src, 07555)
-			fmt.Print(string(debug.Stack()))
-			err = errors.Errorf("[BUG] goldmark: %s: create an issue on GitHub attaching the file in: %s", r, filename)
-		}
-	}()
 
 	buf := &render.BufWriter{Buffer: &bytes.Buffer{}}
 	result = buf

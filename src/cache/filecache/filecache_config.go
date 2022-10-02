@@ -14,6 +14,7 @@
 package filecache
 
 import (
+	"fmt"
 	"path"
 	"path/filepath"
 	"strings"
@@ -23,8 +24,9 @@ import (
 	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 
+	"errors"
+
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 )
 
@@ -151,7 +153,7 @@ func DecodeConfig(fs afero.Fs, cfg config.Provider) (Configs, error) {
 		}
 
 		if err := decoder.Decode(v); err != nil {
-			return nil, errors.Wrap(err, "failed to decode filecache config")
+			return nil, fmt.Errorf("failed to decode filecache config: %w", err)
 		}
 
 		if cc.Dir == "" {
@@ -160,7 +162,7 @@ func DecodeConfig(fs afero.Fs, cfg config.Provider) (Configs, error) {
 
 		name := strings.ToLower(k)
 		if !valid[name] {
-			return nil, errors.Errorf("%q is not a valid cache name", name)
+			return nil, fmt.Errorf("%q is not a valid cache name", name)
 		}
 
 		c[name] = cc
@@ -195,12 +197,12 @@ func DecodeConfig(fs afero.Fs, cfg config.Provider) (Configs, error) {
 
 		if !v.isResourceDir {
 			if isOsFs && !filepath.IsAbs(v.Dir) {
-				return c, errors.Errorf("%q must resolve to an absolute directory", v.Dir)
+				return c, fmt.Errorf("%q must resolve to an absolute directory", v.Dir)
 			}
 
 			// Avoid cache in root, e.g. / (Unix) or c:\ (Windows)
 			if len(strings.TrimPrefix(v.Dir, filepath.VolumeName(v.Dir))) == 1 {
-				return c, errors.Errorf("%q is a root folder and not allowed as cache dir", v.Dir)
+				return c, fmt.Errorf("%q is a root folder and not allowed as cache dir", v.Dir)
 			}
 		}
 
@@ -240,5 +242,5 @@ func resolveDirPlaceholder(fs afero.Fs, cfg config.Provider, placeholder string)
 		return filepath.Base(workingDir), false, nil
 	}
 
-	return "", false, errors.Errorf("%q is not a valid placeholder (valid values are :cacheDir or :resourceDir)", placeholder)
+	return "", false, fmt.Errorf("%q is not a valid placeholder (valid values are :cacheDir or :resourceDir)", placeholder)
 }

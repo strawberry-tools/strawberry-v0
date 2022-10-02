@@ -28,11 +28,11 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/paths"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/media"
+	"github.com/strawberryssg/strawberry-v0/resources/images"
 	"github.com/strawberryssg/strawberry-v0/resources/images/exif"
 	"github.com/strawberryssg/strawberry-v0/resources/internal"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 
 	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
@@ -173,19 +173,19 @@ func (r *resourceAdapter) Data() any {
 	return r.target.Data()
 }
 
-func (r *resourceAdapter) Crop(spec string) (resource.Image, error) {
+func (r *resourceAdapter) Crop(spec string) (images.ImageResource, error) {
 	return r.getImageOps().Crop(spec)
 }
 
-func (r *resourceAdapter) Fill(spec string) (resource.Image, error) {
+func (r *resourceAdapter) Fill(spec string) (images.ImageResource, error) {
 	return r.getImageOps().Fill(spec)
 }
 
-func (r *resourceAdapter) Fit(spec string) (resource.Image, error) {
+func (r *resourceAdapter) Fit(spec string) (images.ImageResource, error) {
 	return r.getImageOps().Fit(spec)
 }
 
-func (r *resourceAdapter) Filter(filters ...any) (resource.Image, error) {
+func (r *resourceAdapter) Filter(filters ...any) (images.ImageResource, error) {
 	return r.getImageOps().Filter(filters...)
 }
 
@@ -193,7 +193,7 @@ func (r *resourceAdapter) Height() int {
 	return r.getImageOps().Height()
 }
 
-func (r *resourceAdapter) Exif() *exif.Exif {
+func (r *resourceAdapter) Exif() *exif.ExifInfo {
 	return r.getImageOps().Exif()
 }
 
@@ -238,7 +238,7 @@ func (r *resourceAdapter) RelPermalink() string {
 	return r.target.RelPermalink()
 }
 
-func (r *resourceAdapter) Resize(spec string) (resource.Image, error) {
+func (r *resourceAdapter) Resize(spec string) (images.ImageResource, error) {
 	return r.getImageOps().Resize(spec)
 }
 
@@ -278,8 +278,8 @@ func (r *resourceAdapter) DecodeImage() (image.Image, error) {
 	return r.getImageOps().DecodeImage()
 }
 
-func (r *resourceAdapter) getImageOps() resource.ImageOps {
-	img, ok := r.target.(resource.ImageOps)
+func (r *resourceAdapter) getImageOps() images.ImageResourceOps {
+	img, ok := r.target.(images.ImageResourceOps)
 	if !ok {
 		panic(fmt.Sprintf("%T is not an image", r.target))
 	}
@@ -427,10 +427,10 @@ func (r *resourceAdapter) transform(publish, setContent bool) error {
 					errMsg = ". You need to install Babel, see https://gohugo.io/hugo-pipes/babel/"
 				}
 
-				return errors.Wrap(err, msg+errMsg)
+				return fmt.Errorf(msg+errMsg+": %w", err)
 			}
 
-			return errors.Wrap(err, msg)
+			return fmt.Errorf(msg+": %w", err)
 		}
 
 		var tryFileCache bool
@@ -457,7 +457,7 @@ func (r *resourceAdapter) transform(publish, setContent bool) error {
 				if err != nil {
 					return newErr(err)
 				}
-				return newErr(errors.Errorf("resource %q not found in file cache", key))
+				return newErr(fmt.Errorf("resource %q not found in file cache", key))
 			}
 			transformedContentr = f
 			updates.sourceFs = cache.fileCache.Fs

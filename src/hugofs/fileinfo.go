@@ -15,6 +15,7 @@
 package hugofs
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -23,13 +24,14 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/text/unicode/norm"
+
 	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+	"github.com/strawberryssg/strawberry-v0/common/htime"
 	"github.com/strawberryssg/strawberry-v0/hugofs/files"
 	"github.com/strawberryssg/strawberry-v0/hugofs/glob"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
-	"golang.org/x/text/unicode/norm"
 )
 
 func NewFileMeta() *FileMeta {
@@ -135,6 +137,17 @@ type fileInfoMeta struct {
 	m *FileMeta
 }
 
+type filenameProvider interface {
+	Filename() string
+}
+
+var _ filenameProvider = (*fileInfoMeta)(nil)
+
+// Filename returns the full filename.
+func (fi *fileInfoMeta) Filename() string {
+	return fi.m.Filename
+}
+
 // Name returns the file's name. Note that we follow symlinks,
 // if supported by the file system, and the Name given here will be the
 // name of the symlink, which is what Hugo needs in all situations.
@@ -200,7 +213,7 @@ func newDirNameOnlyFileInfo(name string, meta *FileMeta, fileOpener func() (afer
 	m.IsOrdered = false
 
 	return NewFileMetaInfo(
-		&dirNameOnlyFileInfo{name: base, modTime: time.Now()},
+		&dirNameOnlyFileInfo{name: base, modTime: htime.Now()},
 		m,
 	)
 }

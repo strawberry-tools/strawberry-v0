@@ -34,7 +34,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/modules"
 
 	"github.com/bep/overlayfs"
-	"github.com/pkg/errors"
 	"github.com/rogpeppe/go-internal/lockedfile"
 	"github.com/spf13/afero"
 
@@ -172,7 +171,7 @@ func (b *BaseFs) AbsProjectContentDir(filename string) (string, string, error) {
 
 	}
 
-	return "", "", errors.Errorf("could not determine content directory for %q", filename)
+	return "", "", fmt.Errorf("could not determine content directory for %q", filename)
 }
 
 // ResolveJSConfigFile resolves the JS-related config file to a absolute
@@ -464,7 +463,7 @@ func NewBase(p *paths.Paths, logger loggers.Logger, options ...func(*BaseFs) err
 	builder := newSourceFilesystemsBuilder(p, logger, b)
 	sourceFilesystems, err := builder.Build()
 	if err != nil {
-		return nil, errors.Wrap(err, "build filesystems")
+		return nil, fmt.Errorf("build filesystems: %w", err)
 	}
 
 	b.SourceFilesystems = sourceFilesystems
@@ -498,7 +497,7 @@ func (b *sourceFilesystemsBuilder) Build() (*SourceFilesystems, error) {
 	if b.theBigFs == nil {
 		theBigFs, err := b.createMainOverlayFs(b.p)
 		if err != nil {
-			return nil, errors.Wrap(err, "create main fs")
+			return nil, fmt.Errorf("create main fs: %w", err)
 		}
 
 		b.theBigFs = theBigFs
@@ -540,7 +539,7 @@ func (b *sourceFilesystemsBuilder) Build() (*SourceFilesystems, error) {
 
 	contentFs, err := hugofs.NewLanguageFs(b.p.LanguagesDefaultFirst.AsOrdinalSet(), contentBfs)
 	if err != nil {
-		return nil, errors.Wrap(err, "create content filesystem")
+		return nil, fmt.Errorf("create content filesystem: %w", err)
 	}
 
 	b.result.Content = b.newSourceFilesystem(files.ComponentFolderContent, contentFs, contentDirs)

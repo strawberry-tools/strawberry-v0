@@ -17,6 +17,8 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"path"
@@ -30,22 +32,23 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/hexec"
 	"github.com/strawberryssg/strawberry-v0/common/hugo"
 	"github.com/strawberryssg/strawberry-v0/common/loggers"
+	"github.com/strawberryssg/strawberry-v0/common/text"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/resources"
 	"github.com/strawberryssg/strawberry-v0/resources/internal"
 	"github.com/strawberryssg/strawberry-v0/resources/resource"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
 )
 
 const importIdentifier = "@import"
 
-var cssSyntaxErrorRe = regexp.MustCompile(`> (\d+) \|`)
-
-var shouldImportRe = regexp.MustCompile(`^@import ["'].*["'];?\s*(/\*.*\*/)?$`)
+var (
+	cssSyntaxErrorRe = regexp.MustCompile(`> (\d+) \|`)
+	shouldImportRe   = regexp.MustCompile(`^@import ["'].*["'];?\s*(/\*.*\*/)?$`)
+)
 
 // New creates a new Client with the given specification.
 func New(rs *resources.Spec) *Client {
@@ -93,6 +96,12 @@ type Options struct {
 	// Note that this import routine does not care about the CSS spec,
 	// so you can have @import anywhere in the file.
 	InlineImports bool
+
+	// When InlineImports is enabled, we fail the build if an import cannot be resolved.
+	// You can enable this to allow the build to continue and leave the import statement in place.
+	// Note that the inline importer does not process url location or imports with media queries,
+	// so those will be left as-is even without enabling this option.
+	SkipInlineImportsNotFound bool
 
 	// Options for when not using a config file
 	Use         string // List of postcss plugins to use
@@ -156,7 +165,7 @@ func (t *postcssTransformation) Transform(ctx *resources.ResourceTransformationC
 		configFile = t.rs.BaseFs.ResolveJSConfigFile(configFile)
 		if configFile == "" && t.options.Config != "" {
 			// Only fail if the user specified config file is not found.
-			return errors.Errorf("postcss config %q not found:", configFile)
+			return fmt.Errorf("postcss config %q not found:", configFile)
 		}
 	}
 
@@ -198,6 +207,7 @@ func (t *postcssTransformation) Transform(ctx *resources.ResourceTransformationC
 	imp := newImportResolver(
 		ctx.From,
 		ctx.InPath,
+		t.options,
 		t.rs.Assets.Fs, t.rs.Logger,
 	)
 
@@ -233,6 +243,7 @@ type fileOffset struct {
 type importResolver struct {
 	r      io.Reader
 	inPath string
+	opts   Options
 
 	contentSeen map[string]bool
 	linemap     map[int]fileOffset
@@ -240,12 +251,13 @@ type importResolver struct {
 	logger      loggers.Logger
 }
 
-func newImportResolver(r io.Reader, inPath string, fs afero.Fs, logger loggers.Logger) *importResolver {
+func newImportResolver(r io.Reader, inPath string, opts Options, fs afero.Fs, logger loggers.Logger) *importResolver {
 	return &importResolver{
 		r:      r,
 		inPath: inPath,
 		fs:     fs, logger: logger,
 		linemap: make(map[int]fileOffset), contentSeen: make(map[string]bool),
+		opts: opts,
 	}
 }
 
@@ -276,20 +288,31 @@ func (imp *importResolver) importRecursive(
 	i := 0
 	for offset, line := range lines {
 		i++
-		line = strings.TrimSpace(line)
+		lineTrimmed := strings.TrimSpace(line)
+		column := strings.Index(line, lineTrimmed)
+		line = lineTrimmed
 
 		if !imp.shouldImport(line) {
 			trackLine(i, offset, line)
 		} else {
-			i--
 			path := strings.Trim(strings.TrimPrefix(line, importIdentifier), " \"';")
 			filename := filepath.Join(basePath, path)
 			importContent, hash := imp.contentHash(filename)
+
 			if importContent == nil {
-				trackLine(i, offset, "ERROR")
-				imp.logger.Warnf("postcss: Failed to resolve CSS @import in %q for path %q", inPath, filename)
-				continue
+				if imp.opts.SkipInlineImportsNotFound {
+					trackLine(i, offset, line)
+					continue
+				}
+				pos := text.Position{
+					Filename:     inPath,
+					LineNumber:   offset + 1,
+					ColumnNumber: column + 1,
+				}
+				return 0, "", herrors.NewFileErrorFromFileInPos(fmt.Errorf("failed to resolve CSS @import \"%s\"", filename), pos, imp.fs, nil)
 			}
+
+			i--
 
 			if imp.contentSeen[hash] {
 				i++
@@ -362,7 +385,8 @@ func (imp *importResolver) shouldImport(s string) bool {
 }
 
 func (imp *importResolver) toFileError(output string) error {
-	inErr := errors.New(strings.TrimSpace(output))
+	output = strings.TrimSpace(loggers.RemoveANSIColours(output))
+	inErr := errors.New(output)
 
 	match := cssSyntaxErrorRe.FindStringSubmatch(output)
 	if match == nil {
@@ -383,15 +407,20 @@ func (imp *importResolver) toFileError(output string) error {
 	if err != nil {
 		return inErr
 	}
-	realFilename := fi.(hugofs.FileMetaInfo).Meta().Filename
 
-	ferr := herrors.NewFileError("css", -1, file.Offset+1, 1, inErr)
-
-	werr, ok := herrors.WithFileContextForFile(ferr, realFilename, file.Filename, imp.fs, herrors.SimpleLineMatcher)
-
-	if !ok {
-		return ferr
+	meta := fi.(hugofs.FileMetaInfo).Meta()
+	realFilename := meta.Filename
+	f, err := meta.Open()
+	if err != nil {
+		return inErr
 	}
+	defer f.Close()
 
-	return werr
+	ferr := herrors.NewFileErrorFromName(inErr, realFilename)
+	pos := ferr.Position()
+	pos.LineNumber = file.Offset + 1
+	return ferr.UpdatePosition(pos).UpdateContent(f, nil)
+
+	//return herrors.NewFileErrorFromFile(inErr, file.Filename, realFilename, hugofs.Os, herrors.SimpleLineMatcher)
+
 }

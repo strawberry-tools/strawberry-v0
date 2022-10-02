@@ -16,6 +16,10 @@ package transform
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
+
+	"github.com/strawberryssg/strawberry-v0/common/herrors"
+	"github.com/strawberryssg/strawberry-v0/hugofs"
 
 	bp "github.com/strawberryssg/strawberry-v0/bufferpool"
 )
@@ -103,7 +107,17 @@ func (c *Chain) Apply(to io.Writer, from io.Reader) error {
 		}
 
 		if err := tr(fb); err != nil {
-			return err
+			// Write output to a temp file so it can be read by the user for trouble shooting.
+			filename := "output.html"
+			tempfile, ferr := ioutil.TempFile("", "hugo-transform-error")
+			if ferr == nil {
+				filename = tempfile.Name()
+				defer tempfile.Close()
+				_, _ = io.Copy(tempfile, fb.from)
+				return herrors.NewFileErrorFromFile(err, filename, hugofs.Os, nil)
+			}
+			return herrors.NewFileErrorFromName(err, filename).UpdateContent(fb.from, nil)
+
 		}
 	}
 
