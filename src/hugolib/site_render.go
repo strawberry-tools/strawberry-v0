@@ -150,8 +150,8 @@ func (s *Site) logMissingLayout(name, layout, kind, outputFormat string) {
 		log = s.Log.Info()
 	}
 
-	errMsg := "You should create a template file which matches Gotham Layouts Lookup Rules for this combination."
-	var args []interface{}
+	errMsg := "You should create a template file which matches Strawberry Layouts Lookup Rules for this combination."
+	var args []any
 	msg := "found no layout file for"
 	if outputFormat != "" {
 		msg += " %q"

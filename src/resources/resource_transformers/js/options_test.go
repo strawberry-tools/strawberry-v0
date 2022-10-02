@@ -31,7 +31,7 @@ import (
 func TestOptionKey(t *testing.T) {
 	c := qt.New(t)
 
-	opts := map[string]interface{}{
+	opts := map[string]any{
 		"TargetPath": "foo",
 		"Target":     "es2018",
 	}

@@ -88,7 +88,7 @@ type Sitemap struct {
 	Exclude    bool
 }
 
-func DecodeSitemap(prototype Sitemap, input map[string]interface{}) Sitemap {
+func DecodeSitemap(prototype Sitemap, input map[string]any) Sitemap {
 	for key, value := range input {
 		switch key {
 		case "changefreq":
@@ -180,7 +180,7 @@ func (s *Server) MatchRedirect(pattern string) Redirect {
 
 type Headers struct {
 	For    string
-	Values map[string]interface{}
+	Values map[string]any
 }
 
 type Redirect struct {

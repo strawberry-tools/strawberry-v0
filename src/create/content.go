@@ -279,10 +279,10 @@ func (b *contentBuilder) applyArcheType(contentFilename, archetypeFilename strin
 	defer f.Close()
 
 	if archetypeFilename == "" {
-		return b.cf.AppplyArchetypeTemplate(f, p, b.kind, DefaultArchetypeTemplateTemplate)
+		return b.cf.ApplyArchetypeTemplate(f, p, b.kind, DefaultArchetypeTemplateTemplate)
 	}
 
-	return b.cf.AppplyArchetypeFilename(f, p, b.kind, archetypeFilename)
+	return b.cf.ApplyArchetypeFilename(f, p, b.kind, archetypeFilename)
 
 }
 
@@ -342,7 +342,7 @@ func (b *contentBuilder) openInEditorIfConfigured(filename string) error {
 	editorExec := strings.Fields(editor)[0]
 	editorFlags := strings.Fields(editor)[1:]
 
-	var args []interface{}
+	var args []any
 	for _, editorFlag := range editorFlags {
 		args = append(args, editorFlag)
 	}

@@ -47,7 +47,7 @@ var (
 type ContentSpec struct {
 	Converters          markup.ConverterProvider
 	anchorNameSanitizer converter.AnchorNameSanitizer
-	getRenderer         func(t hooks.RendererType, id interface{}) interface{}
+	getRenderer         func(t hooks.RendererType, id any) any
 
 	// SummaryLength is the length of the summary that Hugo extracts from a content.
 	summaryLength int

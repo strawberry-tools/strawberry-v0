@@ -60,8 +60,8 @@ func New(cfg Config) Highlighter {
 }
 
 type Highlighter interface {
-	Highlight(code, lang string, opts interface{}) (string, error)
-	HighlightCodeBlock(ctx hooks.CodeblockContext, opts interface{}) (HightlightResult, error)
+	Highlight(code, lang string, opts any) (string, error)
+	HighlightCodeBlock(ctx hooks.CodeblockContext, opts any) (HightlightResult, error)
 	hooks.CodeBlockRenderer
 	hooks.IsDefaultCodeBlockRendererProvider
 }
@@ -70,7 +70,7 @@ type chromaHighlighter struct {
 	cfg Config
 }
 
-func (h chromaHighlighter) Highlight(code, lang string, opts interface{}) (string, error) {
+func (h chromaHighlighter) Highlight(code, lang string, opts any) (string, error) {
 	cfg := h.cfg
 	if err := applyOptions(opts, &cfg); err != nil {
 		return "", err
@@ -84,7 +84,7 @@ func (h chromaHighlighter) Highlight(code, lang string, opts interface{}) (strin
 	return b.String(), nil
 }
 
-func (h chromaHighlighter) HighlightCodeBlock(ctx hooks.CodeblockContext, opts interface{}) (HightlightResult, error) {
+func (h chromaHighlighter) HighlightCodeBlock(ctx hooks.CodeblockContext, opts any) (HightlightResult, error) {
 	cfg := h.cfg
 
 	var b strings.Builder

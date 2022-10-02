@@ -20,11 +20,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/bep/golibsass/libsass"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
 	"github.com/strawberryssg/strawberry-v0/media"
 	"github.com/strawberryssg/strawberry-v0/resources"
+
+	"github.com/bep/golibsass/libsass"
 	"github.com/pkg/errors"
 )
 

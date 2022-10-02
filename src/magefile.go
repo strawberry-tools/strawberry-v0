@@ -25,10 +25,10 @@ import (
 
 const (
 	packageName  = "github.com/strawberryssg/strawberry-v0"
-	noGitLdflags = "-X $PACKAGE/common/hugo.buildDate=$BUILD_DATE"
+	noGitLdflags = "-X github.com/strawberryssg/strawberry-v0/common/hugo.vendorInfo=mage"
 )
 
-var ldflags = "-X $PACKAGE/common/hugo.commitHash=$COMMIT_HASH -X $PACKAGE/common/hugo.buildDate=$BUILD_DATE"
+var ldflags = noGitLdflags
 
 // allow user to override go executable by running as GOEXE=xxx make ... on unix-like systems
 var goexe = "go"
@@ -43,7 +43,7 @@ func init() {
 	os.Setenv("GO111MODULE", "on")
 }
 
-func runWith(env map[string]string, cmd string, inArgs ...interface{}) error {
+func runWith(env map[string]string, cmd string, inArgs ...any) error {
 	s := argsToStrings(inArgs...)
 	return sh.RunWith(env, cmd, s...)
 }
@@ -163,7 +163,7 @@ func testGoFlags() string {
 		return ""
 	}
 
-	return "-test.short"
+	return "-timeout=1m"
 }
 
 // Run tests in 32-bit mode
@@ -312,7 +312,7 @@ func TestCoverHTML() error {
 	return sh.Run(goexe, "tool", "cover", "-html="+coverAll)
 }
 
-func runCmd(env map[string]string, cmd string, args ...interface{}) error {
+func runCmd(env map[string]string, cmd string, args ...any) error {
 	if mg.Verbose() {
 		return runWith(env, cmd, args...)
 	}
@@ -349,7 +349,7 @@ func buildTags() string {
 	return "none"
 }
 
-func argsToStrings(v ...interface{}) []string {
+func argsToStrings(v ...any) []string {
 	var args []string
 	for _, arg := range v {
 		switch v := arg.(type) {

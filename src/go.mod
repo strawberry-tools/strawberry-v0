@@ -11,8 +11,8 @@ require (
 	github.com/bep/debounce v1.2.0
 	github.com/bep/gitmap v1.1.2
 	github.com/bep/goat v0.5.0
-	github.com/bep/godartsass v0.12.0
-	github.com/bep/golibsass v1.0.0
+	github.com/bep/godartsass v0.14.0
+	github.com/bep/golibsass v1.1.0
 	github.com/bep/gowebp v0.1.0
 	github.com/bep/tmc v0.5.1
 	github.com/clbanning/mxj/v2 v2.5.5
@@ -21,9 +21,9 @@ require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/evanw/esbuild v0.14.25
 	github.com/fortytw2/leaktest v1.3.0
-	github.com/frankban/quicktest v1.14.2
-	github.com/fsnotify/fsnotify v1.5.1
-	github.com/getkin/kin-openapi v0.91.0
+	github.com/frankban/quicktest v1.14.3
+	github.com/fsnotify/fsnotify v1.5.2
+	github.com/getkin/kin-openapi v0.93.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gobuffalo/flect v0.2.4
 	github.com/gobwas/glob v0.2.3
@@ -38,13 +38,12 @@ require (
 	github.com/jdkato/prose v1.2.1
 	github.com/kylelemons/godebug v1.1.0
 	github.com/kyokomi/emoji/v2 v2.2.9
-	github.com/magefile/mage v1.12.1
+	github.com/magefile/mage v1.13.0
 	github.com/mattn/go-isatty v0.0.14
 	github.com/mitchellh/hashstructure v1.1.0
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/muesli/smartcrop v0.3.0
-	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
-	github.com/niklasfasching/go-org v1.6.2
+	github.com/niklasfasching/go-org v1.6.5
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pelletier/go-toml/v2 v2.0.0-beta.6
 	github.com/pkg/errors v0.9.1
@@ -54,14 +53,14 @@ require (
 	github.com/sanity-io/litter v1.5.2
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/afero v1.8.1
-	github.com/spf13/cast v1.4.1
-	github.com/spf13/cobra v1.3.0
+	github.com/spf13/cast v1.5.0
+	github.com/spf13/cobra v1.4.0
 	github.com/spf13/fsync v0.9.0
 	github.com/spf13/jwalterweatherman v1.1.0
 	github.com/spf13/pflag v1.0.5
 	github.com/tdewolff/minify/v2 v2.10.0
-	github.com/yuin/goldmark v1.4.10
-	go.uber.org/atomic v1.9.0
+	github.com/yuin/goldmark v1.4.11
+	go.uber.org/atomic v1.10.0
 	gocloud.dev v0.20.0
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
@@ -79,6 +78,8 @@ require (
 	cloud.google.com/go/storage v1.14.0 // indirect
 	github.com/Azure/azure-pipeline-go v0.2.2 // indirect
 	github.com/Azure/azure-storage-blob-go v0.9.0 // indirect
+	github.com/Azure/go-autorest/autorest v0.11.20 // indirect
+	github.com/Azure/go-autorest/autorest/adal v0.9.15 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
@@ -97,6 +98,7 @@ require (
 	github.com/mailru/easyjson v0.0.0-20190626092158-b2ccc519800e // indirect
 	github.com/mattn/go-ieproxy v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/tdewolff/parse/v2 v2.5.27 // indirect
 	go.opencensus.io v0.23.0 // indirect

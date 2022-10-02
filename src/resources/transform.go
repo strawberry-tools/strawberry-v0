@@ -105,7 +105,7 @@ type ResourceTransformationCtx struct {
 
 	// Data data can be set on the transformed Resource. Not that this need
 	// to be simple types, as it needs to be serialized to JSON and back.
-	Data map[string]interface{}
+	Data map[string]any
 
 	// This is used to publish additional artifacts, e.g. source maps.
 	// We may improve this.
@@ -156,7 +156,7 @@ type resourceAdapter struct {
 	*resourceAdapterInner
 }
 
-func (r *resourceAdapter) Content() (interface{}, error) {
+func (r *resourceAdapter) Content() (any, error) {
 	r.init(false, true)
 	if r.transformationsErr != nil {
 		return nil, r.transformationsErr
@@ -164,11 +164,11 @@ func (r *resourceAdapter) Content() (interface{}, error) {
 	return r.target.Content()
 }
 
-func (r *resourceAdapter) Err() error {
+func (r *resourceAdapter) Err() resource.ResourceError {
 	return nil
 }
 
-func (r *resourceAdapter) Data() interface{} {
+func (r *resourceAdapter) Data() any {
 	r.init(false, false)
 	return r.target.Data()
 }
@@ -185,7 +185,7 @@ func (r *resourceAdapter) Fit(spec string) (resource.Image, error) {
 	return r.getImageOps().Fit(spec)
 }
 
-func (r *resourceAdapter) Filter(filters ...interface{}) (resource.Image, error) {
+func (r *resourceAdapter) Filter(filters ...any) (resource.Image, error) {
 	return r.getImageOps().Filter(filters...)
 }
 
@@ -352,7 +352,7 @@ func (r *resourceAdapter) transform(publish, setContent bool) error {
 	defer bp.PutBuffer(b2)
 
 	tctx := &ResourceTransformationCtx{
-		Data:                  make(map[string]interface{}),
+		Data:                  make(map[string]any),
 		OpenResourcePublisher: r.target.openPublishFileForWriting,
 	}
 
@@ -602,7 +602,7 @@ type transformationUpdate struct {
 	sourceFs       afero.Fs
 	targetPath     string
 	mediaType      media.Type
-	data           map[string]interface{}
+	data           map[string]any
 
 	startCtx ResourceTransformationCtx
 }
@@ -628,9 +628,9 @@ func (u *transformationUpdate) updateFromCtx(ctx *ResourceTransformationCtx) {
 
 // We will persist this information to disk.
 type transformedResourceMetadata struct {
-	Target     string                 `json:"Target"`
-	MediaTypeV string                 `json:"MediaType"`
-	MetaData   map[string]interface{} `json:"Data"`
+	Target     string         `json:"Target"`
+	MediaTypeV string         `json:"MediaType"`
+	MetaData   map[string]any `json:"Data"`
 }
 
 // contentReadSeekerCloser returns a ReadSeekerCloser if possible for a given Resource.

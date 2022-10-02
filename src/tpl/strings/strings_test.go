@@ -34,8 +34,8 @@ func TestChomp(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"\n a\n", "\n a"},
 		{"\n a\n\n", "\n a"},
@@ -69,8 +69,8 @@ func TestContains(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		substr interface{}
+		s      any
+		substr any
 		expect bool
 		isErr  bool
 	}{
@@ -107,8 +107,8 @@ func TestContainsAny(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		substr interface{}
+		s      any
+		substr any
 		expect bool
 		isErr  bool
 	}{
@@ -151,8 +151,8 @@ func TestCountRunes(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"foo bar", 6},
 		{"旁边", 2},
@@ -178,8 +178,8 @@ func TestRuneCount(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"foo bar", 7},
 		{"旁边", 2},
@@ -205,8 +205,8 @@ func TestCountWords(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"Do Be Do Be Do", 5},
 		{"旁边", 2},
@@ -235,9 +235,9 @@ func TestHasPrefix(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		prefix interface{}
-		expect interface{}
+		s      any
+		prefix any
+		expect any
 		isErr  bool
 	}{
 		{"abcd", "ab", true, false},
@@ -269,9 +269,9 @@ func TestHasSuffix(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		suffix interface{}
-		expect interface{}
+		s      any
+		suffix any
+		expect any
 		isErr  bool
 	}{
 		{"abcd", "cd", true, false},
@@ -303,11 +303,11 @@ func TestReplace(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		old    interface{}
-		new    interface{}
-		limit  interface{}
-		expect interface{}
+		s      any
+		old    any
+		new    any
+		limit  any
+		expect any
 	}{
 		{"aab", "a", "b", nil, "bbb"},
 		{"11a11", 1, 2, nil, "22a22"},
@@ -347,10 +347,10 @@ func TestSliceString(t *testing.T) {
 
 	var err error
 	for _, test := range []struct {
-		v1     interface{}
-		v2     interface{}
-		v3     interface{}
-		expect interface{}
+		v1     any
+		v2     any
+		v3     any
+		expect any
 	}{
 		{"abc", 1, 2, "b"},
 		{"abc", 1, 3, "bc"},
@@ -409,9 +409,9 @@ func TestSplit(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		v1     interface{}
+		v1     any
 		v2     string
-		expect interface{}
+		expect any
 	}{
 		{"a, b", ", ", []string{"a", "b"}},
 		{"a & b & c", " & ", []string{"a", "b", "c"}},
@@ -438,10 +438,10 @@ func TestSubstr(t *testing.T) {
 
 	var err error
 	for _, test := range []struct {
-		v1     interface{}
-		v2     interface{}
-		v3     interface{}
-		expect interface{}
+		v1     any
+		v2     any
+		v3     any
+		expect any
 	}{
 		{"abc", 1, 2, "bc"},
 		{"abc", 0, 1, "a"},
@@ -512,8 +512,8 @@ func TestTitle(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"test", "Test"},
 		{template.HTML("hypertext"), "Hypertext"},
@@ -539,8 +539,8 @@ func TestToLower(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"TEST", "test"},
 		{template.HTML("LoWeR"), "lower"},
@@ -566,8 +566,8 @@ func TestToUpper(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		expect interface{}
+		s      any
+		expect any
 	}{
 		{"test", "TEST"},
 		{template.HTML("UpPeR"), "UPPER"},
@@ -593,9 +593,9 @@ func TestTrim(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		cutset interface{}
-		expect interface{}
+		s      any
+		cutset any
+		expect any
 	}{
 		{"abba", "a", "bb"},
 		{"abba", "ab", ""},
@@ -627,9 +627,9 @@ func TestTrimLeft(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		cutset interface{}
-		expect interface{}
+		s      any
+		cutset any
+		expect any
 	}{
 		{"abba", "a", "bba"},
 		{"abba", "ab", ""},
@@ -662,9 +662,9 @@ func TestTrimPrefix(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		prefix interface{}
-		expect interface{}
+		s      any
+		prefix any
+		expect any
 	}{
 		{"aabbaa", "a", "abbaa"},
 		{"aabb", "b", "aabb"},
@@ -692,9 +692,9 @@ func TestTrimRight(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		cutset interface{}
-		expect interface{}
+		s      any
+		cutset any
+		expect any
 	}{
 		{"abba", "a", "abb"},
 		{"abba", "ab", ""},
@@ -727,9 +727,9 @@ func TestTrimSuffix(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		suffix interface{}
-		expect interface{}
+		s      any
+		suffix any
+		expect any
 	}{
 		{"aabbaa", "a", "aabba"},
 		{"aabb", "b", "aab"},
@@ -757,9 +757,9 @@ func TestRepeat(t *testing.T) {
 	c := qt.New(t)
 
 	for _, test := range []struct {
-		s      interface{}
-		n      interface{}
-		expect interface{}
+		s      any
+		n      any
+		expect any
 	}{
 		{"yo", "2", "yoyo"},
 		{"~", "16", "~~~~~~~~~~~~~~~~"},
