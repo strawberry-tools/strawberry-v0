@@ -299,9 +299,6 @@ defaultContentLanguageInSubdir = true
 [permalinks]
 other = "/somewhere/else/:filename"
 
-[blackfriday]
-angledQuotes = true
-
 [Taxonomies]
 tag = "tags"
 
@@ -310,8 +307,6 @@ tag = "tags"
 weight = 10
 title = "In English"
 languageName = "English"
-[Languages.en.blackfriday]
-angledQuotes = false
 [[Languages.en.menu.main]]
 url    = "/"
 name   = "Home"

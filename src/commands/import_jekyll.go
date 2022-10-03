@@ -31,7 +31,6 @@ import (
 	"github.com/strawberryssg/strawberry-v0/common/maps"
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/hugofs"
-	"github.com/strawberryssg/strawberry-v0/hugolib"
 	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 	"github.com/strawberryssg/strawberry-v0/parser/pageparser"
@@ -201,12 +200,7 @@ func (i *importCmd) retrieveJekyllPostDir(fs afero.Fs, dir string) (bool, bool) 
 }
 
 func (i *importCmd) createSiteFromJekyll(jekyllRoot, targetDir string, jekyllPostDirs map[string]bool, force bool) error {
-	s, err := hugolib.NewSiteDefaultLang()
-	if err != nil {
-		return err
-	}
-
-	fs := s.Fs.Source
+	fs := &afero.OsFs{}
 	if exists, _ := helpers.Exists(targetDir, fs); exists {
 		if isDir, _ := helpers.IsDir(targetDir, fs); !isDir {
 			return errors.New("target path \"" + targetDir + "\" exists but is not a directory")

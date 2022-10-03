@@ -20,10 +20,13 @@ import (
 	"reflect"
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/output"
 	"github.com/strawberryssg/strawberry-v0/tpl"
+
+	qt "github.com/frankban/quicktest"
 )
 
 type templateFinder int
@@ -67,7 +70,7 @@ func (templateFinder) GetFunc(name string) (reflect.Value, bool) {
 func TestApply(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
-	d := &deps.Deps{}
+	d := &deps.Deps{Language: langs.NewDefaultLanguage(config.New())}
 	d.SetTmpl(new(templateFinder))
 	ns := New(d)
 

@@ -15,6 +15,7 @@ package compare
 
 import (
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/tpl/internal"
 )
 
@@ -22,7 +23,11 @@ const name = "compare"
 
 func init() {
 	f := func(d *deps.Deps) *internal.TemplateFuncsNamespace {
-		ctx := New(false)
+		if d.Language == nil {
+			panic("language must be set")
+		}
+
+		ctx := New(langs.GetLocation(d.Language), false)
 
 		ns := &internal.TemplateFuncsNamespace{
 			Name:    name,

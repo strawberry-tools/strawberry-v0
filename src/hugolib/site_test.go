@@ -288,11 +288,6 @@ func doTestShouldAlwaysHaveUglyURLs(t *testing.T, uglyURLs bool) {
 
 	cfg.Set("verbose", true)
 	cfg.Set("baseURL", "http://auth/bub")
-	cfg.Set("blackfriday",
-		map[string]any{
-			"plainIDAnchors": true,
-		})
-
 	cfg.Set("uglyURLs", uglyURLs)
 
 	sources := [][2]string{
@@ -888,8 +883,6 @@ func setupLinkingMockSite(t *testing.T) *Site {
 	})
 	cfg.Set("pluralizeListTitles", false)
 	cfg.Set("canonifyURLs", false)
-	cfg.Set("blackfriday",
-		map[string]any{})
 	writeSourcesToSource(t, "content", fs, sources...)
 	return buildSingleSite(t, deps.DepsCfg{Fs: fs, Cfg: cfg}, BuildCfg{})
 }

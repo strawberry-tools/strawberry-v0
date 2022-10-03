@@ -23,6 +23,7 @@ import (
 	"github.com/strawberryssg/strawberry-v0/helpers"
 	"github.com/strawberryssg/strawberry-v0/markup/converter/hooks"
 	"github.com/strawberryssg/strawberry-v0/markup/highlight"
+	"github.com/strawberryssg/strawberry-v0/tpl"
 
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/spf13/cast"
@@ -141,7 +142,7 @@ func (ns *Namespace) Plainify(s any) (string, error) {
 		return "", err
 	}
 
-	return helpers.StripHTML(ss), nil
+	return tpl.StripHTML(ss), nil
 }
 
 // For internal use.

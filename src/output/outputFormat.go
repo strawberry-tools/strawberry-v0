@@ -133,6 +133,14 @@ var (
 		Weight: 10,
 	}
 
+	MarkdownFormat = Format{
+		Name:        "MARKDOWN",
+		MediaType:   media.MarkdownType,
+		BaseName:    "index",
+		Rel:         "alternate",
+		IsPlainText: true,
+	}
+
 	JSONFormat = Format{
 		Name:        "JSON",
 		MediaType:   media.JSONType,
@@ -192,10 +200,11 @@ var DefaultFormats = Formats{
 	HTMLFormat,
 	JSONFormat,
 	JSONFeedFormat,
+	MarkdownFormat,
+	WebAppManifestFormat,
 	RobotsTxtFormat,
 	RSSFormat,
 	SitemapFormat,
-	WebAppManifestFormat,
 }
 
 func init() {

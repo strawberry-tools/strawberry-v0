@@ -114,9 +114,8 @@ type pageMeta struct {
 
 	s *Site
 
-	renderingConfigOverrides map[string]any
-	contentConverterInit     sync.Once
-	contentConverter         converter.Converter
+	contentConverterInit sync.Once
+	contentConverter     converter.Converter
 }
 
 func (p *pageMeta) Aliases() []string {
@@ -738,21 +737,10 @@ func (p *pageMeta) applyDefaultValues(n *contentNode) error {
 		}
 	}
 
-	if !p.f.IsZero() {
-		var renderingConfigOverrides map[string]any
-		bfParam := getParamToLower(p, "blackfriday")
-		if bfParam != nil {
-			renderingConfigOverrides = maps.ToStringMap(bfParam)
-		}
-
-		p.renderingConfigOverrides = renderingConfigOverrides
-
-	}
-
 	return nil
 }
 
-func (p *pageMeta) newContentConverter(ps *pageState, markup string, renderingConfigOverrides map[string]any) (converter.Converter, error) {
+func (p *pageMeta) newContentConverter(ps *pageState, markup string) (converter.Converter, error) {
 	if ps == nil {
 		panic("no Page provided")
 	}
@@ -774,11 +762,10 @@ func (p *pageMeta) newContentConverter(ps *pageState, markup string, renderingCo
 
 	cpp, err := cp.New(
 		converter.DocumentContext{
-			Document:        newPageForRenderHook(ps),
-			DocumentID:      id,
-			DocumentName:    path,
-			Filename:        filename,
-			ConfigOverrides: renderingConfigOverrides,
+			Document:     newPageForRenderHook(ps),
+			DocumentID:   id,
+			DocumentName: path,
+			Filename:     filename,
 		},
 	)
 	if err != nil {

@@ -21,7 +21,7 @@ require (
 	github.com/cli/safeexec v1.0.0
 	github.com/disintegration/gift v1.2.1
 	github.com/dustin/go-humanize v1.0.0
-	github.com/evanw/esbuild v0.14.39
+	github.com/evanw/esbuild v0.14.42
 	github.com/fortytw2/leaktest v1.3.0
 	github.com/frankban/quicktest v1.14.3
 	github.com/fsnotify/fsnotify v1.5.4
@@ -47,20 +47,19 @@ require (
 	github.com/muesli/smartcrop v0.3.0
 	github.com/niklasfasching/go-org v1.6.5
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/pelletier/go-toml/v2 v2.0.0-beta.7.0.20220408132554-2377ac4bc04c
-	github.com/rogpeppe/go-internal v1.9.0
-	github.com/russross/blackfriday v1.6.0
+	github.com/pelletier/go-toml/v2 v2.0.1
+	github.com/rogpeppe/go-internal v1.8.1
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/sanity-io/litter v1.5.5
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
-	github.com/spf13/afero v1.9.2
+	github.com/spf13/afero v1.8.2
 	github.com/spf13/cast v1.5.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/fsync v0.9.0
 	github.com/spf13/jwalterweatherman v1.1.0
 	github.com/spf13/pflag v1.0.5
-	github.com/tdewolff/minify/v2 v2.12.1
-	github.com/tdewolff/parse/v2 v2.6.3
+	github.com/tdewolff/minify/v2 v2.11.5
+	github.com/tdewolff/parse/v2 v2.5.31
 	github.com/yuin/goldmark v1.4.12
 	go.uber.org/atomic v1.10.0
 	gocloud.dev v0.24.0

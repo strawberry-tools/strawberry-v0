@@ -105,6 +105,15 @@ func (ns *Namespace) getscssClientDartSass() (*dartsass.Client, error) {
 	return ns.scssClientDartSass, err
 }
 
+// Copy copies r to the new targetPath in s.
+func (ns *Namespace) Copy(s any, r resource.Resource) (resource.Resource, error) {
+	targetPath, err := cast.ToStringE(s)
+	if err != nil {
+		panic(err)
+	}
+	return ns.createClient.Copy(r, targetPath)
+}
+
 // Get locates the filename given in Hugo's assets filesystem
 // and creates a Resource object that can be used for further transformations.
 func (ns *Namespace) Get(filename any) resource.Resource {
@@ -390,15 +399,8 @@ func (ns *Namespace) PostCSS(args ...any) (resource.Resource, error) {
 	if err != nil {
 		return nil, err
 	}
-	var options postcss.Options
-	if m != nil {
-		options, err = postcss.DecodeOptions(m)
-		if err != nil {
-			return nil, err
-		}
-	}
 
-	return ns.postcssClient.Process(r, options)
+	return ns.postcssClient.Process(r, m)
 }
 
 func (ns *Namespace) PostProcess(r resource.Resource) (postpub.PostPublishedResource, error) {

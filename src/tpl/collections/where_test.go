@@ -22,14 +22,15 @@ import (
 	"time"
 
 	"github.com/strawberryssg/strawberry-v0/common/maps"
-
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
 )
 
 func TestWhere(t *testing.T) {
 	t.Parallel()
 
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{Language: langs.NewDefaultLanguage(config.New())})
 
 	type Mid struct {
 		Tst TstX
@@ -683,7 +684,7 @@ func TestWhere(t *testing.T) {
 func TestCheckCondition(t *testing.T) {
 	t.Parallel()
 
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{Language: langs.NewDefaultLanguage(config.New())})
 
 	type expect struct {
 		result  bool

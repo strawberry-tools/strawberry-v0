@@ -19,7 +19,9 @@ import (
 	"testing"
 
 	"github.com/strawberryssg/strawberry-v0/common/maps"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
 	"github.com/strawberryssg/strawberry-v0/parser"
 	"github.com/strawberryssg/strawberry-v0/parser/metadecoders"
 
@@ -27,7 +29,7 @@ import (
 )
 
 func TestMerge(t *testing.T) {
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{Language: langs.NewDefaultLanguage(config.New())})
 
 	simpleMap := map[string]any{"a": 1, "b": 2}
 
@@ -161,7 +163,7 @@ func TestMerge(t *testing.T) {
 
 func TestMergeDataFormats(t *testing.T) {
 	c := qt.New(t)
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{Language: langs.NewDefaultLanguage(config.New())})
 
 	toml1 := `
 V1 = "v1_1"
