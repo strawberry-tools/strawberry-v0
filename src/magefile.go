@@ -144,12 +144,6 @@ func Docker() error {
 
 // Run tests and linters
 func Check() {
-	if strings.Contains(runtime.Version(), "1.8") {
-		// Go 1.8 doesn't play along with go test ./... and /vendor.
-		// We could fix that, but that would take time.
-		fmt.Printf("Skip Check on %s\n", runtime.Version())
-		return
-	}
 
 	mg.Deps(Fmt, Vet)
 
@@ -164,13 +158,6 @@ func testGoFlags() string {
 	}
 
 	return "-timeout=1m"
-}
-
-// Run tests in 32-bit mode
-// Note that we don't run with the extended tag. Currently not supported in 32 bit.
-func Test386() error {
-	env := map[string]string{"GOARCH": "386", "GOFLAGS": testGoFlags()}
-	return runCmd(env, goexe, "test", "./...")
 }
 
 // Run tests with race detector

@@ -17,7 +17,9 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
 
 	qt "github.com/frankban/quicktest"
 )
@@ -34,7 +36,7 @@ func TestComplement(t *testing.T) {
 
 	c := qt.New(t)
 
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{Language: langs.NewDefaultLanguage(config.New())})
 
 	s1 := []TstX{{A: "a"}, {A: "b"}, {A: "d"}, {A: "e"}}
 	s2 := []TstX{{A: "b"}, {A: "e"}}

@@ -20,18 +20,21 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/strawberryssg/strawberry-v0/common/hreflect"
+	"github.com/strawberryssg/strawberry-v0/common/htime"
 	"github.com/strawberryssg/strawberry-v0/common/types"
 	"github.com/strawberryssg/strawberry-v0/compare"
 	"github.com/strawberryssg/strawberry-v0/langs"
 )
 
 // New returns a new instance of the compare-namespaced template functions.
-func New(caseInsensitive bool) *Namespace {
-	return &Namespace{caseInsensitive: caseInsensitive}
+func New(loc *time.Location, caseInsensitive bool) *Namespace {
+	return &Namespace{loc: loc, caseInsensitive: caseInsensitive}
 }
 
 // Namespace provides template functions for the "compare" namespace.
 type Namespace struct {
+	loc *time.Location
 	// Enable to do case insensitive string compares.
 	caseInsensitive bool
 }
@@ -100,6 +103,11 @@ func (n *Namespace) Eq(first any, others ...any) bool {
 		if types.IsNil(v) {
 			return nil
 		}
+
+		if at, ok := v.(htime.AsTimeProvider); ok {
+			return at.AsTime(n.loc)
+		}
+
 		vv := reflect.ValueOf(v)
 		switch vv.Kind() {
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
@@ -268,9 +276,8 @@ func (ns *Namespace) compareGetWithCollator(collator *langs.Collator, a any, b a
 			leftStr = &str
 		}
 	case reflect.Struct:
-		switch av.Type() {
-		case timeType:
-			left = float64(toTimeUnix(av))
+		if hreflect.IsTime(av.Type()) {
+			left = float64(ns.toTimeUnix(av))
 		}
 	case reflect.Bool:
 		left = 0
@@ -296,9 +303,8 @@ func (ns *Namespace) compareGetWithCollator(collator *langs.Collator, a any, b a
 			rightStr = &str
 		}
 	case reflect.Struct:
-		switch bv.Type() {
-		case timeType:
-			right = float64(toTimeUnix(bv))
+		if hreflect.IsTime(bv.Type()) {
+			right = float64(ns.toTimeUnix(bv))
 		}
 	case reflect.Bool:
 		right = 0
@@ -336,14 +342,10 @@ func (ns *Namespace) compareGetWithCollator(collator *langs.Collator, a any, b a
 	return left, right
 }
 
-var timeType = reflect.TypeOf((*time.Time)(nil)).Elem()
-
-func toTimeUnix(v reflect.Value) int64 {
-	if v.Kind() == reflect.Interface {
-		return toTimeUnix(v.Elem())
-	}
-	if v.Type() != timeType {
+func (ns *Namespace) toTimeUnix(v reflect.Value) int64 {
+	t, ok := hreflect.AsTime(v, ns.loc)
+	if !ok {
 		panic("coding error: argument must be time.Time type reflect Value")
 	}
-	return v.MethodByName("Unix").Call([]reflect.Value{})[0].Int()
+	return t.Unix()
 }

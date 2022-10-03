@@ -17,8 +17,11 @@ import (
 	"reflect"
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/strawberryssg/strawberry-v0/config"
 	"github.com/strawberryssg/strawberry-v0/deps"
+	"github.com/strawberryssg/strawberry-v0/langs"
+
+	qt "github.com/frankban/quicktest"
 )
 
 // Also see tests in common/collection.
@@ -26,7 +29,7 @@ func TestAppend(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 
-	ns := New(&deps.Deps{})
+	ns := New(&deps.Deps{Language: langs.NewDefaultLanguage(config.New())})
 
 	for i, test := range []struct {
 		start    any

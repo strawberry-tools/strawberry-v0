@@ -238,6 +238,7 @@ func TestPlainify(t *testing.T) {
 		expect any
 	}{
 		{"<em>Note:</em> blah <b>blah</b>", "Note: blah blah"},
+		{"<div data-action='click->my-controller#doThing'>qwe</div>", "qwe"},
 		// errors
 		{tstNoStringer{}, false},
 	} {

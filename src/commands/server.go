@@ -289,10 +289,6 @@ of a hostname. For example, https://example.com instead of https://example.com/d
 		return err
 	}
 
-	for _, s := range c.hugo().Sites {
-		s.RegisterMediaTypes()
-	}
-
 	// Watch runs its own server as part of the routine
 	if sc.serverWatch {
 

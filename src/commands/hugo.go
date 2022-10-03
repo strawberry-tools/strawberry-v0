@@ -121,6 +121,12 @@ func initializeConfig(mustHaveConfigFile, failOnInitErr, running bool,
 		return nil, err
 	}
 
+	if h := c.hugoTry(); h != nil {
+		for _, s := range h.Sites {
+			s.RegisterMediaTypes()
+		}
+	}
+
 	return c, nil
 }
 
@@ -194,6 +200,7 @@ func initializeFlags(cmd *cobra.Command, cfg config.Provider) {
 		"forceSyncStatic",
 		"noTimes",
 		"noChmod",
+		"noBuildLock",
 		"ignoreVendorPaths",
 		"templateMetrics",
 		"templateMetricsHints",
@@ -854,8 +861,13 @@ func (c *commandeer) newWatcher(pollIntervalStr string, dirList ...string) (*wat
 		return nil, err
 	}
 
+	spec := c.hugo().Deps.SourceSpec
+
 	for _, d := range dirList {
 		if d != "" {
+			if spec.IgnoreFile(d) {
+				continue
+			}
 			_ = watcher.Add(d)
 		}
 	}
